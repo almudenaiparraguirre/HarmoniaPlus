@@ -16,29 +16,31 @@
 
     <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:padding="16dp"
         android:orientation="horizontal">
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¡BIENVENIDO!"
-            style="@style/Fuente" android:textSize="30dp"
+            android:text="    ¡BIENVENIDO!"
+            style="@style/Fuente" android:textSize="40dp"
             android:textColor="@color/rosa"/>
 
-        <ImageView android:layout_width="54dp"
-            android:layout_height="41dp"
-            android:layout_gravity="center_vertical"
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="49dp"
             android:layout_marginStart="8dp"
             android:contentDescription="Descripción de la imagen"
-            android:src="@drawable/mano"/>
+            android:src="@drawable/mano" />
     </LinearLayout>
+
     <TextView style="@style/Fuente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:text="Introduce el email y la contraseña para iniciar sesión"
-        android:textColor="@color/gris" android:textSize="12dp"/>
+        android:textColor="@color/gris" android:textSize="14dp"/>
 
     <EditText android:id="@+id/editText1"
         android:layout_width="match_parent"
@@ -55,6 +57,7 @@
         android:hint="Contraseña"
         android:padding="16dp"
         android:layout_marginHorizontal="20dp"
+        android:inputType="textPassword"
         android:background="@drawable/edittextstyle"/>
 
     <!--  Texto Clicable 1  -->
@@ -65,49 +68,68 @@
         android:onClick="tuMetodoClicable1"
         android:padding="16dp"
         android:text="¿No recuerdas lo contraseña?"
-        android:background="@drawable/degradado"/>
+       />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="10dp"
+        android:contentDescription="Descripción de la imagen"
+        android:src="@drawable/google_iniciar_sesion" />
     <!--  Botón  -->
-    <Button android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="tuMetodoBoton"
-        android:padding="16dp"
-        android:text="Tu Botón"/>
-    <!--  Texto Clicable 2  -->
-    <TextView android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:clickable="true"
-        android:onClick="tuMetodoClicable2"
+        android:background="@drawable/degradado_button"
+        android:onClick="tuMetodoBoton"
         android:padding="16dp"
-        android:text="Texto Clicable 2"/>
-
-    <EditText android:id="@+id/edtEmail"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:text="INICIAR SESIÓN" />
+    <!--  Texto Clicable 2  -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:ems="10"
-        android:hint="correo electronico"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
 
-    <EditText android:id="@+id/edtContrasena"
+        <!-- Texto original -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="¿No tienes una cuenta?"/>
+
+        <!-- Nuevo texto a la derecha -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:onClick="tuMetodoClicable2"
+            android:text=" ¡Registrate!"
+            android:textColor="@color/morado"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+    </LinearLayout>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10" android:hint="contraseña"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnIngresar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail"/>
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="Salir"
+        android:textColor="@color/gris"
+        android:textSize="16dp"
+        android:padding="8dp"
+        android:clickable="true"
+        android:onClick="tuMetodoSalir"
 
-    <Button android:id="@+id/btnIngresar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="276dp"
-        android:hint="INGRESAR"
-        android:text="INGRESAR"
-        android:onClick="btnIngresar"/>
+        />
+
+
+
 </LinearLayout>
