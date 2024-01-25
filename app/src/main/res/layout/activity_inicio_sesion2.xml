@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InicioSesionActivity">
+
+    <!--  Logo  -->
+    <ImageView android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logofinal"
+        android:layout_marginHorizontal="10dp"/>
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:orientation="horizontal">
+
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡BIENVENIDO!"
+            style="@style/Fuente" android:textSize="30dp"
+            android:textColor="@color/rosa"/>
+
+        <ImageView android:layout_width="54dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Descripción de la imagen"
+            android:src="@drawable/aplauso"/>
+    </LinearLayout>
+    <TextView style="@style/Fuente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Introduce el email y la contraseña para iniciar sesión"
+        android:textColor="@color/gris" android:textSize="12dp"/>
+
+    <EditText android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="E-mail"
+        android:padding="16dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/edittextstyle"/>
+
+    <!--  EditText 2  -->
+    <EditText android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:padding="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/edittextstyle"/>
+
+    <!--  Texto Clicable 1  -->
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:clickable="true"
+        android:onClick="tuMetodoClicable1"
+        android:padding="16dp"
+        android:text="¿No recuerdas lo contraseña?"/>
+    <!--  Botón  -->
+    <Button android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="tuMetodoBoton"
+        android:padding="16dp"
+        android:text="Tu Botón"/>
+    <!--  Texto Clicable 2  -->
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:onClick="tuMetodoClicable2"
+        android:padding="16dp"
+        android:text="Texto Clicable 2"/>
+
+    <EditText android:id="@+id/edtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:ems="10"
+        android:hint="correo electronico"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText android:id="@+id/edtContrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10" android:hint="contraseña"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnIngresar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"/>
+
+    <Button android:id="@+id/btnIngresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="276dp"
+        android:hint="INGRESAR"
+        android:text="INGRESAR"
+        android:onClick="btnIngresar"/>
+</LinearLayout>
