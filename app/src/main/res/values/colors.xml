@@ -5,4 +5,5 @@
     <color name="rosa">#FF7AEA</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gris">#555555</color>
+    <gradient name="rosa_morado" type="linear" startColor="@color/rosa" endColor="@color/morado" angle="0"/>
 </resources>

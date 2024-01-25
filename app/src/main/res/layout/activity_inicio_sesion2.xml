@@ -31,7 +31,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
             android:contentDescription="Descripción de la imagen"
-            android:src="@drawable/aplauso"/>
+            android:src="@drawable/mano"/>
     </LinearLayout>
     <TextView style="@style/Fuente"
         android:layout_width="wrap_content"
@@ -64,7 +64,8 @@
         android:clickable="true"
         android:onClick="tuMetodoClicable1"
         android:padding="16dp"
-        android:text="¿No recuerdas lo contraseña?"/>
+        android:text="¿No recuerdas lo contraseña?"
+        android:background="@drawable/degradado"/>
     <!--  Botón  -->
     <Button android:layout_width="match_parent"
         android:layout_height="wrap_content"
