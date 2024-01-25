@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087712210246",
+    "project_id": "harmonia-mariana",
+    "storage_bucket": "harmonia-mariana.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087712210246:android:ea555872e00b04b1b9c947",
+        "android_client_info": {
+          "package_name": "com.mariana.harmonia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3afPFcVDZHL2CZJExRY4KPSiUFiNruWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
