@@ -136,18 +136,19 @@
             android:textSize="16dp"/>
 
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
         android:text="Salir"
         android:textColor="@color/gris"
+        android:gravity="bottom"
         android:textSize="16dp"
         android:padding="8dp"
         android:clickable="true"
         android:onClick="tuMetodoSalir"
         />
-
     </LinearLayout>
 
 </FrameLayout>

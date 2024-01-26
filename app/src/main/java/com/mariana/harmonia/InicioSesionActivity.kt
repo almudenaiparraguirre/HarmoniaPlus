@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 class InicioSesionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_inicio_sesion2)
+        setContentView(R.layout.prueba_inicio_sesion_ajustar)
     }
 
     fun tuMetodoBoton(view: View){
