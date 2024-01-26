@@ -22,35 +22,77 @@
 
         <!-- Logo -->
 
-        <!-- BIENVENIDO -->
-        <ImageView
-            android:id="@+id/logoImageView"
+        <LinearLayout
+            android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logofinal"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- LinearLayout con ImageView y TextView -->
+            <LinearLayout
+                android:layout_marginVertical="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- ImageView a la izquierda -->
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_aplicacion"/>
+
+                <!-- TextView a la derecha -->
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:id="@+id/titleTextView"
+                    style="@style/Fuente_TimesNewRoman"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HARMONIA+"
+                    android:textColor="@color/rosa"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- TextView adicional debajo y centrado -->
+            <TextView
+
+                android:id="@+id/subTitleTextView"
+                android:layout_gravity="top|center"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu viaje musical comienza aquí"
+                android:textColor="@color/morado"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
 
         <LinearLayout
+
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal"
-            android:padding="16dp"
+            android:layout_marginVertical="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logoImageView"
+            app:layout_constraintTop_toBottomOf="@+id/TituloLogo"
 
             tools:ignore="MissingConstraints">
 
             <TextView
-                style="@style/Fuente"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="¡BIENVENIDO!"
@@ -68,7 +110,7 @@
         <!-- Descripción -->
         <TextView
             android:id="@+id/introduce"
-            style="@style/Fuente"
+            style="@style/Fuente_kameron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

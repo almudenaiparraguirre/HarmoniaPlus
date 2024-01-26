@@ -40,7 +40,8 @@
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="    ¡BIENVENIDO!"
-            style="@style/Fuente" android:textSize="40dp"
+            style="@style/Fuente_kameron"
+            android:textSize="40dp"
             android:textColor="@color/rosa"/>
 
         <ImageView
@@ -51,7 +52,7 @@
             android:src="@drawable/mano" />
     </LinearLayout>
 
-    <TextView style="@style/Fuente"
+    <TextView style="@style/Fuente_kameron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
