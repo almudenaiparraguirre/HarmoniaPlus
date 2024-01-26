@@ -54,11 +54,11 @@
                     android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
                     style="@style/Fuente_TimesNewRoman"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HARMONIA+"
+                    android:text="  HARMONIA+"
                     android:textColor="@color/rosa"
-                    android:textSize="50sp"
+                    android:textSize="45dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -223,6 +223,7 @@
                 android:text="¿No tienes una cuenta?" />
 
             <TextView
+                android:id="@+id/registrateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
