@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
-            android:name=".ContrasenaRestablecidaCorrectamenteActivity"
-            android:exported="false" />
-        <activity
             android:name=".escribirNuevaContrasenaActivity"
             android:exported="false" />
         <activity
-            android:name=".restableceContrasenaCodigoActivity"
+            android:name=".EnvioCodigoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ContrasenaRestablecidaCorrectamenteActivity"
             android:exported="false" />
         <activity
             android:name=".RestableceContrasenaActivity"

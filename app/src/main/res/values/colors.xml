@@ -6,5 +6,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gris">#555555</color>
     <color name="rosa_claro">#F2A6F4</color>
+    <color name="rojo">#FC421A</color>
 
 </resources>

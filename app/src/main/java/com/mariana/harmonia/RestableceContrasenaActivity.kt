@@ -6,40 +6,37 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
+import android.text.TextWatcher
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 
 class RestableceContrasenaActivity : AppCompatActivity() {
 
     private lateinit var textoNoRecibido: TextView
     private lateinit var cuentaRegresiva: CountDownTimer
+    private lateinit var boton: Button
+    private lateinit var email: EditText
+    private lateinit var textoAdvertencia: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restablece_contrasena)
 
-        textoNoRecibido = findViewById(R.id.textoNoRecibido)
+        boton = findViewById(R.id.botonEmail)
+        email = findViewById(R.id.editText1)
+        textoAdvertencia = findViewById(R.id.textoAdvertencia)
 
-        textoNoRecibido.isEnabled = false
-
-        cuentaRegresiva = object : CountDownTimer(10000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val segundosRestantes = millisUntilFinished / 1000
-                textoNoRecibido.text = "¿No has recibido el código? ($segundosRestantes s)"
-            }
-
-            override fun onFinish() {
-                textoNoRecibido.isEnabled = true
-                agregarEnlaceVolverAEnviar()
-            }
-        }
-
-        cuentaRegresiva.start()
+        //activarBoton()
     }
 
-    fun volverInicioSesion(view: View){
+    fun volverInicioSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
     }
@@ -49,26 +46,16 @@ class RestableceContrasenaActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun agregarEnlaceVolverAEnviar() {
-        val textoCompleto = "¿No has recibido el código? Volver a enviar"
-        val spannableStringBuilder = SpannableStringBuilder(textoCompleto)
-        val volverAEnviarClick = object : ClickableSpan() {
-            override fun onClick(widget: View) {
-            }
+    fun enviarEmail(view: View) {
+        val emailText = email.text.toString()
+
+        if (emailText.isEmpty()) {
+            textoAdvertencia.visibility = View.VISIBLE
+            Log.d("RestableceContrasena", "No se puede enviar el correo porque el email está vacío")
+        } else {
+            textoAdvertencia.visibility = View.GONE
+            val intent = Intent(this, EnvioCodigoActivity::class.java)
+            startActivity(intent)
         }
-
-        spannableStringBuilder.setSpan(
-            volverAEnviarClick,
-            textoCompleto.indexOf("Volver a enviar"),
-            textoCompleto.length,
-            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        textoNoRecibido.text = spannableStringBuilder
-    }
-
-    fun enviarEmail(view: View){
-        val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
-        startActivity(intent)
     }
 }
