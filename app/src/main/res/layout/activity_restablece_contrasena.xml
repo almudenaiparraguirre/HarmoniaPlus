@@ -1,26 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/fondo_degradado"
-    tools:context=".InicioSesionActivity">
+    tools:context=".RestableceContrasenaActivity"
+    android:background="@drawable/fondo_degradado">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/fondoooo"
         android:scaleType="centerCrop"
-        android:alpha="0.5"
-        />
+        android:alpha="0.5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- Logo -->
+
+        <!-- Bienvenido -->
 
         <LinearLayout
             android:id="@+id/TituloLogo"
@@ -75,185 +74,122 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-
-
         <LinearLayout
-
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_marginVertical="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
             app:layout_constraintTop_toBottomOf="@+id/TituloLogo"
-
             tools:ignore="MissingConstraints">
 
             <TextView
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¡BIENVENIDO!"
+                android:text="RESTABLECE LA CONTRASEÑA"
+                android:textAlignment="center"
                 android:textColor="@color/rosa"
-                android:textSize="40dp" />
-
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="49dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/mano" />
+                android:textSize="30dp" />
         </LinearLayout>
 
-        <!-- Descripción -->
         <TextView
             android:id="@+id/introduce"
             style="@style/Fuente_kameron"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Introduce el email y la contraseña para iniciar sesión"
+            android:layout_marginTop="92dp"
+            android:text="Escribe el email a continuación y te enviaremos un correo electrónico para restablecer la contraseña"
+            android:textAlignment="center"
             android:textColor="@color/gris"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bienvenido"
-            tools:ignore="UnknownId" />
+            app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
-        <!-- EditText 1 -->
         <EditText
             android:id="@+id/editText1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/edittextstyle"
             android:hint="E-mail"
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/introduce"
-            tools:ignore="UnknownId" />
-
-        <!-- EditText 2 -->
-
-        <!-- Texto Clicable 1 -->
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
-            android:hint="Contraseña"
-            android:inputType="textPassword"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText1" />
-
-        <!-- Google Iniciar Sesión -->
+            app:layout_constraintTop_toBottomOf="@+id/introduce" />
 
         <TextView
-            android:id="@+id/recuerdasContrasena"
-            android:layout_width="wrap_content"
+            android:id="@+id/textoNoRecibido"
+            style="@style/Fuente_kameron"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:clickable="true"
-            android:onClick="tuMetodoClicable1"
-            android:padding="10dp"
-            android:text="¿No recuerdas lo contraseña?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.082"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
-
-        <ImageView
-            android:id="@+id/signGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
             android:layout_marginTop="20dp"
-            android:contentDescription="Descripción de la imagen"
-            android:src="@drawable/google_iniciar_sesion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena"
-            tools:ignore="UnknownId" />
+            android:layout_marginLeft="20dp"
+            android:text="¿No has recibido el codigo?"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/editText1"
+            tools:layout_editor_absoluteX="20dp"
+            />
 
-        <!-- Botón Iniciar Sesión -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/botonIniciarSesion"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/degradado_button"
-            android:onClick="tuMetodoBoton"
+            android:onClick="enviarEmail"
             android:padding="16dp"
-            android:text="INICIAR SESIÓN"
+            android:text="ENVIAR EMAIL"
             android:textColor="@color/white"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signGoogle"
+            app:layout_constraintTop_toBottomOf="@+id/editText1"
             tools:ignore="InvalidId" />
 
-        <!-- Texto Clicable 2 -->
-        <LinearLayout
-            android:id="@+id/registrate"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/volverInicioSesion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/salirTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="120dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="volverInicioSesion"
+            android:text="Volver al inicio de sesión"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
-            tools:ignore="UnknownId">
+            tools:layout_editor_absoluteX="0dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="¿No tienes una cuenta?" />
-
-            <TextView
-                android:id="@+id/registrateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:onClick="tuMetodoClicable2"
-                android:text=" ¡Regístrate!"
-                android:textColor="@color/morado"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Salir -->
         <TextView
             android:id="@+id/salirTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="-20dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
+            android:gravity="center"
             android:onClick="tuMetodoSalir"
             android:padding="8dp"
             android:text="Salir"
+            android:textAlignment="center"
             android:textColor="@color/gris"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrate"
-            app:layout_constraintVertical_bias="0.55" />
+            app:layout_constraintTop_toBottomOf="@+id/volverInicioSesion"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

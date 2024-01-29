@@ -45,4 +45,9 @@ class InicioSesionActivity : AppCompatActivity() {
     fun tuMetodoSalir(view: View?) {
         finish()
     }
+
+    fun tuMetodoClicable1(view: View){
+        val intent = Intent(this, RestableceContrasenaActivity::class.java)
+        startActivity(intent)
+    }
 }

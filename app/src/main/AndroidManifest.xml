@@ -13,10 +13,21 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
+            android:name=".ContrasenaRestablecidaCorrectamenteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".escribirNuevaContrasenaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".restableceContrasenaCodigoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RestableceContrasenaActivity"
+            android:exported="false" />
+        <activity
             android:name=".InicioSesionActivity"
             android:exported="true"
             android:icon="@drawable/logo_aplicacion">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,14 +39,13 @@
             android:exported="false" />
         <activity
             android:name=".InicioSesion"
-            android:exported="false" >
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
+        <activity
+            android:name=".RegistroActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
