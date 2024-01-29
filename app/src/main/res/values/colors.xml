@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
+    <color name="negro">#FF000000</color>
     <color name="morado">#9E51FF</color>
     <color name="rosa">#FF59BD</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="gris">#555555</color>
+    <color name="blanco">#FFFFFFFF</color>
+    <color name="gris">#666666</color>
+    <color name="grisClaro">#AAAAAA</color>
     <color name="rosa_claro">#F2A6F4</color>
     <color name="rojo">#FC421A</color>
 

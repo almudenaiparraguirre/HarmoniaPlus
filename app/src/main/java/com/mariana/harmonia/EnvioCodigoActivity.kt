@@ -59,8 +59,9 @@ class EnvioCodigoActivity : AppCompatActivity() {
         textoNoRecibido.text = spannableStringBuilder
     }
 
-    fun enviarCodigo(view: View) {
+    fun clickConfirmarCodigo(view: View) {
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
     }
+
 }

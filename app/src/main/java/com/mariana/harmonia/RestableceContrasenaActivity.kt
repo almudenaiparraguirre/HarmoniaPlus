@@ -36,7 +36,7 @@ class RestableceContrasenaActivity : AppCompatActivity() {
         //activarBoton()
     }
 
-    fun volverInicioSesion(view: View) {
+    fun clickVolverInicioSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
     }
@@ -58,4 +58,5 @@ class RestableceContrasenaActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }

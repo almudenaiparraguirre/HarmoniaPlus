@@ -47,7 +47,7 @@ class escribirNuevaContrasenaActivity : AppCompatActivity() {
          editText2.addTextChangedListener(textWatcher)
     }
 
-    fun confirmarContrasenaNueva(view: View) {
+    fun clickConfirmarContrasenaNueva(view: View) {
         val intent = Intent(this, ContrasenaRestablecidaCorrectamenteActivity::class.java)
         startActivity(intent)
     }
@@ -71,4 +71,5 @@ class escribirNuevaContrasenaActivity : AppCompatActivity() {
 
         botonConfirmar.isEnabled = condicionesCumplidas
     }
+
 }

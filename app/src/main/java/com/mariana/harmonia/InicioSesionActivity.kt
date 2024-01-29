@@ -12,9 +12,11 @@ class InicioSesionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.prueba_inicio_sesion_ajustar)
+        setContentView(R.layout.activity_principal)
         colorearTexto(R.id.titleTextView)
         colorearTexto(R.id.registrateTextView)
+        colorearTexto(R.id.recuerdasContrasena)
+
     }
     fun colorearTexto(id: Int) {
         val titleTextView = findViewById<TextView>(id)
@@ -34,16 +36,16 @@ class InicioSesionActivity : AppCompatActivity() {
     }
 
 
-    fun tuMetodoBoton(view: View) {
+
+
+    fun clickCrearCuenta(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
-    fun tuMetodoSalir(view: View?) {
-        finish()
-    }
 
-    fun tuMetodoClicable1(view: View){
+
+    fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
         startActivity(intent)
     }
@@ -52,4 +54,15 @@ class InicioSesionActivity : AppCompatActivity() {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
     }
+
+    fun irSalir(view: View) {
+        finish()
+
+    }
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

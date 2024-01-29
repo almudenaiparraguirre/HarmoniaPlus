@@ -131,14 +131,14 @@
             android:background="@drawable/edittextstyle"
             android:hint="E-mail"
             android:padding="16dp"
+            android:textColor="@color/gris"
+            android:textColorHint="@color/grisClaro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/introduce"
             tools:ignore="UnknownId" />
 
         <!-- EditText 2 -->
-
-        <!-- Texto Clicable 1 -->
 
         <EditText
             android:id="@+id/editText2"
@@ -147,6 +147,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
+            android:textColor="@color/gris"
+            android:textColorHint="@color/grisClaro"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:padding="16dp"
@@ -163,9 +165,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:clickable="true"
-            android:onClick="tuMetodoClicable1"
+            android:onClick="clickNoRecuerdasLaContraseña"
             android:padding="10dp"
-            android:text="¿No recuerdas lo contraseña?"
+            android:text="@string/NoRecuerdasLaContraseñaSubrayado"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
@@ -192,10 +194,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/degradado_button"
-            android:onClick="tuMetodoBoton"
+            android:onClick="clickCrearCuenta"
             android:padding="16dp"
             android:text="INICIAR SESIÓN"
-            android:textColor="@color/white"
+            android:textColor="@color/blanco"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -222,7 +224,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="¿No tienes una cuenta?" />
+                android:text="¿No tienes una cuenta?"
+                android:textColor="@color/gris"/>
 
             <TextView
                 android:id="@+id/registrateTextView"
@@ -232,7 +235,7 @@
 
                 android:clickable="true"
                 android:onClick="irRegistrate"
-                android:text=" ¡Regístrate!"
+                android:text="@string/RegistrateSubrrayado"
                 android:textColor="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
@@ -244,9 +247,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:clickable="true"
-            android:onClick="tuMetodoSalir"
+            android:onClick="irSalir"
             android:padding="8dp"
-            android:text="Salir"
+            android:text="@string/salirSubrrayado"
             android:textColor="@color/gris"
             android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -11,8 +11,6 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contrasena_restablecida_correctamente)
     }
 
-    fun volverAlInicio(view: View){
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
-    }
+
+
 }
