@@ -26,20 +26,20 @@
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- LinearLayout con ImageView y TextView -->
             <LinearLayout
-                android:layout_marginVertical="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_marginVertical="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <!-- ImageView a la izquierda -->
                 <ImageView
@@ -47,15 +47,15 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion"/>
+                    android:src="@drawable/logo_aplicacion" />
 
                 <!-- TextView a la derecha -->
                 <TextView
-                    android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
                     style="@style/Fuente_TimesNewRoman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
                     android:text="  HARMONIA+"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
@@ -66,15 +66,14 @@
             <TextView
 
                 android:id="@+id/subTitleTextView"
-                android:layout_gravity="top|center"
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
                 android:text="Tu viaje musical comienza aquí"
                 android:textColor="@color/morado"
                 android:textSize="16sp" />
         </LinearLayout>
-
 
 
         <LinearLayout
@@ -83,8 +82,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_marginVertical="50dp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TituloLogo"
@@ -203,17 +202,19 @@
             app:layout_constraintTop_toBottomOf="@+id/signGoogle"
             tools:ignore="InvalidId" />
 
-        <!-- Texto Clicable 2 -->
+
+        <!-- Salir -->
+
         <LinearLayout
             android:id="@+id/registrate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="262dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom|center"
             android:layout_margin="20dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/salirTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
             tools:ignore="UnknownId">
 
@@ -228,32 +229,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
                 android:clickable="true"
-                android:onClick="tuMetodoClicable2"
+                android:onClick="irRegistrate"
                 android:text=" ¡Regístrate!"
                 android:textColor="@color/morado"
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Salir -->
         <TextView
             android:id="@+id/salirTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="-20dp"
             android:clickable="true"
             android:onClick="tuMetodoSalir"
             android:padding="8dp"
             android:text="Salir"
             android:textColor="@color/gris"
             android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrate"
-            app:layout_constraintVertical_bias="0.55" />
+            app:layout_constraintTop_toBottomOf="@id/registrate" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

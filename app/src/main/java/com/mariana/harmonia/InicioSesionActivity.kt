@@ -15,10 +15,7 @@ class InicioSesionActivity : AppCompatActivity() {
         setContentView(R.layout.prueba_inicio_sesion_ajustar)
         colorearTexto(R.id.titleTextView)
         colorearTexto(R.id.registrateTextView)
-
-
     }
-
     fun colorearTexto(id: Int) {
         val titleTextView = findViewById<TextView>(id)
         val paint = titleTextView.paint
@@ -48,6 +45,11 @@ class InicioSesionActivity : AppCompatActivity() {
 
     fun tuMetodoClicable1(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun irRegistrate(view: View?){
+        val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
     }
 }
