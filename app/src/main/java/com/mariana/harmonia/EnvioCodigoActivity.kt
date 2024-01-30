@@ -37,7 +37,10 @@ class EnvioCodigoActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        cuentaRegresiva.cancel()
+        if (::cuentaRegresiva.isInitialized) {
+            cuentaRegresiva.cancel()
+        }
+
         super.onDestroy()
     }
 
@@ -62,6 +65,17 @@ class EnvioCodigoActivity : AppCompatActivity() {
     fun clickConfirmarCodigo(view: View) {
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
+
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+        RestableceContrasenaActivity().cerrarActividad()
     }
 
 }

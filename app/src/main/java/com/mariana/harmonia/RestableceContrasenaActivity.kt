@@ -16,6 +16,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.mariana.harmonia.Utilidades
 
 class RestableceContrasenaActivity : AppCompatActivity() {
 
@@ -37,8 +38,7 @@ class RestableceContrasenaActivity : AppCompatActivity() {
     }
 
     fun clickVolverInicioSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {
@@ -57,6 +57,13 @@ class RestableceContrasenaActivity : AppCompatActivity() {
             val intent = Intent(this, EnvioCodigoActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
+
+    fun cerrarActividad(){
     }
 
 }

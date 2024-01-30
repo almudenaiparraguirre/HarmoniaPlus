@@ -115,7 +115,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="Introduce el email y la contraseña para iniciar sesión"
-            android:textColor="@color/gris"
+            android:textColor="@color/negro"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +161,8 @@
 
         <TextView
             android:id="@+id/recuerdasContrasena"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -222,17 +224,18 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                style="@style/Fuente_kameron"
+                android:textSize="14dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="¿No tienes una cuenta?"
-                android:textColor="@color/gris"/>
+                android:textColor="@color/negro"/>
 
             <TextView
                 android:id="@+id/registrateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
                 android:clickable="true"
                 android:onClick="irRegistrate"
                 android:text="@string/RegistrateSubrrayado"
@@ -243,6 +246,7 @@
 
         <TextView
             android:id="@+id/salirTextView"
+            style="@style/Fuente_kameron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
@@ -250,8 +254,8 @@
             android:onClick="irSalir"
             android:padding="8dp"
             android:text="@string/salirSubrrayado"
-            android:textColor="@color/gris"
-            android:textSize="16dp"
+            android:textColor="@color/negro"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registrate" />

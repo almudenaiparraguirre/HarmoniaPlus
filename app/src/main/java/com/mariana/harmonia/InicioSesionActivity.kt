@@ -7,43 +7,24 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.mariana.harmonia.Utilidades.Companion.colorearTexto
+import kotlin.system.exitProcess
 
 class InicioSesionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
-        colorearTexto(R.id.titleTextView)
-        colorearTexto(R.id.registrateTextView)
-        colorearTexto(R.id.recuerdasContrasena)
-
+        colorearTexto(this, R.id.titleTextView)
+        colorearTexto(this, R.id.registrateTextView)
+        colorearTexto(this, R.id.recuerdasContrasena)
     }
-    fun colorearTexto(id: Int) {
-        val titleTextView = findViewById<TextView>(id)
-        val paint = titleTextView.paint
-        val width = paint.measureText(titleTextView.text.toString())
-
-        // Asegúrate de importar el LinearGradient correctamente
-        titleTextView.paint.shader = LinearGradient(
-            0f, 0f, width, titleTextView.textSize,
-            intArrayOf(
-                resources.getColor(R.color.rosa),
-                resources.getColor(R.color.morado)
-            ),
-            null,
-            Shader.TileMode.CLAMP
-        )
-    }
-
-
 
 
     fun clickCrearCuenta(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
-
-
 
     fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
@@ -56,13 +37,11 @@ class InicioSesionActivity : AppCompatActivity() {
     }
 
     fun irSalir(view: View) {
-        finish()
-
+        Utilidades.salirAplicacion(this)
     }
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
-
 }

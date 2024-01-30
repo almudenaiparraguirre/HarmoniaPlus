@@ -9,8 +9,8 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contrasena_restablecida_correctamente)
+
+
     }
-
-
 
 }

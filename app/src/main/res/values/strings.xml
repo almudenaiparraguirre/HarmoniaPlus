@@ -3,6 +3,6 @@
     <string name="salirSubrrayado"><u>Salir</u></string>
     <string name="RegistrateSubrrayado"><u>¡Registrate!</u></string>
     <string name="NoRecuerdasLaContraseñaSubrayado"><u>¿No recuerdas la contraseña?</u></string>
-    <string name="VolverInicioSesionSubrrayado"><u>Volver al inici de sesión</u></string>
+    <string name="VolverInicioSesionSubrrayado"><u>Volver al inicio de sesión</u></string>
     <string name="VolverAEnviarSubrrayado"><u>Volver a enviar</u></string>
 </resources>
