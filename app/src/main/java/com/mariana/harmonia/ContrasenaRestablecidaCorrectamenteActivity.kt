@@ -9,8 +9,18 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contrasena_restablecida_correctamente)
+        Utilidades.colorearTexto(this, R.id.titleTextView)
 
 
+    }
+
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
     }
 
 }

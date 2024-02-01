@@ -32,6 +32,7 @@ class RestableceContrasenaActivity : AppCompatActivity() {
         boton = findViewById(R.id.botonEmail)
         email = findViewById(R.id.editText1)
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
+        Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 
     fun clickVolverInicioSesion(view: View) {
@@ -49,6 +50,13 @@ class RestableceContrasenaActivity : AppCompatActivity() {
             val intent = Intent(this, EnvioCodigoActivity::class.java)
             startActivity(intent)
         }
+    }
+
+
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     fun irSalir(view: View) {

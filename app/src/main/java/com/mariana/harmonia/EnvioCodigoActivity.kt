@@ -17,6 +17,7 @@ class EnvioCodigoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_envio_codigo)
+        Utilidades.colorearTexto(this, R.id.titleTextView)
 
         textoNoRecibido = findViewById(R.id.textoNoRecibido)
         textoNoRecibido.isEnabled = false
