@@ -71,5 +71,12 @@ class escribirNuevaContrasenaActivity : AppCompatActivity() {
 
         botonConfirmar.isEnabled = condicionesCumplidas
     }
-
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
 }
