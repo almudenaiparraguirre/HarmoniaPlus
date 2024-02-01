@@ -16,13 +16,32 @@
         tools:layout_editor_absoluteX="206dp"
         tools:layout_editor_absoluteY="309dp" />
 
-    <ImageView
+
+    <RelativeLayout
         android:id="@+id/foto_perfil_modoJuego"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/perfil_luis_golden"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_goneMarginTop="30dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:clickable="true"
+            android:onClick="menu_perfil"
+            android:src="@drawable/perfil_luis_golden" />
+
+        <TextView
+            style="@style/Fuente_kameron"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="90dp"
+            android:text="dorado40"
+            android:textSize="14dp" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/eligeModo"
@@ -30,14 +49,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="104dp"
         android:text="¡ELIGE UN MODO DE JUEGO!"
         android:textAlignment="center"
         android:textColor="@color/rosa"
         android:textSize="30dp"
-        app:layout_constraintStart_toEndOf="@+id/foto_perfil_modoJuego"
-        app:layout_constraintTop_toTopOf="@+id/foto_perfil_modoJuego"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/foto_perfil_modoJuego" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonAventura"
