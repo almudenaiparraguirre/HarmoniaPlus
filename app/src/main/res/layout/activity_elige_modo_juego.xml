@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,69 +9,145 @@
     android:background="@drawable/fondo_degradado">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/fondoImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:alpha="0.5"
         android:scaleType="centerCrop"
         android:src="@drawable/fondoooo"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="309dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-    <RelativeLayout
-        android:id="@+id/foto_perfil_modoJuego"
+    <LinearLayout
+        android:id="@+id/menu_superior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_goneMarginTop="30dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:clickable="true"
-            android:onClick="menu_perfil"
-            android:src="@drawable/perfil_luis_golden" />
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"> <!-- Centra verticalmente el contenido -->
+
+            <ImageView
+                android:id="@+id/perfil_usuario"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/rounded_corners"
+                android:clickable="true"
+                android:onClick="menu_perfil"
+                android:src="@drawable/perfil_luis_golden" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:layout_marginLeft="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/morado"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dorado40"
+                android:textSize="14dp"
+                style="@style/Fuente_kameron"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:textColor="@color/morado"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="dorado40@gmail.com"
+                android:textSize="14dp"
+                style="@style/Fuente_kameron"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/morado"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal">
 
         <TextView
-            style="@style/Fuente_kameron"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="90dp"
-            android:text="dorado40"
-            android:textSize="14dp" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:text="Ayuda"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="27dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/morado"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Cerrar sesión"
+            android:layout_marginTop="27dp"
+            android:layout_marginLeft="20dp"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"
+            android:clickable="true"
+            android:onClick="cerrarSesion"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/morado"/>
+    </LinearLayout>
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/eligeModo"
         style="@style/Fuente_kameron"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="40dp"
         android:text="¡ELIGE UN MODO DE JUEGO!"
         android:textAlignment="center"
         android:textColor="@color/rosa"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/foto_perfil_modoJuego" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_superior" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonAventura"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/degradado_button"
         android:padding="16dp"
         android:text="AVENTURA"
         android:textColor="@color/blanco"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eligeModo" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -78,59 +155,54 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/degradado_button"
         android:onClick="clickConfirmarCodigo"
         android:padding="16dp"
         android:text="CHALLENGE"
         android:textColor="@color/blanco"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAventura" />
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonOpciones"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/degradado_suave_button"
         android:onClick="clickOpciones"
         android:padding="16dp"
         android:text="OPCIONES"
         android:textColor="@color/blanco"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonChallenge" />
-
 
     <TextView
         android:id="@+id/cerrarSesion"
         style="@style/Fuente_kameron"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="140dp"
         android:clickable="true"
         android:gravity="center"
         android:padding="8dp"
         android:text="@string/cerrarSesion"
         android:textAlignment="center"
         android:textColor="@color/negro"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonOpciones"
-        app:layout_constraintVertical_bias="0.78"
-        tools:layout_editor_absoluteX="0dp" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonOpciones" />
 
     <TextView
         android:id="@+id/salirTextView"
         style="@style/Fuente_kameron"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:clickable="true"
@@ -139,10 +211,9 @@
         android:text="@string/salirSubrrayado"
         android:textAlignment="center"
         android:textColor="@color/negro"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cerrarSesion"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cerrarSesion" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/dialog_imagen.xml -->
+<!-- res/layout/dialog_imagen.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/transparent"> <!-- Fondo totalmente transparente -->
+
+    <!-- ImageView para mostrar la imagen -->
+    <ImageView
+        android:id="@+id/imagenAmpliada"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center"/>
+
+    <!-- Otros elementos si es necesario, como botones, texto, etc. -->
+
+</LinearLayout>
+

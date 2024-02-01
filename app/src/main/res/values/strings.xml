@@ -6,4 +6,6 @@
     <string name="VolverInicioSesionSubrrayado"><u>Volver al inicio de sesión</u></string>
     <string name="VolverAEnviarSubrrayado"><u>Volver a enviar</u></string>
     <string name="cerrarSesion">Cerrar sesión</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="cerrar_sesi">Cerrar sesión</string>
 </resources>

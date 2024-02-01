@@ -61,6 +61,7 @@
             android:background="@color/blanco"
             android:scaleType="centerCrop"
             android:src="@drawable/perfil_luis_golden" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
