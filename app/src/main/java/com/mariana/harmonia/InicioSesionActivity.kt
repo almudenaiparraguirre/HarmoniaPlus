@@ -4,7 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.mariana.harmonia.Utilidades.Companion.colorearTexto
+import com.mariana.harmonia.activitys.MainActivity
+import com.mariana.harmonia.activitys.RegistroActivity
+import com.mariana.harmonia.activitys.RestableceContrasenaActivity
+import com.mariana.harmonia.activitys.Utilidades
+import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {

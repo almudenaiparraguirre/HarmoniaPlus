@@ -1,7 +1,8 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {

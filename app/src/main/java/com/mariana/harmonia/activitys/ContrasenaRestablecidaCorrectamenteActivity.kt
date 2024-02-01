@@ -1,9 +1,11 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), PlantillaActivity {

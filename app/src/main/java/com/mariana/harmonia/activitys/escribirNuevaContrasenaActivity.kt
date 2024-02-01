@@ -1,4 +1,4 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {

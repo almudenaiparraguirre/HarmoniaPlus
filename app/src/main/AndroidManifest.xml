@@ -13,25 +13,25 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
-            android:name=".EligeModoJuegoActivity"
+            android:name=".activitys.EligeModoJuegoActivity"
             android:exported="false" />
         <activity
-            android:name=".PerfilUsuarioActivity"
+            android:name=".activitys.PerfilUsuarioActivity"
             android:exported="false" />
         <activity
-            android:name=".escribirNuevaContrasenaActivity"
+            android:name=".activitys.escribirNuevaContrasenaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EnvioCodigoActivity"
+            android:name=".activitys.EnvioCodigoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ContrasenaRestablecidaCorrectamenteActivity"
+            android:name=".activitys.ContrasenaRestablecidaCorrectamenteActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RestableceContrasenaActivity"
+            android:name=".activitys.RestableceContrasenaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -46,15 +46,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InicioSesion"
+            android:name=".activitys.InicioSesion"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activitys.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".activitys.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
     </application>

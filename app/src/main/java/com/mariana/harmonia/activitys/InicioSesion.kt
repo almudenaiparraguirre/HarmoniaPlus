@@ -1,18 +1,14 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telephony.TelephonyCallback.CallStateListener
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
-import com.mariana.harmonia.interfaces.PlantillaActivity
-import org.w3c.dom.Text
+import com.mariana.harmonia.R
 
 class InicioSesion : AppCompatActivity() {
 

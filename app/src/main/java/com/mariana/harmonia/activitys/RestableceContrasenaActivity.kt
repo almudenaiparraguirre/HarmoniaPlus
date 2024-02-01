@@ -1,22 +1,16 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
-import android.os.Looper
-import android.text.Editable
-import android.text.SpannableString
-import android.text.SpannableStringBuilder
-import android.text.TextWatcher
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.mariana.harmonia.Utilidades
+import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {

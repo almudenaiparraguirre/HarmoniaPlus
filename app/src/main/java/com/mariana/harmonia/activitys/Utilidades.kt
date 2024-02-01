@@ -1,10 +1,11 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.widget.TextView
+import com.mariana.harmonia.R
 
 class Utilidades {
 
