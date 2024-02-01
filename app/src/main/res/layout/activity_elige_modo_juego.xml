@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/degradado_button"
+        android:background="@drawable/degradado_suave_button"
         android:onClick="clickConfirmarCodigo"
         android:padding="16dp"
         android:text="OPCIONES"
