@@ -184,7 +184,7 @@
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="irSalir"
+            android:onClick=""
             android:padding="8dp"
             android:text="@string/salirSubrrayado"
             android:textAlignment="center"

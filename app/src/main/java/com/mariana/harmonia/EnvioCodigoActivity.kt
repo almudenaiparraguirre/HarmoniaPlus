@@ -9,14 +9,16 @@ import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import com.mariana.harmonia.interfaces.PlantillaActivity
 
-class EnvioCodigoActivity : AppCompatActivity() {
+class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var textoNoRecibido: TextView
     private lateinit var cuentaRegresiva: CountDownTimer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_envio_codigo)
+
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
         textoNoRecibido = findViewById(R.id.textoNoRecibido)
@@ -67,15 +69,4 @@ class EnvioCodigoActivity : AppCompatActivity() {
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
     }
-
-    fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
-    }
-
-    fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
 }

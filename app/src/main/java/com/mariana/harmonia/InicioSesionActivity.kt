@@ -5,9 +5,12 @@ import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mariana.harmonia.Utilidades.Companion.colorearTexto
+import com.mariana.harmonia.interfaces.MetodosClicables
+import com.mariana.harmonia.interfaces.PlantillaActivity
 import kotlin.system.exitProcess
 
 class InicioSesionActivity : AppCompatActivity() {
@@ -34,14 +37,5 @@ class InicioSesionActivity : AppCompatActivity() {
     fun irRegistrate(view: View?){
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
-    }
-
-    fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
-    }
-    fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }

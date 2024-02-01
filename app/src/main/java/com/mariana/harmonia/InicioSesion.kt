@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.mariana.harmonia.interfaces.PlantillaActivity
 import org.w3c.dom.Text
 
 class InicioSesion : AppCompatActivity() {

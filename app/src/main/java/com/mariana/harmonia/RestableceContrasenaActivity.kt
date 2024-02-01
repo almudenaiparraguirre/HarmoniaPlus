@@ -17,8 +17,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.mariana.harmonia.Utilidades
+import com.mariana.harmonia.interfaces.PlantillaActivity
 
-class RestableceContrasenaActivity : AppCompatActivity() {
+class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var cuentaRegresiva: CountDownTimer
     private lateinit var boton: Button
@@ -30,6 +31,7 @@ class RestableceContrasenaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_restablece_contrasena)
 
         boton = findViewById(R.id.botonEmail)
+
         email = findViewById(R.id.editText1)
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
         Utilidades.colorearTexto(this, R.id.titleTextView)
@@ -58,23 +60,6 @@ class RestableceContrasenaActivity : AppCompatActivity() {
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())
-    }
-
-
-
-
-    fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
-    }
-
-    fun cerrarActividad(){
-
     }
 
 }

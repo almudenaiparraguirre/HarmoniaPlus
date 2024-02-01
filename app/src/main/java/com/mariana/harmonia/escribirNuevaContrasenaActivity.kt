@@ -8,8 +8,9 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.mariana.harmonia.interfaces.PlantillaActivity
 
-class escribirNuevaContrasenaActivity : AppCompatActivity() {
+class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_escribir_nueva_contrasena)
@@ -71,13 +72,5 @@ class escribirNuevaContrasenaActivity : AppCompatActivity() {
             contrasenasIguales && longitudSuficiente && tieneMayuscula && tieneMinuscula && tieneNumero
 
         botonConfirmar.isEnabled = condicionesCumplidas
-    }
-    fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-    fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
     }
 }
