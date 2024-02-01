@@ -40,17 +40,27 @@ class RestableceContrasenaActivity : AppCompatActivity() {
     }
 
     fun enviarEmail(view: View) {
-        val emailText = email.text.toString()
+        val emailText = email.text.toString().trim()
 
         if (emailText.isEmpty()) {
             textoAdvertencia.visibility = View.VISIBLE
             Log.d("RestableceContrasena", "No se puede enviar el correo porque el email está vacío")
+        } else if (!isValidEmail(emailText)) {
+            textoAdvertencia.visibility = View.VISIBLE
+            Log.d("RestableceContrasena", "Formato de correo electrónico no válido")
         } else {
             textoAdvertencia.visibility = View.GONE
             val intent = Intent(this, EnvioCodigoActivity::class.java)
             startActivity(intent)
         }
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
+    }
+
+
 
 
     fun irIniciarSesion(view: View) {
