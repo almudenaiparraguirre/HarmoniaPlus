@@ -7,6 +7,9 @@
     <style name="Fuente_TimesNewRoman" parent="TextAppearance.AppCompat.Headline">
         <item name="android:fontFamily">@font/kameronregular</item>
     </style>
+    <style name="Theme.AnimatedSplash" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:fontFamily">@font/kameronregular</item>
+    </style>
 
 
 </resources>
