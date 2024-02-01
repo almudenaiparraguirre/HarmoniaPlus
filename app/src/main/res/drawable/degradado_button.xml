@@ -3,4 +3,6 @@
     <gradient android:startColor="@color/rosa" android:endColor="@color/morado" android:type="linear"/>
     <corners android:radius="100dp"/>
 
+    <gradient android:startColor="@color/rosa" android:endColor="@color/morado" android:type="linear"/>
+    <corners android:radius="100dp"/>
 </shape>

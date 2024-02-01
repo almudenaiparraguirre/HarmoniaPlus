@@ -5,4 +5,5 @@
     <string name="NoRecuerdasLaContraseñaSubrayado"><u>¿No recuerdas la contraseña?</u></string>
     <string name="VolverInicioSesionSubrrayado"><u>Volver al inicio de sesión</u></string>
     <string name="VolverAEnviarSubrrayado"><u>Volver a enviar</u></string>
+    <string name="cerrarSesion">Cerrar sesión</string>
 </resources>

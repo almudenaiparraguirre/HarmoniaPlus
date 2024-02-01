@@ -20,7 +20,6 @@ import com.mariana.harmonia.Utilidades
 
 class RestableceContrasenaActivity : AppCompatActivity() {
 
-    private lateinit var textoNoRecibido: TextView
     private lateinit var cuentaRegresiva: CountDownTimer
     private lateinit var boton: Button
     private lateinit var email: EditText
@@ -33,17 +32,10 @@ class RestableceContrasenaActivity : AppCompatActivity() {
         boton = findViewById(R.id.botonEmail)
         email = findViewById(R.id.editText1)
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
-
-        //activarBoton()
     }
 
     fun clickVolverInicioSesion(view: View) {
         finish()
-    }
-
-    override fun onDestroy() {
-        cuentaRegresiva.cancel()
-        super.onDestroy()
     }
 
     fun enviarEmail(view: View) {
@@ -64,6 +56,7 @@ class RestableceContrasenaActivity : AppCompatActivity() {
     }
 
     fun cerrarActividad(){
+
     }
 
 }

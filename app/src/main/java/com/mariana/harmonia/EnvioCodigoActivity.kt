@@ -75,7 +75,6 @@ class EnvioCodigoActivity : AppCompatActivity() {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
-        RestableceContrasenaActivity().cerrarActividad()
     }
 
 }

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
+            android:name=".EligeModoJuegoActivity"
+            android:exported="false" />
+        <activity
             android:name=".PerfilUsuarioActivity"
             android:exported="false" />
         <activity

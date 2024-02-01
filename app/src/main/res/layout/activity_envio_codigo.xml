@@ -112,8 +112,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
-        .
-
         <EditText
             android:id="@+id/editText1"
             android:layout_width="0dp"
