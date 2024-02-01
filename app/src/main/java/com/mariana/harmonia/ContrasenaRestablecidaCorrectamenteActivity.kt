@@ -14,6 +14,15 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), Plantil
 
 
     }
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
 
 
 }

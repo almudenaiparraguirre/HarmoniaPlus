@@ -10,12 +10,12 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.Utilidades
 
 interface PlantillaActivity {
-     fun irSalir(view: View) {
-        val activity = view.context as? Activity
-        activity?.finishAffinity()
+     fun Salir(activity: Activity) {
+
+         Utilidades.salirAplicacion(activity)
     }
 
-    fun irIniciarSesion(activity: Activity, view: View) {
+    fun IniciarSesion(activity: Activity) {
         val intent = Intent(activity, InicioSesionActivity::class.java)
         activity.startActivity(intent)
         activity.finish()

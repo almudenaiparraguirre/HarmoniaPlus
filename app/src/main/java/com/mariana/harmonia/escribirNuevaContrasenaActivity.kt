@@ -14,7 +14,7 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_escribir_nueva_contrasena)
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+
 
         val editText1: EditText = findViewById(R.id.editText1)
         val editText2: EditText = findViewById(R.id.editText2)
@@ -72,5 +72,14 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
             contrasenasIguales && longitudSuficiente && tieneMayuscula && tieneMinuscula && tieneNumero
 
         botonConfirmar.isEnabled = condicionesCumplidas
+    }
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
     }
 }

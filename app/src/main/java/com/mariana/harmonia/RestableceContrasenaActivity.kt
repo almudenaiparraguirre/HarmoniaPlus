@@ -61,5 +61,14 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())
     }
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
 
 }

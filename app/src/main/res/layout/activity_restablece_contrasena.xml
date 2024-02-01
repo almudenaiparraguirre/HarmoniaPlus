@@ -6,13 +6,6 @@
     tools:context=".RestableceContrasenaActivity"
     android:background="@drawable/fondo_degradado">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/fondoooo"
-        android:scaleType="centerCrop"
-        android:alpha="0.5" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -118,12 +111,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/edittextstyle"
             android:hint="E-mail"
+            android:padding="16dp"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
-            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textoAdvertencia" />
@@ -171,7 +164,7 @@
             android:layout_marginTop="68dp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="clickVolverInicioSesion"
+            android:onClick="irIniciarSesion"
             android:textColor="@color/negro"
             android:text="@string/VolverInicioSesionSubrrayado"
             android:textAlignment="center"
@@ -185,7 +178,7 @@
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="irIniciarSesion"
+            android:onClick="irSalir"
             android:padding="8dp"
             android:text="@string/salirSubrrayado"
             android:textAlignment="center"
@@ -195,6 +188,15 @@
             app:layout_constraintTop_toBottomOf="@+id/volverInicioSesion"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondoooo"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

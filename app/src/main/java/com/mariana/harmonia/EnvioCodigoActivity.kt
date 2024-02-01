@@ -69,4 +69,14 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
     }
+
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
 }

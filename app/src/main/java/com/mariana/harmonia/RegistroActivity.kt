@@ -13,4 +13,14 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 
+    fun irIniciarSesion(view: View) {
+        val intent = Intent(this, InicioSesionActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun irSalir(view: View) {
+        Utilidades.salirAplicacion(this)
+    }
+
 }

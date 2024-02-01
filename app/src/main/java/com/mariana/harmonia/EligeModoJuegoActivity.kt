@@ -11,4 +11,5 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 
+
 }

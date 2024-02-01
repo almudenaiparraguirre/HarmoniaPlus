@@ -8,4 +8,5 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil_usuario)
     }
+
 }
