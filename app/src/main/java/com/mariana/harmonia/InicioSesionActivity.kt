@@ -41,4 +41,8 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }
+    override fun onBackPressed() {
+        Utilidades.salirAplicacion(this)
+        super.onBackPressed()
+    }
 }
