@@ -237,10 +237,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:clickable="true"
+                style="@style/Fuente_kameron"
                 android:onClick="irRegistrate"
                 android:text="@string/RegistrateSubrrayado"
                 android:textColor="@color/morado"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
 

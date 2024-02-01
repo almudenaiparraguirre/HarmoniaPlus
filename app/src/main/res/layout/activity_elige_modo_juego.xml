@@ -72,7 +72,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/degradado_suave_button"
-        android:onClick="clickConfirmarCodigo"
+        android:onClick="clickOpciones"
         android:padding="16dp"
         android:text="OPCIONES"
         android:textColor="@color/blanco"
