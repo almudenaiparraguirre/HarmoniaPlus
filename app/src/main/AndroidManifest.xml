@@ -12,54 +12,73 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
+
         <activity
-            android:name=".activitys.ConfiguracionActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activitys.EligeModoJuegoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activitys.PerfilUsuarioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activitys.escribirNuevaContrasenaActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activitys.EnvioCodigoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activitys.ContrasenaRestablecidaCorrectamenteActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activitys.RestableceContrasenaActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".InicioSesionActivity"
+            android:name=".activitys.SplashScreenActivity"
             android:exported="true"
-            android:icon="@drawable/logo_aplicacion"
-            android:screenOrientation="portrait">
+            android:theme="@style/Theme.AnimatedSplash.MySplash">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activitys.ConfiguracionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activitys.EligeModoJuegoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activitys.PerfilUsuarioActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activitys.escribirNuevaContrasenaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activitys.EnvioCodigoActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activitys.ContrasenaRestablecidaCorrectamenteActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activitys.RestableceContrasenaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".InicioSesionActivity"
+            android:exported="true"
+            android:icon="@drawable/logo_aplicacion"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".activitys.InicioSesion"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activitys.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activitys.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

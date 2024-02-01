@@ -11,5 +11,10 @@
         <item name="android:fontFamily">@font/kameronregular</item>
     </style>
 
+    <style name="Theme.AnimatedSplash.MySplash" parent="Theme.AppCompat">
+        <item name="android:windowSplashScreenBackground">@color/blanco</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/avd_anim</item>
+        <item name="android:windowSplashScreenAnimationDuration">2500</item>
+    </style>
 
 </resources>
