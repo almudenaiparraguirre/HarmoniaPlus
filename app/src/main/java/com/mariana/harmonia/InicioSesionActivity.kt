@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.MainActivity
 import com.mariana.harmonia.activitys.RegistroActivity
 import com.mariana.harmonia.activitys.RestableceContrasenaActivity
@@ -48,5 +49,10 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
     override fun onBackPressed() {
         Utilidades.salirAplicacion(this)
         super.onBackPressed()
+    }
+
+    fun iniciarSesionPruebas(view: View?){
+        val intent = Intent(this, EligeModoJuegoActivity::class.java)
+        startActivity(intent)
     }
 }

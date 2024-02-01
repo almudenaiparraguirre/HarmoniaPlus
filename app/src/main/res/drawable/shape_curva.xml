@@ -1,0 +1,15 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:bottomRightRadius="16dp" />
+            <solid android:color="@color/rosa_perfil" />
+        </shape>
+    </item>
+    <item android:id="@+id/borde">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/negro" />
+        </shape>
+    </item>
+</layer-list>

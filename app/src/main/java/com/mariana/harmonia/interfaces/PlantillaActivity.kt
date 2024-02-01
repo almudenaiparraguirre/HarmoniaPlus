@@ -16,5 +16,4 @@ interface PlantillaActivity {
         activity.startActivity(intent)
         activity.finish()
     }
-
 }

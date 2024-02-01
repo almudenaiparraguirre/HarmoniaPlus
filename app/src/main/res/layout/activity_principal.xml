@@ -147,11 +147,11 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edittextstyle"
-            android:textColor="@color/gris"
-            android:textColorHint="@color/grisClaro"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:padding="16dp"
+            android:textColor="@color/gris"
+            android:textColorHint="@color/grisClaro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -162,7 +162,6 @@
         <TextView
             android:id="@+id/recuerdasContrasena"
             style="@style/Fuente_kameron"
-            android:textSize="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -170,23 +169,26 @@
             android:onClick="clickNoRecuerdasLaContraseña"
             android:padding="10dp"
             android:text="@string/NoRecuerdasLaContraseñaSubrayado"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-        <ImageView
-            android:id="@+id/signGoogle"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="20dp"
-            android:contentDescription="Descripción de la imagen"
-            android:src="@drawable/google_iniciar_sesion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena"
-            tools:ignore="UnknownId" />
+            <ImageView
+                android:id="@+id/signGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Descripción de la imagen"
+                android:src="@drawable/google_iniciar_sesion"
+                android:clickable="true"
+                android:onClick="iniciarSesionPruebas"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena"
+                tools:ignore="UnknownId" />
 
         <!-- Botón Iniciar Sesión -->
         <androidx.appcompat.widget.AppCompatButton
@@ -206,7 +208,6 @@
             app:layout_constraintTop_toBottomOf="@+id/signGoogle"
             tools:ignore="InvalidId" />
 
-
         <!-- Salir -->
 
         <LinearLayout
@@ -215,29 +216,30 @@
             android:layout_height="28dp"
             android:layout_gravity="bottom|center"
             android:layout_margin="20dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.564"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="30dp"
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
             tools:ignore="UnknownId">
 
             <TextView
-                android:layout_width="wrap_content"
                 style="@style/Fuente_kameron"
-                android:textSize="14dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="¿No tienes una cuenta?"
-                android:textColor="@color/negro"/>
+                android:textColor="@color/negro"
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/registrateTextView"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:clickable="true"
-                style="@style/Fuente_kameron"
                 android:onClick="irRegistrate"
                 android:text="@string/RegistrateSubrrayado"
                 android:textColor="@color/morado"

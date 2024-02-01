@@ -16,19 +16,28 @@
         tools:layout_editor_absoluteX="206dp"
         tools:layout_editor_absoluteY="309dp" />
 
+    <ImageView
+        android:id="@+id/foto_perfil_modoJuego"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/perfil_luis_golden"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/eligeModo"
         style="@style/Fuente_kameron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESTABLECE LA CONTRASEÑA"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:text="¡ELIGE UN MODO DE JUEGO!"
         android:textAlignment="center"
         android:textColor="@color/rosa"
         android:textSize="30dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="-700dp"
-        app:layout_constraintTop_toBottomOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintStart_toEndOf="@+id/foto_perfil_modoJuego"
+        app:layout_constraintTop_toTopOf="@+id/foto_perfil_modoJuego"
+        tools:layout_editor_absoluteX="0dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonAventura"
@@ -37,7 +46,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="120dp"
         android:background="@drawable/degradado_button"
-        android:onClick="clickConfirmarCodigo"
         android:padding="16dp"
         android:text="AVENTURA"
         android:textColor="@color/blanco"
@@ -91,7 +99,6 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:gravity="center"
-        android:onClick="irSalir"
         android:padding="8dp"
         android:text="@string/cerrarSesion"
         android:textAlignment="center"
@@ -110,7 +117,6 @@
         android:layout_marginTop="8dp"
         android:clickable="true"
         android:gravity="center"
-        android:onClick=""
         android:padding="8dp"
         android:text="@string/salirSubrrayado"
         android:textAlignment="center"

@@ -1,9 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activitys.PerfilUsuarioActivity">
+
+    <!-- Mitad superior con fondo rosado -->
+    <View
+        android:id="@+id/fondoMitadSuperior"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_curva"
+        app:layout_constraintBottom_toTopOf="@id/guidelineMitad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Mitad inferior -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMitad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.41" />
+
+    <!-- Contenido del perfil -->
+
+    <TextView
+        android:id="@+id/tv_perfil"
+        style="@style/Fuente_kameron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="PERFIL"
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_perfil"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_perfil"
+        app:layout_constraintVertical_bias="0.068">
+
+        <ImageView
+            android:id="@+id/roundedImageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/blanco"
+            android:scaleType="centerCrop"
+            android:src="@drawable/perfil_luis_golden" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/nombre_usuario"
+        style="@style/Fuente_kameron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="dorado40"
+        android:textSize="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/gmail_usuario"
+        style="@style/Fuente_kameron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="dorado40@gmail.com"
+        android:textSize="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_usuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
