@@ -43,30 +43,35 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             } else {
                 // Permiso denegado, puedes manejarlo de acuerdo a tus necesidades
                 Toast.makeText(this, "No se puede acceder a la galería.", Toast.LENGTH_SHORT).show()
+                solicitarPermisosGaleria()
             }
         }
+
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil_usuario)
 
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
+        val imageView = findViewById<ImageView>(R.id.roundedImageView)
+        val fondoMitadSuperior = findViewById<ImageView>(R.id.fondoMitadSuperior)
+        val lapiz = findViewById<ImageView>(R.id.lapiz_editar)
+        val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
 
         cardViewPerfil.setOnClickListener {
-            // Solicitar permisos antes de abrir la galería
-            solicitarPermisosGaleria()
+            mostrarDialogImagen(imageView)
         }
 
-        /*// Obtener el color promedio de la imagen
+        // Obtener el color promedio de la imagen
         val bitmap = (imageView.drawable as BitmapDrawable).bitmap
         val colorPromedio = obtenerColorPromedio(bitmap)
 
         // Establecer el color de fondo de la mitad superior
-        fondoMitadSuperior.setColorFilter(colorPromedio)
+        /*fondoMitadSuperior.setColorFilter(colorPromedio)
         fondoMitadSuperiorBack.setColorFilter(colorPromedio)*/
     }
 
-    /*private fun obtenerColorPromedio(bitmap: Bitmap): Int {
+    private fun obtenerColorPromedio(bitmap: Bitmap): Int {
         var red = 0
         var green = 0
         var blue = 0
@@ -87,7 +92,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         blue /= pixelCount
 
         return Color.rgb(red, green, blue)
-    }*/
+    }
 
     // FUN --> Mostrar la imagen del perfil en grande
     private fun mostrarDialogImagen(imageView: ImageView) {
@@ -102,7 +107,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             0.2f,  // Escala de inicio
             1.0f,  // Escala de fin
             0.2f,  // Punto focal de inicio (X)
-            0.2f,  // Punto focal de inicio (Y)
+            0.2f,  // Punto focal  de inicio (Y)
             Animation.RELATIVE_TO_SELF, 0.5f,  // Punto focal de fin (X)
             Animation.RELATIVE_TO_SELF, 0.5f   // Punto focal de fin (Y)
         )
@@ -134,24 +139,24 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
 
     private fun abrirGaleria() {
-        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+        // Lanzar la solicitud para acceder a la galería
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         seleccionarImagen.launch(intent)
     }
 
     private fun solicitarPermisosGaleria() {
         // Verificar si el permiso ya está concedido
-        if (ContextCompat.checkSelfPermission(
+        while (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             // El permiso no está concedido, solicitarlo
-            permisosGaleria.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        } else {
-            // El permiso ya está concedido, abrir la galería
-            abrirGaleria()
+            requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
         }
+
+        // El permiso ya está concedido, abrir la galería
+        abrirGaleria()
     }
 
     val permisosGaleria =
@@ -181,10 +186,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     // FUN --> Carga la imagen
     fun cargarImagen(view: View) {
-        Log.d("MiApp", "Intentando cargar una imagen...")
-        // Intent para abrir el navegador de archivos
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        seleccionarImagen.launch(intent)
+        // Solicitar permisos antes de iniciar la galería
+        solicitarPermisosGaleria()
     }
 
     /*private fun cargarNuevaImagen(uri: Uri?) {
