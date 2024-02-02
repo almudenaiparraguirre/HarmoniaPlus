@@ -8,15 +8,16 @@
     tools:context=".activitys.PerfilUsuarioActivity">
 
     <!-- Mitad superior con fondo rosado -->
-    <View
+    <ImageView
         android:id="@+id/fondoMitadSuperior"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/shape_curva"
+        android:layout_width="592dp"
+        android:layout_height="401dp"
+        android:src="@drawable/fondo_perfil"
         app:layout_constraintBottom_toTopOf="@id/guidelineMitad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <!-- Mitad inferior -->
     <androidx.constraintlayout.widget.Guideline
