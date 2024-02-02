@@ -24,6 +24,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             mostrarDialogImagen(imageView)
         }
 
+        val lapizEditar = findViewById<ImageView>(R.id.lapiz_editar)
+        lapizEditar.setOnClickListener {
+            mostrarOpcionesPerfil(imageView)
+        }
+
     }
 
     private fun mostrarDialogImagen(imageView: ImageView) {

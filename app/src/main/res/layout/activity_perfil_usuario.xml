@@ -112,11 +112,11 @@
         android:id="@+id/lapiz_editar"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/lapiz_editar_perfil"
         android:clickable="true"
-        android:onClick=""
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="241dp"
-        tools:layout_editor_absoluteY="197dp" />
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/lapiz_editar_perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/nombre_usuario"
+        app:layout_constraintEnd_toEndOf="@+id/nombre_usuario" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
