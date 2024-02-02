@@ -10,8 +10,9 @@
     <!-- Mitad superior con fondo rosado -->
     <ImageView
         android:id="@+id/fondoMitadSuperior"
-        android:layout_width="592dp"
-        android:layout_height="401dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
         android:src="@drawable/fondo_perfil"
         app:layout_constraintBottom_toTopOf="@id/guidelineMitad"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,10 +114,12 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:clickable="true"
+        android:onClick="cargarImagen"
         android:layout_marginBottom="40dp"
         android:src="@drawable/lapiz_editar_perfil"
         app:layout_constraintBottom_toBottomOf="@+id/nombre_usuario"
         app:layout_constraintEnd_toEndOf="@+id/nombre_usuario" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
