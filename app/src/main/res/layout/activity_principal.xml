@@ -198,7 +198,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/degradado_button"
-            android:onClick="clickCrearCuenta"
+            android:onClick="irIniciarSesion"
             android:padding="16dp"
             android:text="INICIAR SESIÓN"
             android:textColor="@color/blanco"

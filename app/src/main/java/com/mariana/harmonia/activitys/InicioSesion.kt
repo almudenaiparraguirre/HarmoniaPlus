@@ -34,19 +34,6 @@ class InicioSesion : AppCompatActivity() {
     private fun signIn (Email:String , contrasena : String){
 
 
-       /* firebaseAuth.signInWithEmailAndPassword(Email,contrasena).addOnCompleteListener(this) {
-            task -> if (task.isSuccessful){
-                val user = firebaseAuth.currentUser
-                Toast.makeText(baseContext,"autentitacion existosa", Toast.LENGTH_SHORT).show()
-                // aqui vamos a ir a la segunda activity
-        }
-            else{
-            Toast.makeText(baseContext, "Error de email o contraseña", Toast.LENGTH_SHORT).show()
-
-        }
-        }
-       */
-
         //prueba manejo de excepciones
         Log.d("InicioSesion", "signInWithEmailAndPassword: $Email")
         println("ENTRANDO A LA COMPROBACION")
