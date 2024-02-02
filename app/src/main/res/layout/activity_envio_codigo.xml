@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
     tools:context=".activitys.iniciarSesion.EnvioCodigoActivity"
     android:background="@drawable/fondo_degradado">
 
+    <!-- Fondo con las notas -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,10 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Logo -->
-
-        <!-- Bienvenido -->
-
+        <!-- LinearLayout del título y logo -->
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -75,6 +74,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- TextView de bienvenida -->
         <LinearLayout
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
@@ -96,6 +96,7 @@
                 android:textSize="30dp" />
         </LinearLayout>
 
+        <!-- TextView de introducción -->
         <TextView
             android:id="@+id/introduce"
             style="@style/Fuente_kameron"
@@ -103,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="92dp"
-            android:text="Introduzca el codigo que le hemos enviado al correo: almu***@gmail.com"
+            android:text="Introduzca el código que le hemos enviado al correo: almu***@gmail.com"
             android:textAlignment="center"
             android:textColor="@color/gris"
             android:textSize="14dp"
@@ -112,6 +113,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
+        <!-- Input de código -->
         <EditText
             android:id="@+id/editText1"
             android:layout_width="0dp"
@@ -128,6 +130,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/introduce" />
 
+        <!-- ¿No has recibido el código? -->
         <TextView
             android:id="@+id/textoNoRecibido"
             style="@style/Fuente_kameron"
@@ -141,6 +144,7 @@
             app:layout_constraintTop_toBottomOf="@id/editText1"
             tools:layout_editor_absoluteX="20dp"/>
 
+        <!-- Botón confirmación de código -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/botonIniciarSesion"
             android:layout_width="250dp"
@@ -158,6 +162,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textoNoRecibido" />
 
+        <!-- Volver al inicio de sesión -->
         <TextView
             android:id="@+id/volverInicioSesion"
             android:layout_width="match_parent"
@@ -176,6 +181,7 @@
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
             tools:layout_editor_absoluteX="0dp"/>
 
+        <!-- Salir de la app -->
         <TextView
             android:id="@+id/salirTextView"
             android:layout_width="match_parent"

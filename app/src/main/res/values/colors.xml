@@ -11,5 +11,6 @@
     <color name="rosa_claro">#F2A6F4</color>
     <color name="rojo">#FC421A</color>
     <color name="rosa_perfil">#EEBCE3</color>
+    <color name="fondo_default">#EEBCE3</color>
 
 </resources>

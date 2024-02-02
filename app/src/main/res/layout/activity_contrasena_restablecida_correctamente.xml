@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +8,7 @@
     tools:context=".activitys.iniciarSesion.ContrasenaRestablecidaCorrectamenteActivity"
     android:background="@drawable/fondo_degradado">
 
+    <!-- Fondo con las notas -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,10 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Logo -->
-
-        <!-- Bienvenido -->
-
+        <!-- Título y logo -->
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -32,7 +31,6 @@
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- LinearLayout con ImageView y TextView -->
             <LinearLayout
                 android:layout_marginVertical="20dp"
                 android:layout_width="match_parent"
@@ -41,7 +39,6 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <!-- ImageView a la izquierda -->
                 <ImageView
                     android:id="@+id/logoImageView"
                     android:layout_width="80dp"
@@ -49,7 +46,6 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/logo_aplicacion"/>
 
-                <!-- TextView a la derecha -->
                 <TextView
                     android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
@@ -62,9 +58,8 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- TextView adicional debajo y centrado -->
+            <!-- Eslogan -->
             <TextView
-
                 android:id="@+id/subTitleTextView"
                 android:layout_gravity="top|center"
                 style="@style/Fuente_kameron"
@@ -75,6 +70,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- TV Contraseña restablecida correctamente -->
         <LinearLayout
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
@@ -94,9 +90,10 @@
                 android:textAlignment="center"
                 android:textColor="@color/rosa"
                 android:textSize="30dp" />
+
         </LinearLayout>
 
-
+        <!-- ImageView de aplauso -->
         <ImageView
             android:id="@+id/aplauso"
             android:layout_width="80dp"
@@ -111,6 +108,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Botón de iniciar sesión -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/botonIniciarSesion"
             android:layout_width="200dp"
@@ -128,13 +126,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
+        <!-- TextView para salir -->
         <TextView
             android:id="@+id/salirTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:gravity="center"
             android:onClick="irSalir"
             android:padding="8dp"
             android:text="@string/salirSubrrayado"
@@ -147,5 +146,4 @@
             tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,8 @@ import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
+
+    // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_escribir_nueva_contrasena)
@@ -52,11 +54,13 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
          editText2.addTextChangedListener(textWatcher)
     }
 
+    // FUN --> Confirmación de la nueva contraseña
     fun clickConfirmarContrasenaNueva(view: View) {
         val intent = Intent(this, ContrasenaRestablecidaCorrectamenteActivity::class.java)
         startActivity(intent)
     }
 
+    // FUN --> Verificar que las contraseñas cumplen los requisitos
     fun verificarCondiciones() {
         val editText1: EditText = findViewById(R.id.editText1)
         val editText2: EditText = findViewById(R.id.editText2)
@@ -76,12 +80,15 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
         botonConfirmar.isEnabled = condicionesCumplidas
     }
+
+    // FUN --> Volver al inicio de sesión
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }

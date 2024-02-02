@@ -8,10 +8,14 @@
     tools:context=".activitys.PerfilUsuarioActivity">
 
     <!-- Mitad superior con fondo rosado -->
+
+    <!-- Mitad superior con fondo rosado -->
+
+    <!-- Fondo general -->
     <ImageView
         android:id="@+id/fondoMitadSuperior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_margin="0dp"
         android:src="@drawable/fondo_perfil"
         app:layout_constraintBottom_toTopOf="@id/guidelineMitad"
@@ -19,6 +23,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Ondas en la parte superior -->
+    <ImageView
+        android:id="@+id/fondoMitadSuperiorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:src="@drawable/fondo_perfil"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/guidelineMitad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Mitad inferior -->
     <androidx.constraintlayout.widget.Guideline
@@ -26,7 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.41" />
+        app:layout_constraintGuide_percent="0.5" />
+
 
     <!-- Contenido del perfil -->
 
@@ -120,6 +136,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/nombre_usuario"
         app:layout_constraintEnd_toEndOf="@+id/nombre_usuario" />
 
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Se unió en abril de 2023"
+        app:layout_constraintTop_toBottomOf="@id/fondoMitadSuperiorBackground"
+        android:textAlignment="center"
+        android:textColor="@color/gris"
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

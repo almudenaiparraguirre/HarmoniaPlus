@@ -40,7 +40,7 @@
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/rounded_corners"
                 android:clickable="true"
                 android:onClick="menu_perfil"
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="7"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:textAlignment="center"
                 android:textColor="@color/morado"/>
 
@@ -142,6 +142,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
         android:background="@drawable/degradado_button"
+        android:clickable="true"
+        android:onClick="irModoAventura"
         android:padding="16dp"
         android:text="AVENTURA"
         android:textColor="@color/blanco"

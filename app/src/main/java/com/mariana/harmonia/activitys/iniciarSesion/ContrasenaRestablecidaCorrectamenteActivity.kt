@@ -14,18 +14,17 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), Plantil
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contrasena_restablecida_correctamente)
         Utilidades.colorearTexto(this, R.id.titleTextView)
-
-
     }
+
+    // FUN --> Iniciar sesión
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }
-
-
 }

@@ -16,8 +16,11 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
+    //Declaración de variables
     private lateinit var textoNoRecibido: TextView
     private lateinit var cuentaRegresiva: CountDownTimer
+
+    // FUN --> On create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_envio_codigo)
@@ -42,6 +45,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         cuentaRegresiva.start()
     }
 
+    // FUN --> Destrucción cuenta regresiva código
     override fun onDestroy() {
         if (::cuentaRegresiva.isInitialized) {
             cuentaRegresiva.cancel()
@@ -50,6 +54,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         super.onDestroy()
     }
 
+    // FUN --> Añadir label volver a enviar
     private fun agregarEnlaceVolverAEnviar() {
         val textoCompleto = "¿No has recibido el código? Volver a enviar"
         val spannableStringBuilder = SpannableStringBuilder(textoCompleto)
@@ -68,17 +73,20 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         textoNoRecibido.text = spannableStringBuilder
     }
 
+    // FUN --> Click botón confirmar código
     fun clickConfirmarCodigo(view: View) {
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
     }
 
+    // FUN --> Volver al inicio de sesión (pantalla principal)
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }

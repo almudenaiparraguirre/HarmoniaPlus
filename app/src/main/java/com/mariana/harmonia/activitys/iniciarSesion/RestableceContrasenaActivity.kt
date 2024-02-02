@@ -16,11 +16,12 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
-    private lateinit var cuentaRegresiva: CountDownTimer
+    // Declaración de variables
     private lateinit var boton: Button
     private lateinit var email: EditText
     private lateinit var textoAdvertencia: TextView
 
+    // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restablece_contrasena)
@@ -32,10 +33,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 
-    fun clickVolverInicioSesion(view: View) {
-        finish()
-    }
-
+    // FUN --> Intento de enviar email
     fun enviarEmail(view: View) {
         val emailText = email.text.toString().trim()
 
@@ -52,16 +50,20 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
+    // FUN --> Comprueba que el email introducido es válido
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())
     }
+
+    // FUN --> Vuelve al inicio de sesión
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }

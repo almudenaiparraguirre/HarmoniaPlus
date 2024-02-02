@@ -10,20 +10,23 @@ import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
+
+    // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
         Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 
+    // FUN --> Volver al inicio de sesión
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, InicioSesionActivity::class.java)
         startActivity(intent)
         finish()
     }
 
+    // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }
-
 }
