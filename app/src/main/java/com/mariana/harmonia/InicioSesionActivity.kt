@@ -6,9 +6,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.MainActivity
-import com.mariana.harmonia.activitys.PerfilUsuarioActivity
-import com.mariana.harmonia.activitys.RegistroActivity
-import com.mariana.harmonia.activitys.RestableceContrasenaActivity
+import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
+import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity

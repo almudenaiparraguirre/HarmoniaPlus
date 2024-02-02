@@ -58,6 +58,7 @@
             android:id="@+id/roundedImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            app:cardCornerRadius="200dp"
             android:background="@color/blanco"
             android:scaleType="centerCrop"
             android:src="@drawable/perfil_luis_golden" />
@@ -91,5 +92,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/salirTextView"
+        style="@style/Fuente_kameron"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="428dp"
+        android:gravity="center"
+        android:text="Salir"
+        android:textAlignment="center"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gmail_usuario" />
+
+    <ImageView
+        android:id="@+id/lapiz_editar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/lapiz_editar_perfil"
+        android:clickable="true"
+        android:onClick=""
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="197dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

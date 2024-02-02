@@ -38,22 +38,22 @@
             android:exported="false" />
 
         <activity
-            android:name=".activitys.escribirNuevaContrasenaActivity"
+            android:name=".activitys.iniciarSesion.escribirNuevaContrasenaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activitys.EnvioCodigoActivity"
+            android:name=".activitys.iniciarSesion.EnvioCodigoActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activitys.ContrasenaRestablecidaCorrectamenteActivity"
+            android:name=".activitys.iniciarSesion.ContrasenaRestablecidaCorrectamenteActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activitys.RestableceContrasenaActivity"
+            android:name=".activitys.iniciarSesion.RestableceContrasenaActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -75,7 +75,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activitys.RegistroActivity"
+            android:name=".activitys.iniciarSesion.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

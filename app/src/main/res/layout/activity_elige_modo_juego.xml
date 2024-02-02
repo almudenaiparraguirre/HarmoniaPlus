@@ -183,28 +183,10 @@
         app:layout_constraintTop_toBottomOf="@+id/botonChallenge" />
 
     <TextView
-        android:id="@+id/cerrarSesion"
-        style="@style/Fuente_kameron"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:clickable="true"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/cerrarSesion"
-        android:textAlignment="center"
-        android:textColor="@color/negro"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonOpciones" />
-
-    <TextView
         android:id="@+id/salirTextView"
         style="@style/Fuente_kameron"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:clickable="true"
         android:gravity="center"
         android:padding="8dp"
@@ -212,8 +194,9 @@
         android:textAlignment="center"
         android:textColor="@color/negro"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cerrarSesion" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="716dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

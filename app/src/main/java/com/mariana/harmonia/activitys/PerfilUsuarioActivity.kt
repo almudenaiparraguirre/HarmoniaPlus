@@ -1,8 +1,11 @@
 package com.mariana.harmonia.activitys
 
+import android.app.AlertDialog
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
@@ -45,6 +48,28 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         // Cierra el dialog al hacer clic en la imagen
         imagenAmpliada.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    fun mostrarOpcionesPerfil(imageView: ImageView) {
+        val builder = AlertDialog.Builder(this)
+        val inflater: LayoutInflater = layoutInflater
+        val dialogView: View = inflater.inflate(R.layout.dialog_opciones_perfil, null)
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+        val editarImagenBtn = dialogView.findViewById<View>(R.id.editarImagenBtn)
+        val cancelarBtn = dialogView.findViewById<View>(R.id.cancelarBtn)
+
+        editarImagenBtn.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        cancelarBtn.setOnClickListener {
+            // Cierra el diálogo sin realizar ninguna acción
             dialog.dismiss()
         }
 
