@@ -1,8 +1,11 @@
 package com.mariana.harmonia.activitys
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.PackageManager.*
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -12,6 +15,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,24 +25,36 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import com.mariana.harmonia.R
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            val message = if (isGranted) "Permission Granted" else "Permission rejected"
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+            if (isGranted) {
+                // Permiso concedido, ahora puedes realizar acciones adicionales si es necesario
+                abrirGaleria()
+            } else {
+                // Permiso denegado, puedes manejarlo de acuerdo a tus necesidades
+                Toast.makeText(this, "No se puede acceder a la galería.", Toast.LENGTH_SHORT).show()
+            }
+        }
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil_usuario)
 
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
-        val imageView = findViewById<ImageView>(R.id.roundedImageView)
-        val fondoMitadSuperior = findViewById<ImageView>(R.id.fondoMitadSuperior)
-        val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
 
         cardViewPerfil.setOnClickListener {
-            mostrarDialogImagen(imageView)
+            // Solicitar permisos antes de abrir la galería
+            solicitarPermisosGaleria()
         }
 
         /*// Obtener el color promedio de la imagen
@@ -115,6 +131,39 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show()
             }
         }
+
+
+    private fun abrirGaleria() {
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        seleccionarImagen.launch(intent)
+    }
+
+    private fun solicitarPermisosGaleria() {
+        // Verificar si el permiso ya está concedido
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // El permiso no está concedido, solicitarlo
+            permisosGaleria.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        } else {
+            // El permiso ya está concedido, abrir la galería
+            abrirGaleria()
+        }
+    }
+
+    val permisosGaleria =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                // Permiso concedido, abrir la galería
+                abrirGaleria()
+            } else {
+                Toast.makeText(this, "Permiso denegado. No se puede acceder a la galería.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     /*private val seleccionarImagen =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
