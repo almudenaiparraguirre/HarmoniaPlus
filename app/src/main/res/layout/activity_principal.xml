@@ -262,6 +262,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registrate" />
+
+        <Button
+            android:id="@+id/pruebaFirebase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Prueba firebase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/salirTextView"
+            android:onClick="clickFireBase"
+
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

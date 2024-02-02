@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
+import com.mariana.harmonia.activitys.InicioSesion
 import com.mariana.harmonia.activitys.MainActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
+
 
 class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
 
@@ -27,6 +29,7 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+
 
     fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
@@ -55,5 +58,10 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun clickFireBase(view: View) {
+        val intent = Intent(this, InicioSesion::class.java)
+        startActivity(intent)
     }
 }
