@@ -8,7 +8,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.InicioSesion
 import com.mariana.harmonia.activitys.MainActivity
@@ -21,6 +27,8 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 
 class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
 
+    private val TAG = "InicioSesionActivity"
+    private val RC_SIGN_IN = 9001
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
@@ -30,6 +38,10 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
         colorearTexto(this, R.id.titleTextView)
         colorearTexto(this, R.id.registrateTextView)
         colorearTexto(this, R.id.recuerdasContrasena)
+
+        //Inicializar firebase
+        firebaseAuth = FirebaseAuth.getInstance()
+
     }
 
 
@@ -49,7 +61,6 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
         startActivity(intent)
     }
     fun irIniciarSesion(view: View) {
-        firebaseAuth = FirebaseAuth.getInstance()
 
         val btnIngresar: Button = findViewById(R.id.botonIniciarSesion)
         val Email: TextView = findViewById(R.id.editText1)
@@ -104,11 +115,77 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
         super.onBackPressed()
     }
 
-    fun iniciarSesionPruebas(view: View?){
-        val intent = Intent(this, EligeModoJuegoActivity::class.java)
-        startActivity(intent)
-        finish()
+    fun iniciarSesionPruebas(view: View?) {
+        try {
+            signInWithGoogle()
+        } catch (e: Exception) {
+            Log.e(TAG, "Error durante el inicio de sesión con Google", e)
+            Toast.makeText(this, "Error durante el inicio de sesión con Google", Toast.LENGTH_SHORT).show()
+        }
     }
+
+    private fun signInWithGoogle() {
+        // Configuración de inicio de sesión con Google
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+
+        val googleSignInClient = GoogleSignIn.getClient(this, gso)
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Verificar si el código de solicitud coincide con el código de inicio de sesión con Google
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleGoogleSignInResult(task)
+        }
+    }
+
+    private fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
+        try {
+            // Obtener la cuenta de Google desde el resultado de la tarea
+            val account = task.getResult(ApiException::class.java)
+            // Autenticar con Firebase usando la cuenta de Google
+            firebaseAuthWithGoogle(account)
+        } catch (e: ApiException) {
+            // Manejar el fallo en el inicio de sesión con Google
+            Log.w(TAG, "Fallo en el inicio de sesión con Google", e)
+            Toast.makeText(this, "Fallo en el inicio de sesión con Google", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+        try {
+            // Obtener credenciales de autenticación de Google
+            val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+            // Autenticar con Firebase usando las credenciales de Google
+            firebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Autenticación exitosa, redirigir a la siguiente actividad
+                        Log.d(TAG, "Inicio de sesión con credenciales de Google exitoso")
+                        val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // Manejar el fallo en la autenticación con Firebase
+                        Log.w(TAG, "Fallo en la autenticación con Firebase", task.exception)
+                        Toast.makeText(this, "Autenticación fallida.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        } catch (e: Exception) {
+            // Manejar errores durante la autenticación con Google
+            Log.e(TAG, "Error durante la autenticación con Google", e)
+            e.printStackTrace()
+            Toast.makeText(this, "Error durante la autenticación con Google", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     fun clickFireBase(view: View) {
         val intent = Intent(this, InicioSesion::class.java)

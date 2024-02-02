@@ -12,7 +12,20 @@
           "package_name": "com.mariana.harmonia"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1087712210246-v14cjav9g8j2fbdcq96fuo4aod1oku7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mariana.harmonia",
+            "certificate_hash": "3bf96eafda66d87e8ceb1bb8dd6024c0c1bd068d"
+          }
+        },
+        {
+          "client_id": "1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA3afPFcVDZHL2CZJExRY4KPSiUFiNruWA"
@@ -20,7 +33,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087712210246:android:4441785a1c9c771cb9c947",
+        "android_client_info": {
+          "package_name": "com.mariana.iniciosesionfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3afPFcVDZHL2CZJExRY4KPSiUFiNruWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
