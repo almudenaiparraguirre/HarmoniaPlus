@@ -28,21 +28,23 @@ import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
+import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
+    companion object {
+        private const val PERMISSION_REQUEST_CODE = 123
+    }
+
+
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            val message = if (isGranted) "Permission Granted" else "Permission rejected"
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-
+            //val message = if (isGranted) "Permission Granted" else "Permission rejected"
+            //Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             if (isGranted) {
-                // Permiso concedido, ahora puedes realizar acciones adicionales si es necesario
                 abrirGaleria()
             } else {
-                // Permiso denegado, puedes manejarlo de acuerdo a tus necesidades
-                Toast.makeText(this, "No se puede acceder a la galería.", Toast.LENGTH_SHORT).show()
                 solicitarPermisosGaleria()
             }
         }
@@ -146,18 +148,19 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     private fun solicitarPermisosGaleria() {
         // Verificar si el permiso ya está concedido
-        while (ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // El permiso no está concedido, solicitarlo
+            // El permiso ya está concedido, abrir la galería
+            abrirGaleria()
+        } else {
+            System.out.println("***************NO CONCEDIDO***************")
             requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
         }
-
-        // El permiso ya está concedido, abrir la galería
-        abrirGaleria()
     }
+
 
     val permisosGaleria =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -165,10 +168,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // Permiso concedido, abrir la galería
                 abrirGaleria()
             } else {
-                Toast.makeText(this, "Permiso denegado. No se puede acceder a la galería.", Toast.LENGTH_SHORT).show()
+                // Permiso denegado, seguir solicitando permisos
+                solicitarPermisosGaleria()
             }
         }
-
 
     /*private val seleccionarImagen =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -190,7 +193,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         solicitarPermisosGaleria()
     }
 
-    /*private fun cargarNuevaImagen(uri: Uri?) {
+    private fun cargarNuevaImagen(uri: Uri?) {
         val imageView = findViewById<ImageView>(R.id.roundedImageView)
         imageView.setImageURI(uri)
 
@@ -206,6 +209,32 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         // Otras operaciones que deseas realizar después de cargar la nueva imagen
         // ...
-    }*/
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permiso concedido, abrir la galería
+                abrirGaleria()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Permiso denegado. No se puede acceder a la galería.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    fun volverModoJuego(view: View){
+        val intent = Intent(this, EligeModoJuegoActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 }

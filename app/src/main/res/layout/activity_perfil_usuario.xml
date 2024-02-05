@@ -46,6 +46,18 @@
 
     <!-- Contenido del perfil -->
 
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/volver_atras"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:onClick="volverModoJuego"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
     <TextView
         android:id="@+id/tv_perfil"
         style="@style/Fuente_kameron"
@@ -136,13 +148,29 @@
         app:layout_constraintBottom_toBottomOf="@+id/nombre_usuario"
         app:layout_constraintEnd_toEndOf="@+id/nombre_usuario" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Se unió en abril de 2023"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/fondoMitadSuperiorBackground"
-        android:textAlignment="center"
-        android:textColor="@color/gris"
-        android:gravity="center"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:src="@drawable/reloj"
+            android:textAlignment="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Se unió en abril de 2023"
+            android:textAlignment="center"
+            android:textColor="@color/gris"
+            android:layout_marginLeft="5dp"
+            android:gravity="center"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
