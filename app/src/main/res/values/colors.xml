@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparente">#00ffffff</color>
     <color name="negro">#FF000000</color>
     <color name="morado">#9E51FF</color>
     <color name="moradoClaro">#B57AFF</color>

@@ -180,24 +180,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="8dp"
+            app:cardBackgroundColor="@color/transparente"
             app:cardElevation="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
+
+            <!-- Boton Google -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="20dp"
-                android:contentDescription="Descripción de la imagen"
                 android:background="@drawable/button_google"
                 android:clickable="true"
-                android:text="Registrarse con Google"
-                android:textColor="@color/negro"
-                android:textSize="20dp"
-                android:padding="15dp"
-                android:onClick="iniciarSesionPruebas"/>
+                android:gravity="center_vertical"
+                android:onClick="iniciarSesionPruebas"
+                android:orientation="horizontal">
+
+                <!-- Imagen a la izquierda -->
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="Descripción de la imagen"
+                    android:src="@drawable/icono_google" />
+
+                <!-- TextView a la derecha -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Registrarse con Google"
+                    android:textColor="@color/negro"
+
+                    android:textSize="20dp" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <!-- Botón Iniciar Sesión -->
