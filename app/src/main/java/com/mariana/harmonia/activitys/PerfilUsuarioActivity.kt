@@ -15,6 +15,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,7 +37,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 123
     }
-
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -157,8 +157,30 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             abrirGaleria()
         } else {
             System.out.println("***************NO CONCEDIDO***************")
-            requestPermissionLauncher.launch(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            solicitarPermisoManualmente()
         }
+    }
+    private fun solicitarPermisoManualmente() {
+        // Mostrar un diálogo de solicitud de permisos
+        AlertDialog.Builder(this)
+            .setTitle("Permiso necesario")
+            .setMessage("Se requiere permiso para acceder a la galería. Por favor, concede el permiso en la configuración de la aplicación.")
+            .setPositiveButton("OK") { _, _ ->
+                // Abre la configuración de la aplicación para que el usuario pueda conceder el permiso manualmente
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancelar") { _, _ ->
+                // El usuario canceló la solicitud de permisos
+                Toast.makeText(
+                    this,
+                    "Permiso denegado. No se puede acceder a la galería.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .show()
     }
 
 
@@ -168,8 +190,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // Permiso concedido, abrir la galería
                 abrirGaleria()
             } else {
-                // Permiso denegado, seguir solicitando permisos
-                solicitarPermisosGaleria()
+                // Permiso denegado, mostrar la solicitud de permisos nuevamente
+                solicitarPermisoManualmente()
             }
         }
 
