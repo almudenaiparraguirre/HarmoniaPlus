@@ -1,6 +1,7 @@
 package com.mariana.harmonia.activitys
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
@@ -12,6 +13,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.VectorDrawable
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -27,20 +29,28 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
+import com.google.android.material.progressindicator.BaseProgressIndicator
 import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.databinding.ActivityMain2Binding
+import com.mariana.harmonia.databinding.ActivityPrincipalBinding
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 123
     }
+
+    private lateinit var binding: ActivityPrincipalBinding
+    private lateinit var imagen: ImageView
+    private lateinit var lapiz: ImageView
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -49,7 +59,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             if (isGranted) {
                 abrirGaleria()
             } else {
-                solicitarPermisosGaleria()
+                Toast.makeText(this, "Necesitas activar los permisos de la galería", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -59,17 +69,20 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_perfil_usuario)
 
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
-        val imageView = findViewById<ImageView>(R.id.roundedImageView)
+        imagen = findViewById(R.id.roundedImageView)
         val fondoMitadSuperior = findViewById<ImageView>(R.id.fondoMitadSuperior)
-        val lapiz = findViewById<ImageView>(R.id.lapiz_editar)
+        lapiz = findViewById(R.id.lapiz_editar)
         val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
 
         cardViewPerfil.setOnClickListener {
-            mostrarDialogImagen(imageView)
+            mostrarDialogImagen(imagen)
         }
 
+        binding = ActivityPrincipalBinding.inflate(layoutInflater)
+       lapiz.setOnClickListener { requestPermission() }
+
         // Obtener el color promedio de la imagen
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+        val bitmap = (imagen.drawable as BitmapDrawable).bitmap
         val colorPromedio = obtenerColorPromedio(bitmap)
 
         //Este lIstener hace que al clicar fuera de la pantalla se deje de rellenar el campo del nombre
@@ -87,7 +100,23 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
+    }
 
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            when{
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED -> {
+                    abrirGaleria()
+                }
+
+                else -> requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }else{
+            abrirGaleria()
+        }
     }
 
     private fun obtenerColorPromedio(bitmap: Bitmap): Int {
@@ -142,42 +171,22 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    // Selección de imagen de la galería
-    private val seleccionarImagen =
+    private fun abrirGaleria() {
+        //val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startForActivityGallery.launch(intent)
+    }
+
+    val startForActivityGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                // Obtener la URI de la imagen seleccionada
-                val uri = result.data?.data
-                // Aquí puedes guardar la URI en tu ImageView o realizar otras operaciones
-                val imageView = findViewById<ImageView>(R.id.roundedImageView)
-                imageView.setImageURI(uri)
-            } else {
-                Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show()
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.data
+                imagen.setImageURI(data)
             }
         }
 
-
-    private fun abrirGaleria() {
-        // Lanzar la solicitud para acceder a la galería
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        seleccionarImagen.launch(intent)
-    }
-
-    private fun solicitarPermisosGaleria() {
-        // Verificar si el permiso ya está concedido
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            // El permiso ya está concedido, abrir la galería
-            abrirGaleria()
-        } else {
-            System.out.println("***************NO CONCEDIDO***************")
-            solicitarPermisoManualmente()
-        }
-    }
-    private fun solicitarPermisoManualmente() {
+    /*private fun solicitarPermisoManualmente() {
         // Mostrar un diálogo de solicitud de permisos
         AlertDialog.Builder(this)
             .setTitle("Permiso necesario")
@@ -198,10 +207,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 ).show()
             }
             .show()
-    }
+    }*/
 
 
-    val permisosGaleria =
+    /*val permisosGaleria =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
                 // Permiso concedido, abrir la galería
@@ -210,7 +219,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // Permiso denegado, mostrar la solicitud de permisos nuevamente
                 solicitarPermisoManualmente()
             }
-        }
+        }*/
 
     /*private val seleccionarImagen =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -226,13 +235,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     // ...
 
-    // FUN --> Carga la imagen
-    fun cargarImagen(view: View) {
-        // Solicitar permisos antes de iniciar la galería
-        solicitarPermisosGaleria()
-    }
-
-    private fun cargarNuevaImagen(uri: Uri?) {
+    /*private fun cargarNuevaImagen(uri: Uri?) {
         val imageView = findViewById<ImageView>(R.id.roundedImageView)
         imageView.setImageURI(uri)
 
@@ -248,9 +251,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         // Otras operaciones que deseas realizar después de cargar la nueva imagen
         // ...
-    }
+    }*/
 
-    override fun onRequestPermissionsResult(
+    /*override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
@@ -268,14 +271,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 ).show()
             }
         }
-    }
-
-
+    }*/
 
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
     }
-
 }

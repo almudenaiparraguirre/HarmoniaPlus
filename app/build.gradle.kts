@@ -9,6 +9,11 @@ android {
     namespace = "com.mariana.harmonia"
     compileSdk = 34
 
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.mariana.harmonia"
         minSdk = 25
@@ -45,7 +50,6 @@ dependencies {
     //otors
     implementation ("androidx.activity:activity-ktx:1.3.0")
     implementation ("androidx.fragment:fragment-ktx:1.3.0")
-    implementation ("androidx.palette:palette:1.0.0")
 
     //Default
     implementation("androidx.core:core-ktx:1.9.0")
