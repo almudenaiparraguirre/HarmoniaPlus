@@ -19,13 +19,17 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
@@ -68,9 +72,22 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val bitmap = (imageView.drawable as BitmapDrawable).bitmap
         val colorPromedio = obtenerColorPromedio(bitmap)
 
-        // Establecer el color de fondo de la mitad superior
-        /*fondoMitadSuperior.setColorFilter(colorPromedio)
-        fondoMitadSuperiorBack.setColorFilter(colorPromedio)*/
+        //Este lIstener hace que al clicar fuera de la pantalla se deje de rellenar el campo del nombre
+        val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID) // Reemplaza con el ID de tu ConstraintLayout
+        val editText: EditText = findViewById(R.id.nombre_usuario) // Reemplaza con el ID de tu EditText
+
+        constraintLayout.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                // Oculta el teclado
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editText.windowToken, 0)
+
+                // Quita el foco del EditText
+                editText.clearFocus()
+            }
+            false
+        }
+
     }
 
     private fun obtenerColorPromedio(bitmap: Bitmap): Int {
@@ -252,6 +269,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
