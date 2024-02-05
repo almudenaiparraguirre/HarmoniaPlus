@@ -18,16 +18,12 @@ class InicioSesion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inicio_sesion)
 
-
-
-
         // Hace falta iniciar la variable FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
 
         //TODO
         //HAY QUE COMPROBAR LOS CAMPOS DE TEXTO PARA COMPROBAR QUE NO ESTE VACIO Y
         // QUE SEA DE TIPO EMAIL ("DHNADIDNA@ANDASJN.COM")
-
     }
 
     //Función que comprueba que el usuario y contraseña existen
@@ -54,7 +50,6 @@ class InicioSesion : AppCompatActivity() {
                 Log.e("InicioSesion", "Error de autenticación: ${e.message}")
                 println("FALLO")
             }
-
     }
 
     fun btnIngresar(view: View) {
@@ -66,5 +61,4 @@ class InicioSesion : AppCompatActivity() {
         println("ASDFASDFASDFASDF")
         signIn(Email.text.toString(),contrasena.text.toString())
     }
-
 }

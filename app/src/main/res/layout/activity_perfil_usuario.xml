@@ -75,6 +75,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/lapiz_editar"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="20dp"
+        android:clickable="true"
+        android:onClick="cargarImagen"
+        android:src="@drawable/lapiz_editar_perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
+        app:layout_constraintRight_toRightOf="@+id/cardview_perfil"
+        android:elevation="200dp"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_perfil"
         android:layout_width="100dp"
@@ -148,19 +161,6 @@
         app:layout_constraintTop_toBottomOf="@+id/gmail_usuario" />
 
 
-
-    <ImageView
-        android:id="@+id/lapiz_editar"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:clickable="true"
-        android:onClick="cargarImagen"
-        android:src="@drawable/lapiz_editar_perfil"
-        tools:layout_editor_absoluteX="239dp"
-        tools:layout_editor_absoluteY="214dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
-        app:layout_constraintRight_toRightOf="@+id/cardview_perfil"
-        />
 
     <LinearLayout
         android:layout_width="match_parent"

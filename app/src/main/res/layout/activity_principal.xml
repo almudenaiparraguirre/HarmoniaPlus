@@ -175,20 +175,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-            <ImageView
-                android:id="@+id/signGoogle"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/signGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="8dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena">
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="20dp"
                 android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/google_iniciar_sesion"
+                android:background="@drawable/button_google"
                 android:clickable="true"
-                android:onClick="iniciarSesionPruebas"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena"
-                tools:ignore="UnknownId" />
+                android:text="Registrarse con Google"
+                android:textColor="@color/negro"
+                android:textSize="20dp"
+                android:padding="15dp"
+                android:onClick="iniciarSesionPruebas"/>
+        </androidx.cardview.widget.CardView>
 
         <!-- Botón Iniciar Sesión -->
         <androidx.appcompat.widget.AppCompatButton

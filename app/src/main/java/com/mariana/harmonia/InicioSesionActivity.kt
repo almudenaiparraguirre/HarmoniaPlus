@@ -15,6 +15,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.InicioSesion
 import com.mariana.harmonia.activitys.MainActivity
@@ -41,7 +45,22 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
 
         //Inicializar firebase
         firebaseAuth = FirebaseAuth.getInstance()
+        ComprobarSesion()
+    }
 
+
+    fun ComprobarSesion() {
+        val firebaseUser = firebaseAuth.currentUser
+
+        if (firebaseUser == null && this !is InicioSesionActivity) {
+            // No hay usuario autenticado y no estamos en la pantalla de inicio de sesión,
+            // redirigir a la pantalla de inicio de sesión
+        } else if (firebaseUser != null) {
+            // Hay un usuario autenticado, redirigir a la pantalla principal
+            val intent = Intent(this, EligeModoJuegoActivity::class.java)
+            startActivity(intent)
+            finishAffinity() // Cierra todas las actividades anteriores
+        }
     }
 
 
