@@ -17,4 +17,10 @@
         <item name="android:windowSplashScreenAnimationDuration">2500</item>
     </style>
 
+    <style name="MiProgressBarHorizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:height">10dp</item>
+
+    </style>
+
+
 </resources>

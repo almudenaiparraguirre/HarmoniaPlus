@@ -17,105 +17,133 @@
         android:src="@drawable/fondoooo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/menu_superior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/degradado_menu_superior"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="80dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:orientation="vertical"> <!-- Centra verticalmente el contenido -->
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:layout_weight="0.66">
 
-            <ImageView
-                android:id="@+id/perfil_usuario"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/rounded_corners"
-                android:clickable="true"
-                android:onClick="menu_perfil"
-                android:src="@drawable/perfil_luis_golden" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="7"
-                android:layout_marginLeft="10dp"
-                android:textAlignment="center"
-                android:textColor="@color/morado"/>
+                android:orientation="horizontal">
+                <!--redondeador-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:cardBackgroundColor="@color/blanco"
+                    app:cardCornerRadius="200dp"
+                    app:cardElevation="2dp">
+
+                    <ImageView
+                        android:id="@+id/perfil_usuario"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:onClick="menu_perfil"
+                        android:src="@drawable/perfil_luis_golden" />
+
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    style="@style/Fuente_kameron"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:text="dorado40"
+                    android:textColor="@color/negro"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/progressBarCarga"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    style="@style/MiProgressBarHorizontal"
+                    android:max="100"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/drawable_progressbar" />
+
+                <TextView
+                    android:id="@+id/porcentajeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="20dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="dorado40"
-                android:textSize="14dp"
-                style="@style/Fuente_kameron"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:textColor="@color/morado"/>
+            android:layout_gravity="fill_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="dorado40@gmail.com"
-                android:textSize="14dp"
-                style="@style/Fuente_kameron"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/morado"/>
+
+
+
+
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Ayuda"
-            style="@style/Fuente_kameron"
-            android:textSize="14dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="27dp"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/morado"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Cerrar sesión"
-            android:layout_marginTop="27dp"
-            android:layout_marginLeft="20dp"
-            style="@style/Fuente_kameron"
-            android:textSize="14dp"
-            android:clickable="true"
-            android:onClick="cerrarSesion"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/morado"/>
-    </LinearLayout>
+        </LinearLayout>
+
+
+
+            <TextView
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="5dp"
+                android:onClick="cerrarSesion"
+                android:text="Cerrar sesión"
+                android:textColor="@color/morado"
+                android:textSize="14dp"
+                android:background="@drawable/rounded_left"/>
+
+
+
 
     </LinearLayout>
 
@@ -168,6 +196,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAventura" />
 
+
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonOpciones"
         android:layout_width="200dp"
@@ -196,9 +227,8 @@
         android:textAlignment="center"
         android:textColor="@color/negro"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="716dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonOpciones"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

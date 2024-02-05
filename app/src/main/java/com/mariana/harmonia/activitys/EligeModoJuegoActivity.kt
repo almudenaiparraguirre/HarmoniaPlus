@@ -5,6 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.SeekBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -28,7 +31,22 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.activity_elige_modo_juego)
         //colorearTexto(this, R.id.titleTextView)
         firebaseAuth = FirebaseAuth.getInstance()
+
+
+        //porcentaje barra Experiencia
+
+        val progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
+        val porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
+
+        // Puedes actualizar el porcentaje directamente
+        val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
+        progressBar.progress = porcentaje
+        porcentajeTextView.text = "$porcentaje%"
     }
+
+
+
+
 
     // FUN --> Ir al perfil del usuario
     fun menu_perfil(view: View){
