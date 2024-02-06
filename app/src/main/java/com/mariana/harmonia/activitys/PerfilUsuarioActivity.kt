@@ -77,7 +77,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
-
         binding = ActivityPrincipalBinding.inflate(layoutInflater)
        lapiz.setOnClickListener { requestPermission() }
 
