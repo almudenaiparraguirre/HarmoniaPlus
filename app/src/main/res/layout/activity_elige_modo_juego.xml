@@ -109,23 +109,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
             android:layout_gravity="fill_vertical">
-
-
-
-
-
-
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
-
-
         </LinearLayout>
 
 
@@ -149,6 +139,48 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/TituloLogo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/menu_superior">
+
+        <!-- LinearLayout con ImageView y TextView -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_marginVertical="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- ImageView a la izquierda -->
+            <ImageView
+                android:id="@+id/logoImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_aplicacion" />
+
+            <!-- TextView a la derecha -->
+            <TextView
+                android:id="@+id/titleTextView"
+                style="@style/Fuente_TimesNewRoman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="  HARMONIA+"
+                android:textColor="@color/rosa"
+                android:textSize="45dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/eligeModo"
@@ -156,21 +188,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:text="¡ELIGE UN MODO DE JUEGO!"
         android:textAlignment="center"
         android:textColor="@color/rosa"
         android:textSize="30sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_superior" />
+        app:layout_constraintTop_toBottomOf="@+id/TituloLogo" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonAventura"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/degradado_button"
         android:clickable="true"
         android:onClick="irModoAventura"
@@ -187,7 +221,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/degradado_button"
         android:onClick="clickConfirmarCodigo"
         android:padding="16dp"
@@ -206,7 +240,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/degradado_suave_button"
         android:onClick="clickOpciones"
         android:padding="16dp"
@@ -217,20 +251,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonChallenge" />
 
-    <TextView
-        android:id="@+id/salirTextView"
-        style="@style/Fuente_kameron"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="@string/salirSubrrayado"
-        android:textAlignment="center"
-        android:textColor="@color/negro"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonOpciones"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
