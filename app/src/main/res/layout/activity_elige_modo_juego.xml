@@ -9,18 +9,20 @@
     android:background="@drawable/fondo_degradado">
 
     <ImageView
+
         android:id="@+id/fondoImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="1000dp"
+        android:layout_height="1000dp"
         android:alpha="0.5"
         android:scaleType="centerCrop"
-        android:src="@drawable/fondoooo"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/fondoooo2x2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.297" />
 
     <LinearLayout
         android:id="@+id/menu_superior"

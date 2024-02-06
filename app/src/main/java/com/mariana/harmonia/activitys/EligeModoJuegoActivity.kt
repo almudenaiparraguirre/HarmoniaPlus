@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
@@ -42,6 +44,15 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
         progressBar.progress = porcentaje
         porcentajeTextView.text = "$porcentaje%"
+
+
+        val imageView: ImageView = findViewById(R.id.fondoImageView)
+
+        // Cargar la animación desde el archivo XML
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+
+        // Aplicar la animación al ImageView
+        imageView.startAnimation(anim)
     }
 
 
