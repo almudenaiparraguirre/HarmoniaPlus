@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.activitys.MainActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import java.util.Locale
@@ -33,5 +34,10 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
+    }
+
+    fun botonCrearCuenta(view: View) {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }
