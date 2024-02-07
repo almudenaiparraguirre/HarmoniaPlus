@@ -72,7 +72,7 @@
                 android:clickable="true"
                 android:elevation="200dp"
                 android:onClick="cargarImagen"
-                android:src="@drawable/lapiz_editar_perfil"
+                android:src="@drawable/svg_lapiz_editar_perfil"
                 app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
                 app:layout_constraintRight_toRightOf="@+id/cardview_perfil" />
 
@@ -322,7 +322,7 @@
                 android:orientation="vertical"
                 android:layout_margin="20dp">
 
-                <!-- Elemento contenedor rectangular -->
+                <!-- Logro1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -342,7 +342,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/menu_logro"
+                        android:background="@drawable/style_menu_logro1"
                         android:orientation="horizontal"
                         android:padding="16dp">
 
@@ -386,8 +386,71 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <!-- Logro2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <!-- Título -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TITULO"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="16dp"
+                        />
+
+                    <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/style_menu_logro2"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <!-- ImageView a la izquierda -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="100dp">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/img_perfil_luis_golden" />
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Texto descriptivo con barra de porcentaje a la derecha -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Texto descriptivo"
+                                android:textSize="14sp" />
+
+                            <ProgressBar
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:progress="50" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout><!-- Contenedor Logros -->
         </LinearLayout><!-- Layout inferior -->
     </LinearLayout><!-- Layout principal -->
 </ScrollView><!-- Scroll -->
