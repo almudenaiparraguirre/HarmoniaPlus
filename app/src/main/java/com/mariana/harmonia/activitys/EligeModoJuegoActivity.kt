@@ -33,6 +33,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.activity_elige_modo_juego)
         //colorearTexto(this, R.id.titleTextView)
         firebaseAuth = FirebaseAuth.getInstance()
+        Utilidades.colorearTexto(this, R.id.titleTextView)
 
 
         //porcentaje barra Experiencia

@@ -8,10 +8,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.PackageManager.*
 import android.graphics.Bitmap
+import android.graphics.BitmapShader
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.VectorDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -99,6 +106,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
+
+
     }
 
     private fun requestPermission() {
@@ -185,92 +194,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
 
-    /*private fun solicitarPermisoManualmente() {
-        // Mostrar un diálogo de solicitud de permisos
-        AlertDialog.Builder(this)
-            .setTitle("Permiso necesario")
-            .setMessage("Se requiere permiso para acceder a la galería. Por favor, concede el permiso en la configuración de la aplicación.")
-            .setPositiveButton("OK") { _, _ ->
-                // Abre la configuración de la aplicación para que el usuario pueda conceder el permiso manualmente
-                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                val uri: Uri = Uri.fromParts("package", packageName, null)
-                intent.data = uri
-                startActivity(intent)
-            }
-            .setNegativeButton("Cancelar") { _, _ ->
-                // El usuario canceló la solicitud de permisos
-                Toast.makeText(
-                    this,
-                    "Permiso denegado. No se puede acceder a la galería.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .show()
-    }*/
-
-
-    /*val permisosGaleria =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                // Permiso concedido, abrir la galería
-                abrirGaleria()
-            } else {
-                // Permiso denegado, mostrar la solicitud de permisos nuevamente
-                solicitarPermisoManualmente()
-            }
-        }*/
-
-    /*private val seleccionarImagen =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                // Obtener la URI de la imagen seleccionada
-                val uri = result.data?.data
-                // Cargar la nueva imagen y realizar otras operaciones
-                cargarNuevaImagen(uri)
-            } else {
-                Toast.makeText(this, "No se seleccionó ninguna imagen", Toast.LENGTH_SHORT).show()
-            }
-        }*/
-
-    // ...
-
-    /*private fun cargarNuevaImagen(uri: Uri?) {
-        val imageView = findViewById<ImageView>(R.id.roundedImageView)
-        imageView.setImageURI(uri)
-
-        // Obtener el color promedio de la nueva imagen
-        val bitmap = (imageView.drawable as BitmapDrawable).bitmap
-        val colorPromedio = obtenerColorPromedio(bitmap)
-
-        // Aplicar el color de fondo a la mitad superior
-        val fondoMitadSuperior = findViewById<ImageView>(R.id.fondoMitadSuperior)
-        val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
-        fondoMitadSuperior.setColorFilter(colorPromedio)
-        fondoMitadSuperiorBack.setColorFilter(colorPromedio)
-
-        // Otras operaciones que deseas realizar después de cargar la nueva imagen
-        // ...
-    }*/
-
-    /*override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permiso concedido, abrir la galería
-                abrirGaleria()
-            } else {
-                Toast.makeText(
-                    this,
-                    "Permiso denegado. No se puede acceder a la galería.",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    }*/
 
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
