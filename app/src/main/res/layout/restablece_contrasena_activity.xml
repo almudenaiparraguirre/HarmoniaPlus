@@ -1,0 +1,203 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.iniciarSesion.RestableceContrasenaActivity"
+    android:background="@drawable/style_fondo_degradado">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Logo -->
+
+        <!-- Bienvenido -->
+
+        <LinearLayout
+            android:id="@+id/TituloLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- LinearLayout con ImageView y TextView -->
+            <LinearLayout
+                android:layout_marginVertical="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- ImageView a la izquierda -->
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/img_ico_aplicacion"/>
+
+                <!-- TextView a la derecha -->
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:id="@+id/titleTextView"
+                    style="@style/Fuente_TimesNewRoman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  HARMONIA+"
+                    android:textColor="@color/rosa"
+                    android:textSize="45dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- TextView adicional debajo y centrado -->
+            <TextView
+
+                android:id="@+id/subTitleTextView"
+                android:layout_gravity="top|center"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tu viaje musical comienza aquí"
+                android:textColor="@color/morado"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bienvenido"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="50dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/TituloLogo"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RESTABLECE LA CONTRASEÑA"
+                android:textAlignment="center"
+                android:textColor="@color/rosa"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/introduce"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="92dp"
+            android:text="Escribe el email a continuación y te enviaremos un correo electrónico para restablecer la contraseña"
+            android:textAlignment="center"
+            android:textColor="@color/gris"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
+
+        .
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/style_edittextstyle"
+            android:hint="E-mail"
+            android:padding="16dp"
+            android:textColor="@color/gris"
+            android:textColorHint="@color/grisClaro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textoAdvertencia" />
+
+        <TextView
+            android:id="@+id/textoAdvertencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            style="@style/Fuente_kameron"
+            android:textAlignment="center"
+            android:text="Introduzca un email para restablecer la contraseña"
+            android:textColor="@color/rojo"
+            android:textSize="14dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/introduce" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/botonEmail"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="84dp"
+            android:background="@drawable/style_button_degradado"
+            android:onClick="enviarEmail"
+            android:padding="16dp"
+            android:text="ENVIAR EMAIL"
+            android:textColor="@color/blanco"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText1"
+            tools:ignore="InvalidId" />
+
+        <TextView
+            android:id="@+id/volverInicioSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"
+            android:layout_marginTop="68dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="irIniciarSesion"
+            android:textColor="@color/negro"
+            android:text="@string/VolverInicioSesionSubrrayado"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@+id/botonEmail"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/salirTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="irSalir"
+            android:padding="8dp"
+            android:text="@string/salirSubrrayado"
+            android:textAlignment="center"
+            android:textColor="@color/negro"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/volverInicioSesion"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_fondo"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

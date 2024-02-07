@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         installSplashScreen().setKeepOnScreenCondition{
             true
         }
-        setContentView(R.layout.activity_splash_screen)
+        setContentView(R.layout.splash_screen_activity)
         Handler().postDelayed({
             val intent = Intent(this, InicioSesionActivity::class.java)
             startActivity(intent)

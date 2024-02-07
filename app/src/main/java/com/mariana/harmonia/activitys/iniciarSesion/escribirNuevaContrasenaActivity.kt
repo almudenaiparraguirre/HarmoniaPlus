@@ -18,7 +18,7 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_escribir_nueva_contrasena)
+        setContentView(R.layout.escribir_nueva_contrasena_activity)
 
 
         val editText1: EditText = findViewById(R.id.editText1)

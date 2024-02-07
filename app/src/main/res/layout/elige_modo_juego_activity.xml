@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activitys.EligeModoJuegoActivity"
-    android:background="@drawable/fondo_degradado">
+    android:background="@drawable/style_fondo_degradado">
 
     <ImageView
 
@@ -17,7 +17,7 @@
         android:scaleType="centerCrop"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        android:src="@drawable/fondoooo2x2"
+        android:src="@drawable/img_fondo_2x2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         android:layout_height="100dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/degradado_menu_superior"
+        android:background="@drawable/style_degradado_menu_superior"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -62,7 +62,7 @@
                         android:layout_gravity="center"
                         android:clickable="true"
                         android:onClick="menu_perfil"
-                        android:src="@drawable/perfil_luis_golden" />
+                        android:src="@drawable/img_perfil_luis_golden" />
 
 
                 </androidx.cardview.widget.CardView>
@@ -91,7 +91,7 @@
                     style="@style/MiProgressBarHorizontal"
                     android:max="100"
                     android:progress="50"
-                    android:progressDrawable="@drawable/drawable_progressbar" />
+                    android:progressDrawable="@drawable/style_progressbar" />
 
                 <TextView
                     android:id="@+id/porcentajeTextView"
@@ -165,7 +165,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/logo_aplicacion" />
+                android:src="@drawable/img_ico_aplicacion" />
 
             <!-- TextView a la derecha -->
             <TextView
@@ -206,7 +206,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/degradado_button"
+        android:background="@drawable/style_button_degradado"
         android:clickable="true"
         android:onClick="irModoAventura"
         android:padding="16dp"
@@ -223,7 +223,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/degradado_button"
+        android:background="@drawable/style_button_degradado"
         android:onClick="clickConfirmarCodigo"
         android:padding="16dp"
         android:text="DESAFÍO"
@@ -242,7 +242,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/degradado_suave_button"
+        android:background="@drawable/style_buttond_egradado_suave"
         android:onClick="clickOpciones"
         android:padding="16dp"
         android:text="OPCIONES"

@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.iniciarSesion.EnvioCodigoActivity"
-    android:background="@drawable/fondo_degradado">
+    tools:context=".activitys.iniciarSesion.ContrasenaRestablecidaCorrectamenteActivity"
+    android:background="@drawable/style_fondo_degradado">
 
     <!-- Fondo con las notas -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/fondoooo"
+        android:src="@drawable/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5" />
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- LinearLayout del título y logo -->
+        <!-- Título y logo -->
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -31,7 +31,6 @@
             android:gravity="center_vertical"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- LinearLayout con ImageView y TextView -->
             <LinearLayout
                 android:layout_marginVertical="20dp"
                 android:layout_width="match_parent"
@@ -40,15 +39,13 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <!-- ImageView a la izquierda -->
                 <ImageView
                     android:id="@+id/logoImageView"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion"/>
+                    android:src="@drawable/img_ico_aplicacion"/>
 
-                <!-- TextView a la derecha -->
                 <TextView
                     android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
@@ -61,9 +58,8 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- TextView adicional debajo y centrado -->
+            <!-- Eslogan -->
             <TextView
-
                 android:id="@+id/subTitleTextView"
                 android:layout_gravity="top|center"
                 style="@style/Fuente_kameron"
@@ -74,7 +70,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <!-- TextView de bienvenida -->
+        <!-- TV Contraseña restablecida correctamente -->
         <LinearLayout
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
@@ -90,117 +86,64 @@
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="RESTABLECE LA CONTRASEÑA"
+                android:text="SU CONTRASEÑA SE HA RESTABLECIDO CORRECTAMENTE"
                 android:textAlignment="center"
                 android:textColor="@color/rosa"
                 android:textSize="30dp" />
+
         </LinearLayout>
 
-        <!-- TextView de introducción -->
-        <TextView
-            android:id="@+id/introduce"
-            style="@style/Fuente_kameron"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="92dp"
-            android:text="Introduzca el código que le hemos enviado al correo: almu***@gmail.com"
-            android:textAlignment="center"
-            android:textColor="@color/gris"
-            android:textSize="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+        <!-- ImageView de aplauso -->
+        <ImageView
+            android:id="@+id/aplauso"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="72dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_ico_aplauso"
+            app:layout_constraintTop_toBottomOf="@id/bienvenido"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
-
-        <!-- Input de código -->
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/edittextstyle"
-            android:hint="Código"
-            android:textColor="@color/gris"
-            android:textColorHint="@color/grisClaro"
-            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/introduce" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- ¿No has recibido el código? -->
-        <TextView
-            android:id="@+id/textoNoRecibido"
-            style="@style/Fuente_kameron"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="¿No has recibido el codigo?"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/editText1"
-            tools:layout_editor_absoluteX="20dp"/>
-
-        <!-- Botón confirmación de código -->
+        <!-- Botón de iniciar sesión -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/botonIniciarSesion"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="84dp"
-            android:background="@drawable/degradado_button"
-            android:onClick="clickConfirmarCodigo"
+            android:layout_marginTop="268dp"
+            android:background="@drawable/style_button_degradado"
+            android:onClick="irIniciarSesion"
             android:padding="16dp"
-            android:text="CONFIRMAR CÓDIGO"
+            android:text="INICIAR SESIÓN"
             android:textColor="@color/blanco"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textoNoRecibido" />
+            app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
-        <!-- Volver al inicio de sesión -->
-        <TextView
-            android:id="@+id/volverInicioSesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Fuente_kameron"
-            android:textSize="14dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="68dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="irIniciarSesion"
-            android:text="@string/VolverInicioSesionSubrrayado"
-            android:textAlignment="center"
-            android:textColor="@color/negro"
-            app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
-            tools:layout_editor_absoluteX="0dp"/>
-
-        <!-- Salir de la app -->
+        <!-- TextView para salir -->
         <TextView
             android:id="@+id/salirTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Fuente_kameron"
+            android:gravity="center"
             android:layout_marginTop="8dp"
             android:clickable="true"
-            android:gravity="center"
             android:onClick="irSalir"
             android:padding="8dp"
             android:text="@string/salirSubrrayado"
             android:textAlignment="center"
-            android:textColor="@color/negro"
-            android:textSize="14dp"
+            android:textColor="@color/gris"
+            android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/volverInicioSesion"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
+            app:layout_constraintVertical_bias="0.857"
             tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

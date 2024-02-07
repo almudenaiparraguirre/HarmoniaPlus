@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/volver_atras"
+        android:src="@drawable/img_ico_volver_atras"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
@@ -103,7 +103,7 @@
         android:textColor="@color/blanco"
         android:textSize="14sp"
         android:text="Cambiar contraseña"
-        android:background="@drawable/degradado_button"
+        android:background="@drawable/style_button_degradado"
         app:layout_constraintTop_toBottomOf="@id/contrasenaNueva"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

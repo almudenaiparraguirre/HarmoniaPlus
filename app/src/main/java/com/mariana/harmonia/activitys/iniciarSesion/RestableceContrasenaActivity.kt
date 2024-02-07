@@ -1,28 +1,19 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
 import android.content.Intent
-import android.location.Address
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Message
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.se.omapi.Session
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import java.io.ByteArrayOutputStream
 
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -35,7 +26,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_restablece_contrasena)
+        setContentView(R.layout.restablece_contrasena_activity)
 
         boton = findViewById(R.id.botonEmail)
         email = findViewById(R.id.editText1)

@@ -7,6 +7,6 @@ import com.mariana.harmonia.R
 class NivelesAventuraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_niveles_aventura)
+        setContentView(R.layout.niveles_aventura_activity)
     }
 }

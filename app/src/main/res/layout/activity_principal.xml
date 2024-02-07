@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo_degradado"
+    android:background="@drawable/style_fondo_degradado"
     tools:context=".InicioSesionActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/fondoooo"
+        android:src="@drawable/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5"
         />
@@ -47,7 +47,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion" />
+                    android:src="@drawable/img_ico_aplicacion" />
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -103,7 +103,7 @@
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/mano" />
+                android:src="@drawable/img_ico_mano" />
         </LinearLayout>
 
         <!-- Descripción -->
@@ -128,7 +128,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="E-mail"
             android:padding="16dp"
             android:textColor="@color/gris"
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:padding="16dp"
@@ -193,7 +193,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="@drawable/button_google"
+                android:background="@drawable/style_button_google"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:onClick="iniciarSesionPruebas"
@@ -207,7 +207,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="Descripción de la imagen"
-                    android:src="@drawable/icono_google" />
+                    android:src="@drawable/img_ico_google" />
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -229,7 +229,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/degradado_button"
+            android:background="@drawable/style_button_degradado"
             android:onClick="irIniciarSesion"
             android:padding="16dp"
             android:text="INICIAR SESIÓN"

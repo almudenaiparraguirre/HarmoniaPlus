@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/fondo_degradado"
+    android:background="@drawable/style_fondo_degradado"
     tools:context=".activitys.iniciarSesion.RegistroActivity">
 
     <ScrollView
@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/fondoooo"
+        android:src="@drawable/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5"
         />
@@ -52,7 +52,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion"/>
+                    android:src="@drawable/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -108,7 +108,7 @@
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/icono_registro" />
+                android:src="@drawable/img_ico_registro" />
         </LinearLayout>
 
         <!-- E-mail -->
@@ -117,7 +117,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="E-mail"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Nombre de usuario"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -154,7 +154,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Contraseña"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Repetir Contraseña"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -207,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:background="@drawable/degradado_button"
+            android:background="@drawable/style_button_degradado"
             android:onClick="botonCrearCuenta"
             android:padding="16dp"
             android:text="CREAR CUENTA"

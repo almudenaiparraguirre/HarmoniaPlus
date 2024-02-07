@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activitys.iniciarSesion.escribirNuevaContrasenaActivity"
-    android:background="@drawable/fondo_degradado">
+    android:background="@drawable/style_fondo_degradado">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/fondoooo"
+        android:src="@drawable/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5" />
 
@@ -47,7 +47,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion"/>
+                    android:src="@drawable/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginTop="100dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Nueva Contraseña"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:layout_marginTop="100dp"
-            android:background="@drawable/edittextstyle"
+            android:background="@drawable/style_edittextstyle"
             android:hint="Repetir Contraseña"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -165,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="60dp"
-            android:background="@drawable/degradado_button"
+            android:background="@drawable/style_button_degradado"
             android:onClick="clickConfirmarContrasenaNueva"
             android:padding="16dp"
             android:text="CONFIRMAR"

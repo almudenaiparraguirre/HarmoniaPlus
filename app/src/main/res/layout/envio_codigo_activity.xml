@@ -1,19 +1,26 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.iniciarSesion.RestableceContrasenaActivity"
-    android:background="@drawable/fondo_degradado">
+    tools:context=".activitys.iniciarSesion.EnvioCodigoActivity"
+    android:background="@drawable/style_fondo_degradado">
+
+    <!-- Fondo con las notas -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/img_fondo"
+        android:scaleType="centerCrop"
+        android:alpha="0.5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Logo -->
-
-        <!-- Bienvenido -->
-
+        <!-- LinearLayout del título y logo -->
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -39,7 +46,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/logo_aplicacion"/>
+                    android:src="@drawable/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -67,6 +74,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <!-- TextView de bienvenida -->
         <LinearLayout
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
@@ -88,6 +96,7 @@
                 android:textSize="30dp" />
         </LinearLayout>
 
+        <!-- TextView de introducción -->
         <TextView
             android:id="@+id/introduce"
             style="@style/Fuente_kameron"
@@ -95,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="92dp"
-            android:text="Escribe el email a continuación y te enviaremos un correo electrónico para restablecer la contraseña"
+            android:text="Introduzca el código que le hemos enviado al correo: almu***@gmail.com"
             android:textAlignment="center"
             android:textColor="@color/gris"
             android:textSize="14dp"
@@ -104,77 +113,80 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
-        .
-
+        <!-- Input de código -->
         <EditText
             android:id="@+id/editText1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/edittextstyle"
-            android:hint="E-mail"
-            android:padding="16dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/style_edittextstyle"
+            android:hint="Código"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
+            android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textoAdvertencia" />
-
-        <TextView
-            android:id="@+id/textoAdvertencia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            style="@style/Fuente_kameron"
-            android:textAlignment="center"
-            android:text="Introduzca un email para restablecer la contraseña"
-            android:textColor="@color/rojo"
-            android:textSize="14dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/introduce" />
 
+        <!-- ¿No has recibido el código? -->
+        <TextView
+            android:id="@+id/textoNoRecibido"
+            style="@style/Fuente_kameron"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="¿No has recibido el codigo?"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/editText1"
+            tools:layout_editor_absoluteX="20dp"/>
+
+        <!-- Botón confirmación de código -->
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/botonEmail"
-            android:layout_width="200dp"
+            android:id="@+id/botonIniciarSesion"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="84dp"
-            android:background="@drawable/degradado_button"
-            android:onClick="enviarEmail"
+            android:background="@drawable/style_button_degradado"
+            android:onClick="clickConfirmarCodigo"
             android:padding="16dp"
-            android:text="ENVIAR EMAIL"
+            android:text="CONFIRMAR CÓDIGO"
             android:textColor="@color/blanco"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText1"
-            tools:ignore="InvalidId" />
+            app:layout_constraintTop_toBottomOf="@+id/textoNoRecibido" />
 
+        <!-- Volver al inicio de sesión -->
         <TextView
             android:id="@+id/volverInicioSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             style="@style/Fuente_kameron"
             android:textSize="14dp"
+            android:layout_gravity="center"
             android:layout_marginTop="68dp"
+            android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:gravity="center"
             android:onClick="irIniciarSesion"
-            android:textColor="@color/negro"
             android:text="@string/VolverInicioSesionSubrrayado"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@+id/botonEmail"
-            tools:layout_editor_absoluteX="0dp" />
+            android:textColor="@color/negro"
+            app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
+            tools:layout_editor_absoluteX="0dp"/>
 
+        <!-- Salir de la app -->
         <TextView
             android:id="@+id/salirTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Fuente_kameron"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:gravity="center"
@@ -189,15 +201,6 @@
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/fondoooo"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,17 +1,13 @@
 package com.mariana.harmonia.activitys
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.SeekBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
@@ -30,7 +26,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_elige_modo_juego)
+        setContentView(R.layout.elige_modo_juego_activity)
         //colorearTexto(this, R.id.titleTextView)
         firebaseAuth = FirebaseAuth.getInstance()
         Utilidades.colorearTexto(this, R.id.titleTextView)

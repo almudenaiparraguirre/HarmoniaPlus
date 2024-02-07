@@ -16,7 +16,7 @@ class InicioSesion : AppCompatActivity() {
     private lateinit var authStateListener: FirebaseAuth.AuthStateListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_inicio_sesion)
+        setContentView(R.layout.inicio_sesion_activity)
 
         // Hace falta iniciar la variable FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()

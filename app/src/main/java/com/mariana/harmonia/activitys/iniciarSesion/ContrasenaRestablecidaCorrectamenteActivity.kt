@@ -12,7 +12,7 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_contrasena_restablecida_correctamente)
+        setContentView(R.layout.contrasena_restablecida_correctamente_activity)
         Utilidades.colorearTexto(this, R.id.titleTextView)
     }
 

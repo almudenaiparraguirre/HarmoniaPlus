@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/fondo_perfil"
+                android:src="@drawable/style_fondo_perfil"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:onClick="volverModoJuego"
-                android:src="@drawable/volver_atras"
+                android:src="@drawable/img_ico_volver_atras"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,7 +96,7 @@
                     android:layout_height="100dp"
                     android:background="@color/blanco"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/perfil_luis_golden"
+                    android:src="@drawable/img_perfil_luis_golden"
                     app:cardCornerRadius="200dp" />
 
             </androidx.cardview.widget.CardView>
@@ -168,7 +168,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_centerInParent="true"
-                            android:src="@drawable/cirulo_nieveles_completados" />
+                            android:src="@drawable/img_cirulo_nieveles_completados" />
 
                         <TextView
                             android:id="@+id/topText"
@@ -216,7 +216,7 @@
                                 android:id="@+id/leftCircle"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/circulo_precision" />
+                                android:src="@drawable/img_circulo_precision" />
 
                             <TextView
                                 android:id="@+id/leftText"
@@ -256,7 +256,7 @@
                                 android:id="@+id/centerCircle"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
-                                android:src="@drawable/circulo_base" />
+                                android:src="@drawable/img_circulo_base" />
 
                             <TextView
                                 android:id="@+id/centerText"
@@ -295,7 +295,7 @@
                                 android:id="@+id/rightCircle"
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:src="@drawable/circulo_experiencia" />
+                                android:src="@drawable/img_circulo_experiencia" />
 
                             <TextView
                                 android:id="@+id/rightText"
@@ -356,7 +356,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/perfil_luis_golden" />
+                                android:src="@drawable/img_perfil_luis_golden" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->

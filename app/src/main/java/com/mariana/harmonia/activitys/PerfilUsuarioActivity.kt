@@ -2,32 +2,15 @@ package com.mariana.harmonia.activitys
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.PackageManager.*
 import android.graphics.Bitmap
-import android.graphics.BitmapShader
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.LayerDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.VectorDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.Settings
-import android.text.TextUtils
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -36,17 +19,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.palette.graphics.Palette
-import com.google.android.material.progressindicator.BaseProgressIndicator
-import com.mariana.harmonia.InicioSesionActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.databinding.ActivityMain2Binding
+/*import com.mariana.harmonia.databinding.ActivityMain2Binding*/
 import com.mariana.harmonia.databinding.ActivityPrincipalBinding
 
 class PerfilUsuarioActivity : AppCompatActivity() {
@@ -73,7 +51,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil_usuario)
+        setContentView(R.layout.perfil_usuario_activity)
 
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)

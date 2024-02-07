@@ -23,7 +23,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> On create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_envio_codigo)
+        setContentView(R.layout.envio_codigo_activity)
 
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
