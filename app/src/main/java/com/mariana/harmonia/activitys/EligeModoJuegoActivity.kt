@@ -55,10 +55,6 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         imageView.startAnimation(anim)
     }
 
-
-
-
-
     // FUN --> Ir al perfil del usuario
     fun menu_perfil(view: View){
         val intent = Intent(this, PerfilUsuarioActivity::class.java)

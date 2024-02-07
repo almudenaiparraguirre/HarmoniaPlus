@@ -6,6 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".activitys.ConfiguracionActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/volver_atras"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:onClick="volverModoJuego"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/configuracionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONFIGURACIÓN"
+        style="@style/Fuente_kameron"
+        android:layout_marginTop="40dp"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/contrasenaTituloTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contraseña"
+        style="@style/Fuente_kameron"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/configuracionTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"/>
+
+    <LinearLayout
+        android:id="@+id/contrasenaActual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/contrasenaTituloTextView"
+        app:layout_constraintStart_toStartOf="@+id/contrasenaTituloTextView"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contraseña actual"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"/>
+
+        <EditText
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/contrasenaNueva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/contrasenaActual"
+        app:layout_constraintStart_toStartOf="@+id/contrasenaTituloTextView"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nueva contraseña"
+            style="@style/Fuente_kameron"
+            android:textSize="14dp"/>
+
+        <EditText
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:inputType="textPassword"/>
+
+    </LinearLayout>
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="Efectos de sonido"
+            app:layout_constraintTop_toBottomOf="@+id/contrasenaNueva"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

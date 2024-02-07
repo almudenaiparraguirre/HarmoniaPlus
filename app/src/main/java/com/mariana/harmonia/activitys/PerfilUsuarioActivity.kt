@@ -16,6 +16,7 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.provider.Settings
 import android.text.TextUtils
@@ -28,6 +29,7 @@ import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -51,6 +53,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPrincipalBinding
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
+    private lateinit var pestanaTemporal: ImageView// Tiempo en milisegundos
+    lateinit var handler: Handler
+    lateinit var runnable: Runnable
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -77,8 +82,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
-        binding = ActivityPrincipalBinding.inflate(layoutInflater)
-       lapiz.setOnClickListener { requestPermission() }
+        //binding = ActivityPrincipalBinding.inflate(layoutInflater)
+        lapiz.setOnClickListener { requestPermission() }
 
         // Obtener el color promedio de la imagen
         val bitmap = (imagen.drawable as BitmapDrawable).bitmap
@@ -99,8 +104,26 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
+        //mostrarEtiquetaTemporal()
     }
 
+    /*private fun mostrarEtiquetaTemporal() {
+        // Hacer visible la etiqueta
+        pestanaTemporal?.visibility = View.VISIBLE
+        // Programar la ocultación después de un tiempo
+        runnable = Runnable {
+            pestanaTemporal.visibility = View.GONE
+        }
+
+        handler.postDelayed(runnable, TIEMPO_ETIQUETA_VISIBLE)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Cancelar la ejecución del runnable si la actividad se destruye antes de que termine el tiempo
+        handler.removeCallbacks(runnable)
+    }
+*/
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             when{

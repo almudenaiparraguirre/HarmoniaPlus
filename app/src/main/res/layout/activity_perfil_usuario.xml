@@ -77,16 +77,15 @@
 
     <ImageView
         android:id="@+id/lapiz_editar"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="20dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/button_google"
         android:clickable="true"
+        android:elevation="200dp"
         android:onClick="cargarImagen"
         android:src="@drawable/lapiz_editar_perfil"
         app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
-        app:layout_constraintRight_toRightOf="@+id/cardview_perfil"
-        android:elevation="200dp"/>
+        app:layout_constraintEnd_toEndOf="@+id/cardview_perfil" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_perfil"
@@ -94,6 +93,7 @@
         android:layout_height="100dp"
         android:elevation="10dp"
         app:cardCornerRadius="200dp"
+        android:background="@drawable/selector_imagen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -105,12 +105,13 @@
             android:id="@+id/roundedImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/blanco"
+            android:background="@drawable/selector_imagen"
             android:scaleType="centerCrop"
             android:src="@drawable/perfil_luis_golden"
-            app:cardCornerRadius="200dp" />
+            app:cardCornerRadius="200dp"/>
 
     </androidx.cardview.widget.CardView>
+
 
     <EditText
         android:id="@+id/nombre_usuario"
@@ -123,10 +124,10 @@
         android:textSize="25dp"
         android:background="@android:color/transparent"
         android:layout_gravity="center"
-    app:layout_constraintTop_toBottomOf="@+id/cardview_perfil"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
-    app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_perfil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         android:inputType="text|textNoSuggestions"
         android:maxLines="1"
         android:maxLength="20"/>
@@ -186,5 +187,7 @@
             android:layout_marginLeft="5dp"
             android:gravity="center"/>
     </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
