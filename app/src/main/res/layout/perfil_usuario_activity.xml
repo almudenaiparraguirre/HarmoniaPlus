@@ -12,12 +12,10 @@
         android:orientation="vertical">
 
         <!--LAYOUT SUPERIOR-->
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayoutID"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             tools:context=".activitys.PerfilUsuarioActivity">
 
 
@@ -26,15 +24,13 @@
             <ImageView
                 android:id="@+id/fondoMitadSuperiorBackground"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="350dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/style_fondo_perfil"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0" />
-
 
             <!--flecha-->
             <ImageView
@@ -65,16 +61,15 @@
             <!--Lapiz-->
             <ImageView
                 android:id="@+id/lapiz_editar"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="0dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:clickable="true"
-                android:elevation="200dp"
                 android:onClick="cargarImagen"
+                android:elevation="20dp"
                 android:src="@drawable/svg_lapiz_editar_perfil"
+                android:background="@drawable/rounded_white_background"
                 app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
-                app:layout_constraintRight_toRightOf="@+id/cardview_perfil" />
+                app:layout_constraintEnd_toEndOf="@+id/cardview_perfil" />
 
             <!--Foto Perfil-->
             <androidx.cardview.widget.CardView
@@ -136,7 +131,37 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nombre_usuario" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Se unió en abril de 2023"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/gmail_usuario"
+                android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:textColor="@color/gris"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/img_ico_reloj"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Se unió en abril de 2023"
+                    android:textAlignment="center"
+                    android:textColor="@color/gris"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
         <!-- LAYOUT INFERIOR -->
@@ -145,7 +170,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="15dp">
 
             <!-- CIRCULO NIVELES -->
             <LinearLayout

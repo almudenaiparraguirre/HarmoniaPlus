@@ -84,8 +84,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
-
-
     }
 
     private fun requestPermission() {

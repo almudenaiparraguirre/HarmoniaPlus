@@ -33,14 +33,14 @@
             android:exported="false" />
         <activity
             android:name=".activitys.EligeModoJuegoActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".activitys.PerfilUsuarioActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".activitys.iniciarSesion.escribirNuevaContrasenaActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activitys.iniciarSesion.EnvioCodigoActivity"
             android:exported="false"
