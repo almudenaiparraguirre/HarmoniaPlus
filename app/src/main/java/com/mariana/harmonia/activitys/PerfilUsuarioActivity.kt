@@ -77,7 +77,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
-        val fondoMitadSuperior = findViewById<ImageView>(R.id.fondoMitadSuperior)
+        val fondoMitadSuperior = findViewById<ImageView>(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
         val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
 
