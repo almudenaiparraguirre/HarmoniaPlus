@@ -25,60 +25,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <!-- Logo -->
+        <!-- Logo -->
 
-    <LinearLayout
-        android:id="@+id/TituloLogo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="10dp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <!-- LinearLayout con ImageView y TextView -->
         <LinearLayout
-            android:layout_marginVertical="20dp"
+            android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:orientation="vertical"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- ImageView a la izquierda -->
-            <ImageView
-                android:id="@+id/logoImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo_aplicacion"/>
+            <!-- LinearLayout con ImageView y TextView -->
+            <LinearLayout
+                android:layout_marginVertical="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-            <!-- TextView a la derecha -->
+                <!-- ImageView a la izquierda -->
+                <ImageView
+                    android:id="@+id/logoImageView"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_aplicacion"/>
+
+                <!-- TextView a la derecha -->
+                <TextView
+                    android:layout_gravity="bottom"
+                    android:id="@+id/titleTextView"
+                    style="@style/Fuente_TimesNewRoman"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  HARMONIA+"
+                    android:textColor="@color/rosa"
+                    android:textSize="45dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- TextView adicional debajo y centrado -->
             <TextView
-                android:layout_gravity="bottom"
-                android:id="@+id/titleTextView"
-                style="@style/Fuente_TimesNewRoman"
+
+                android:id="@+id/subTitleTextView"
+                android:layout_gravity="top|center"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="  HARMONIA+"
-                android:textColor="@color/rosa"
-                android:textSize="45dp"
-                android:textStyle="bold" />
+                android:text="Tu viaje musical comienza aquí"
+                android:textColor="@color/morado"
+                android:textSize="16sp" />
         </LinearLayout>
-
-        <!-- TextView adicional debajo y centrado -->
-        <TextView
-
-            android:id="@+id/subTitleTextView"
-            android:layout_gravity="top|center"
-            style="@style/Fuente_kameron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tu viaje musical comienza aquí"
-            android:textColor="@color/morado"
-            android:textSize="16sp" />
-    </LinearLayout>
 
 
         <LinearLayout
@@ -208,7 +208,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/degradado_button"
-            android:onClick="clickCrearCuenta"
+            android:onClick="botonCrearCuenta"
             android:padding="16dp"
             android:text="CREAR CUENTA"
             android:textColor="@color/blanco"

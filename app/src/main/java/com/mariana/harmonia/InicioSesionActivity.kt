@@ -64,10 +64,6 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
     }
 
 
-    fun clickCrearCuenta(view: View) {
-        //val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
 
 
     fun clickNoRecuerdasLaContraseña(view: View){
