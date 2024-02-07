@@ -24,16 +24,16 @@ import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 
-class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
+class MainActivity : AppCompatActivity(),PlantillaActivity {
 
-    private val TAG = "InicioSesionActivity"
+    private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_principal)
+        setContentView(R.layout.main_activity)
         colorearTexto(this, R.id.titleTextView)
         colorearTexto(this, R.id.registrateTextView)
         colorearTexto(this, R.id.recuerdasContrasena)
@@ -47,7 +47,7 @@ class InicioSesionActivity : AppCompatActivity(),PlantillaActivity {
     fun ComprobarSesion() {
         val firebaseUser = firebaseAuth.currentUser
 
-        if (firebaseUser == null && this !is InicioSesionActivity) {
+        if (firebaseUser == null && this !is MainActivity) {
             // No hay usuario autenticado y no estamos en la pantalla de inicio de sesión,
             // redirigir a la pantalla de inicio de sesión
         } else if (firebaseUser != null) {

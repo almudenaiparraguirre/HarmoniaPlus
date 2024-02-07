@@ -9,7 +9,7 @@ import android.text.SpannableStringBuilder
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -81,7 +81,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Volver al inicio de sesión (pantalla principal)
     fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

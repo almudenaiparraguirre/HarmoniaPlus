@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -18,7 +18,7 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), Plantil
 
     // FUN --> Iniciar sesión
     fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

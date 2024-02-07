@@ -54,7 +54,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".InicioSesionActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:icon="@drawable/img_ico_aplicacion"
             android:screenOrientation="portrait"></activity>

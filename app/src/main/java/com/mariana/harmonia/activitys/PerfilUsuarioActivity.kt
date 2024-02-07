@@ -25,7 +25,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 /*import com.mariana.harmonia.databinding.ActivityMain2Binding*/
-import com.mariana.harmonia.databinding.ActivityPrincipalBinding
+import com.mariana.harmonia.databinding.MainActivityBinding
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -33,7 +33,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         private const val PERMISSION_REQUEST_CODE = 123
     }
 
-    private lateinit var binding: ActivityPrincipalBinding
+    private lateinit var binding: MainActivityBinding
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
 
@@ -62,7 +62,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
-        binding = ActivityPrincipalBinding.inflate(layoutInflater)
+        binding = MainActivityBinding.inflate(layoutInflater)
        lapiz.setOnClickListener { requestPermission() }
 
         // Obtener el color promedio de la imagen

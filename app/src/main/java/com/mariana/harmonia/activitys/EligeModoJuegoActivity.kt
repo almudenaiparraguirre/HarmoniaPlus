@@ -9,7 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.iniciarSesion.NivelesAventuraActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -61,7 +61,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     // FUN --> Vuelve a la pantalla de inicio de sesión
     fun cerrarSesion(view: View) {
         firebaseAuth.signOut()
-        val intent = Intent(this, InicioSesionActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finishAffinity() // Cierra todas las actividades anteriores
     }

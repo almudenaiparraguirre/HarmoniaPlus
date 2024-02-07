@@ -8,7 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -83,7 +83,7 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Volver al inicio de sesión
     fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

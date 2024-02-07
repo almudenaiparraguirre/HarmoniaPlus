@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -98,7 +98,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Vuelve al inicio de sesión
     fun irIniciarSesion(view: View) {
-        val intent = Intent(this, InicioSesionActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

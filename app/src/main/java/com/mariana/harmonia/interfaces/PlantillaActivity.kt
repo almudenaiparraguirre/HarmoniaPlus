@@ -2,7 +2,7 @@ package com.mariana.harmonia.interfaces
 
 import android.app.Activity
 import android.content.Intent
-import com.mariana.harmonia.InicioSesionActivity
+import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.activitys.Utilidades
 
 interface PlantillaActivity {
@@ -12,7 +12,7 @@ interface PlantillaActivity {
     }
 
     fun IniciarSesion(activity: Activity) {
-        val intent = Intent(activity, InicioSesionActivity::class.java)
+        val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)
         activity.finish()
     }
