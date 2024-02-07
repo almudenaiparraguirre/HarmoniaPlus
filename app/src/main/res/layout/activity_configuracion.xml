@@ -37,7 +37,7 @@
         android:id="@+id/contrasenaTituloTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Contraseña"
+        android:text="Cambiar contraseña"
         style="@style/Fuente_kameron"
         android:textSize="22dp"
         android:textStyle="bold"
@@ -46,6 +46,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="40dp"/>
 
+
     <LinearLayout
         android:id="@+id/contrasenaActual"
         android:layout_width="wrap_content"
@@ -53,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/contrasenaTituloTextView"
         app:layout_constraintStart_toStartOf="@+id/contrasenaTituloTextView"
         android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginHorizontal="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/contrasenaActual"
         app:layout_constraintStart_toStartOf="@+id/contrasenaTituloTextView"
         android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="20dp">
+        android:layout_marginHorizontal="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,14 +96,94 @@
 
     </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:text="Efectos de sonido"
-            app:layout_constraintTop_toBottomOf="@+id/contrasenaNueva"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCambiarContrasena"
+        android:layout_width="178dp"
+        android:layout_height="40dp"
+        android:textColor="@color/blanco"
+        android:textSize="14sp"
+        android:text="Cambiar contraseña"
+        android:background="@drawable/degradado_button"
+        app:layout_constraintTop_toBottomOf="@id/contrasenaNueva"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp"/>
 
+    <TextView
+        android:id="@+id/efectosYMusica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Música y efectos de sonido"
+        style="@style/Fuente_kameron"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCambiarContrasena"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="40dp"/>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewEfectosSonido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/efectosYMusica"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switchEfectosSonido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="@string/efectos_de_sonido"
+                style="@style/Fuente_kameron"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml"
+                android:thumbTint="@color/grisClaro"
+                android:trackTint="@color/grisClaro"
+                android:switchMinWidth="48dp"
+                android:switchPadding="16dp" />
+
+            <Switch
+                android:id="@+id/switchSonidos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="@string/sfx"
+                style="@style/Fuente_kameron"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                tools:ignore="MissingConstraints,UseSwitchCompatOrMaterialXml"
+                android:thumbTint="@color/grisClaro"
+                android:trackTint="@color/grisClaro"
+                android:switchMinWidth="48dp"
+                android:switchPadding="16dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tema de la aplicación"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewEfectosSonido"
+        style="@style/Fuente_kameron" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

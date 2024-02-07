@@ -13,5 +13,6 @@
     <color name="rojo">#FC421A</color>
     <color name="rosa_perfil">#EEBCE3</color>
     <color name="fondo_default">#EEBCE3</color>
+    <color name="grisAjustes">#E1E1E1</color>
 
 </resources>
