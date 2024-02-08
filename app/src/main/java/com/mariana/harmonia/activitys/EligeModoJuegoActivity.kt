@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
+import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.iniciarSesion.NivelesAventuraActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
 
@@ -72,7 +72,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     // FUN --> Ir a los niveles de aventura
-    fun irModoAventura(){
+    fun irModoAventura(view: View){
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
     }

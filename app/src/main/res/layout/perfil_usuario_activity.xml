@@ -19,7 +19,6 @@
             android:layout_height="350dp"
             tools:context=".activitys.PerfilUsuarioActivity">
 
-
             <!-- Fondo general -->
 
             <ImageView

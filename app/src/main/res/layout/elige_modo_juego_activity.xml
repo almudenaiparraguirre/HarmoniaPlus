@@ -205,16 +205,16 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/style_button_degradado"
-        android:clickable="true"
         android:onClick="irModoAventura"
         android:padding="16dp"
         android:text="AVENTURA"
         android:textColor="@color/blanco"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eligeModo" />
 
     <androidx.appcompat.widget.AppCompatButton
