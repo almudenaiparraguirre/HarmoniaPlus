@@ -24,6 +24,7 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.dao.UserDao
 
 
+
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
     private val TAG = "MainActivity"
@@ -194,7 +195,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
 
 
     fun clickFireBase(view: View) {
-        val intent = Intent(this, InicioSesion::class.java)
+        val intent = Intent(this, pruebasActivity::class.java)
         startActivity(intent)
     }
 }
