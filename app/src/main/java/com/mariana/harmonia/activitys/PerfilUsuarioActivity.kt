@@ -44,6 +44,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             if (isGranted) {
                 abrirGaleria()
             } else {
+                abrirGaleria()
                 Toast.makeText(this, "Necesitas activar los permisos de la galería", Toast.LENGTH_SHORT).show()
             }
         }
