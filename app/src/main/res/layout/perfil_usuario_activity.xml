@@ -426,7 +426,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_icono_tiempo" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -511,7 +511,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_icono_niveles" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -596,7 +596,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_icono_musica" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -681,7 +681,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_icono_ritmo" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -766,7 +766,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_icono_oido" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -851,7 +851,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_reto_musica" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -936,7 +936,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_reto_oido" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -1021,7 +1021,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/img_perfil_luis_golden" />
+                                android:src="@drawable/svg_reto_ritmo" />
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
