@@ -8,14 +8,15 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Guideline
 import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
 
-     private val numBotones = 50
-     private lateinit var llBotonera: LinearLayout
-     private var botonCorrecto: Int = 0
-     private lateinit var menuSuperior: LinearLayout
+    private val numBotones = 50
+    private lateinit var llBotonera: LinearLayout
+    private var botonCorrecto: Int = 0
+    private lateinit var menuSuperior: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,33 +26,33 @@ class NivelesAventuraActivity : AppCompatActivity() {
         botonCorrecto = Random.nextInt(numBotones)
         menuSuperior = findViewById(R.id.llTopBar)
 
-            val lp = LinearLayout.LayoutParams(
-                resources.getDimensionPixelSize(R.dimen.button_width),
-                resources.getDimensionPixelSize(R.dimen.button_height)
-            )
+        val lp = LinearLayout.LayoutParams(
+            resources.getDimensionPixelSize(R.dimen.button_width),
+            resources.getDimensionPixelSize(R.dimen.button_height)
+        )
 
-            // Margen entre botones y margen superior
-            lp.setMargins(
-                0,
-                resources.getDimensionPixelSize(R.dimen.button_margin_top),
-                0,
-                resources.getDimensionPixelSize(R.dimen.button_margin)
-            )
+        // Margen entre botones y margen superior
+        lp.setMargins(
+            0,
+            resources.getDimensionPixelSize(R.dimen.button_margin_top),
+            0,
+            resources.getDimensionPixelSize(R.dimen.button_margin)
+        )
 
-            val constraintSet = ConstraintSet()
+        val constraintSet = ConstraintSet()
 
-            for (i in 0 until numBotones) {
-                val button = Button(this)
-                button.layoutParams = lp
-                button.text = String.format("%02d", i)
-                setRandomHorizontalPosition(button)
-                button.setOnClickListener(buttonClickListener(i))
+        for (i in 0 until numBotones) {
+            val button = Button(this)
+            button.layoutParams = lp
+            button.text = String.format("%02d", i)
+            setRandomVerticalPosition(button)
+            button.setOnClickListener(buttonClickListener(i))
 
-                // Cambia la forma del botón a redonda
-                button.setBackgroundResource(getRandomButtonDrawable())
+            // Cambia la forma del botón a redonda
+            button.setBackgroundResource(getRandomButtonDrawable())
 
-                llBotonera.addView(button)
-            }
+            llBotonera.addView(button)
+        }
     }
 
     private fun buttonClickListener(index: Int): View.OnClickListener? {
@@ -81,21 +82,37 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    private fun setRandomHorizontalPosition(button: Button) {
+    private fun setRandomVerticalPosition(button: Button) {
         val layoutParams = button.layoutParams as LinearLayout.LayoutParams
 
-        val horizontalOptions = listOf(
-            0.0f, // START
-            1.0f, // CENTER_HORIZONTAL
-            2.0f  // END
-        )
+        // Obtener el número de secciones
+        val numSecciones = 4 // Ajusta esto según la cantidad de secciones que desees
 
-        val randomWeight = horizontalOptions.random()
+        // Calcular la sección aleatoria
+        val randomSection = Random.nextInt(numSecciones)
 
-        layoutParams.apply {
-            weight = randomWeight
+        // Obtener la guía correspondiente a la sección
+        val guidelineId = when (randomSection) {
+            0 -> R.id.guideline1
+            1 -> R.id.guideline2
+            2 -> R.id.guideline3
+            else -> R.id.llBotonera4 // o app:layout_constraintTop_toBottomOf="@id/guideline3"
         }
+
+        // Obtener la posición vertical de la guía
+        val guidelinePosition = findViewById<View>(guidelineId).y
+
+        // Calcular la posición del botón
+        val buttonHeight = button.height
+        val randomPosition = Random.nextFloat() * guidelinePosition
+
+        // Configurar márgenes superiores e inferiores del botón
+        layoutParams.topMargin = randomPosition.toInt()
+        layoutParams.bottomMargin = guidelinePosition.toInt() - randomPosition.toInt() - buttonHeight
 
         button.layoutParams = layoutParams
     }
+
+
+
 }
