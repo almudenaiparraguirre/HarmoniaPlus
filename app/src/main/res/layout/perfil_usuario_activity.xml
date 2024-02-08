@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--LAYOUT SUPERIOR-->
+    <!--LAYOUT GENERAL-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/style_fondo_perfil_degradado">
 
         <!--LAYOUT SUPERIOR-->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             tools:context=".activitys.PerfilUsuarioActivity">
-
 
             <!-- Fondo general -->
 
@@ -63,11 +63,11 @@
                 android:id="@+id/lapiz_editar"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:clickable="true"
-                android:onClick="cargarImagen"
-                android:elevation="20dp"
-                android:src="@drawable/svg_lapiz_editar_perfil"
                 android:background="@drawable/rounded_white_background"
+                android:clickable="true"
+                android:elevation="20dp"
+                android:onClick="cargarImagen"
+                android:src="@drawable/svg_lapiz_editar_perfil"
                 app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
                 app:layout_constraintEnd_toEndOf="@+id/cardview_perfil" />
 
@@ -134,44 +134,43 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Se unió en abril de 2023"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/gmail_usuario"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:text="Se unió en abril de 2023"
                 android:textAlignment="center"
                 android:textColor="@color/gris"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gmail_usuario">
 
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/img_ico_reloj"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"/>
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
                     android:text="Se unió en abril de 2023"
                     android:textAlignment="center"
-                    android:textColor="@color/gris"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center"/>
+                    android:textColor="@color/gris" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         <!-- LAYOUT INFERIOR -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            tools:ignore="MissingConstraints"
-            android:layout_marginTop="15dp">
+            tools:ignore="MissingConstraints">
 
             <!-- CIRCULO NIVELES -->
             <LinearLayout
@@ -201,7 +200,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="Text" />
+                            android:text="3"
+                            android:textColor="@color/blanco"
+                            android:textSize="30dp"
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -211,7 +213,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Niveles "
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 
@@ -249,7 +253,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="Text" />
+                                android:text="88%"
+                                android:textColor="@color/blanco"
+                                android:textSize="30dp"
+                                android:textStyle="bold" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -258,7 +265,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Precision"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
 
@@ -282,14 +291,14 @@
                                 android:id="@+id/centerCircle"
                                 android:layout_width="150dp"
                                 android:layout_height="150dp"
-                                android:src="@drawable/img_circulo_base" />
+                                android:src="@drawable/img_foto_aprendiz" />
 
                             <TextView
                                 android:id="@+id/centerText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="Text" />
+                                android:text="" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -297,8 +306,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="EXP"
-                        android:textAlignment="center" />
+                        android:text="PRICIPIANTE"
+                        android:textAlignment="center"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- CIRCULO EXPERIENCIA -->
@@ -328,7 +339,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="Text" />
+                                android:text="44"
+                                android:textColor="@color/blanco"
+                                android:textSize="30dp"
+                                android:textStyle="bold" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -337,7 +351,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="EXP"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout><!-- Contenedor horizontal -->
 
@@ -345,9 +361,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="20dp">
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/rosa_claro"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_gravity="center"
+                    android:text="LOGROS"
+                    android:textAlignment="center"
+                    android:textColor="@color/moradoClaro"
+                    android:textSize="40dp"
+                    android:textStyle="bold">
+
+                </TextView>
                 <!-- Logro1 -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -358,11 +391,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="MAESTRO DEL DESAFÍO I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -389,24 +421,43 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Juega un total de 30 minutos"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -421,11 +472,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="CARRERA MUSICAL I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -452,24 +502,43 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Completa los primeros 5 niveles"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -484,11 +553,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="VIRTUOSO I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -515,24 +583,43 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Pasate un nivel musical sin fallar"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -547,11 +634,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="OIDO DE ÁGUILA"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -578,24 +664,43 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Pasate un nivel de oido sin fallar"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -610,11 +715,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="RITMO INVENCIBLE II"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -641,24 +745,43 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Pasate un nivel de ritmo sin fallar"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -673,11 +796,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TITULO"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
                         android:layout_marginStart="16dp"
-                        />
+                        android:text="HARMONIA CELESTIAL I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -704,24 +826,205 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
-                            android:layout_gravity="center"
                             android:orientation="vertical">
 
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Texto descriptivo"
+                                android:text="Consigue una racha de 30 seguidas en el modo desafío Melódico"
+                                android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- Logro7 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Título -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="OÍDO ABSOLUTO I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/style_menu_logro6"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <!-- ImageView a la izquierda -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="100dp">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/img_perfil_luis_golden" />
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Texto descriptivo con barra de porcentaje a la derecha -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                                android:text="Consigue una racha de 30 seguidas en el modo desafío Ritmico"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <!-- Logro8 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Título -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="METRONOMO I"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/style_menu_logro6"
+                        android:orientation="horizontal"
+                        android:padding="16dp">
+
+                        <!-- ImageView a la izquierda -->
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="100dp">
+
+                            <ImageView
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/img_perfil_luis_golden" />
+                        </androidx.cardview.widget.CardView>
+
+                        <!-- Texto descriptivo con barra de porcentaje a la derecha -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Consigue una racha de 30 seguidas en el modo desafío Auditivo"
+                                android:textAlignment="center"
+                                android:textSize="14sp" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro8"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
