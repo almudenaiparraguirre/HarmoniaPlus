@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#636BFF"/> <!-- Color rosa en hexadecimal -->
+    <corners android:radius="20dp"/> <!-- Ajusta el radio según tus preferencias para las esquinas redondeadas -->
+    <stroke
+        android:width="10dp"
+        android:color="#B8BCFF"/> <!-- El ancho y el color del borde -->
+</shape>

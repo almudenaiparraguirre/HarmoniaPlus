@@ -17,10 +17,12 @@
         >
         <activity
             android:name=".activitys.iniciarSesion.NivelesAventuraActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activitys.SplashScreenActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AnimatedSplash.MySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,10 +35,12 @@
             android:exported="false" />
         <activity
             android:name=".activitys.EligeModoJuegoActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activitys.PerfilUsuarioActivity"
-            android:exported="false"/>
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activitys.iniciarSesion.escribirNuevaContrasenaActivity"
             android:exported="false"
@@ -62,10 +66,7 @@
             android:name=".activitys.InicioSesion"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activitys.MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activitys.iniciarSesion.RegistroActivity"
             android:exported="false"
