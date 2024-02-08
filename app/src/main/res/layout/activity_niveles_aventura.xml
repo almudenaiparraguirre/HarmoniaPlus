@@ -6,9 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".NivelesAventuraActivity">
 
+    <LinearLayout
+        android:id="@+id/llTopBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/rosa_perfil"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    <!-- Foto de perfil -->
+    <ImageView
+        android:id="@+id/imagenPerfil"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/img_perfil_luis_golden"
+        android:padding="8dp"/>
+
+    <!-- Llama con número -->
+    <RelativeLayout
+        android:id="@+id/llamaLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <!-- Imagen de la llama -->
+        <ImageView
+            android:id="@+id/imagenLlama"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/llama"/>
+
+        <!-- Número en la llama -->
+        <TextView
+            android:id="@+id/numeroLlama"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="99"
+            android:textColor="#ffffff"
+            android:layout_toEndOf="@id/imagenLlama"
+            android:layout_marginStart="4dp"/>
+        </RelativeLayout>
+
+    <!-- Gemas -->
+    <ImageView
+        android:id="@+id/imagenGemas"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/gema"
+        android:padding="8dp"/>
+
+    <!-- Corazón con vidas -->
+    <ImageView
+        android:id="@+id/imagenCorazon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/vidas"
+        android:padding="8dp"/>
+</LinearLayout>
+
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/llTopBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
