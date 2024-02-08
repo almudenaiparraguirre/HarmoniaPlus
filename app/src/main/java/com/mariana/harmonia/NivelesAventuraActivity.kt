@@ -12,17 +12,18 @@ import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
 
-    private val numBotones = 200
+     private val numBotones = 50
      private lateinit var llBotonera: LinearLayout
      private var botonCorrecto: Int = 0
+     private lateinit var menuSuperior: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
 
-
         llBotonera = findViewById(R.id.llBotonera)
-            botonCorrecto = Random.nextInt(numBotones)
+        botonCorrecto = Random.nextInt(numBotones)
+        menuSuperior = findViewById(R.id.llTopBar)
 
             val lp = LinearLayout.LayoutParams(
                 resources.getDimensionPixelSize(R.dimen.button_width),
@@ -42,14 +43,12 @@ class NivelesAventuraActivity : AppCompatActivity() {
             for (i in 0 until numBotones) {
                 val button = Button(this)
                 button.layoutParams = lp
-                button.text = "Botón " + String.format("%02d", i)
+                button.text = String.format("%02d", i)
+                setRandomHorizontalPosition(button)
                 button.setOnClickListener(buttonClickListener(i))
 
                 // Cambia la forma del botón a redonda
                 button.setBackgroundResource(getRandomButtonDrawable())
-
-                // Ajusta la gravedad aleatoriamente
-                //setRandomGravity(button)
 
                 llBotonera.addView(button)
             }
@@ -82,28 +81,19 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    fun setRandomGravity(button: Button) {
-        val layoutParams = button.layoutParams as ConstraintLayout.LayoutParams
+    private fun setRandomHorizontalPosition(button: Button) {
+        val layoutParams = button.layoutParams as LinearLayout.LayoutParams
 
-        val gravityOptions = listOf(
-            ConstraintLayout.LayoutParams.END,
-            ConstraintLayout.LayoutParams.START
+        val horizontalOptions = listOf(
+            0.0f, // START
+            1.0f, // CENTER_HORIZONTAL
+            2.0f  // END
         )
 
-        val randomGravity = gravityOptions[Random.nextInt(gravityOptions.size)]
+        val randomWeight = horizontalOptions.random()
 
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-
-        when (randomGravity) {
-            ConstraintLayout.LayoutParams.END -> {
-                layoutParams.endToEnd = ConstraintLayout.LayoutParams.UNSET
-                layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-            }
-            ConstraintLayout.LayoutParams.START -> {
-                layoutParams.startToStart = ConstraintLayout.LayoutParams.UNSET
-                layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-            }
+        layoutParams.apply {
+            weight = randomWeight
         }
 
         button.layoutParams = layoutParams
