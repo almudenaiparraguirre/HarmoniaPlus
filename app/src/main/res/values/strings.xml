@@ -11,5 +11,10 @@
     <string name="default_web_client_id">1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com</string>
     <string name="efectos_de_sonido">Música</string>
     <string name="sfx">Efectos de sonido</string>
+        <string-array name="theme_options">
+            <item>Predeterminado</item>
+            <item>Claro</item>
+            <item>Oscuro</item>
+        </string-array>
 
 </resources>

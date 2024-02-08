@@ -6,7 +6,9 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -33,6 +35,13 @@ class ConfiguracionActivity : AppCompatActivity() {
         buttonCambiarContra.setOnClickListener {
             mediaPlayer.start()
         }
+
+        /*val spinner: Spinner = findViewById(R.id.themeSpinner)
+        val themeOptions = resources.getStringArray(R.array.theme_options)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeOptions)
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter*/
     }
 
     private fun configurarSwitchColor(switch: Switch) {
