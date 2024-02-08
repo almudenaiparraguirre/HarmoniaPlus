@@ -8,14 +8,15 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.Firebase
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 import com.mariana.harmonia.models.entity.User
-import com.mariana.harmonia.models.dao.UserDao
 
 
 
@@ -29,6 +30,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        val db = Firebase.firestore
 
     }
 
@@ -53,6 +55,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         val nombreTextView = findViewById<TextView>(R.id.editText2)
         val nombre = nombreTextView.text.toString()
 
+
         // 2. Validar los campos
         if (email.isEmpty() || contraseña.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
@@ -76,7 +79,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         }
 
         // 5. Llamar a una función para registrar al usuario en Firebase
-        registrarUsuarioEnFirebase(email, contraseña)
+        registrarUsuarioEnFirebase(email, contraseña,nombre)
     }
 
     // FUN --> Validar la contraseña
@@ -85,29 +88,27 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         return regex.matches(contraseña)
     }
 
-    private fun registrarUsuarioEnFirebase(email: String, contraseña: String) {
+    private fun registrarUsuarioEnFirebase(email: String, contraseña: String,nombre: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Registro exitoso
-                    val user = User(email = email)
-                    val db = FirebaseFirestore.getInstance()
-                    db.collection("usuarios")
-                        .add(user)
-                        .addOnSuccessListener { documentReference ->
-                            Log.d(TAG, "Usuario agregado con ID: ${documentReference.id}")
-                            val intent = Intent(this, MainActivity::class.java)
-                            //startActivity(intent)
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error al agregar usuario", e)
-                            Toast.makeText(this, "Error al agregar usuario", Toast.LENGTH_SHORT).show()
-                        }
+                    val user = User(email = email,name = nombre )
+
+                    // Llamar al método para crear la colección si no existe
+                    UserDao.createUsersCollectionIfNotExists()
+
+                    // Llamar al método addUser de UserDao para agregar el usuario
+                    UserDao.addUser(user)
+
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     // Manejar caso en el que falla el registro
                     Toast.makeText(this, "Error al registrar usuario: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
 }
