@@ -14,10 +14,13 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
@@ -53,7 +56,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
-
+       // cargarEstadisticasLogros()
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         val fondoMitadSuperior = findViewById<ImageView>(R.id.roundedImageView)
@@ -85,7 +88,65 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
+
+
     }
+
+    private fun cargarEstadisticasLogros() {
+        // Porcentaje barra Experiencia
+            val progressBar1 = findViewById<ProgressBar>(R.id.progressBarLogro1)
+        val porcentajeTextView1 = findViewById<TextView>(R.id.TextViewLogro1)
+        val progressBar2 = findViewById<ProgressBar>(R.id.progressBarLogro2)
+        val porcentajeTextView2 = findViewById<TextView>(R.id.TextViewLogro2)
+        val progressBar3 = findViewById<ProgressBar>(R.id.progressBarLogro3)
+        val porcentajeTextView3 = findViewById<TextView>(R.id.TextViewLogro3)
+        val progressBar4 = findViewById<ProgressBar>(R.id.progressBarLogro4)
+        val porcentajeTextView4 = findViewById<TextView>(R.id.TextViewLogro4)
+        val progressBar5 = findViewById<ProgressBar>(R.id.progressBarLogro5)
+        val porcentajeTextView5 = findViewById<TextView>(R.id.TextViewLogro5)
+        val progressBar6 = findViewById<ProgressBar>(R.id.progressBarLogro6)
+        val porcentajeTextView6 = findViewById<TextView>(R.id.TextViewLogro6)
+        val progressBar7= findViewById<ProgressBar>(R.id.progressBarLogro7)
+        val porcentajeTextView7 = findViewById<TextView>(R.id.TextViewLogro7)
+        val progressBar8 = findViewById<ProgressBar>(R.id.progressBarLogro8)
+        val porcentajeTextView8 = findViewById<TextView>(R.id.TextViewLogro8)
+
+        // Puedes actualizar el porcentaje directamente
+        val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
+        progressBar1.progress = porcentaje
+        porcentajeTextView1.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar2.progress = porcentaje
+        porcentajeTextView2.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar3.progress = porcentaje
+        porcentajeTextView3.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar4.progress = porcentaje
+        porcentajeTextView4.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar5.progress = porcentaje
+        porcentajeTextView5.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar6.progress = porcentaje
+        porcentajeTextView6.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar7.progress = porcentaje
+        porcentajeTextView7.text = "${porcentaje.toFloat() / 100}"
+
+        progressBar8.progress = porcentaje
+        porcentajeTextView8.text = "${porcentaje.toFloat() / 100}"
+
+        val imageView: ImageView = findViewById(R.id.fondoImageView)
+
+        // Cargar la animación desde el archivo XML
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+
+        // Aplicar la animación al ImageView
+        imageView.startAnimation(anim)
+    }
+
+
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
