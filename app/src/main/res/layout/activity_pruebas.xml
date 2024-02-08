@@ -1,0 +1,129 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/moradoClaro">
+
+    <!-- Negras -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/notaDo_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_do_"
+            />
+
+        <ImageView
+            android:id="@+id/notaRe_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_re_"
+            />
+
+        <ImageView
+            android:id="@+id/notaComodin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_negracomodin" />
+
+        <ImageView
+            android:id="@+id/notaFa_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_fa_"
+             />
+
+        <ImageView
+            android:id="@+id/notaSol_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_sol_"
+            />
+
+        <ImageView
+            android:id="@+id/notaLa_"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_la_"
+            />
+
+    </LinearLayout>
+
+    <!-- Blancas -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/notaDo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_do"
+            />
+
+        <ImageView
+            android:id="@+id/notaRe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_re"
+            />
+
+        <ImageView
+            android:id="@+id/notaMi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_mi"
+            />
+
+        <ImageView
+            android:id="@+id/notaFa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_fa"
+            />
+
+        <ImageView
+            android:id="@+id/notaSol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_sol"
+             />
+
+        <ImageView
+            android:id="@+id/notaLa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_la"
+             />
+
+        <ImageView
+            android:id="@+id/notaSi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/svg_tecla_si"
+             />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
