@@ -36,6 +36,23 @@ class UserDao {
             }
         }
 
-        // Otros métodos de UserDao...
+        fun getUserField(email: String, fieldName: String, onSuccess: (Any) -> Unit, onFailure: (Exception) -> Unit) {
+            usersCollection.document(email).get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val field = document.get(fieldName)
+                        if (field != null) {
+                            onSuccess.invoke(field)
+                        } else {
+                            onFailure.invoke(Exception("El campo $fieldName no existe en el documento"))
+                        }
+                    } else {
+                        onFailure.invoke(Exception("No se encontró el documento para el usuario con email: $email"))
+                    }
+                }
+                .addOnFailureListener { e ->
+                    onFailure.invoke(e)
+                }
+        }
     }
 }

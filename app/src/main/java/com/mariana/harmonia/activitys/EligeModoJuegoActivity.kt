@@ -1,7 +1,9 @@
 package com.mariana.harmonia.activitys
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -14,10 +16,11 @@ import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
-
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var nombreModoDeJuegoTextView: TextView
+
     companion object {
         private const val PREFS_NAME = "MyPrefsFile"
         private const val SESSION_KEY = "isSessionActive"
@@ -30,7 +33,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         //colorearTexto(this, R.id.titleTextView)
         firebaseAuth = FirebaseAuth.getInstance()
         Utilidades.colorearTexto(this, R.id.titleTextView)
-
+        nombreModoDeJuegoTextView = findViewById(R.id.nombreModoDeJuego)
+        // Llamar al método para obtener el nombre del modo de juego y actualizar el TextView
+        obtenerNombreModoDeJuego()
 
         //porcentaje barra Experiencia
 
@@ -76,4 +81,28 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
     }
+
+    private fun obtenerNombreModoDeJuego() {
+        // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
+        val email = "pruebabd1@gmail,com" //
+        try {
+            UserDao.getUserField(email, "name",
+                onSuccess = { name ->
+                    runOnUiThread {
+                        nombreModoDeJuegoTextView.text = name as? CharSequence ?: ""
+
+                    }
+                },
+                onFailure = { exception ->
+                    Log.e(TAG, "Error al obtener el nombre del modo de juego: ${exception.message}", exception)
+                    nombreModoDeJuegoTextView.text = "fallo"
+
+                }
+            )
+        } catch (e: Exception) {
+            Log.e(TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
+            nombreModoDeJuegoTextView.text = "fallo"
+        }
+    }
+
 }
