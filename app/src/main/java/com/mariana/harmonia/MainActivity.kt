@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
     private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +38,10 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
 
         //Inicializar firebase
         firebaseAuth = FirebaseAuth.getInstance()
-        ComprobarSesion()
+        comprobarSesion(firebaseAuth)
     }
 
-
-    fun ComprobarSesion() {
+    fun comprobarSesion(firebaseAuth: FirebaseAuth) {
         val firebaseUser = firebaseAuth.currentUser
 
         if (firebaseUser == null && this !is MainActivity) {
@@ -59,8 +56,6 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
     }
 
 
-
-
     fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
         startActivity(intent)
@@ -70,9 +65,9 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
     }
+
     fun irIniciarSesion(view: View) {
 
-        val btnIngresar: Button = findViewById(R.id.botonIniciarSesion)
         val Email: TextView = findViewById(R.id.editText1)
         val contrasena: TextView = findViewById(R.id.editText2)
 
@@ -110,7 +105,6 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
                     Toast.makeText(baseContext, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 }
             }
-
     }
 
 
