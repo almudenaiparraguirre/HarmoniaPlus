@@ -435,13 +435,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -499,13 +516,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -563,13 +597,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -627,13 +678,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -691,13 +759,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro5"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -755,13 +840,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro6"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -819,13 +921,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro7"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -883,13 +1002,30 @@
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
 
-                            <ProgressBar
-                                style="@android:style/Widget.ProgressBar.Horizontal"
-                                android:progressDrawable="@drawable/style_progressbar"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:progress="50" />
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressBarLogro8"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    style="@style/MiProgressBarHorizontal"
+                                    android:max="100"
+                                    android:min="0"
+                                    android:progress="50"
+                                    android:progressDrawable="@drawable/style_progressbar" />
+
+                                <TextView
+                                    android:id="@+id/TextViewLogro8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
 
                         </LinearLayout>
                     </LinearLayout>
