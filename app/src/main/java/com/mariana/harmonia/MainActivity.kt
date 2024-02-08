@@ -21,6 +21,7 @@ import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.models.dao.UserDao
 
 
 class MainActivity : AppCompatActivity(),PlantillaActivity {
@@ -99,6 +100,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
                     Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, EligeModoJuegoActivity::class.java)
                     startActivity(intent)
+
                     finish()
                 } else {
                     Log.e("InicioSesion", "Error al iniciar sesión", task.exception)

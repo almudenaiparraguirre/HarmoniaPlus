@@ -1,8 +1,10 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +13,10 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.mariana.harmonia.models.entity.User
+import com.mariana.harmonia.models.dao.UserDao
+
 
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
@@ -44,6 +50,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         val contraseñaTextView = findViewById<TextView>(R.id.editText3)
         val email = emailTextView.text.toString()
         val contraseña = contraseñaTextView.text.toString()
+        val nombreTextView = findViewById<TextView>(R.id.editText2)
+        val nombre = nombreTextView.text.toString()
 
         // 2. Validar los campos
         if (email.isEmpty() || contraseña.isEmpty()) {
@@ -82,12 +90,24 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Registro exitoso
-                   /* val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)*/
+                    val user = User(email = email)
+                    val db = FirebaseFirestore.getInstance()
+                    db.collection("usuarios")
+                        .add(user)
+                        .addOnSuccessListener { documentReference ->
+                            Log.d(TAG, "Usuario agregado con ID: ${documentReference.id}")
+                            val intent = Intent(this, MainActivity::class.java)
+                            //startActivity(intent)
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error al agregar usuario", e)
+                            Toast.makeText(this, "Error al agregar usuario", Toast.LENGTH_SHORT).show()
+                        }
                 } else {
                     // Manejar caso en el que falla el registro
                     Toast.makeText(this, "Error al registrar usuario: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 }
