@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
     }
 
     fun clickFireBase(view: View) {
-        val intent = Intent(this, pruebasActivity::class.java)
+        val intent = Intent(this, InicioSesion::class.java)
         startActivity(intent)
     }
 }

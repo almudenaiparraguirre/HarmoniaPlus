@@ -13,6 +13,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.pruebasActivity
 
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
@@ -76,4 +77,11 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
     }
+
+    fun irDesafio(view: View){
+        val intent = Intent(this, pruebasActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }

@@ -17,12 +17,20 @@
         app:layout_constraintEnd_toEndOf="parent">
 
     <!-- Foto de perfil -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="100dp"
+
+            >
     <ImageView
         android:id="@+id/imagenPerfil"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/img_perfil_luis_golden"
         android:padding="8dp"/>
+        </androidx.cardview.widget.CardView>
 
     <!-- Llama con número -->
     <RelativeLayout
@@ -37,7 +45,7 @@
             android:id="@+id/imagenLlama"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/llama"/>
+            android:src="@drawable/img_llama"/>
 
         <!-- Número en la llama -->
         <TextView
@@ -55,7 +63,7 @@
         android:id="@+id/imagenGemas"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/gema"
+        android:src="@drawable/img_gema"
         android:padding="8dp"/>
 
     <!-- Corazón con vidas -->
@@ -63,7 +71,7 @@
         android:id="@+id/imagenCorazon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/vidas"
+        android:src="@drawable/svg_corazon"
         android:padding="8dp"/>
 </LinearLayout>
 

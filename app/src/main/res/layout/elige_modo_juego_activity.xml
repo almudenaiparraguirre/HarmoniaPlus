@@ -224,7 +224,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:background="@drawable/style_button_degradado"
-        android:onClick="clickConfirmarCodigo"
+        android:onClick="irDesafio"
         android:padding="16dp"
         android:text="DESAFÍO"
         android:textColor="@color/blanco"
