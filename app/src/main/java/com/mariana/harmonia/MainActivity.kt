@@ -22,9 +22,6 @@ import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 
-
-
-
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
     private val TAG = "MainActivity"
@@ -110,13 +107,10 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             }
     }
 
-
-
-
-
     fun irSalir(view: View) {
         Utilidades.salirAplicacion(this)
     }
+
     override fun onBackPressed() {
         Utilidades.salirAplicacion(this)
         super.onBackPressed()
@@ -192,7 +186,6 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             Toast.makeText(this, "Error durante la autenticación con Google", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     fun clickFireBase(view: View) {
         val intent = Intent(this, pruebasActivity::class.java)

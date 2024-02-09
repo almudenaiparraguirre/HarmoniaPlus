@@ -230,6 +230,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewCerrarSesion"
+                android:clickable="true"
                 android:text="ELIMINAR MI CUENTA"
                 style="@style/Fuente_kameron"
                 android:textColor="@color/rojo"
