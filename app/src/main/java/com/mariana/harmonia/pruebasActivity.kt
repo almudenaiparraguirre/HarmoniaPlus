@@ -317,51 +317,62 @@ class pruebasActivity : AppCompatActivity() {
 
     private fun soltarDo() {
         Log.d("pruebasActivity", "Se ha soltado la nota Do")
+        actualizarFondoBlancas(R.id.notaDo, R.drawable.svg_tecla_do, this)
     }
 
     private fun soltarRe_b() {
         Log.d("pruebasActivity", "Se ha soltado la nota reB")
-        actualizarFondoNegras(R.id.fondoReB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoReB, R.drawable.sytle_degradado_fondo_piano)
     }
 
     private fun soltarRe() {
         Log.d("pruebasActivity", "Se ha soltado la nota Re")
+        actualizarFondoBlancas(R.id.notaRe, R.drawable.svg_tecla_re, this)
     }
 
     private fun soltarMi_b() {
         Log.d("pruebasActivity", "Se ha soltado la nota Mib")
+        actualizarFondoNegras(R.id.fondoMiB, R.drawable.sytle_degradado_fondo_piano)
     }
 
     private fun soltarMi() {
         Log.d("pruebasActivity", "Se ha soltado la nota Mi")
+        actualizarFondoBlancas(R.id.notaMi, R.drawable.svg_tecla_mi, this)
     }
 
     private fun soltarFa() {
         Log.d("pruebasActivity", "Se ha soltado la nota Fa")
+        actualizarFondoBlancas(R.id.notaFa, R.drawable.svg_tecla_fa, this)
     }
 
     private fun soltarSol_b() {
         Log.d("pruebasActivity", "Se ha soltado la nota Solb")
+        actualizarFondoNegras(R.id.fondoSolB, R.drawable.sytle_degradado_fondo_piano)
     }
 
     private fun soltarSol() {
         Log.d("pruebasActivity", "Se ha soltado la nota Sol")
+        actualizarFondoBlancas(R.id.notaSol, R.drawable.svg_tecla_sol, this)
     }
 
     private fun soltarLa_b() {
         Log.d("pruebasActivity", "Se ha soltado la nota Lab")
+        actualizarFondoNegras(R.id.fondoLaB, R.drawable.sytle_degradado_fondo_piano)
     }
 
     private fun soltarLa() {
         Log.d("pruebasActivity", "Se ha soltado la nota La")
+        actualizarFondoBlancas(R.id.notaLa, R.drawable.svg_tecla_la, this)
     }
 
     private fun soltarSi_b() {
         Log.d("pruebasActivity", "Se ha soltado la nota Sib")
+        actualizarFondoNegras(R.id.fondoSiB, R.drawable.sytle_degradado_fondo_piano)
     }
 
     private fun soltarSi() {
         Log.d("pruebasActivity", "Se ha soltado la nota Si")
+        actualizarFondoBlancas(R.id.notaSi, R.drawable.svg_tecla_si, this)
     }
 
 }

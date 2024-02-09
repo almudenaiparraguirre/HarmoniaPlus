@@ -5,7 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/moradoClaro">
 
-
+    <RelativeLayout
+        android:id="@+id/piano"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,7 +141,7 @@
         <ImageView
             android:id="@+id/notaRe_b"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
 
             />
@@ -145,7 +149,7 @@
         <ImageView
             android:id="@+id/notaMi_b"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
 
             />
@@ -153,7 +157,7 @@
         <ImageView
             android:id="@+id/notaComodin"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             />
 
@@ -161,7 +165,7 @@
         <ImageView
             android:id="@+id/notaSol_b"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
 
             />
@@ -169,7 +173,7 @@
         <ImageView
             android:id="@+id/notaLa_b"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
 
             />
@@ -177,13 +181,13 @@
         <ImageView
             android:id="@+id/notaSi_b"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_weight="1"
             />
 
     </LinearLayout>
 
-
+    </RelativeLayout>
 
 </RelativeLayout>
 
