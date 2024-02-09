@@ -217,6 +217,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/themeSpinner"
                 android:text="CERRAR SESIÓN"
+                android:clickable="true"
+                android:onClick="cerrarSesionConfig"
                 style="@style/Fuente_kameron"
                 android:textColor="@color/gris"
                 android:textStyle="bold"
