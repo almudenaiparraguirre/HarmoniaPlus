@@ -56,7 +56,7 @@
                     style="@style/Fuente_TimesNewRoman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  HARMONIA+"
+                    android:text="  HARMONÍA+"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />

@@ -1,6 +1,7 @@
 package com.mariana.harmonia
 
 import android.graphics.drawable.StateListDrawable
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.print.PrintAttributes.Margins
@@ -22,6 +23,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var llBotonera: LinearLayout
     private var botonCorrecto: Int = 0
     private lateinit var menuSuperior: LinearLayout
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +96,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
             botonCorrecto = Random.nextInt(numBotones)
         }
     }
-
 
     private fun getRandomButtonDrawable(): Int {
         val buttonDrawables = listOf(

@@ -9,7 +9,6 @@
     android:background="@drawable/style_fondo_degradado">
 
     <ImageView
-
         android:id="@+id/fondoImageView"
         android:layout_width="1000dp"
         android:layout_height="1000dp"
@@ -63,8 +62,6 @@
                         android:clickable="true"
                         android:onClick="menu_perfil"
                         android:src="@drawable/img_perfil_luis_golden" />
-
-
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -102,7 +99,6 @@
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -117,9 +113,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal">
         </LinearLayout>
-
-
-
             <TextView
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
@@ -133,10 +126,6 @@
                 android:textColor="@color/morado"
                 android:textSize="14dp"
                 android:background="@drawable/rounded_left"/>
-
-
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -174,13 +163,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="  HARMONIA+"
+                android:text="  HARMONÍA+"
                 android:textColor="@color/rosa"
                 android:textSize="45dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-
     </LinearLayout>
 
     <TextView
@@ -233,9 +220,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAventura" />
 
-
-
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/botonOpciones"
         android:layout_width="200dp"
@@ -251,7 +235,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonChallenge" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

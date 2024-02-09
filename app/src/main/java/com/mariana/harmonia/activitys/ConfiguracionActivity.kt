@@ -21,16 +21,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
-import com.mariana.harmonia.Manifest
 import com.mariana.harmonia.R
 import com.mariana.harmonia.databinding.InicioSesionActivityBinding
 
 class ConfiguracionActivity : AppCompatActivity() {
 
-    private lateinit var checkBoxGaleria: CheckBox
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var buttonCambiarContra: Button
-    private lateinit var switchEfectosSonido: Switch
+    private lateinit var switchMusica: Switch
     private lateinit var switchOtraOpcion: Switch
     private lateinit var textViewEliminarCuenta: TextView
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -38,21 +36,34 @@ class ConfiguracionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configuracion_activity)
-        switchEfectosSonido = findViewById(R.id.switchEfectosSonido)
+        switchMusica = findViewById(R.id.switchMusica)
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
-        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         textViewEliminarCuenta = findViewById(R.id.textViewEliminarCuenta)
 
-        configurarSwitchColor(switchEfectosSonido)
+        configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
 
         buttonCambiarContra.setOnClickListener {
+            mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
             mediaPlayer.start()
         }
 
         textViewEliminarCuenta.setOnClickListener {
             mostrarDialogoConfirmacion()
+        }
+
+        val switchEfectosSonido = findViewById<Switch>(R.id.switchMusica)
+
+        switchEfectosSonido.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
+                mediaPlayer.start()
+            } else {
+                mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
+                mediaPlayer.pause()
+                mediaPlayer.seekTo(0) // Reinicia la reproducción al principio
+            }
         }
 
         /*val spinner: Spinner = findViewById(R.id.themeSpinner)
@@ -66,7 +77,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Cuenta")
-        builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.")
+        builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás todos los progresos")
         builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
             eliminarMiCuenta()
         }

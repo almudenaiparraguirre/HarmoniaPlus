@@ -1,6 +1,7 @@
 package com.mariana.harmonia.activitys
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -19,6 +20,7 @@ import com.mariana.harmonia.pruebasActivity
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var mediaPlayer: MediaPlayer
     companion object {
         private const val PREFS_NAME = "MyPrefsFile"
         private const val SESSION_KEY = "isSessionActive"
@@ -31,7 +33,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         //colorearTexto(this, R.id.titleTextView)
         firebaseAuth = FirebaseAuth.getInstance()
         Utilidades.colorearTexto(this, R.id.titleTextView)
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //porcentaje barra Experiencia
 

@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="  HARMONIA+"
+                    android:text="  HARMONÍA+"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />
@@ -244,14 +244,12 @@
 
         <LinearLayout
             android:id="@+id/registrate"
-            android:layout_width="262dp"
+            android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_gravity="bottom|center"
-            android:layout_margin="20dp"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.564"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
             tools:ignore="UnknownId">
@@ -279,7 +277,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/salirTextView"
             style="@style/Fuente_kameron"
             android:layout_width="wrap_content"
@@ -293,7 +291,7 @@
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrate" />
+            app:layout_constraintTop_toBottomOf="@id/registrate" /> -->
 
         <Button
             android:id="@+id/pruebaFirebase"
@@ -304,7 +302,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/salirTextView"
+            app:layout_constraintTop_toBottomOf="@+id/registrate"
             android:onClick="clickFireBase"
 
             />
