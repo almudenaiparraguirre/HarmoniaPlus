@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo del botón presionado con sombra -->
+    <item android:drawable="@color/negro" />
+    <!-- Sombra -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rosa_perfil" />
+            <corners android:radius="8dp" /> <!-- Ajusta el radio según sea necesario -->
+        </shape>
+    </item>
+</layer-list>
