@@ -1,7 +1,10 @@
 package com.mariana.harmonia
 
+import android.graphics.drawable.StateListDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.print.PrintAttributes.Margins
+import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
@@ -9,6 +12,8 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.view.marginLeft
+import androidx.core.view.marginTop
 import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
@@ -39,18 +44,34 @@ class NivelesAventuraActivity : AppCompatActivity() {
             resources.getDimensionPixelSize(R.dimen.button_margin)
         )
 
-        val constraintSet = ConstraintSet()
-
         for (i in 0 until numBotones) {
             val button = Button(this)
-            button.layoutParams = lp
             button.text = String.format("%02d", i)
-            setRandomVerticalPosition(button)
+
+            // Crear un nuevo conjunto de parámetros de diseño para cada botón
+            val lp = LinearLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.button_width),
+                resources.getDimensionPixelSize(R.dimen.button_height)
+            )
+
+            // Configurar el margen aleatorio
+            val randomMargin =
+                Random.nextInt(0, resources.getDimensionPixelSize(R.dimen.max_margin))
+            lp.setMargins(
+                if (i % 2 == 0) randomMargin else 0,
+                resources.getDimensionPixelSize(R.dimen.button_margin_top),
+                if (i % 2 != 0) randomMargin else 0,
+                lp.bottomMargin
+            )
+
+            // Configurar la gravedad
+            lp.gravity = Gravity.CENTER
+
+            button.layoutParams = lp
+
             button.setOnClickListener(buttonClickListener(i))
 
-            // Cambia la forma del botón a redonda
             button.setBackgroundResource(getRandomButtonDrawable())
-
             llBotonera.addView(button)
         }
     }
@@ -82,7 +103,34 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    private fun setRandomVerticalPosition(button: Button) {
+    /*private fun setRandomHorizontalPosition(button: Button, index: Int) {
+        val layoutParams = button.layoutParams as LinearLayout.LayoutParams
+
+        // Obtener el tamaño de la pantalla
+        val screenWidth = resources.displayMetrics.widthPixels
+
+        // Calcular la posición aleatoria
+        val margin = resources.getDimensionPixelSize(R.dimen.button_margin)
+        val buttonWidth = layoutParams.width
+        val leftMargin: Int
+
+        if (index % 2 == 0) {
+            // Si es par, colocar a la derecha
+            leftMargin = Random.nextInt(screenWidth - buttonWidth - margin, screenWidth - buttonWidth)
+        } else {
+            // Si es impar, colocar a la izquierda
+            leftMargin = Random.nextInt(margin, screenWidth / 2)
+        }
+
+        // Configurar márgenes
+        layoutParams.leftMargin = leftMargin
+
+        // Aplicar cambios
+        button.layoutParams = layoutParams
+    }*/
+
+
+    /*private fun setRandomVerticalPosition(button: Button) {
         val layoutParams = button.layoutParams as LinearLayout.LayoutParams
 
         // Obtener el número de secciones
@@ -100,19 +148,16 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
 
         // Obtener la posición vertical de la guía
-        val guidelinePosition = findViewById<View>(guidelineId).y
+        val guidelinePosition = findViewById<Guideline>(guidelineId).layoutParams.height
 
         // Calcular la posición del botón
         val buttonHeight = button.height
         val randomPosition = Random.nextFloat() * guidelinePosition
 
         // Configurar márgenes superiores e inferiores del botón
-        layoutParams.topMargin = randomPosition.toInt()
-        layoutParams.bottomMargin = guidelinePosition.toInt() - randomPosition.toInt() - buttonHeight
+        layoutParams.topMargin = (randomPosition * guidelinePosition * buttonHeight).toInt()
+        layoutParams.bottomMargin = (guidelinePosition - randomPosition) * guidelinePosition * buttonHeight).toInt() - buttonHeight
 
         button.layoutParams = layoutParams
-    }
-
-
-
+    }*/
 }
