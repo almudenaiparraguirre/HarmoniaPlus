@@ -6,27 +6,55 @@
     android:background="@color/moradoClaro">
 
 
-    <!-- fondo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        >
+        android:layout_marginHorizontal="10dp">
 
         <View
             android:id="@+id/fondoReB"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="300dp"
-            android:background="@drawable/sytle_degradado_fondo_piano"/>
-        <View
-            android:id="@+id/blackRectangle"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_weight="1"
             android:background="@drawable/sytle_degradado_fondo_piano"/>
 
+        <View
+            android:id="@+id/fondoMiB"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@drawable/sytle_degradado_fondo_piano"/>
+
+        <View
+            android:id="@+id/fondoFaB"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@drawable/sytle_degradado_fondo_piano"/>
+
+        <View
+            android:id="@+id/fondoSolB"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@drawable/sytle_degradado_fondo_piano"/>
+
+        <View
+            android:id="@+id/fondoLaB"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@drawable/sytle_degradado_fondo_piano"/>
+
+        <View
+            android:id="@+id/fondoSiB"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            android:background="@drawable/sytle_degradado_fondo_piano"/>
 
     </LinearLayout>
-
 
     <!-- Blancas -->
     <LinearLayout
@@ -77,7 +105,7 @@
             android:layout_weight="1"
             android:src="@drawable/svg_tecla_sol"
             android:scaleType="fitXY"
-             />
+            />
 
         <ImageView
             android:id="@+id/notaLa"
@@ -86,7 +114,7 @@
             android:layout_weight="1"
             android:src="@drawable/svg_tecla_la"
             android:scaleType="fitXY"
-             />
+            />
 
         <ImageView
             android:id="@+id/notaSi"
@@ -95,7 +123,7 @@
             android:layout_weight="1"
             android:src="@drawable/svg_tecla_si"
             android:scaleType="fitXY"
-             />
+            />
 
     </LinearLayout>
     <!-- Negras -->
@@ -151,10 +179,10 @@
             android:layout_width="0dp"
             android:layout_height="150dp"
             android:layout_weight="1"
-
             />
 
     </LinearLayout>
+
 
 
 </RelativeLayout>
