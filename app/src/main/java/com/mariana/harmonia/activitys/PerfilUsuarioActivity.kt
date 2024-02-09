@@ -233,7 +233,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
 
-
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)

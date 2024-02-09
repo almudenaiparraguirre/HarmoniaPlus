@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
@@ -11,18 +12,22 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
+import com.mariana.harmonia.Manifest
 import com.mariana.harmonia.R
 import com.mariana.harmonia.databinding.InicioSesionActivityBinding
 
 class ConfiguracionActivity : AppCompatActivity() {
 
+    private lateinit var checkBoxGaleria: CheckBox
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var buttonCambiarContra: Button
     private lateinit var switchEfectosSonido: Switch
@@ -96,16 +101,19 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun eliminarMiCuenta() {
+    fun cerrarSesionConfig(view: View){
         auth.signOut()
-
-        Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
-
-        // Cambiar al MainActivity o a la pantalla de inicio de sesión
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
+    }
 
-        // Finalizar la actividad actual
+    private fun eliminarMiCuenta() {
+        auth.signOut()
+        Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
+
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }
