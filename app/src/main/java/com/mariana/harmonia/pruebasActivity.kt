@@ -4,7 +4,6 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 
 class pruebasActivity : AppCompatActivity() {
@@ -13,11 +12,11 @@ class pruebasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pruebas)
 
 
-        findViewById<ImageView>(R.id.notaDo_).setOnClickListener { clickDo() }
-        findViewById<ImageView>(R.id.notaRe_).setOnClickListener { clickRe() }
-        findViewById<ImageView>(R.id.notaFa_).setOnClickListener { clickFa() }
-        findViewById<ImageView>(R.id.notaSol_).setOnClickListener { clickSol() }
-        findViewById<ImageView>(R.id.notaLa_).setOnClickListener { clickLa() }
+        findViewById<ImageView>(R.id.notaRe_b).setOnClickListener { clickRe_b() }
+        findViewById<ImageView>(R.id.notaMi_b).setOnClickListener { clickMi_b() }
+        findViewById<ImageView>(R.id.notaSol_b).setOnClickListener { clickSol_b() }
+        findViewById<ImageView>(R.id.notaLa_b).setOnClickListener { clickLa_b() }
+        findViewById<ImageView>(R.id.notaSi_b).setOnClickListener { clickSi_b() }
 
         findViewById<ImageView>(R.id.notaDo).setOnClickListener { clickDo() }
         findViewById<ImageView>(R.id.notaRe).setOnClickListener { clickRe() }
@@ -30,70 +29,78 @@ class pruebasActivity : AppCompatActivity() {
     }
 
     private fun playSound(soundFile: String) {
-        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
+        val mediaPlayer =
+            MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
+        val volume = 1f
+        mediaPlayer.setVolume(volume, volume)
         mediaPlayer.start()
         mediaPlayer.setOnCompletionListener { mediaPlayer.release() }
     }
+
     private fun clickDo() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Do")
-        playSound("note_do")
+        playSound("c4")
+    }
+
+    fun clickRe_b() {
+        Log.d("pruebasActivity", "Se ha hecho clic en el método Reb")
+        playSound("db4")
     }
 
     private fun clickRe() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Re")
-        playSound("note_re")
+        playSound("d4")
     }
+
+
+    fun clickMi_b() {
+        Log.d("pruebasActivity", "Se ha hecho clic en el método Mib")
+        playSound("eb4")
+    }
+
 
     private fun clickMi() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Mi")
-        playSound("note_mi")
+        playSound("e4")
     }
 
     private fun clickFa() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Fa")
-        playSound("note_fa")
+        playSound("f4")
+    }
+
+    fun clickSol_b() {
+        Log.d("pruebasActivity", "Se ha hecho clic en el método Solb")
+        playSound("gb4")
     }
 
     private fun clickSol() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Sol")
-        playSound("note_sol")
+        playSound("g4")
+    }
+
+
+    fun clickLa_b() {
+        Log.d("pruebasActivity", "Se ha hecho clic en el método Lab")
+        playSound("ab4")
     }
 
     private fun clickLa() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota La")
-        playSound("note_la")
+        playSound("a4")
+    }
+
+    fun clickSi_b() {
+        Log.d("pruebasActivity", "Se ha hecho clic en el método Sib")
+        playSound("bb4")
     }
 
     private fun clickSi() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Si")
-        playSound("note_si")
+        playSound("b4")
     }
 
-        // Métodos correspondientes a los onClick definidos en el XML para las notas negras
+    // Métodos correspondientes a los onClick definidos en el XML para las notas negras
 
-        fun clickDo_(view: View) {
-            Log.d("pruebasActivity", "Se ha hecho clic en el método clickDo_")
-            // Lógica para cuando se haga clic en la nota Do_
-        }
-
-        fun clickRe_(view: View) {
-            Log.d("pruebasActivity", "Se ha hecho clic en el método clickRe_")
-            // Lógica para cuando se haga clic en la nota Re_
-        }
-
-        fun clickFa_(view: View) {
-            Log.d("pruebasActivity", "Se ha hecho clic en el método clickFa_")
-            // Lógica para cuando se haga clic en la nota Fa_
-        }
-
-        fun clickSol_(view: View) {
-            Log.d("pruebasActivity", "Se ha hecho clic en el método clickSol_")
-            // Lógica para cuando se haga clic en la nota Sol_
-        }
-
-        fun clickLa_(view: View) {
-            Log.d("pruebasActivity", "Se ha hecho clic en el método clickLa_")
-            // Lógica para cuando se haga clic en la nota La_
-        }
 
 }
