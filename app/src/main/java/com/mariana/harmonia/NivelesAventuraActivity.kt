@@ -48,7 +48,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         for (i in 0 until numBotones) {
             val button = Button(this)
-            button.text = String.format("%02d", i)
+            button.text = String.format("%2d", i)
 
             // Crear un nuevo conjunto de parámetros de diseño para cada botón
             val lp = LinearLayout.LayoutParams(
