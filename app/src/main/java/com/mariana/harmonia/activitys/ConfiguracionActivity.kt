@@ -55,13 +55,25 @@ class ConfiguracionActivity : AppCompatActivity() {
 
         switchMusica.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                val thumbColor = ContextCompat.getColor(this, R.color.rosa)
+                val trackColor = ContextCompat.getColor(this, R.color.rosa)
+
                 mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
                 mediaPlayer.start()
+
+                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             } else {
+                val thumbColor = ContextCompat.getColor(this, R.color.gris)
+                val trackColor = ContextCompat.getColor(this, R.color.grisClaro)
+
                 if (mediaPlayer.isPlaying){
                     mediaPlayer.pause()
                     mediaPlayer.seekTo(0)
                 }
+
+                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             }
         }
 
