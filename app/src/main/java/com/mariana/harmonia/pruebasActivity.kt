@@ -9,11 +9,13 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 
 class pruebasActivity : AppCompatActivity() {
+    private lateinit var imagenNota: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
@@ -33,6 +35,8 @@ class pruebasActivity : AppCompatActivity() {
         val notaSol = findViewById<ImageView>(R.id.notaSol)
         val notaLa = findViewById<ImageView>(R.id.notaLa)
         val notaSi = findViewById<ImageView>(R.id.notaSi)
+
+        imagenNota = findViewById(R.id.imagenNota)
 
         //Activamos los listeners
 
@@ -208,7 +212,21 @@ class pruebasActivity : AppCompatActivity() {
     }
 
 
+     private fun cambiarImagen(nombreArchivo: String) {
+        // Obtén el ID de la imagen utilizando el nombre del archivo
+        val idImagen = resources.getIdentifier(nombreArchivo, "drawable", packageName)
 
+        // Verifica si el ID de la imagen es válido
+        if (idImagen != 0) {
+            // Cambia la imagen del ImageView
+            imagenNota.setImageResource(idImagen)
+        } else {
+            // Si no se encuentra la imagen, puedes manejar el error aquí
+            // Por ejemplo, podrías cargar una imagen de error predeterminada
+            // o mostrar un mensaje de error al usuario
+            Toast.makeText(this, "Imagen no encontrada", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun playSound(soundFile: String) {
         val mediaPlayer =
@@ -240,6 +258,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Do")
         playSound("c4")
         actualizarFondoBlancas(R.id.notaDo, R.drawable.svg_tecla_do_clicada, this)
+        cambiarImagen("nota_6d")
     }
 
     fun clickRe_b() {
