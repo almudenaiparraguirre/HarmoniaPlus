@@ -1,5 +1,7 @@
 package com.mariana.harmonia
 
+import android.content.Intent
+import android.graphics.Color
 import android.graphics.drawable.StateListDrawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
+import io.grpc.Context
 import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
@@ -47,8 +50,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         )
 
         for (i in 0 until numBotones) {
+
             val button = Button(this)
-            button.text = String.format("%02d", i)
+            button.text = String.format("%2d", i)
 
             // Crear un nuevo conjunto de parámetros de diseño para cada botón
             val lp = LinearLayout.LayoutParams(
@@ -66,34 +70,26 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 lp.bottomMargin
             )
 
+            if(i > 1){
+                button.isEnabled = false
+            }
+            else{
+                button.setOnClickListener{
+                    Toast.makeText(this, "Nivel desbloqueado", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, pruebasActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
             // Configurar la gravedad
             lp.gravity = Gravity.CENTER
 
             button.layoutParams = lp
 
-            button.setOnClickListener(buttonClickListener(i))
+            //button.setOnClickListener(buttonClickListener(i))
 
             button.setBackgroundResource(getRandomButtonDrawable())
             llBotonera.addView(button)
-        }
-    }
-
-    private fun buttonClickListener(index: Int): View.OnClickListener? {
-        return View.OnClickListener {
-            if (index == botonCorrecto) {
-                Toast.makeText(
-                    this@NivelesAventuraActivity,
-                    "¡ME ENCONTRASTE!!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                Toast.makeText(
-                    this@NivelesAventuraActivity,
-                    "Sigue buscando",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            botonCorrecto = Random.nextInt(numBotones)
         }
     }
 
@@ -103,62 +99,4 @@ class NivelesAventuraActivity : AppCompatActivity() {
         )
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
-
-    /*private fun setRandomHorizontalPosition(button: Button, index: Int) {
-        val layoutParams = button.layoutParams as LinearLayout.LayoutParams
-
-        // Obtener el tamaño de la pantalla
-        val screenWidth = resources.displayMetrics.widthPixels
-
-        // Calcular la posición aleatoria
-        val margin = resources.getDimensionPixelSize(R.dimen.button_margin)
-        val buttonWidth = layoutParams.width
-        val leftMargin: Int
-
-        if (index % 2 == 0) {
-            // Si es par, colocar a la derecha
-            leftMargin = Random.nextInt(screenWidth - buttonWidth - margin, screenWidth - buttonWidth)
-        } else {
-            // Si es impar, colocar a la izquierda
-            leftMargin = Random.nextInt(margin, screenWidth / 2)
-        }
-
-        // Configurar márgenes
-        layoutParams.leftMargin = leftMargin
-
-        // Aplicar cambios
-        button.layoutParams = layoutParams
-    }*/
-
-
-    /*private fun setRandomVerticalPosition(button: Button) {
-        val layoutParams = button.layoutParams as LinearLayout.LayoutParams
-
-        // Obtener el número de secciones
-        val numSecciones = 4 // Ajusta esto según la cantidad de secciones que desees
-
-        // Calcular la sección aleatoria
-        val randomSection = Random.nextInt(numSecciones)
-
-        // Obtener la guía correspondiente a la sección
-        val guidelineId = when (randomSection) {
-            0 -> R.id.guideline1
-            1 -> R.id.guideline2
-            2 -> R.id.guideline3
-            else -> R.id.llBotonera4 // o app:layout_constraintTop_toBottomOf="@id/guideline3"
-        }
-
-        // Obtener la posición vertical de la guía
-        val guidelinePosition = findViewById<Guideline>(guidelineId).layoutParams.height
-
-        // Calcular la posición del botón
-        val buttonHeight = button.height
-        val randomPosition = Random.nextFloat() * guidelinePosition
-
-        // Configurar márgenes superiores e inferiores del botón
-        layoutParams.topMargin = (randomPosition * guidelinePosition * buttonHeight).toInt()
-        layoutParams.bottomMargin = (guidelinePosition - randomPosition) * guidelinePosition * buttonHeight).toInt() - buttonHeight
-
-        button.layoutParams = layoutParams
-    }*/
 }

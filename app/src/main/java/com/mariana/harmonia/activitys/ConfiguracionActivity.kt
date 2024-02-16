@@ -53,25 +53,29 @@ class ConfiguracionActivity : AppCompatActivity() {
             mostrarDialogoConfirmacion()
         }
 
-        val switchEfectosSonido = findViewById<Switch>(R.id.switchMusica)
-
-        switchEfectosSonido.setOnCheckedChangeListener { _, isChecked ->
+        switchMusica.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                val thumbColor = ContextCompat.getColor(this, R.color.rosa)
+                val trackColor = ContextCompat.getColor(this, R.color.rosa)
+
                 mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
                 mediaPlayer.start()
+
+                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             } else {
-                mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
-                mediaPlayer.pause()
-                mediaPlayer.seekTo(0) // Reinicia la reproducción al principio
+                val thumbColor = ContextCompat.getColor(this, R.color.gris)
+                val trackColor = ContextCompat.getColor(this, R.color.grisClaro)
+
+                if (mediaPlayer.isPlaying){
+                    mediaPlayer.pause()
+                    mediaPlayer.seekTo(0)
+                }
+
+                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             }
         }
-
-        /*val spinner: Spinner = findViewById(R.id.themeSpinner)
-        val themeOptions = resources.getStringArray(R.array.theme_options)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeOptions)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter*/
     }
 
     private fun mostrarDialogoConfirmacion() {
@@ -92,13 +96,13 @@ class ConfiguracionActivity : AppCompatActivity() {
     private fun configurarSwitchColor(switch: Switch) {
         switch.setOnCheckedChangeListener { _, isChecked ->
             val thumbColor = if (isChecked) {
-                ContextCompat.getColor(this, R.color.rosa_claro)
+                ContextCompat.getColor(this, R.color.rosa)
             } else {
-                ContextCompat.getColor(this, R.color.grisClaro)
+                ContextCompat.getColor(this, R.color.gris)
             }
 
             val trackColor = if (isChecked) {
-                ContextCompat.getColor(this, R.color.rosa_claro)
+                ContextCompat.getColor(this, R.color.rosa)
             } else {
                 ContextCompat.getColor(this, R.color.grisClaro)
             }

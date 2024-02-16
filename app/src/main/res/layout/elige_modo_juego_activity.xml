@@ -16,7 +16,7 @@
         android:scaleType="centerCrop"
         android:scaleX="0.8"
         android:scaleY="0.8"
-        android:src="@drawable/img_fondo_2x2"
+        android:src="@mipmap/img_fondo_2x2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                         android:layout_gravity="center"
                         android:clickable="true"
                         android:onClick="menu_perfil"
-                        android:src="@drawable/img_perfil_luis_golden" />
+                        android:src="@mipmap/img_perfil_luis_golden" />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
@@ -154,7 +154,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_ico_aplicacion" />
+                android:src="@mipmap/img_ico_aplicacion" />
 
             <!-- TextView a la derecha -->
             <TextView

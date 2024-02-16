@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_fondo"
+        android:src="@mipmap/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5" />
 
@@ -47,7 +47,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_ico_aplicacion"/>
+                    android:src="@mipmap/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
