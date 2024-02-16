@@ -72,7 +72,7 @@
                 android:id="@+id/imagenNota"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/nota_6c" />
+                android:src="@drawable/nota_6d" />
         </RelativeLayout>
 
 
