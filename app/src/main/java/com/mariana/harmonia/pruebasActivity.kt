@@ -1,10 +1,12 @@
 package com.mariana.harmonia
 
-import android.content.Context
+import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -12,8 +14,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
-import org.w3c.dom.Text
 
 
 class pruebasActivity : AppCompatActivity() {
@@ -28,7 +28,8 @@ class pruebasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
         // Las notas del nivel
-        notasArray = arrayOf("4c","4d", "4e", "4f", "4g", "4a", "4b","5c","5d", "5e", "5f", "5g", "5a", "5b",)
+        notasArray = arrayOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e", "4d", "4e", "5f", "4g", "5g", "5e", "4f", "4b", "5a", "4c", "5g", "4a", "4d", "5c", "4e", "5f", "5b", "4c", "5d", "4a", "5c", "5d", "4f", "5a", "4g", "5f", "4e", "5a", "4b", "5g", "4d", "5c", "4b", "5e", "4f", "5a", "4d", "5g", "4e", "5b", "4f", "5e", "4c", "5f", "4a", "5c", "4g", "5b", "4e", "5d", "4c", "5f", "4d", "5g", "4a", "5e", "4b", "5g", "4c", "5d", "4f", "5a", "4e", "5b", "4d", "5c", "4f", "5e", "4g")
+
 
 
         // Click notas negras
@@ -243,11 +244,10 @@ class pruebasActivity : AppCompatActivity() {
 
                 aciertos = aciertos?.plus(1)
                 cambiarImagen(notasArray[aciertos!!].toString())
-
-
                 cambiarTexto(nombreNota)
+                animacionAcierto()
             } else {
-                // La nota no coincide
+                animacionFallo()
             }
         } else {
             // El índice está fuera del rango del array notasArray se termina la partida
@@ -272,6 +272,39 @@ class pruebasActivity : AppCompatActivity() {
             Toast.makeText(this, "Imagen no encontrada", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun animacionAcierto() {
+        // Cambiar color a verde instantáneamente
+        playSound("correcto")
+        textViewNota.setTextColor(Color.GREEN)
+
+        // Animación para volver al color original con desvanecido
+        val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.GREEN, Color.BLACK)
+        animacion.duration = 1000
+        animacion.start()
+
+        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
+        Handler().postDelayed({
+            cambiarTexto("...")
+        }, 1000) // 1000 milisegundos = 1 segundo
+    }
+
+    fun animacionFallo() {
+        // Cambiar color a verde instantáneamentes
+        playSound("incorrecto")
+        textViewNota.setTextColor(Color.RED)
+
+        // Animación para volver al color original con desvanecido
+        val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.RED, Color.BLACK)
+        animacion.duration = 1000
+        animacion.start()
+
+        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
+        Handler().postDelayed({
+            cambiarTexto("...")
+        }, 1000) // 1000 milisegundos = 1 segundo
+    }
+
 
     private fun playSound(soundFile: String) {
         val mediaPlayer =
