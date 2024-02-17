@@ -77,20 +77,20 @@
 
 
         <RelativeLayout
-            android:id="@+id/layoutTexto"
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
             <TextView
+                android:id="@+id/layoutTexto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Sol"
                 android:textAlignment="center"
                 android:textColor="@color/negro"
-                android:textSize="100dp">
+                android:textSize="100dp" />
 
-            </TextView>
         </RelativeLayout>
+
 
 
     </LinearLayout>

@@ -9,16 +9,27 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import org.w3c.dom.Text
 
 
 class pruebasActivity : AppCompatActivity() {
     private lateinit var imagenNota: ImageView
+    private lateinit var textViewNota: TextView
+    private var intentos: Int? = 0
+    private var aciertos: Int? = 0
+    private lateinit var notasArray: Array<String?>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
+        // Las notas del nivel
+        notasArray = arrayOf("4c","4d", "4e", "4f", "4g", "4a", "4b","5c","5d", "5e", "5f", "5g", "5a", "5b",)
+
 
         // Click notas negras
         val notaRe_b = findViewById<ImageView>(R.id.notaRe_b)
@@ -37,6 +48,14 @@ class pruebasActivity : AppCompatActivity() {
         val notaSi = findViewById<ImageView>(R.id.notaSi)
 
         imagenNota = findViewById(R.id.imagenNota)
+        textViewNota = findViewById(R.id.layoutTexto)
+
+
+        //Condiciones iniciales
+        cambiarImagen(notasArray[0].toString())
+        cambiarTexto("...")
+
+
 
         //Activamos los listeners
 
@@ -212,18 +231,44 @@ class pruebasActivity : AppCompatActivity() {
     }
 
 
-     private fun cambiarImagen(nombreArchivo: String) {
-        // Obtén el ID de la imagen utilizando el nombre del archivo
-        val idImagen = resources.getIdentifier(nombreArchivo, "drawable", packageName)
+    private fun comprobarJugada(nombreNota: String) {
+        //sumamos una a intentos
+        intentos = intentos?.plus(1)
 
-        // Verifica si el ID de la imagen es válido
+        //comprobamos si el array se ha terminado
+
+        if (aciertos != null && aciertos!! < notasArray.size) {
+            //Si la nota es la indicada entra
+            if ( notasArray[(aciertos!!)]!!.substring(1) == nombreNota) {
+
+                aciertos = aciertos?.plus(1)
+                cambiarImagen(notasArray[aciertos!!].toString())
+
+
+                cambiarTexto(nombreNota)
+            } else {
+                // La nota no coincide
+            }
+        } else {
+            // El índice está fuera del rango del array notasArray se termina la partida
+            terminarPartida()
+        }
+    }
+
+    private fun terminarPartida() {
+        Log.d("pruebasActivity", "Se termino la partida ya que se termino el array")
+    }
+
+
+    private fun cambiarTexto(texto: String) {
+        textViewNota.text = texto
+    }
+
+    private fun cambiarImagen(nombreArchivo: String) {
+        val idImagen = resources.getIdentifier("nota_"+ nombreArchivo, "drawable", packageName)
         if (idImagen != 0) {
-            // Cambia la imagen del ImageView
             imagenNota.setImageResource(idImagen)
         } else {
-            // Si no se encuentra la imagen, puedes manejar el error aquí
-            // Por ejemplo, podrías cargar una imagen de error predeterminada
-            // o mostrar un mensaje de error al usuario
             Toast.makeText(this, "Imagen no encontrada", Toast.LENGTH_SHORT).show()
         }
     }
@@ -256,83 +301,108 @@ class pruebasActivity : AppCompatActivity() {
 
     private fun clickDo() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Do")
+
         playSound("c4")
         actualizarFondoBlancas(R.id.notaDo, R.drawable.svg_tecla_do_clicada, this)
         cambiarImagen("nota_6d")
+        comprobarJugada("c")
     }
 
     fun clickRe_b() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Reb")
+
         playSound("db4")
         actualizarFondoNegras(R.id.fondoReB, R.drawable.style_buttond_egradado_suave)
+        comprobarJugada("db")
     }
 
     private fun clickRe() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Re")
+
         playSound("d4")
         actualizarFondoBlancas(R.id.notaRe, R.drawable.svg_tecla_re_clicada, this)
+        comprobarJugada("d")
     }
 
 
     fun clickMi_b() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Mib")
+
         playSound("eb4")
         actualizarFondoNegras(R.id.fondoMiB, R.drawable.style_buttond_egradado_suave)
+        comprobarJugada("mb")
     }
 
 
     private fun clickMi() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Mi")
+
         playSound("e4")
         actualizarFondoBlancas(R.id.notaMi, R.drawable.svg_tecla_mi_clicada, this)
+        comprobarJugada("e")
     }
 
     private fun clickFa() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Fa")
+
         playSound("f4")
         actualizarFondoBlancas(R.id.notaFa, R.drawable.svg_tecla_fa_clicada, this)
+        comprobarJugada("f")
     }
 
     fun clickSol_b() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Solb")
+
         playSound("gb4")
         actualizarFondoNegras(R.id.fondoSolB, R.drawable.style_buttond_egradado_suave)
+        comprobarJugada("gb")
     }
 
     private fun clickSol() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Sol")
+
         playSound("g4")
         actualizarFondoBlancas(R.id.notaSol, R.drawable.svg_tecla_sol_clicada, this)
+        comprobarJugada("g")
     }
 
 
     fun clickLa_b() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Lab")
+
         playSound("ab4")
         actualizarFondoNegras(R.id.fondoLaB, R.drawable.style_buttond_egradado_suave)
+        comprobarJugada("ab")
 
     }
 
     private fun clickLa() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota La")
+
         playSound("a4")
         actualizarFondoBlancas(R.id.notaLa, R.drawable.svg_tecla_la_clicada, this)
+        comprobarJugada("a")
+
     }
 
     fun clickSi_b() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Sib")
+
         playSound("bb4")
         actualizarFondoNegras(R.id.fondoSiB, R.drawable.style_buttond_egradado_suave)
+        comprobarJugada("bb")
     }
 
     private fun clickSi() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Si")
+
         playSound("b4")
         actualizarFondoBlancas(R.id.notaSi, R.drawable.svg_tecla_si_clicada, this)
+        comprobarJugada("b")
     }
 
 
-        //Soltar
+    //Soltar
 
     private fun soltarDo() {
         Log.d("pruebasActivity", "Se ha soltado la nota Do")
