@@ -22,19 +22,23 @@
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:onClick="clickAtras"
                 android:src="@mipmap/img_ico_volver_atras" />
 
             <TextView
+                android:id="@+id/tituloTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:layout_marginHorizontal="30dp"
                 android:text="Nivel 3-100"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/contadorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -67,7 +71,6 @@
                 android:src="@drawable/pentagama" />
 
 
-
             <ImageView
                 android:id="@+id/imagenNota"
                 android:layout_width="match_parent"
@@ -78,7 +81,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="150dp">
 
             <TextView
                 android:id="@+id/layoutTexto"
@@ -92,6 +95,34 @@
         </RelativeLayout>
 
 
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:context=".MainActivity">
+
+            <ProgressBar
+                android:id="@+id/tiempoProgressBar"
+                style="@style/MiProgressBarHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:progress="20"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/style_tiempo_progress_bar" />
+
+            <ImageView
+                android:id="@+id/imageMarker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:src="@mipmap/img_gema"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -161,8 +192,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaDo"
@@ -175,13 +206,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Do"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Do"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -189,8 +220,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaRe"
@@ -203,14 +234,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Re"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Re"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
 
-                    android:textAlignment="center"/>
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -218,8 +249,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaMi"
@@ -232,13 +263,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mi"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Mi"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -246,8 +277,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaFa"
@@ -260,13 +291,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fa"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Fa"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -274,8 +305,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaSol"
@@ -288,13 +319,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sol"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Sol"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -302,8 +333,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaLa"
@@ -316,13 +347,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="La"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="La"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 
@@ -330,8 +361,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/notaSi"
@@ -344,13 +375,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Si"
-                    android:textSize="20dp"
-                    android:textColor="@color/negro"
-                    android:layout_marginBottom="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:textAlignment="center"/>
+                    android:layout_marginBottom="10dp"
+                    android:text="Si"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
             </RelativeLayout>
 

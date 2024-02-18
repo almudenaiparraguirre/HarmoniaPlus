@@ -141,13 +141,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView8.text = "$porcentaje8/100"
 
 
-        /* val imageView: ImageView = findViewById(R.id.fondoImageView)
 
-         // Cargar la animación desde el archivo XML
-         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
-
-         // Aplicar la animación al ImageView
-         imageView.startAnimation(anim)*/
 
     }
 

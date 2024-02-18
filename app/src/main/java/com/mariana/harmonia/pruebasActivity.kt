@@ -1,16 +1,24 @@
 package com.mariana.harmonia
 
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.graphics.Color
+
+
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -19,18 +27,115 @@ import androidx.core.content.ContextCompat
 class pruebasActivity : AppCompatActivity() {
     private lateinit var imagenNota: ImageView
     private lateinit var textViewNota: TextView
+    private lateinit var contadorTextView: TextView
+    private lateinit var tituloTextView: TextView
+    private lateinit var tiempoProgressBar: ProgressBar
+    private lateinit var imagenProgressBar: ImageView
+
+    private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
+    private var tiempo: Int? = 60
+    private var notasTotales: Int? = 0
     private lateinit var notasArray: Array<String?>
+    private val handler = Handler(Looper.getMainLooper())
 
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
         // Las notas del nivel
-        notasArray = arrayOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e", "4d", "4e", "5f", "4g", "5g", "5e", "4f", "4b", "5a", "4c", "5g", "4a", "4d", "5c", "4e", "5f", "5b", "4c", "5d", "4a", "5c", "5d", "4f", "5a", "4g", "5f", "4e", "5a", "4b", "5g", "4d", "5c", "4b", "5e", "4f", "5a", "4d", "5g", "4e", "5b", "4f", "5e", "4c", "5f", "4a", "5c", "4g", "5b", "4e", "5d", "4c", "5f", "4d", "5g", "4a", "5e", "4b", "5g", "4c", "5d", "4f", "5a", "4e", "5b", "4d", "5c", "4f", "5e", "4g")
-
-
+        notasArray = arrayOf(
+            "5a",
+            "5f",
+            "4a",
+            "5b",
+            "4d",
+            "5e",
+            "4f",
+            "4c",
+            "5g",
+            "4b",
+            "5d",
+            "4e",
+            "5b",
+            "4g",
+            "5d",
+            "4b",
+            "5c",
+            "5e",
+            "4d",
+            "4e",
+            "5f",
+            "4g",
+            "5g",
+            "5e",
+            "4f",
+            "4b",
+            "5a",
+            "4c",
+            "5g",
+            "4a",
+            "4d",
+            "5c",
+            "4e",
+            "5f",
+            "5b",
+            "4c",
+            "5d",
+            "4a",
+            "5c",
+            "5d",
+            "4f",
+            "5a",
+            "4g",
+            "5f",
+            "4e",
+            "5a",
+            "4b",
+            "5g",
+            "4d",
+            "5c",
+            "4b",
+            "5e",
+            "4f",
+            "5a",
+            "4d",
+            "5g",
+            "4e",
+            "5b",
+            "4f",
+            "5e",
+            "4c",
+            "5f",
+            "4a",
+            "5c",
+            "4g",
+            "5b",
+            "4e",
+            "5d",
+            "4c",
+            "5f",
+            "4d",
+            "5g",
+            "4a",
+            "5e",
+            "4b",
+            "5g",
+            "4c",
+            "5d",
+            "4f",
+            "5a",
+            "4e",
+            "5b",
+            "4d",
+            "5c",
+            "4f",
+            "5e",
+            "4g"
+        )
+        notasTotales = notasArray.size
 
         // Click notas negras
         val notaRe_b = findViewById<ImageView>(R.id.notaRe_b)
@@ -50,13 +155,34 @@ class pruebasActivity : AppCompatActivity() {
 
         imagenNota = findViewById(R.id.imagenNota)
         textViewNota = findViewById(R.id.layoutTexto)
+        contadorTextView = findViewById(R.id.contadorTextView)
+        tituloTextView = findViewById(R.id.tituloTextView)
+        tiempoProgressBar = findViewById<ProgressBar>(R.id.tiempoProgressBar)
+        imagenProgressBar = findViewById(R.id.imageMarker)
 
 
         //Condiciones iniciales
         cambiarImagen(notasArray[0].toString())
         cambiarTexto("...")
+        actualizarDatosInterfaz()
+
+        tiempoProgressBar.progress = 50
 
 
+        //Admin del tiempo
+        fun iniciarActualizacionPeriodica() {
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    tiempo = tiempo!! - 1
+                    tiempoProgressBar.progress = tiempo!!
+
+                    // Volver a programar la ejecución después del intervalo de actualización
+                    if (tiempo!! > 0) {
+                        handler.postDelayed(this, 100)
+                    }
+                }
+            }, 100)
+        }
 
         //Activamos los listeners
 
@@ -229,8 +355,16 @@ class pruebasActivity : AppCompatActivity() {
             }
             true
         }
+
+
+
+
     }
 
+    private fun actualizarDatosInterfaz() {
+        contadorTextView.text = "$aciertos/$notasTotales"
+        tituloTextView.text = "Nivel-$nivel"
+    }
 
     private fun comprobarJugada(nombreNota: String) {
         //sumamos una a intentos
@@ -240,11 +374,12 @@ class pruebasActivity : AppCompatActivity() {
 
         if (aciertos != null && aciertos!! < notasArray.size) {
             //Si la nota es la indicada entra
-            if ( notasArray[(aciertos!!)]!!.substring(1) == nombreNota) {
+            if (notasArray[(aciertos!!)]!!.substring(1) == nombreNota) {
 
                 aciertos = aciertos?.plus(1)
                 cambiarImagen(notasArray[aciertos!!].toString())
                 cambiarTexto(nombreNota)
+                actualizarDatosInterfaz()
                 animacionAcierto()
             } else {
                 animacionFallo()
@@ -261,11 +396,11 @@ class pruebasActivity : AppCompatActivity() {
 
 
     private fun cambiarTexto(texto: String) {
-        textViewNota.text = texto
+        textViewNota.text = traducirNota(texto)
     }
 
     private fun cambiarImagen(nombreArchivo: String) {
-        val idImagen = resources.getIdentifier("nota_"+ nombreArchivo, "drawable", packageName)
+        val idImagen = resources.getIdentifier("nota_" + nombreArchivo, "drawable", packageName)
         if (idImagen != 0) {
             imagenNota.setImageResource(idImagen)
         } else {
@@ -282,6 +417,7 @@ class pruebasActivity : AppCompatActivity() {
         val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.GREEN, Color.BLACK)
         animacion.duration = 1000
         animacion.start()
+
 
         // Usar un Handler para llamar a cambiarTexto después de 1 segundo
         Handler().postDelayed({
@@ -329,6 +465,25 @@ class pruebasActivity : AppCompatActivity() {
         val imageView = actividad.findViewById<ImageView>(imageViewId)
         // Establecer la nueva imagen
         imageView.setImageResource(nuevaImagenId)
+    }
+
+    fun traducirNota(nota: String): String {
+
+        return when (nota) {
+            "c" -> "DO"
+            "d" -> "RE"
+            "e" -> "MI"
+            "f" -> "FA"
+            "g" -> "SOL"
+            "a" -> "LA"
+            "b" -> "SI"
+            "db" -> "DO♭"
+            "eb" -> "MI♭"
+            "gb" -> "SOL♭"
+            "ab" -> "LA♭"
+            "bb" -> "SI♭"
+            else -> "..."
+        }
     }
 
 
@@ -497,4 +652,8 @@ class pruebasActivity : AppCompatActivity() {
         actualizarFondoBlancas(R.id.notaSi, R.drawable.svg_tecla_si, this)
     }
 
+
+    fun clickAtras(view: View) {
+        onBackPressed()
+    }
 }
