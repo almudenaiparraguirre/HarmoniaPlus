@@ -76,13 +76,6 @@ class ConfiguracionActivity : AppCompatActivity() {
                 switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             }
         }
-
-        /*val spinner: Spinner = findViewById(R.id.themeSpinner)
-        val themeOptions = resources.getStringArray(R.array.theme_options)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, themeOptions)
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter*/
     }
 
     private fun mostrarDialogoConfirmacion() {

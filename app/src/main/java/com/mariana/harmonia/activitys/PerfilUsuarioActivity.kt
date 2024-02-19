@@ -34,7 +34,7 @@ import com.mariana.harmonia.databinding.MainActivityBinding
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
-        private const val PERMISSION_REQUEST_CODE = 123
+        private const val PERMISSION_REQUEST_CODE = 122
     }
 
     private lateinit var binding: MainActivityBinding
@@ -141,13 +141,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView8.text = "$porcentaje8/100"
 
 
-        /* val imageView: ImageView = findViewById(R.id.fondoImageView)
 
-         // Cargar la animación desde el archivo XML
-         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
-
-         // Aplicar la animación al ImageView
-         imageView.startAnimation(anim)*/
 
     }
 
@@ -157,7 +151,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.ACCESS_MEDIA_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             abrirGaleria()
@@ -165,7 +159,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             // Solicitar permisos explícitamente
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
                 PERMISSION_REQUEST_CODE
             )
         }

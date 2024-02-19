@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layoutAjustes"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -20,9 +20,40 @@
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/img_ico_volver_atras" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:onClick="clickAtras"
+                android:src="@mipmap/img_ico_volver_atras" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tituloTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="30dp"
+                android:text="Nivel 3-100"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/contadorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/blanco"
+                android:text="0/10"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/layoutPentagrama"
@@ -33,45 +64,65 @@
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/svg_corchea" />
+                android:scaleType="fitXY"
+                android:src="@drawable/pentagama" />
+
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/svg_clavesol" />
-
-            <ImageView
-                android:id="@+id/imageView1"
+                android:id="@+id/imagenNota"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_pentagrama" />
+                android:src="@drawable/nota_6d" />
         </RelativeLayout>
 
 
         <RelativeLayout
-            android:id="@+id/layoutTexto"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="150dp">
 
             <TextView
+                android:id="@+id/layoutTexto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Sol"
                 android:textAlignment="center"
                 android:textColor="@color/negro"
-                android:textSize="100dp">
+                android:textSize="100dp" />
 
-            </TextView>
         </RelativeLayout>
 
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:context=".MainActivity">
+
+            <ProgressBar
+                android:id="@+id/tiempoProgressBar"
+                style="@style/MiProgressBarHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:progress="20"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/style_tiempo_progress_bar" />
+
+            <ImageView
+                android:id="@+id/imageMarker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:src="@mipmap/img_gema"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -134,66 +185,208 @@
         <!-- Blancas -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/notaDo"
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_do" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/notaRe"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_re" />
+                <ImageView
+                    android:id="@+id/notaDo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_do" />
 
-            <ImageView
-                android:id="@+id/notaMi"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_mi" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Do"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/notaFa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_fa" />
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/notaSol"
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_sol" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/notaLa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_la" />
+                <ImageView
+                    android:id="@+id/notaRe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_re" />
 
-            <ImageView
-                android:id="@+id/notaSi"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Re"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:scaleType="fitXY"
-                android:src="@drawable/svg_tecla_si" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaMi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_mi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Mi"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaFa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_fa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Fa"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaSol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_sol" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Sol"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaLa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_la" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="La"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaSi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_si" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Si"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
 
         </LinearLayout>
+
         <!-- Negras -->
         <LinearLayout
             android:layout_width="fill_parent"

@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_fondo"
+        android:src="@mipmap/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5" />
 
@@ -44,7 +44,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_ico_aplicacion"/>
+                    android:src="@mipmap/img_ico_aplicacion"/>
 
                 <TextView
                     android:layout_gravity="bottom"
@@ -101,7 +101,7 @@
             android:layout_marginTop="72dp"
             android:layout_gravity="center_horizontal"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_ico_aplauso"
+            android:src="@mipmap/img_ico_aplauso"
             app:layout_constraintTop_toBottomOf="@id/bienvenido"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

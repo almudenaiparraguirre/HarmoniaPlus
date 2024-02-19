@@ -11,7 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_fondo"
+        android:src="@mipmap/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5"
         />
@@ -47,7 +47,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_ico_aplicacion" />
+                    android:src="@mipmap/img_ico_aplicacion" />
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -103,7 +103,7 @@
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/img_ico_mano" />
+                android:src="@mipmap/img_ico_mano" />
         </LinearLayout>
 
         <!-- Descripción -->
@@ -207,7 +207,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:contentDescription="Descripción de la imagen"
-                    android:src="@drawable/img_ico_google" />
+                    android:src="@mipmap/img_ico_google" />
 
                 <!-- TextView a la derecha -->
                 <TextView

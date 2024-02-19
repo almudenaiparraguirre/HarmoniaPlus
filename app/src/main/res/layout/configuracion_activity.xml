@@ -22,7 +22,7 @@
                 android:id="@+id/flechaAtras"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/img_ico_volver_atras"
+                android:src="@mipmap/img_ico_volver_atras"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:clickable="true"
