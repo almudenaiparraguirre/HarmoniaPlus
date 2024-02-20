@@ -16,7 +16,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/img_fondo"
+        android:src="@mipmap/img_fondo"
         android:scaleType="centerCrop"
         android:alpha="0.5"
         />
@@ -52,16 +52,17 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_ico_aplicacion"/>
+                    android:src="@mipmap/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
                     android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
-                    style="@style/Fuente_TimesNewRoman"
+                    style="@style/Fuente_kameron"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  HARMONIA+"
+                    android:text="HARMONÍA+"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />
@@ -108,7 +109,7 @@
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
                 android:contentDescription="Descripción de la imagen"
-                android:src="@drawable/img_ico_registro" />
+                android:src="@mipmap/img_ico_registro" />
         </LinearLayout>
 
         <!-- E-mail -->

@@ -5,125 +5,443 @@
     android:layout_height="match_parent"
     android:background="@color/moradoClaro">
 
-    <!-- Negras -->
     <LinearLayout
+        android:id="@+id/layoutSuperior"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/notaDo_"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_do_"
-            />
+        <RelativeLayout
+            android:id="@+id/layoutAjustes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/notaRe_"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_re_"
-            />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:clickable="true"
+                android:onClick="clickAtras"
+                android:src="@mipmap/img_ico_volver_atras" />
 
-        <ImageView
-            android:id="@+id/notaComodin"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_negracomodin" />
+            <TextView
+                android:id="@+id/tituloTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginHorizontal="30dp"
+                android:text="Nivel 3-100"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/notaFa_"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_fa_"
-             />
+            <TextView
+                android:id="@+id/contadorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/blanco"
+                android:text="0/10"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/notaSol_"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_sol_"
-            />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/notaLa_"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_la_"
-            />
+
+        <RelativeLayout
+            android:id="@+id/layoutPentagrama"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/blanco">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/pentagama" />
+
+
+            <ImageView
+                android:id="@+id/imagenNota"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/nota_6d" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <TextView
+                android:id="@+id/layoutTexto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sol"
+                android:textAlignment="center"
+                android:textColor="@color/negro"
+                android:textSize="100dp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:context=".MainActivity">
+
+            <ProgressBar
+                android:id="@+id/tiempoProgressBar"
+                style="@style/MiProgressBarHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:progress="20"
+                android:max="100"
+                android:min="0"
+                android:progressDrawable="@drawable/style_tiempo_progress_bar" />
+
+            <ImageView
+                android:id="@+id/imageMarker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:src="@mipmap/img_gema"
+                android:layout_centerVertical="true" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-    <!-- Blancas -->
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/piano"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutSuperior">
 
-        <ImageView
-            android:id="@+id/notaDo"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_do"
-            />
+            android:layout_marginHorizontal="10dp"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/notaRe"
-            android:layout_width="0dp"
+            <View
+                android:id="@+id/fondoReB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+            <View
+                android:id="@+id/fondoMiB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+            <View
+                android:id="@+id/fondoFaB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+            <View
+                android:id="@+id/fondoSolB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+            <View
+                android:id="@+id/fondoLaB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+            <View
+                android:id="@+id/fondoSiB"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_weight="1"
+                android:background="@drawable/sytle_degradado_fondo_piano" />
+
+        </LinearLayout>
+
+        <!-- Blancas -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_re"
-            />
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/notaMi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_mi"
-            />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/notaFa"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_fa"
-            />
+                <ImageView
+                    android:id="@+id/notaDo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_do" />
 
-        <ImageView
-            android:id="@+id/notaSol"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_sol"
-             />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Do"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
 
-        <ImageView
-            android:id="@+id/notaLa"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_la"
-             />
+            </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/notaSi"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/svg_tecla_si"
-             />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/notaRe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_re" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Re"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaMi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_mi" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Mi"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaFa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_fa" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Fa"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaSol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_sol" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Sol"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaLa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_la" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="La"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/notaSi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/svg_tecla_si" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:text="Si"
+                    android:textAlignment="center"
+                    android:textColor="@color/negro"
+                    android:textSize="20dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- Negras -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/notaRe_b"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+
+                />
+
+            <ImageView
+                android:id="@+id/notaMi_b"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+
+                />
+
+            <ImageView
+                android:id="@+id/notaComodin"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1" />
+
+
+            <ImageView
+                android:id="@+id/notaSol_b"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+
+                />
+
+            <ImageView
+                android:id="@+id/notaLa_b"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+
+                />
+
+            <ImageView
+                android:id="@+id/notaSi_b"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>
 

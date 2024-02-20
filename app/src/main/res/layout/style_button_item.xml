@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- button_item.xml (colócalo en res/layout) -->
+<Button
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/buttonItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/button_margin_top"
+    android:layout_marginBottom="@dimen/button_margin_bottom"
+    android:gravity="center"
+    android:textColor="@android:color/white"
+    android:background="@drawable/button_background_with_shadow"
+    android:text="Button" />

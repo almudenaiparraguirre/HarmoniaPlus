@@ -34,7 +34,7 @@ import com.mariana.harmonia.databinding.MainActivityBinding
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
-        private const val PERMISSION_REQUEST_CODE = 123
+        private const val PERMISSION_REQUEST_CODE = 122
     }
 
     private lateinit var binding: MainActivityBinding
@@ -89,13 +89,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
-
-
-    }
-
-    private fun cargarEstadisticasLogros() {
-        // Porcentaje barra Experiencia
-            val progressBar1 = findViewById<ProgressBar>(R.id.progressBarLogro1)
+// Porcentaje barra Experiencia
+        val progressBar1 = findViewById<ProgressBar>(R.id.progressBarLogro1)
         val porcentajeTextView1 = findViewById<TextView>(R.id.TextViewLogro1)
         val progressBar2 = findViewById<ProgressBar>(R.id.progressBarLogro2)
         val porcentajeTextView2 = findViewById<TextView>(R.id.TextViewLogro2)
@@ -113,46 +108,50 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val porcentajeTextView8 = findViewById<TextView>(R.id.TextViewLogro8)
 
         // Puedes actualizar el porcentaje directamente
-        val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
-        progressBar1.progress = porcentaje
-        porcentajeTextView1.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje1 = 10 // ajusta esto a tu valor real de porcentaje
+        progressBar1.progress = porcentaje1
+        porcentajeTextView1.text = "$porcentaje1/100"
 
-        progressBar2.progress = porcentaje
-        porcentajeTextView2.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje2 = 20
+        progressBar2.progress = porcentaje2
+        porcentajeTextView2.text = "$porcentaje2/100"
 
-        progressBar3.progress = porcentaje
-        porcentajeTextView3.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje3 = 30
+        progressBar3.progress = porcentaje3
+        porcentajeTextView3.text = "$porcentaje3/100"
 
-        progressBar4.progress = porcentaje
-        porcentajeTextView4.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje4 = 40
+        progressBar4.progress = porcentaje4
+        porcentajeTextView4.text = "$porcentaje4/100"
 
-        progressBar5.progress = porcentaje
-        porcentajeTextView5.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje5 = 50
+        progressBar5.progress = porcentaje5
+        porcentajeTextView5.text = "$porcentaje5/100"
 
-        progressBar6.progress = porcentaje
-        porcentajeTextView6.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje6 = 60
+        progressBar6.progress = porcentaje6
+        porcentajeTextView6.text = "$porcentaje6/100"
 
-        progressBar7.progress = porcentaje
-        porcentajeTextView7.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje7 = 70
+        progressBar7.progress = porcentaje7
+        porcentajeTextView7.text = "$porcentaje7/100"
 
-        progressBar8.progress = porcentaje
-        porcentajeTextView8.text = "${porcentaje.toFloat() / 100}"
+        val porcentaje8 = 80
+        progressBar8.progress = porcentaje8
+        porcentajeTextView8.text = "$porcentaje8/100"
 
-        val imageView: ImageView = findViewById(R.id.fondoImageView)
 
-        // Cargar la animación desde el archivo XML
-        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
 
-        // Aplicar la animación al ImageView
-        imageView.startAnimation(anim)
+
     }
+
 
 
 
     private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.ACCESS_MEDIA_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             abrirGaleria()
@@ -160,7 +159,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             // Solicitar permisos explícitamente
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
                 PERMISSION_REQUEST_CODE
             )
         }
@@ -232,7 +231,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 imagen.setImageURI(data)
             }
         }
-
 
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)

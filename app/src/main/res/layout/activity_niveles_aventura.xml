@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NivelesAventuraActivity">
 
+    <!-- Menú Superior -->
     <LinearLayout
         android:id="@+id/llTopBar"
         android:layout_width="0dp"
@@ -16,57 +18,65 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Foto de perfil -->
-    <ImageView
-        android:id="@+id/imagenPerfil"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/img_perfil_luis_golden"
-        android:padding="8dp"/>
-
-    <!-- Llama con número -->
-    <RelativeLayout
-        android:id="@+id/llamaLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center">
-
-        <!-- Imagen de la llama -->
-        <ImageView
-            android:id="@+id/imagenLlama"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/llama"/>
-
-        <!-- Número en la llama -->
-        <TextView
-            android:id="@+id/numeroLlama"
+        <!-- Foto de perfil -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="99"
-            android:textColor="#ffffff"
-            android:layout_toEndOf="@id/imagenLlama"
-            android:layout_marginStart="4dp"/>
+            app:cardCornerRadius="100dp">
+
+            <ImageView
+                android:id="@+id/imagenPerfil"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/img_perfil_luis_golden"
+                android:padding="8dp"/>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Llama con número -->
+        <RelativeLayout
+            android:id="@+id/llamaLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <!-- Imagen de la llama -->
+            <ImageView
+                android:id="@+id/imagenLlama"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/img_llama"/>
+
+            <!-- Número en la llama -->
+            <TextView
+                android:id="@+id/numeroLlama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99"
+                android:textColor="#ffffff"
+                android:layout_toEndOf="@id/imagenLlama"
+                android:layout_marginStart="4dp"/>
         </RelativeLayout>
 
-    <!-- Gemas -->
-    <ImageView
-        android:id="@+id/imagenGemas"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/gema"
-        android:padding="8dp"/>
+        <!-- Gemas -->
+        <ImageView
+            android:id="@+id/imagenGemas"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/img_gema"
+            android:padding="8dp"/>
 
-    <!-- Corazón con vidas -->
-    <ImageView
-        android:id="@+id/imagenCorazon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/vidas"
-        android:padding="8dp"/>
-</LinearLayout>
+        <!-- Corazón con vidas -->
+        <ImageView
+            android:id="@+id/imagenCorazon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/svg_corazon"
+            android:padding="8dp"/>
+    </LinearLayout>
 
+    <!-- Contenedor Principal -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -74,11 +84,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Contenido Principal -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/llBotonera">
+
+            <!-- Aquí puedes agregar más elementos según sea necesario -->
+
         </LinearLayout>
     </ScrollView>
 

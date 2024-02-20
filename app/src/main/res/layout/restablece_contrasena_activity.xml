@@ -39,7 +39,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_ico_aplicacion"/>
+                    android:src="@mipmap/img_ico_aplicacion"/>
 
                 <!-- TextView a la derecha -->
                 <TextView
@@ -48,7 +48,7 @@
                     style="@style/Fuente_TimesNewRoman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  HARMONIA+"
+                    android:text="  HARMONÍA+"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />
@@ -194,7 +194,7 @@
             android:layout_height="match_parent"
             android:alpha="0.5"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_fondo"
+            android:src="@mipmap/img_fondo"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 
