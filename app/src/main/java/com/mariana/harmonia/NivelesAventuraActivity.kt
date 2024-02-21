@@ -75,7 +75,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
             }
             else{
                 button.setOnClickListener{
-                    Toast.makeText(this, "Nivel desbloqueado", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, pruebasActivity::class.java)
                     startActivity(intent)
                 }
