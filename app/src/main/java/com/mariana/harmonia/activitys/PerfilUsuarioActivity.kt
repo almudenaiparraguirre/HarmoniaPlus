@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,18 +42,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            //val message = if (isGranted) "Permission Granted" else "Permission rejected"
-            //Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-            if (isGranted) {
-                abrirGaleria()
-            } else {
-                abrirGaleria()
-                Toast.makeText(this, "Necesitas activar los permisos de la galería", Toast.LENGTH_SHORT).show()
-            }
-        }
-
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,9 +49,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
        // cargarEstadisticasLogros()
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
-        val fondoMitadSuperior = findViewById<ImageView>(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
-        val fondoMitadSuperiorBack = findViewById<ImageView>(R.id.fondoMitadSuperiorBackground)
 
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
@@ -89,7 +76,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
-// Porcentaje barra Experiencia
+
+        // Porcentaje barra Experiencia
         val progressBar1 = findViewById<ProgressBar>(R.id.progressBarLogro1)
         val porcentajeTextView1 = findViewById<TextView>(R.id.TextViewLogro1)
         val progressBar2 = findViewById<ProgressBar>(R.id.progressBarLogro2)
@@ -141,12 +129,15 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView8.text = "$porcentaje8/100"
 
 
+        /*val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+        val profileImageUri = preferences.getString("profileImageUri", null)
 
+        if (profileImageUri != null) {
+            val uri = Uri.parse(profileImageUri)
+            imagen.setImageURI(uri)
+        }*/
 
     }
-
-
-
 
     private fun requestPermission() {
         if (ContextCompat.checkSelfPermission(
@@ -218,18 +209,24 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun abrirGaleria() {
-        //val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startForActivityGallery.launch(intent)
     }
 
+    private var selectedImageUri: Uri? = null
     val startForActivityGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.data
+                selectedImageUri = data
                 imagen.setImageURI(data)
             }
+
+            val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+            val editor = preferences.edit()
+            editor.putString("profileImageUri", selectedImageUri.toString())
+            editor.apply()
         }
 
     fun volverModoJuego(view: View){
