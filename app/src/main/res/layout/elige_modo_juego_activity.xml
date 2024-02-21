@@ -65,6 +65,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:id="@+id/nombreUsuarioModo"
                     style="@style/Fuente_kameron"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

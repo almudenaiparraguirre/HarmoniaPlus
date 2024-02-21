@@ -36,6 +36,22 @@ class UserDao {
             }
         }
 
+        fun getUserField(email: String, field: String, onSuccess: (Any?) -> Unit, onFailure: (Exception) -> Unit) {
+            val emailKey = email.replace(".", ",")
+            usersCollection.document(emailKey).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val value = document.get(field)
+                        onSuccess(value)
+                    } else {
+                        onFailure(Exception("El usuario con el email $email no existe"))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    onFailure(exception)
+                }
+        }
+
         // Otros métodos de UserDao...
     }
 }
