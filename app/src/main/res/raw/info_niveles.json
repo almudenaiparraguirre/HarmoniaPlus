@@ -1,0 +1,16 @@
+{
+  "niveles": [
+    {
+      "id": 1,
+      "completado": false,
+      "tiempo": 60,
+      "notas": ["5a", "5f"]
+    },
+    {
+      "id": 2,
+      "completado": false,
+      "tiempo": 90,
+      "notas": ["5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e"]
+    }
+  ]
+}

@@ -52,6 +52,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         for (i in 0 until numBotones) {
 
             val button = Button(this)
+            button.id = i
             button.text = String.format("%2d", i)
 
             // Crear un nuevo conjunto de parámetros de diseño para cada botón
@@ -70,12 +71,14 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 lp.bottomMargin
             )
 
-            if(i > 1){
+            if(i > 5){
                 button.isEnabled = false
             }
-            else{
-                button.setOnClickListener{
+            else {
+                button.setOnClickListener {
+                    val numeroNivel = button.id
                     val intent = Intent(this, pruebasActivity::class.java)
+                    intent.putExtra("numeroNivel", numeroNivel)
                     startActivity(intent)
                 }
             }

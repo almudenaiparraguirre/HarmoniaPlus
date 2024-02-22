@@ -22,6 +22,9 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 
 class pruebasActivity : AppCompatActivity() {
@@ -45,6 +48,12 @@ class pruebasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
+
+
+
+
+
+
         // Las notas del nivel
         notasArray = arrayOf(
             "5a",
@@ -65,77 +74,7 @@ class pruebasActivity : AppCompatActivity() {
             "4b",
             "5c",
             "5e",
-            "4d",
-            "4e",
-            "5f",
-            "4g",
-            "5g",
-            "5e",
-            "4f",
-            "4b",
-            "5a",
-            "4c",
-            "5g",
-            "4a",
-            "4d",
-            "5c",
-            "4e",
-            "5f",
-            "5b",
-            "4c",
-            "5d",
-            "4a",
-            "5c",
-            "5d",
-            "4f",
-            "5a",
-            "4g",
-            "5f",
-            "4e",
-            "5a",
-            "4b",
-            "5g",
-            "4d",
-            "5c",
-            "4b",
-            "5e",
-            "4f",
-            "5a",
-            "4d",
-            "5g",
-            "4e",
-            "5b",
-            "4f",
-            "5e",
-            "4c",
-            "5f",
-            "4a",
-            "5c",
-            "4g",
-            "5b",
-            "4e",
-            "5d",
-            "4c",
-            "5f",
-            "4d",
-            "5g",
-            "4a",
-            "5e",
-            "4b",
-            "5g",
-            "4c",
-            "5d",
-            "4f",
-            "5a",
-            "4e",
-            "5b",
-            "4d",
-            "5c",
-            "4f",
-            "5e",
-            "4g"
         )
-        notasTotales = notasArray.size
 
         // Click notas negras
         val notaRe_b = findViewById<ImageView>(R.id.notaRe_b)
@@ -161,10 +100,7 @@ class pruebasActivity : AppCompatActivity() {
         imagenProgressBar = findViewById(R.id.imageMarker)
 
 
-        //Condiciones iniciales
-        cambiarImagen(notasArray[0].toString())
-        cambiarTexto("...")
-        actualizarDatosInterfaz()
+
 
         tiempoProgressBar.progress = 50
 
@@ -183,6 +119,12 @@ class pruebasActivity : AppCompatActivity() {
                 }
             }, 100)
         }
+
+        cargarDatosDelNivel(nivel!!)
+        //Condiciones iniciales
+        cambiarImagen(notasArray[0].toString())
+        cambiarTexto("...")
+        actualizarDatosInterfaz()
 
         //Activamos los listeners
 
@@ -358,10 +300,61 @@ class pruebasActivity : AppCompatActivity() {
 
 
 
-
+//on create
     }
 
+
+    private fun cargarDatosDelNivel(nivelId: Int) {
+        nivel = intent.getIntExtra("numeroNivel",1)
+        val nivelesJson = obtenerNivelesJSON()
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
+
+        if (nivelesArray != null) {
+            for (i in 0 until nivelesArray.length()) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val id = nivel.getInt("id")
+
+                if (id == nivelId) {
+                    val completado = nivel.getBoolean("completado")
+                    tiempo = nivel.getInt("tiempo")
+                    val notasJSONArray = nivel.getJSONArray("notas")
+
+                    // Convierte JSONArray a Array<String>
+                    notasArray = Array(notasJSONArray.length()) { index ->
+                        notasJSONArray.getString(index)
+                    }
+
+                    // Aquí puedes usar las variables según tus necesidades
+                    // Por ejemplo:
+                    // tiempoTextView.text = tiempo.toString()
+
+                    break
+                }
+            }
+        }
+    }
+
+    private fun obtenerNivelesJSON(): JSONObject? {
+        var nivelesJson: JSONObject? = null
+        try {
+            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val jsonString = String(buffer, Charsets.UTF_8)
+            nivelesJson = JSONObject(jsonString)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return nivelesJson
+    }
+
+
+
+
     private fun actualizarDatosInterfaz() {
+        notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
     }
