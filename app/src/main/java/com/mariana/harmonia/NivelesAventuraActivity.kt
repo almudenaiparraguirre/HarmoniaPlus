@@ -18,6 +18,9 @@ import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
 import io.grpc.Context
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
@@ -25,13 +28,14 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private val numBotones = 50
     private lateinit var llBotonera: LinearLayout
     private var botonCorrecto: Int = 0
+    private var idNivelNoCompletado: Int = 0
     private lateinit var menuSuperior: LinearLayout
     private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
-
+        idNivelNoCompletado = obtenerIdPrimerNivelNoCompletado()!!
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numBotones)
         menuSuperior = findViewById(R.id.llTopBar)
@@ -71,10 +75,13 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 lp.bottomMargin
             )
 
-            if(i > 5){
+            if(i > idNivelNoCompletado){
                 button.isEnabled = false
+                button.setBackgroundResource(getRandomUnlockedButtonDrawable())
             }
             else {
+
+                button.setBackgroundResource(getRandomButtonDrawable())
                 button.setOnClickListener {
                     val numeroNivel = button.id
                     val intent = Intent(this, pruebasActivity::class.java)
@@ -89,8 +96,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
             button.layoutParams = lp
 
             //button.setOnClickListener(buttonClickListener(i))
-
-            button.setBackgroundResource(getRandomButtonDrawable())
             llBotonera.addView(button)
         }
     }
@@ -100,5 +105,43 @@ class NivelesAventuraActivity : AppCompatActivity() {
             R.drawable.style_round_button
         )
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
+    }
+    private fun getRandomUnlockedButtonDrawable(): Int {
+        val buttonDrawables = listOf(
+            R.drawable.style_round_button_blue
+        )
+        return buttonDrawables[Random.nextInt(buttonDrawables.size)]
+    }
+
+    private fun obtenerIdPrimerNivelNoCompletado(): Int? {
+        val nivelesJson = obtenerNivelesJSON()
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
+
+        if (nivelesArray != null) {
+            for (i in 0 until nivelesArray.length()) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val completado = nivel.getBoolean("completado")
+
+                if (!completado) {
+                    return nivel.getInt("id")
+                }
+            }
+        }
+        return null
+    }
+    private fun obtenerNivelesJSON(): JSONObject? {
+        var nivelesJson: JSONObject? = null
+        try {
+            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val jsonString = String(buffer, Charsets.UTF_8)
+            nivelesJson = JSONObject(jsonString)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return nivelesJson
     }
 }
