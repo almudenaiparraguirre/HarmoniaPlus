@@ -234,4 +234,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    fun irConfiguracion(view: View){
+        val intent = Intent(this, ConfiguracionActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
+    }
 }

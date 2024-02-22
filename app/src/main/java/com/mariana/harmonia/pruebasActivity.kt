@@ -2,6 +2,8 @@ package com.mariana.harmonia
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 
@@ -10,7 +12,6 @@ import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -18,12 +19,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
-import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -535,7 +533,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Reb")
 
         playSound("db4")
-        actualizarFondoNegras(R.id.fondoReB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoReB, R.drawable.style_buttond_degradado_suave)
         comprobarJugada("db")
     }
 
@@ -552,7 +550,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Mib")
 
         playSound("eb4")
-        actualizarFondoNegras(R.id.fondoMiB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoMiB, R.drawable.style_buttond_degradado_suave)
         comprobarJugada("mb")
     }
 
@@ -577,7 +575,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Solb")
 
         playSound("gb4")
-        actualizarFondoNegras(R.id.fondoSolB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoSolB, R.drawable.style_buttond_degradado_suave)
         comprobarJugada("gb")
     }
 
@@ -594,7 +592,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Lab")
 
         playSound("ab4")
-        actualizarFondoNegras(R.id.fondoLaB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoLaB, R.drawable.style_buttond_degradado_suave)
         comprobarJugada("ab")
 
     }
@@ -612,7 +610,7 @@ class pruebasActivity : AppCompatActivity() {
         Log.d("pruebasActivity", "Se ha hecho clic en el método Sib")
 
         playSound("bb4")
-        actualizarFondoNegras(R.id.fondoSiB, R.drawable.style_buttond_egradado_suave)
+        actualizarFondoNegras(R.id.fondoSiB, R.drawable.style_buttond_degradado_suave)
         comprobarJugada("bb")
     }
 
@@ -623,7 +621,6 @@ class pruebasActivity : AppCompatActivity() {
         actualizarFondoBlancas(R.id.notaSi, R.drawable.svg_tecla_si_clicada, this)
         comprobarJugada("b")
     }
-
 
     //Soltar
 
@@ -689,6 +686,23 @@ class pruebasActivity : AppCompatActivity() {
 
 
     fun clickAtras(view: View) {
-        onBackPressed()
+        mostrarDialogoConfirmacion()
+    }
+
+    private fun mostrarDialogoConfirmacion() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Salir del nivel")
+        builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")
+        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+            val intent = Intent(this, NivelesAventuraActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }

@@ -226,7 +226,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:background="@drawable/style_buttond_egradado_suave"
+        android:background="@drawable/style_buttond_degradado_suave"
         android:onClick="clickOpciones"
         android:padding="16dp"
         android:text="OPCIONES"

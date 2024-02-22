@@ -10,6 +10,7 @@ import android.print.PrintAttributes.Margins
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -55,9 +56,11 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         for (i in 0 until numBotones) {
 
-            val button = Button(this)
-            button.id = i
-            button.text = String.format("%2d", i)
+            val button: View = if (i > idNivelNoCompletado) {
+                createLockedButton()
+            } else {
+                createUnlockedButton(i)
+            }
 
             // Crear un nuevo conjunto de parámetros de diseño para cada botón
             val lp = LinearLayout.LayoutParams(
@@ -98,6 +101,28 @@ class NivelesAventuraActivity : AppCompatActivity() {
             //button.setOnClickListener(buttonClickListener(i))
             llBotonera.addView(button)
         }
+    }
+
+    private fun createLockedButton(): ImageButton {
+        val lockedButton = ImageButton(this)
+        lockedButton.setBackgroundResource(R.drawable.style_round_button_blue) // Establece el fondo según tus necesidades
+        lockedButton.setImageResource(R.drawable.lock) // Establece el icono de candado
+        lockedButton.isEnabled = false // Deshabilita el botón bloqueado
+        return lockedButton
+    }
+
+    private fun createUnlockedButton(levelNumber: Int): Button {
+        val button = Button(this)
+        button.id = levelNumber
+        button.text = String.format("%2d", levelNumber)
+        button.setBackgroundResource(getRandomButtonDrawable())
+        button.setOnClickListener {
+            val numeroNivel = button.id
+            val intent = Intent(this, pruebasActivity::class.java)
+            intent.putExtra("numeroNivel", numeroNivel)
+            startActivity(intent)
+        }
+        return button
     }
 
     private fun getRandomButtonDrawable(): Int {
