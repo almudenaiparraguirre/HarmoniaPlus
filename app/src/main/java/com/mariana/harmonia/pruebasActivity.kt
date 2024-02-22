@@ -32,6 +32,7 @@ class pruebasActivity : AppCompatActivity() {
     private lateinit var textViewNota: TextView
     private lateinit var contadorTextView: TextView
     private lateinit var tituloTextView: TextView
+    private lateinit var contadorVidas: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
 
@@ -40,6 +41,7 @@ class pruebasActivity : AppCompatActivity() {
     private var aciertos: Int? = 0
     private var tiempo: Double? = 60.0
     private var notasTotales: Int? = 0
+    private var vidas: Int? = 0
     private lateinit var notasArray: Array<String?>
     private val handler = Handler(Looper.getMainLooper())
 
@@ -96,6 +98,7 @@ class pruebasActivity : AppCompatActivity() {
         textViewNota = findViewById(R.id.layoutTexto)
         contadorTextView = findViewById(R.id.contadorTextView)
         tituloTextView = findViewById(R.id.tituloTextView)
+        contadorVidas = findViewById(R.id.textViewCorazones)
         tiempoProgressBar = findViewById<ProgressBar>(R.id.tiempoProgressBar)
         imagenProgressBar = findViewById(R.id.imageMarker)
 
@@ -113,6 +116,7 @@ class pruebasActivity : AppCompatActivity() {
 
             handler.postDelayed(object : Runnable {
                 override fun run() {
+                    isPerdido()
                     // Decrementar el tiempo
                     tiempo = tiempo!! - decrementoPorIntervalo
 
@@ -333,6 +337,7 @@ class pruebasActivity : AppCompatActivity() {
                     val completado = nivel.getBoolean("completado")
                     tiempo = nivel.getDouble("tiempo")
                     val notasJSONArray = nivel.getJSONArray("notas")
+                    vidas = nivel.getInt("vidas")
 
                     // Convierte JSONArray a Array<String>
                     notasArray = Array(notasJSONArray.length()) { index ->
@@ -372,6 +377,7 @@ class pruebasActivity : AppCompatActivity() {
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
+        contadorVidas.text="X$vidas"
     }
 
     private fun comprobarJugada(nombreNota: String) {
@@ -391,10 +397,22 @@ class pruebasActivity : AppCompatActivity() {
                 animacionAcierto()
             } else {
                 animacionFallo()
+                quitarVida()
             }
         } else {
             // El índice está fuera del rango del array notasArray se termina la partida
             terminarPartida()
+        }
+    }
+
+    private fun quitarVida() {
+        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
+        contadorVidas.text="X$vidasTotales"
+    }
+    private fun isPerdido(){
+        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
+        if(vidas!! -(intentos!! - aciertos!!)!!<=0 || tiempoProgressBar.progress<=0){
+            tituloTextView.text= "Has perdido"
         }
     }
 

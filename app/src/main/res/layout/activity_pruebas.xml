@@ -38,6 +38,7 @@
                 android:textStyle="bold" />
 
             <TextView
+
                 android:id="@+id/contadorTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,12 +86,38 @@
 
             <TextView
                 android:id="@+id/layoutTexto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
                 android:text="Sol"
                 android:textAlignment="center"
                 android:textColor="@color/negro"
                 android:textSize="100dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentEnd="true"
+                android:gravity="bottom"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCorazones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:text="X3"
+                    android:textColor="@color/negro"
+                    android:textSize="40dp" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/svg_corazon" />
+            </LinearLayout>
+
 
         </RelativeLayout>
 
@@ -105,24 +132,23 @@
             <ProgressBar
                 android:id="@+id/tiempoProgressBar"
                 style="@style/MiProgressBarHorizontal"
-                android:progressDrawable="@drawable/pink_progress_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:max="1000"
                 android:backgroundTint="@color/moradoClaro"
-                android:progress="10000"
+                android:max="1000"
                 android:min="0"
-                />
+                android:progress="10000"
+                android:progressDrawable="@drawable/pink_progress_horizontal" />
 
             <ImageView
                 android:id="@+id/imageMarker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:src="@mipmap/img_gema"
-                android:layout_centerVertical="true" />
+                android:src="@mipmap/img_gema" />
 
         </RelativeLayout>
 
