@@ -9,56 +9,42 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.R
+import com.mariana.harmonia.activitys.EligeModoJuegoActivity.Companion.obtenerNombreModoDeJuego
 
 class InicioSesion : AppCompatActivity() {
 
-    private lateinit var firebaseAuth:FirebaseAuth
-    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.inicio_sesion_activity)
-
-        // Hace falta iniciar la variable FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
-
-        //TODO
-        //HAY QUE COMPROBAR LOS CAMPOS DE TEXTO PARA COMPROBAR QUE NO ESTE VACIO Y
-        // QUE SEA DE TIPO EMAIL ("DHNADIDNA@ANDASJN.COM")
     }
 
-    //Función que comprueba que el usuario y contraseña existen
-    private fun signIn (Email:String , contrasena : String){
-
-
-        //prueba manejo de excepciones
-        Log.d("InicioSesion", "signInWithEmailAndPassword: $Email")
-        println("ENTRANDO A LA COMPROBACION")
-
+    private fun signIn(Email: String, contrasena: String, nombreModoDeJuegoTextView: TextView) {
         firebaseAuth.signInWithEmailAndPassword(Email, contrasena)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = firebaseAuth.currentUser
                     Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
+                    // Llamar al método para obtener el nombre del modo de juego y actualizar el TextView
+                    user?.email?.let { email ->
+                        obtenerNombreModoDeJuego(email, nombreModoDeJuegoTextView)
+                    }
                     // Aquí irás a la segunda actividad
-                    println("TODO OK")
+                    Log.d("InicioSesion", "Inicio de sesión exitoso")
                 } else {
                     Toast.makeText(baseContext, "Error de email o contraseña", Toast.LENGTH_SHORT).show()
-                    println("KO KO KO KO KO")
+                    Log.e("InicioSesion", "Error de autenticación: ${task.exception?.message}")
                 }
-            }
-            .addOnFailureListener(this) { e ->
-                Log.e("InicioSesion", "Error de autenticación: ${e.message}")
-                println("FALLO")
             }
     }
 
     fun btnIngresar(view: View) {
-
-        val btnIngresar : Button = findViewById(R.id.btnIngresar)
         val Email : TextView = findViewById(R.id.edtEmail)
         val contrasena : TextView = findViewById(R.id.edtContrasena)
+        val nombreModoDeJuegoTextView: TextView = findViewById(R.id.nombreUsuarioModo)
 
-        println("ASDFASDFASDFASDF")
-        signIn(Email.text.toString(),contrasena.text.toString())
+        signIn(Email.text.toString(), contrasena.text.toString(), nombreModoDeJuegoTextView)
     }
 }

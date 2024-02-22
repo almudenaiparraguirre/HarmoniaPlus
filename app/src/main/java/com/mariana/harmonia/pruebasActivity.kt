@@ -2,6 +2,7 @@ package com.mariana.harmonia
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 
 
@@ -22,6 +23,10 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 
 class pruebasActivity : AppCompatActivity() {
@@ -29,14 +34,17 @@ class pruebasActivity : AppCompatActivity() {
     private lateinit var textViewNota: TextView
     private lateinit var contadorTextView: TextView
     private lateinit var tituloTextView: TextView
+    private lateinit var contadorVidas: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
 
+    private var perdido: Boolean = false
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
-    private var tiempo: Int? = 60
+    private var tiempo: Double? = 60.0
     private var notasTotales: Int? = 0
+    private var vidas: Int? = 0
     private lateinit var notasArray: Array<String?>
     private val handler = Handler(Looper.getMainLooper())
 
@@ -45,6 +53,12 @@ class pruebasActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pruebas)
+
+
+
+
+
+
         // Las notas del nivel
         notasArray = arrayOf(
             "5a",
@@ -65,77 +79,7 @@ class pruebasActivity : AppCompatActivity() {
             "4b",
             "5c",
             "5e",
-            "4d",
-            "4e",
-            "5f",
-            "4g",
-            "5g",
-            "5e",
-            "4f",
-            "4b",
-            "5a",
-            "4c",
-            "5g",
-            "4a",
-            "4d",
-            "5c",
-            "4e",
-            "5f",
-            "5b",
-            "4c",
-            "5d",
-            "4a",
-            "5c",
-            "5d",
-            "4f",
-            "5a",
-            "4g",
-            "5f",
-            "4e",
-            "5a",
-            "4b",
-            "5g",
-            "4d",
-            "5c",
-            "4b",
-            "5e",
-            "4f",
-            "5a",
-            "4d",
-            "5g",
-            "4e",
-            "5b",
-            "4f",
-            "5e",
-            "4c",
-            "5f",
-            "4a",
-            "5c",
-            "4g",
-            "5b",
-            "4e",
-            "5d",
-            "4c",
-            "5f",
-            "4d",
-            "5g",
-            "4a",
-            "5e",
-            "4b",
-            "5g",
-            "4c",
-            "5d",
-            "4f",
-            "5a",
-            "4e",
-            "5b",
-            "4d",
-            "5c",
-            "4f",
-            "5e",
-            "4g"
         )
-        notasTotales = notasArray.size
 
         // Click notas negras
         val notaRe_b = findViewById<ImageView>(R.id.notaRe_b)
@@ -157,32 +101,52 @@ class pruebasActivity : AppCompatActivity() {
         textViewNota = findViewById(R.id.layoutTexto)
         contadorTextView = findViewById(R.id.contadorTextView)
         tituloTextView = findViewById(R.id.tituloTextView)
+        contadorVidas = findViewById(R.id.textViewCorazones)
         tiempoProgressBar = findViewById<ProgressBar>(R.id.tiempoProgressBar)
         imagenProgressBar = findViewById(R.id.imageMarker)
 
 
+
+
+
+
+
+        //Admin del tiempo
+        fun iniciarCuentaRegresiva() {
+            val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
+            val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+            val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
+
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    isPerdido()
+                    // Decrementar el tiempo
+                    tiempo = tiempo!! - decrementoPorIntervalo
+
+                    // Calcular el progreso actual de la barra con números decimales
+                    val progresoActual = ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+
+                    // Actualizar la barra de progreso
+                    tiempoProgressBar.progress = progresoActual
+
+                    // Volver a programar la ejecución después del intervalo de actualización
+                    if (tiempo!! > 0) {
+                        handler.postDelayed(this, intervalo)
+                    }
+                }
+            }, intervalo)
+        }
+
+
+
+
+        nivel = intent.getIntExtra("numeroNivel",1)
+        cargarDatosDelNivel(nivel!!)
         //Condiciones iniciales
         cambiarImagen(notasArray[0].toString())
         cambiarTexto("...")
         actualizarDatosInterfaz()
-
-        tiempoProgressBar.progress = 50
-
-
-        //Admin del tiempo
-        fun iniciarActualizacionPeriodica() {
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    tiempo = tiempo!! - 1
-                    tiempoProgressBar.progress = tiempo!!
-
-                    // Volver a programar la ejecución después del intervalo de actualización
-                    if (tiempo!! > 0) {
-                        handler.postDelayed(this, 100)
-                    }
-                }
-            }, 100)
-        }
+        iniciarCuentaRegresiva()
 
         //Activamos los listeners
 
@@ -358,12 +322,65 @@ class pruebasActivity : AppCompatActivity() {
 
 
 
-
+//on create
     }
 
+
+    private fun cargarDatosDelNivel(nivelId: Int) {
+
+        val nivelesJson = obtenerNivelesJSON()
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
+
+        if (nivelesArray != null) {
+            for (i in 0 until nivelesArray.length()) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val id = nivel.getInt("id")
+
+                if (id == nivelId) {
+                    val completado = nivel.getBoolean("completado")
+                    tiempo = nivel.getDouble("tiempo")
+                    val notasJSONArray = nivel.getJSONArray("notas")
+                    vidas = nivel.getInt("vidas")
+
+                    // Convierte JSONArray a Array<String>
+                    notasArray = Array(notasJSONArray.length()) { index ->
+                        notasJSONArray.getString(index)
+                    }
+
+                    // Aquí puedes usar las variables según tus necesidades
+                    // Por ejemplo:
+                    // tiempoTextView.text = tiempo.toString()
+
+                    break
+                }
+            }
+        }
+    }
+
+    private fun obtenerNivelesJSON(): JSONObject? {
+        var nivelesJson: JSONObject? = null
+        try {
+            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val jsonString = String(buffer, Charsets.UTF_8)
+            nivelesJson = JSONObject(jsonString)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return nivelesJson
+    }
+
+
+
+
     private fun actualizarDatosInterfaz() {
+        notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
+        contadorVidas.text="X$vidas"
     }
 
     private fun comprobarJugada(nombreNota: String) {
@@ -383,11 +400,29 @@ class pruebasActivity : AppCompatActivity() {
                 animacionAcierto()
             } else {
                 animacionFallo()
+                quitarVida()
             }
         } else {
             // El índice está fuera del rango del array notasArray se termina la partida
             terminarPartida()
         }
+    }
+
+    private fun quitarVida() {
+        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
+        contadorVidas.text="X$vidasTotales"
+    }
+    private fun isPerdido(){
+        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
+        if((vidas!! -(intentos!! - aciertos!!)!!<=0 || tiempoProgressBar.progress<=0) && !perdido){
+            perdido()
+        }
+    }
+    private fun perdido(){
+        tituloTextView.text= "Has perdido"
+        val intent = Intent(this, derrota_activity  ::class.java)
+        perdido = true;
+        startActivity(intent)
     }
 
     private fun terminarPartida() {

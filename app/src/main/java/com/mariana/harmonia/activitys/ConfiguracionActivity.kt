@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.media.MediaPlayer
@@ -31,7 +32,13 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var switchMusica: Switch
     private lateinit var switchOtraOpcion: Switch
     private lateinit var textViewEliminarCuenta: TextView
+    private lateinit var sharedPreferences: SharedPreferences
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    companion object {
+        const val SHARED_PREFS = "sharedPrefs"
+        const val MUSIC_SWITCH_STATE = "musicSwitchState"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +47,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
         textViewEliminarCuenta = findViewById(R.id.textViewEliminarCuenta)
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
 
         configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
@@ -54,6 +62,8 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
 
         switchMusica.setOnCheckedChangeListener { _, isChecked ->
+            guardarEstadoSwitch(MUSIC_SWITCH_STATE, isChecked)
+
             if (isChecked) {
                 val thumbColor = ContextCompat.getColor(this, R.color.rosa)
                 val trackColor = ContextCompat.getColor(this, R.color.rosa)
@@ -67,7 +77,7 @@ class ConfiguracionActivity : AppCompatActivity() {
                 val thumbColor = ContextCompat.getColor(this, R.color.gris)
                 val trackColor = ContextCompat.getColor(this, R.color.grisClaro)
 
-                if (mediaPlayer.isPlaying){
+                if (mediaPlayer.isPlaying) {
                     mediaPlayer.pause()
                     mediaPlayer.seekTo(0)
                 }
@@ -76,6 +86,12 @@ class ConfiguracionActivity : AppCompatActivity() {
                 switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             }
         }
+    }
+
+    private fun guardarEstadoSwitch(key: String, value: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(key, value)
+        editor.apply()
     }
 
     private fun mostrarDialogoConfirmacion() {

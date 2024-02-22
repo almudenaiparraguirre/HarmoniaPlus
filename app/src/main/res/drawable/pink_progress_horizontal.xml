@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo de la barra de progreso -->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="#E0E0E0"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <gradient
+                    android:startColor="@color/morado"
+                android:endColor="@color/rosa_claro"
+                android:angle="0"
+                android:type="linear"/>
+            </shape>
+        </clip>
+    </item>
+</layer-list>

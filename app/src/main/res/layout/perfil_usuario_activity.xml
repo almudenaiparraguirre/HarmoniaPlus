@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/style_fondo_perfil_degradado">
+        android:background="@drawable/style_fondo_perfil_degradado"
+        android:orientation="vertical">
 
         <!--LAYOUT SUPERIOR-->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,15 +151,15 @@
                     android:textAlignment="center" />
 
                 <TextView
+                    style="@style/Fuente_kameron"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Fuente_kameron"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:textSize="15dp"
                     android:text="Se unió en abril de 2023"
                     android:textAlignment="center"
-                    android:textColor="@color/gris" />
+                    android:textColor="@color/gris"
+                    android:textSize="15dp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,9 +212,9 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    style="@style/Fuente_kameron"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Fuente_kameron"
                     android:layout_gravity="center"
                     android:text="Niveles "
                     android:textAlignment="center"
@@ -254,9 +254,9 @@
 
                             <TextView
                                 android:id="@+id/leftText"
+                                style="@style/Fuente_kameron"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:layout_centerInParent="true"
                                 android:text="88%"
                                 android:textColor="@color/blanco"
@@ -266,9 +266,9 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_gravity="center"
                         android:text="Precision"
                         android:textAlignment="center"
@@ -301,18 +301,18 @@
 
                             <TextView
                                 android:id="@+id/centerText"
+                                style="@style/Fuente_kameron"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:layout_centerInParent="true"
                                 android:text="" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_gravity="center"
                         android:text="PRICIPIANTE"
                         android:textAlignment="center"
@@ -344,9 +344,9 @@
 
                             <TextView
                                 android:id="@+id/rightText"
+                                style="@style/Fuente_kameron"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:layout_centerInParent="true"
                                 android:text="44"
                                 android:textColor="@color/blanco"
@@ -356,10 +356,10 @@
                     </androidx.cardview.widget.CardView>
 
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        style="@style/Fuente_kameron"
                         android:text="EXP"
                         android:textAlignment="center"
                         android:textSize="18dp"
@@ -378,13 +378,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/rosa_claro"/>
+                    android:background="@color/rosa_claro" />
+
                 <TextView
+                    style="@style/Fuente_kameron"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Fuente_kameron"
-                    android:layout_margin="20dp"
                     android:layout_gravity="center"
+                    android:layout_margin="20dp"
                     android:text="LOGROS"
                     android:textAlignment="center"
                     android:textColor="@color/moradoClaro"
@@ -396,14 +397,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="MAESTRO DEL DESAFÍO I"
                         android:textSize="20dp"
@@ -441,9 +442,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Juega un total de 30 minutos"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -454,10 +455,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro1"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -465,9 +466,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro1"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -481,14 +482,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="CARRERA MUSICAL I"
                         android:textSize="20dp"
@@ -526,9 +527,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Completa los primeros 5 niveles"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -539,10 +540,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro2"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -550,9 +551,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro2"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -566,14 +567,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="VIRTUOSO I"
                         android:textSize="20dp"
@@ -611,9 +612,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Pasate un nivel musical sin fallar"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -624,10 +625,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro3"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -635,9 +636,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro3"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -651,14 +652,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="OIDO DE ÁGUILA"
                         android:textSize="20dp"
@@ -696,9 +697,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Pasate un nivel de oido sin fallar"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -709,10 +710,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro4"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -720,9 +721,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro4"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -736,15 +737,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        style="@style/Fuente_kameron"
                         android:text="RITMO INVENCIBLE II"
                         android:textSize="20dp"
                         android:textStyle="bold" />
@@ -781,9 +782,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Pasate un nivel de ritmo sin fallar"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -794,10 +795,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro5"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -805,9 +806,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro5"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -821,14 +822,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="HARMONIA CELESTIAL I"
                         android:textSize="20dp"
@@ -866,9 +867,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Consigue una racha de 30 seguidas en el modo desafío Melódico"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -879,10 +880,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro6"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -890,9 +891,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro6"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -906,14 +907,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="OÍDO ABSOLUTO I"
                         android:textSize="20dp"
@@ -951,9 +952,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Consigue una racha de 30 seguidas en el modo desafío Ritmico"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -964,10 +965,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro7"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -975,9 +976,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro7"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
@@ -991,14 +992,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
 
                     <!-- Título -->
                     <TextView
+                        style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Fuente_kameron"
                         android:layout_marginStart="16dp"
                         android:text="METRONOMO I"
                         android:textSize="20dp"
@@ -1036,9 +1037,9 @@
 
 
                             <TextView
+                                style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/Fuente_kameron"
                                 android:text="Consigue una racha de 30 seguidas en el modo desafío Auditivo"
                                 android:textAlignment="center"
                                 android:textSize="14sp" />
@@ -1049,10 +1050,10 @@
 
                                 <ProgressBar
                                     android:id="@+id/progressBarLogro8"
+                                    style="@style/MiProgressBarHorizontal"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dp"
-                                    style="@style/MiProgressBarHorizontal"
                                     android:max="100"
                                     android:min="0"
                                     android:progress="50"
@@ -1060,9 +1061,9 @@
 
                                 <TextView
                                     android:id="@+id/TextViewLogro8"
+                                    style="@style/Fuente_kameron"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    style="@style/Fuente_kameron"
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
