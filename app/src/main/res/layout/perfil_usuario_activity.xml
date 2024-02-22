@@ -1,15 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?><!--SCROLL-->
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activitys.PerfilUsuarioActivity">
+
+<LinearLayout
+    android:id="@+id/menu_inferior"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/selector_menu_inferior"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_gravity="bottom">
+
+    <TextView
+        android:id="@+id/btnConfiguracion"
+        style="@style/Fuente_kameron"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Configuración"
+        android:textSize="18dp"
+        android:clickable="true"
+        android:onClick="irConfiguracion"
+        android:focusable="true"
+        android:textColor="@color/negro"/>
+
+    <TextView
+        android:id="@+id/btnPerfil"
+        style="@style/Fuente_kameron"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Perfil"
+        android:textSize="18dp"
+        android:focusable="true"
+        android:textColor="@color/blanco"
+        android:background="@drawable/style_menu_inferior_perfil"  />
+</LinearLayout>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="50dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/menu_inferior">
 
     <!--LAYOUT GENERAL-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/style_fondo_perfil_degradado"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <!--LAYOUT SUPERIOR-->
@@ -388,7 +440,7 @@
                     android:layout_margin="20dp"
                     android:text="LOGROS"
                     android:textAlignment="center"
-                    android:textColor="@color/moradoClaro"
+                    android:textColor="@color/negro"
                     android:textSize="40dp"
                     android:textStyle="bold">
 
@@ -993,6 +1045,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
                     <!-- Título -->
@@ -1067,6 +1120,7 @@
                                     android:layout_centerInParent="true"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
+                                    android:layout_marginBottom="20dp"
                                     android:textStyle="bold" />
                             </RelativeLayout>
 
@@ -1078,3 +1132,4 @@
         </LinearLayout><!-- Layout inferior -->
     </LinearLayout><!-- Layout principal -->
 </ScrollView><!-- Scroll -->
+</androidx.constraintlayout.widget.ConstraintLayout>

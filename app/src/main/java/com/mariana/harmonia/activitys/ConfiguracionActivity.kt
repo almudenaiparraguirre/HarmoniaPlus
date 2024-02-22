@@ -132,6 +132,13 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
+    fun irPerfilUsuario(view: View){
+        val intent = Intent(this, PerfilUsuarioActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
+    }
+
     fun cerrarSesionConfig(view: View){
         auth.signOut()
         val intent = Intent(this, MainActivity::class.java)
