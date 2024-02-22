@@ -2,6 +2,7 @@ package com.mariana.harmonia
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 
 
@@ -22,6 +23,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -36,6 +38,7 @@ class pruebasActivity : AppCompatActivity() {
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
 
+    private var perdido: Boolean = false
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
@@ -411,9 +414,15 @@ class pruebasActivity : AppCompatActivity() {
     }
     private fun isPerdido(){
         var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
-        if(vidas!! -(intentos!! - aciertos!!)!!<=0 || tiempoProgressBar.progress<=0){
-            tituloTextView.text= "Has perdido"
+        if((vidas!! -(intentos!! - aciertos!!)!!<=0 || tiempoProgressBar.progress<=0) && !perdido){
+            perdido()
         }
+    }
+    private fun perdido(){
+        tituloTextView.text= "Has perdido"
+        val intent = Intent(this, derrota_activity  ::class.java)
+        perdido = true;
+        startActivity(intent)
     }
 
     private fun terminarPartida() {
