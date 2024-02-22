@@ -2,6 +2,8 @@ package com.mariana.harmonia
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 
@@ -620,7 +622,6 @@ class pruebasActivity : AppCompatActivity() {
         comprobarJugada("b")
     }
 
-
     //Soltar
 
     private fun soltarDo() {
@@ -685,6 +686,23 @@ class pruebasActivity : AppCompatActivity() {
 
 
     fun clickAtras(view: View) {
-        onBackPressed()
+        mostrarDialogoConfirmacion()
+    }
+
+    private fun mostrarDialogoConfirmacion() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Salir del nivel")
+        builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")
+        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+            val intent = Intent(this, NivelesAventuraActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 }
