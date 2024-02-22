@@ -25,5 +25,8 @@
 
     </style>
 
+    <style name="PinkProgressBar">
+        <item name="android:progressDrawable">@drawable/pink_progress_horizontal</item>
+    </style>
 
 </resources>

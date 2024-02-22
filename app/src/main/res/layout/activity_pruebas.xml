@@ -105,12 +105,14 @@
             <ProgressBar
                 android:id="@+id/tiempoProgressBar"
                 style="@style/MiProgressBarHorizontal"
+                android:progressDrawable="@drawable/pink_progress_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:progress="20"
-                android:max="100"
+                android:max="1000"
+                android:backgroundTint="@color/moradoClaro"
+                android:progress="10000"
                 android:min="0"
-                android:progressDrawable="@drawable/style_tiempo_progress_bar" />
+                />
 
             <ImageView
                 android:id="@+id/imageMarker"

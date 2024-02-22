@@ -38,7 +38,7 @@ class pruebasActivity : AppCompatActivity() {
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
-    private var tiempo: Int? = 60
+    private var tiempo: Double? = 60.0
     private var notasTotales: Int? = 0
     private lateinit var notasArray: Array<String?>
     private val handler = Handler(Looper.getMainLooper())
@@ -102,29 +102,44 @@ class pruebasActivity : AppCompatActivity() {
 
 
 
-        tiempoProgressBar.progress = 50
+
 
 
         //Admin del tiempo
-        fun iniciarActualizacionPeriodica() {
+        fun iniciarCuentaRegresiva() {
+            val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
+            val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+            val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
+
             handler.postDelayed(object : Runnable {
                 override fun run() {
-                    tiempo = tiempo!! - 1
-                    tiempoProgressBar.progress = tiempo!!
+                    // Decrementar el tiempo
+                    tiempo = tiempo!! - decrementoPorIntervalo
+
+                    // Calcular el progreso actual de la barra con números decimales
+                    val progresoActual = ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+
+                    // Actualizar la barra de progreso
+                    tiempoProgressBar.progress = progresoActual
 
                     // Volver a programar la ejecución después del intervalo de actualización
                     if (tiempo!! > 0) {
-                        handler.postDelayed(this, 100)
+                        handler.postDelayed(this, intervalo)
                     }
                 }
-            }, 100)
+            }, intervalo)
         }
 
+
+
+
+        nivel = intent.getIntExtra("numeroNivel",1)
         cargarDatosDelNivel(nivel!!)
         //Condiciones iniciales
         cambiarImagen(notasArray[0].toString())
         cambiarTexto("...")
         actualizarDatosInterfaz()
+        iniciarCuentaRegresiva()
 
         //Activamos los listeners
 
@@ -305,7 +320,7 @@ class pruebasActivity : AppCompatActivity() {
 
 
     private fun cargarDatosDelNivel(nivelId: Int) {
-        nivel = intent.getIntExtra("numeroNivel",1)
+
         val nivelesJson = obtenerNivelesJSON()
         val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
@@ -316,7 +331,7 @@ class pruebasActivity : AppCompatActivity() {
 
                 if (id == nivelId) {
                     val completado = nivel.getBoolean("completado")
-                    tiempo = nivel.getInt("tiempo")
+                    tiempo = nivel.getDouble("tiempo")
                     val notasJSONArray = nivel.getJSONArray("notas")
 
                     // Convierte JSONArray a Array<String>
