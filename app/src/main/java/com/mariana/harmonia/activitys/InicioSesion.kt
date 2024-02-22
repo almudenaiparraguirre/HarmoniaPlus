@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.EligeModoJuegoActivity.Companion.obtenerNombreModoDeJuego
 
 class InicioSesion : AppCompatActivity() {
 
@@ -29,7 +28,6 @@ class InicioSesion : AppCompatActivity() {
                     Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
                     // Llamar al método para obtener el nombre del modo de juego y actualizar el TextView
                     user?.email?.let { email ->
-                        obtenerNombreModoDeJuego(email, nombreModoDeJuegoTextView)
                     }
                     // Aquí irás a la segunda actividad
                     Log.d("InicioSesion", "Inicio de sesión exitoso")
@@ -43,8 +41,6 @@ class InicioSesion : AppCompatActivity() {
     fun btnIngresar(view: View) {
         val Email : TextView = findViewById(R.id.edtEmail)
         val contrasena : TextView = findViewById(R.id.edtContrasena)
-        val nombreModoDeJuegoTextView: TextView = findViewById(R.id.nombreUsuarioModo)
 
-        signIn(Email.text.toString(), contrasena.text.toString(), nombreModoDeJuegoTextView)
     }
 }
