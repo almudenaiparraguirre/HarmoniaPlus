@@ -129,6 +129,10 @@ class NivelesAventuraActivity : AppCompatActivity() {
         lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
         lockedButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
 
+        // Establecer el margen del texto para centrar horizontalmente el icono
+        val textMargin = resources.getDimensionPixelSize(R.dimen.text_margin)
+        lockedButton.setPadding(0, 0, textMargin, 0)
+
         val strokeWidth = resources.getDimensionPixelSize(R.dimen.stroke_width)
         val strokeColor = ContextCompat.getColor(this, android.R.color.white)
         val shapeDrawable = ContextCompat.getDrawable(this, R.drawable.style_round_button_blue)!!.mutate()
@@ -139,8 +143,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         val drawableLock = ContextCompat.getDrawable(this, R.drawable.lock) // Reemplaza R.drawable.lock con tu propio recurso de icono de candado
 
-        // Ajusta la posición del icono de candado en el botón para centrarlo horizontalmente
-        drawableLock?.setBounds(drawableLock.intrinsicWidth, 0, 0, drawableLock.intrinsicHeight)
+        // Ajustar la posición del icono de candado en el botón para centrarlo horizontalmente
+        drawableLock?.setBounds(0, 0, drawableLock.intrinsicWidth, drawableLock.intrinsicHeight)
         lockedButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawableLock, null)
 
         // Establecer el fondo y el borde del botón bloqueado
@@ -166,7 +170,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         val size = resources.getDimensionPixelSize(R.dimen.button_size)
         val params = LinearLayout.LayoutParams(size, size)
         button.layoutParams = params
-
         return button
     }
 
