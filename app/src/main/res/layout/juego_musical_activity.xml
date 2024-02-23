@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/moradoClaro">
+    android:background="@drawable/style_degradado_fondo_musical">
 
     <LinearLayout
         android:id="@+id/layoutSuperior"
@@ -50,9 +50,11 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/blanco"
+                android:padding="10dp"
+                android:background="@drawable/style_rounded_borders"
                 android:text="0/10"
                 android:textSize="30dp"
+
                 android:textStyle="bold" />
 
         </RelativeLayout>
@@ -71,7 +73,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/pentagama" />
+                android:src="@drawable/pentagama"
+                android:foreground="@drawable/shadow_effect" />
+
 
 
             <ImageView
@@ -85,6 +89,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="150dp">
+
+
+            <TextView
+                android:id="@+id/textViewTiempoContador"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="10dp"
+                android:text="00:00"
+                android:textColor="@color/negro"
+                android:textSize="50dp" />
+
 
             <TextView
                 android:id="@+id/layoutTexto"
@@ -148,11 +165,10 @@
                 android:id="@+id/imageMarker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:src="@mipmap/img_gema" />
+               />
 
         </RelativeLayout>
 

@@ -1,24 +1,14 @@
 package com.mariana.harmonia
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.StateListDrawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.print.PrintAttributes.Margins
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.Guideline
-import androidx.core.view.marginLeft
-import androidx.core.view.marginTop
-import io.grpc.Context
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -87,7 +77,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 button.setBackgroundResource(getRandomButtonDrawable())
                 button.setOnClickListener {
                     val numeroNivel = button.id
-                    val intent = Intent(this, pruebasActivity::class.java)
+                    val intent = Intent(this, JuegoMusicalActivity::class.java)
                     intent.putExtra("numeroNivel", numeroNivel)
                     startActivity(intent)
                 }
@@ -118,7 +108,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         button.setBackgroundResource(getRandomButtonDrawable())
         button.setOnClickListener {
             val numeroNivel = button.id
-            val intent = Intent(this, pruebasActivity::class.java)
+            val intent = Intent(this, JuegoMusicalActivity::class.java)
             intent.putExtra("numeroNivel", numeroNivel)
             startActivity(intent)
         }

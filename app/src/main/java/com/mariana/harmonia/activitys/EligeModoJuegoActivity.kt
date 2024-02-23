@@ -16,7 +16,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import com.mariana.harmonia.pruebasActivity
+import com.mariana.harmonia.JuegoMusicalActivity
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -77,7 +77,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun irDesafio(view: View){
-        val intent = Intent(this, pruebasActivity::class.java)
+        val intent = Intent(this, JuegoMusicalActivity::class.java)
         startActivity(intent)
     }
 

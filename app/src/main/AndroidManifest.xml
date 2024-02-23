@@ -17,10 +17,13 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
+            android:name=".victoria_activity"
+            android:exported="false" />
+        <activity
             android:name=".derrota_activity"
             android:exported="false" />
         <activity
-            android:name=".pruebasActivity"
+            android:name=".JuegoMusicalActivity"
             android:exported="false" />
         <activity
             android:name=".NivelesAventuraActivity"

@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -21,40 +22,45 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 
 
-class pruebasActivity : AppCompatActivity() {
+class JuegoMusicalActivity : AppCompatActivity() {
+
     private lateinit var imagenNota: ImageView
     private lateinit var textViewNota: TextView
     private lateinit var contadorTextView: TextView
     private lateinit var tituloTextView: TextView
     private lateinit var contadorVidas: TextView
+    private lateinit var textViewTiempo: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
+    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
 
     private var perdido: Boolean = false
+    private var ganado: Boolean = false
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
     private var tiempo: Double? = 60.0
+
     private var notasTotales: Int? = 0
     private var vidas: Int? = 0
     private lateinit var notasArray: Array<String?>
+
+    //manejadores contadores
     private val handler = Handler(Looper.getMainLooper())
+    private var countDownTimer: CountDownTimer? = null
 
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pruebas)
-
-
-
-
+        setContentView(R.layout.juego_musical_activity)
 
 
         // Las notas del nivel
@@ -95,6 +101,7 @@ class pruebasActivity : AppCompatActivity() {
         val notaLa = findViewById<ImageView>(R.id.notaLa)
         val notaSi = findViewById<ImageView>(R.id.notaSi)
 
+
         imagenNota = findViewById(R.id.imagenNota)
         textViewNota = findViewById(R.id.layoutTexto)
         contadorTextView = findViewById(R.id.contadorTextView)
@@ -102,49 +109,77 @@ class pruebasActivity : AppCompatActivity() {
         contadorVidas = findViewById(R.id.textViewCorazones)
         tiempoProgressBar = findViewById<ProgressBar>(R.id.tiempoProgressBar)
         imagenProgressBar = findViewById(R.id.imageMarker)
+        textViewTiempo = findViewById(R.id.textViewTiempoContador)
+
+        fun iniciarContador() {
 
 
+                val countDownTimer = object : CountDownTimer(
+                    (tiempo!! * 1000 + 1000).toLong(),
+                    1000
+                ) { // Conteo desde 100 hasta 0 en intervalos de 1 segundo
+                    override fun onTick(millisUntilFinished: Long) {
+                        val secondsLeft = millisUntilFinished / 1000
+                        cambiarTiempo(secondsLeft.toInt())
+                    }
 
+                    override fun onFinish() {
+                        cambiarTiempo(0)
+                    }
+                }
 
+                // Inicia el contador
+                countDownTimer.start()
 
+        }
 
 
         //Admin del tiempo
         fun iniciarCuentaRegresiva() {
-            val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
-            val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
-            val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
 
-            handler.postDelayed(object : Runnable {
-                override fun run() {
-                    isPerdido()
-                    // Decrementar el tiempo
-                    tiempo = tiempo!! - decrementoPorIntervalo
+                val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
+                val duracionTotal =
+                    tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+                val decrementoPorIntervalo =
+                    1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
 
-                    // Calcular el progreso actual de la barra con números decimales
-                    val progresoActual = ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+                handler.postDelayed(object : Runnable {
+                    override fun run() {
 
-                    // Actualizar la barra de progreso
-                    tiempoProgressBar.progress = progresoActual
+                        isPerdido()
 
-                    // Volver a programar la ejecución después del intervalo de actualización
-                    if (tiempo!! > 0) {
-                        handler.postDelayed(this, intervalo)
+                        // Decrementar el tiempo
+                        tiempo = tiempo!! - decrementoPorIntervalo
+
+                        // Calcular el progreso actual de la barra con números decimales
+                        val progresoActual =
+                            ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+
+                        // Actualizar la barra de progreso
+                        tiempoProgressBar.progress = progresoActual
+
+                        // Volver a programar la ejecución después del intervalo de actualización
+                        if (tiempo!! > 0) {
+                            handler.postDelayed(this, intervalo)
+                        }
                     }
-                }
-            }, intervalo)
+                }, intervalo)
+
         }
 
 
 
 
-        nivel = intent.getIntExtra("numeroNivel",1)
+
+        nivel = intent.getIntExtra("numeroNivel", 1)
         cargarDatosDelNivel(nivel!!)
         //Condiciones iniciales
         cambiarImagen(notasArray[0].toString())
         cambiarTexto("...")
         actualizarDatosInterfaz()
         iniciarCuentaRegresiva()
+        iniciarContador()
+
 
         //Activamos los listeners
 
@@ -319,8 +354,12 @@ class pruebasActivity : AppCompatActivity() {
         }
 
 
-
 //on create
+    }
+
+
+    public fun cambiarTiempo(segundos: Int) {
+        textViewTiempo.text = segundos.toString() + "s"
     }
 
 
@@ -372,59 +411,84 @@ class pruebasActivity : AppCompatActivity() {
     }
 
 
-
-
     private fun actualizarDatosInterfaz() {
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
-        contadorVidas.text="X$vidas"
+        contadorVidas.text = "X$vidas"
     }
 
     private fun comprobarJugada(nombreNota: String) {
-        //sumamos una a intentos
+
+        // Sumamos uno a intentos
         intentos = intentos?.plus(1)
 
-        //comprobamos si el array se ha terminado
-
+        // Comprobamos si el array se ha terminado
         if (aciertos != null && aciertos!! < notasArray.size) {
-            //Si la nota es la indicada entra
-            if (notasArray[(aciertos!!)]!!.substring(1) == nombreNota) {
-
-                aciertos = aciertos?.plus(1)
-                cambiarImagen(notasArray[aciertos!!].toString())
+            // Accedemos al elemento del array y verificamos que no sea nulo
+            val notaActual = notasArray[aciertos!!]
+            if (notaActual != null && notaActual.length > 1 && notaActual.substring(1) == nombreNota) {
+                cambiarImagen(notaActual)
                 cambiarTexto(nombreNota)
                 actualizarDatosInterfaz()
                 animacionAcierto()
+
+                aciertos = aciertos?.plus(1)
+                isGanado()
+
             } else {
                 animacionFallo()
                 quitarVida()
             }
-        } else {
-            // El índice está fuera del rango del array notasArray se termina la partida
-            terminarPartida()
         }
     }
 
+
     private fun quitarVida() {
-        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
-        contadorVidas.text="X$vidasTotales"
+        var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+        contadorVidas.text = "X$vidasTotales"
     }
-    private fun isPerdido(){
-        var vidasTotales = vidas!! -(intentos!! - aciertos!!)!!
-        if((vidas!! -(intentos!! - aciertos!!)!!<=0 || tiempoProgressBar.progress<=0) && !perdido){
+
+    private fun isPerdido() {
+        var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+        if ((vidas!! - (intentos!! - aciertos!!)!! <= 0 || tiempoProgressBar.progress <= 0) && !perdido) {
             perdido()
         }
     }
-    private fun perdido(){
-        tituloTextView.text= "Has perdido"
-        val intent = Intent(this, derrota_activity  ::class.java)
+
+    private fun perdido() {
+        tituloTextView.text = "Has perdido"
+        val intent = Intent(this, derrota_activity::class.java)
         perdido = true;
         startActivity(intent)
     }
 
+    private fun isGanado() {
+
+        if (aciertos == notasTotales) {
+            ganado()
+        }
+    }
+
+        private fun ganado() {
+            val intent = Intent(this, victoria_activity::class.java)
+            ganado=true
+            startActivity(intent)
+
+
+
+
+
+
+
+
+        }
+
     private fun terminarPartida() {
-        Log.d("pruebasActivity", "Se termino la partida ya que se termino el array")
+        detenerContador()
+        detenerCuentaRegresiva()
+        ganado = true
+
     }
 
 
@@ -436,8 +500,6 @@ class pruebasActivity : AppCompatActivity() {
         val idImagen = resources.getIdentifier("nota_" + nombreArchivo, "drawable", packageName)
         if (idImagen != 0) {
             imagenNota.setImageResource(idImagen)
-        } else {
-            Toast.makeText(this, "Imagen no encontrada", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -705,4 +767,14 @@ class pruebasActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+    fun detenerContador() {
+        countDownTimer?.cancel()
+    }
+
+    fun detenerCuentaRegresiva() {
+        handler.removeCallbacksAndMessages(null)
+
+    }
+
 }
