@@ -14,7 +14,9 @@
     <color name="rosa_perfil">#EEBCE3</color>
     <color name="fondo_default">#EEBCE3</color>
     <color name="grisAjustes">#E1E1E1</color>
+    <color name="grisMuyClaro">#EEEEEE</color>
     <color name="colorButton1">#FF4081</color>
     <color name="colorButton2">#2196F3</color>
+    <color name="colorVariableScrollView">#FFFFFF</color>
 
 </resources>

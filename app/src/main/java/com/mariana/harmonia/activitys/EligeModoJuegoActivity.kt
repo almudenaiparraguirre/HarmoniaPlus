@@ -47,7 +47,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Puedes actualizar el porcentaje directamente
         val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
         progressBar.progress = porcentaje
-        porcentajeTextView.text = "$porcentaje%"
+        porcentajeTextView.text = "LV.2"
 
         // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)

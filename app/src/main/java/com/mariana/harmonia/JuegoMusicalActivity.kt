@@ -390,7 +390,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     private fun actualizarDatosInterfaz() {
-        var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+        var vidasTotales = vidas!! - (intentos!! - aciertos!!)
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
