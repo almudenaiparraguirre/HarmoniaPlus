@@ -95,9 +95,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     private fun createLockedButton(): ImageButton {
         val lockedButton = ImageButton(this)
-        lockedButton.setBackgroundResource(R.drawable.style_round_button_blue) // Establece el fondo según tus necesidades
-        lockedButton.setImageResource(R.drawable.lock) // Establece el icono de candado
-        lockedButton.isEnabled = false // Deshabilita el botón bloqueado
+        lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
+        lockedButton.setImageResource(R.drawable.lock)
+        lockedButton.isEnabled = false
         return lockedButton
     }
 

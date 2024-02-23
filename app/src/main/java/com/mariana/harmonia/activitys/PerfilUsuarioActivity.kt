@@ -41,6 +41,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
+    private lateinit var topTextView: TextView
 
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,6 +138,37 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             imagen.setImageURI(uri)
         }*/
 
+        val niveles: List<Nivel> = obtenerListaNiveles()
+
+        topTextView = findViewById(R.id.topText)
+
+        // Encuentra el último nivel completado
+        val ultimoNivelCompletado = niveles.lastOrNull { it.completado }
+
+        // Si hay un último nivel completado, establece el texto
+        if (ultimoNivelCompletado != null) {
+            topTextView.text = ultimoNivelCompletado.id.toString()
+        } else {
+            // Si no hay niveles completados, puedes establecer un texto predeterminado
+            topTextView.text = "N/A"
+        }
+    }
+
+    data class Nivel(
+        val id: Int,
+        val completado: Boolean,
+        val tiempo: Int,
+        val notas: List<String>,
+        val vidas: Int
+    )
+
+    // Método ficticio para obtener la lista de niveles
+    private fun obtenerListaNiveles(): List<Nivel> {
+        return listOf(
+            Nivel(1, true, 5, listOf("4c", "4d", "4e", "4f", "4g"), 1),
+            Nivel(2, true, 60, listOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e"), 3),
+            Nivel(3, false, 60, listOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e"), 3)
+        )
     }
 
     private fun requestPermission() {
