@@ -31,6 +31,9 @@ import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 /*import com.mariana.harmonia.databinding.ActivityMain2Binding*/
 import com.mariana.harmonia.databinding.MainActivityBinding
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -47,7 +50,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
-       // cargarEstadisticasLogros()
+        // cargarEstadisticasLogros()
         val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
@@ -56,15 +59,17 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             mostrarDialogImagen(imagen)
         }
         binding = MainActivityBinding.inflate(layoutInflater)
-       lapiz.setOnClickListener { requestPermission() }
+        lapiz.setOnClickListener { requestPermission() }
 
         // Obtener el color promedio de la imagen
         val bitmap = (imagen.drawable as BitmapDrawable).bitmap
         val colorPromedio = obtenerColorPromedio(bitmap)
 
         //Este lIstener hace que al clicar fuera de la pantalla se deje de rellenar el campo del nombre
-        val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID) // Reemplaza con el ID de tu ConstraintLayout
-        val editText: EditText = findViewById(R.id.nombre_usuario) // Reemplaza con el ID de tu EditText
+        val constraintLayout: ConstraintLayout =
+            findViewById(R.id.constraintLayoutID) // Reemplaza con el ID de tu ConstraintLayout
+        val editText: EditText =
+            findViewById(R.id.nombre_usuario) // Reemplaza con el ID de tu EditText
 
         constraintLayout.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -91,7 +96,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val porcentajeTextView5 = findViewById<TextView>(R.id.TextViewLogro5)
         val progressBar6 = findViewById<ProgressBar>(R.id.progressBarLogro6)
         val porcentajeTextView6 = findViewById<TextView>(R.id.TextViewLogro6)
-        val progressBar7= findViewById<ProgressBar>(R.id.progressBarLogro7)
+        val progressBar7 = findViewById<ProgressBar>(R.id.progressBarLogro7)
         val porcentajeTextView7 = findViewById<TextView>(R.id.TextViewLogro7)
         val progressBar8 = findViewById<ProgressBar>(R.id.progressBarLogro8)
         val porcentajeTextView8 = findViewById<TextView>(R.id.TextViewLogro8)
@@ -138,37 +143,50 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             imagen.setImageURI(uri)
         }*/
 
-        val niveles: List<Nivel> = obtenerListaNiveles()
+        val niveles: JSONObject? = obtenerNivelesJSON()
 
         topTextView = findViewById(R.id.topText)
 
-        // Encuentra el último nivel completado
-        val ultimoNivelCompletado = niveles.lastOrNull { it.completado }
+        val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
 
-        // Si hay un último nivel completado, establece el texto
-        if (ultimoNivelCompletado != null) {
-            topTextView.text = ultimoNivelCompletado.id.toString()
+        if (ultimoNivelCompletadoId != null) {
+            topTextView.text = ultimoNivelCompletadoId.toString()
         } else {
-            // Si no hay niveles completados, puedes establecer un texto predeterminado
             topTextView.text = "N/A"
         }
     }
 
-    data class Nivel(
-        val id: Int,
-        val completado: Boolean,
-        val tiempo: Int,
-        val notas: List<String>,
-        val vidas: Int
-    )
+        private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
+            val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
-    // Método ficticio para obtener la lista de niveles
-    private fun obtenerListaNiveles(): List<Nivel> {
-        return listOf(
-            Nivel(1, true, 5, listOf("4c", "4d", "4e", "4f", "4g"), 1),
-            Nivel(2, true, 60, listOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e"), 3),
-            Nivel(3, false, 60, listOf("5a", "5f", "4a", "5b", "4d", "5e", "4f", "4c", "5g", "4b", "5d", "4e", "5b", "4g", "5d", "4b", "5c", "5e"), 3)
-        )
+            if (nivelesArray != null) {
+                for (i in nivelesArray.length() - 1 downTo 0) {
+                    val nivel = nivelesArray.getJSONObject(i)
+                    val completado = nivel.getBoolean("completado")
+
+                    if (completado) {
+                        return nivel.getInt("id")
+                    }
+                }
+            }
+            return null
+        }
+
+
+        private fun obtenerNivelesJSON(): JSONObject? {
+        var nivelesJson: JSONObject? = null
+        try {
+            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val jsonString = String(buffer, Charsets.UTF_8)
+            nivelesJson = JSONObject(jsonString)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return nivelesJson
     }
 
     private fun requestPermission() {
