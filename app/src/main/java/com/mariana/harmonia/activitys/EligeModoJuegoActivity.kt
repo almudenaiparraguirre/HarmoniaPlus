@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
@@ -85,13 +86,17 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val currentUser = firebaseAuth.currentUser
         val emailFire = currentUser?.email
         // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
-        val email = emailFire?.replace(".", ",") //
+        val email = emailFire?.replace(".", ",")
+
+
 
         try {
             UserDao.getUserField(email, "name",
                 onSuccess = { name ->
                     runOnUiThread {
                         nombreModoDeJuegoTextView.text = name as? CharSequence ?: ""
+                        Toast.makeText(this,  name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
+
 
                     }
                 }
@@ -101,12 +106,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
                     "Error al obtener el nombre del modo de juego: ${exception.message}",
                     exception
                 )
-                nombreModoDeJuegoTextView.text = "fallo"
+                nombreModoDeJuegoTextView.text = "unnamed"
 
             }
         } catch (e: Exception) {
             Log.e(TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
-            nombreModoDeJuegoTextView.text = "fallo"
+            nombreModoDeJuegoTextView.text = "unnamed"
         }
     }
 

@@ -415,7 +415,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
+        if(vidas!!<=10){
         contadorVidas.text = "X$vidas"
+        }else{ contadorVidas.text = "X∞"}
     }
 
     private fun comprobarJugada(nombreNota: String) {
@@ -446,7 +448,13 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     private fun quitarVida() {
         var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
-        contadorVidas.text = "X$vidasTotales"
+        if(vidasTotales>=0) {
+            if(vidasTotales!!<10){
+            contadorVidas.text = "X$vidasTotales"
+            }else{
+                contadorVidas.text = "X∞"
+            }
+        }
     }
 
     private fun isPerdido() {

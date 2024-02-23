@@ -1,20 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".victoria_activity">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Has Ganado🥳​ "
-            android:textAlignment="center"
-            android:textSize="100dp"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Has Ganado🥳​ "
+        android:textAlignment="center"
+        android:textSize="100sp" />
+
+    <Button
+        android:id="@+id/buttonArribaCen"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:text="arriba cen"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/buttonAbajoIz"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="abajo iz"
+            android:layout_gravity="left" />
+        <Button
+            android:id="@+id/buttonAbajoDe"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:text="abajo de" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>
