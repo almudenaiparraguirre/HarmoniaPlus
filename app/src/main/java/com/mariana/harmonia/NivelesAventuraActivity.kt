@@ -44,7 +44,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
             resources.getDimensionPixelSize(R.dimen.button_margin)
         )
 
-        for (i in 0 until numBotones) {
+        for (i in 1 until numBotones) {
 
             val button: View = if (i > idNivelNoCompletado) {
                 createLockedButton()

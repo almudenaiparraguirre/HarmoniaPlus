@@ -172,7 +172,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             return null
         }
 
-
         private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {

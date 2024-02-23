@@ -8,15 +8,13 @@
     tools:context=".NivelesAventuraActivity">
 
     <!-- Menú Superior -->
+    <!-- Menú Superior -->
     <LinearLayout
         android:id="@+id/llTopBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/rosa_perfil"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:gravity="center_horizontal">
 
         <!-- Foto de perfil -->
         <androidx.cardview.widget.CardView
@@ -34,12 +32,13 @@
         </androidx.cardview.widget.CardView>
 
         <!-- Llama con número -->
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/llamaLayout"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <!-- Imagen de la llama -->
             <ImageView
@@ -51,30 +50,76 @@
             <!-- Número en la llama -->
             <TextView
                 android:id="@+id/numeroLlama"
+                style="@style/Fuente_kameron"
+                android:textSize="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="99"
-                android:textColor="#ffffff"
+                android:textColor="@color/negro"
                 android:layout_toEndOf="@id/imagenLlama"
                 android:layout_marginStart="4dp"/>
-        </RelativeLayout>
+        </LinearLayout>
 
-        <!-- Gemas -->
-        <ImageView
-            android:id="@+id/imagenGemas"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@mipmap/img_gema"
-            android:padding="8dp"/>
+        <LinearLayout
+            android:id="@+id/gemasLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <!-- Corazón con vidas -->
-        <ImageView
-            android:id="@+id/imagenCorazon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/svg_corazon"
-            android:padding="8dp"/>
+            <!-- Gemas -->
+            <ImageView
+                android:id="@+id/imagenGemas"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@mipmap/img_gema"
+                android:padding="8dp"/>
+
+            <!-- Número en la llama -->
+            <TextView
+                android:id="@+id/numeroGemas"
+                style="@style/Fuente_kameron"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99"
+                android:textColor="@color/negro"
+                android:layout_toEndOf="@id/imagenLlama"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/corazonesLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!-- Corazón con vidas -->
+            <ImageView
+                android:id="@+id/imagenCorazon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/svg_corazon"
+                android:padding="8dp"/>
+
+            <!-- Número en la llama -->
+            <TextView
+                android:id="@+id/numeroCorazones"
+                style="@style/Fuente_kameron"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textColor="@color/negro"
+                android:layout_toEndOf="@id/imagenLlama"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+
     </LinearLayout>
+
 
     <!-- Contenedor Principal -->
     <ScrollView
