@@ -63,28 +63,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
         setContentView(R.layout.juego_musical_activity)
 
 
-        // Las notas del nivel
-        notasArray = arrayOf(
-            "5a",
-            "5f",
-            "4a",
-            "5b",
-            "4d",
-            "5e",
-            "4f",
-            "4c",
-            "5g",
-            "4b",
-            "5d",
-            "4e",
-            "5b",
-            "4g",
-            "5d",
-            "4b",
-            "5c",
-            "5e",
-        )
-
         // Click notas negras
         val notaRe_b = findViewById<ImageView>(R.id.notaRe_b)
         val notaMi_b = findViewById<ImageView>(R.id.notaMi_b)
@@ -412,38 +390,39 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     private fun actualizarDatosInterfaz() {
+        var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
         tituloTextView.text = "Nivel-$nivel"
-        if(vidas!!<=10){
-        contadorVidas.text = "X$vidas"
+        if(vidasTotales!!<=10){
+        contadorVidas.text = "X$vidasTotales"
         }else{ contadorVidas.text = "X∞"}
     }
 
+    // NO TOCARRRRR Funciona bien :)
     private fun comprobarJugada(nombreNota: String) {
-
-        // Sumamos uno a intentos
+        // Sumamos una a intentos
         intentos = intentos?.plus(1)
-
         // Comprobamos si el array se ha terminado
         if (aciertos != null && aciertos!! < notasArray.size) {
-            // Accedemos al elemento del array y verificamos que no sea nulo
-            val notaActual = notasArray[aciertos!!]
-            if (notaActual != null && notaActual.length > 1 && notaActual.substring(1) == nombreNota) {
-                cambiarImagen(notaActual)
+            // Si la nota es la indicada entra
+            if (notasArray[aciertos!!]?.substring(1) == nombreNota) {
+                aciertos = aciertos?.plus(1)
+                // Comprobar si aciertos sigue siendo menor que la longitud de notasArray
+                if (aciertos!! < notasArray.size) {
+                    cambiarImagen(notasArray[aciertos!!].toString())
+                }
                 cambiarTexto(nombreNota)
                 actualizarDatosInterfaz()
                 animacionAcierto()
-
-                aciertos = aciertos?.plus(1)
                 isGanado()
-
             } else {
                 animacionFallo()
                 quitarVida()
             }
         }
     }
+
 
 
     private fun quitarVida() {
