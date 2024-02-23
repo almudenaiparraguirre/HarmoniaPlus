@@ -9,14 +9,12 @@
     tools:context=".NivelesAventuraActivity">
 
     <!-- Menú Superior -->
-    <!-- Menú Superior -->
     <LinearLayout
         android:id="@+id/llTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:background="@color/grisMuyClaro"
         tools:ignore="MissingConstraints">
 
         <!-- Foto de perfil -->
@@ -34,8 +32,6 @@
                 android:padding="8dp"/>
         </androidx.cardview.widget.CardView>
 
-
-
         <LinearLayout
             android:id="@+id/nivelTextViewLayout"
             android:layout_width="0dp"
@@ -43,9 +39,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
-
-
-
 
             <TextView
                 android:id="@+id/textViewNivel"
@@ -67,14 +60,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <!-- Corazón con vidas -->
-            <ImageView
-                android:id="@+id/imagenCorazon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/svg_corazon"
-                android:padding="8dp"/>
-
             <!-- Número en la llama -->
             <TextView
                 android:id="@+id/numeroCorazones"
@@ -86,12 +71,20 @@
                 android:textColor="@color/negro"
                 android:layout_toEndOf="@id/nivelTextViewLayout"
                 android:layout_marginStart="4dp"/>
+
+            <!-- Corazón con vidas -->
+            <ImageView
+                android:id="@+id/imagenCorazon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/svg_corazon"
+                android:padding="8dp"/>
         </LinearLayout>
 
     </LinearLayout>
 
-
     <!-- Contenedor Principal -->
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -107,6 +100,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/llBotonera">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:onClick="clickAtras"
+                android:src="@mipmap/img_ico_volver_atras"
+                app:layout_constraintTop_toBottomOf="@+id/llTopBar"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <!-- Aquí puedes agregar más elementos según sea necesario -->
 

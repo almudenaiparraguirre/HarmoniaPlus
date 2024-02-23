@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <RelativeLayout
             android:id="@+id/layoutAjustes"
             android:layout_width="match_parent"
@@ -50,15 +51,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:padding="10dp"
                 android:background="@drawable/style_rounded_borders"
+                android:padding="10dp"
                 android:text="0/10"
                 android:textSize="30dp"
 
                 android:textStyle="bold" />
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/layoutPentagrama"

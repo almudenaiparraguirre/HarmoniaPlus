@@ -2,7 +2,9 @@ package com.mariana.harmonia
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -112,31 +114,46 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
             // Establece el color de fondo del ScrollView
             scrollView.setBackgroundColor(color)
-
-
-
         }
-
-
-
 
         //fin oncreate
         colocarTextViewNivel()
     }
 
-    private fun createLockedButton(): ImageButton {
-        val lockedButton = ImageButton(this)
-        lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
-        lockedButton.setImageResource(R.drawable.lock)
+    private fun createLockedButton(): Button {
+        val lockedButton = Button(this)
+        lockedButton.textSize = 20f
+        lockedButton.gravity = Gravity.CENTER
         lockedButton.isEnabled = false
+
+        lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
+        lockedButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+
+        val strokeWidth = resources.getDimensionPixelSize(R.dimen.stroke_width)
+        val strokeColor = ContextCompat.getColor(this, android.R.color.white)
+        val shapeDrawable = ContextCompat.getDrawable(this, R.drawable.style_round_button_blue)!!.mutate()
+        shapeDrawable.setTint(strokeColor)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            (lockedButton.background as GradientDrawable).setStroke(strokeWidth, strokeColor)
+        }
+
+        val drawableLock = ContextCompat.getDrawable(this, R.drawable.lock) // Reemplaza R.drawable.lock con tu propio recurso de icono de candado
+
+        // Ajusta la posición del icono de candado en el botón para centrarlo horizontalmente
+        drawableLock?.setBounds(drawableLock.intrinsicWidth, 0, 0, drawableLock.intrinsicHeight)
+        lockedButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawableLock, null)
+
+        // Establecer el fondo y el borde del botón bloqueado
+        lockedButton.background = shapeDrawable
+
         return lockedButton
     }
 
     private fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
-        button.textSize = 30f
+        button.textSize = 20f
+        button.gravity = Gravity.CENTER
 
-        button.textAlignment = View.TEXT_ALIGNMENT_CENTER
         button.id = levelNumber
         button.text = String.format("%2d", levelNumber)
         button.setBackgroundResource(getRandomButtonDrawable())
@@ -152,6 +169,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         return button
     }
+
 
     private fun getRandomButtonDrawable(): Int {
         val buttonDrawables = listOf(
@@ -203,34 +221,34 @@ class NivelesAventuraActivity : AppCompatActivity() {
         var nivel  = idNivelNoCompletado.toString()
         textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
-// Función para interpolar colores
-private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
-    val colors = intArrayOf(
-        Color.WHITE,
-        Color.parseColor("#FFC0CB"), // Rosa claro
-        Color.parseColor("#E1BEE7"), // Morado claro
-        Color.RED,
-        Color.parseColor("#FFA500"), // Naranja
-        Color.YELLOW,
-        Color.GREEN,
-        Color.BLUE,
-        Color.parseColor("#00008B"), // Azul oscuro
-        Color.BLACK
-    )
+    // Función para interpolar colores
+    private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
+        val colors = intArrayOf(
+            Color.WHITE,
+            Color.parseColor("#FFD3E6"), // Rosa claro y suave
+            Color.parseColor("#FFB6C1"), // Rosa medio y suave
+            Color.parseColor("#FF69B4"), // Rosa oscuro y suave
+            Color.parseColor("#E7D8F5"), // Morado claro y suave
+            Color.parseColor("#D8BFD8"), // Morado medio y suave
+            Color.parseColor("#8A2BE2"), // Morado oscuro y suave
+            Color.parseColor("#87CEEB"), // Azul cielo suave
+            Color.parseColor("#ADD8E6"), // Azul claro y suave
+            Color.parseColor("#4682B4"), // Azul acero
+            Color.parseColor("#4169E1"), // Azul real
+        )
 
-    val startIndex = (ratio * (colors.size - 1)).toInt()
-    val endIndex = minOf(startIndex + 1, colors.size - 1)
-    val startColor = colors[startIndex]
-    val endColor = colors[endIndex]
+        val startIndex = (ratio * (colors.size - 1)).toInt()
+        val endIndex = minOf(startIndex + 1, colors.size - 1)
+        val startColor = colors[startIndex]
+        val endColor = colors[endIndex]
 
-    val startRatio = 1 - (ratio * (colors.size - 1) - startIndex)
-    val endRatio = 1 - startRatio
+        val startRatio = 1 - (ratio * (colors.size - 1) - startIndex)
+        val endRatio = 1 - startRatio
 
-    val r = (Color.red(startColor) * startRatio + Color.red(endColor) * endRatio).toInt()
-    val g = (Color.green(startColor) * startRatio + Color.green(endColor) * endRatio).toInt()
-    val b = (Color.blue(startColor) * startRatio + Color.blue(endColor) * endRatio).toInt()
+        val r = (Color.red(startColor) * startRatio + Color.red(endColor) * endRatio).toInt()
+        val g = (Color.green(startColor) * startRatio + Color.green(endColor) * endRatio).toInt()
+        val b = (Color.blue(startColor) * startRatio + Color.blue(endColor) * endRatio).toInt()
 
-    return Color.rgb(r, g, b)
-}
-
+        return Color.rgb(r, g, b)
+    }
 }
