@@ -15,6 +15,8 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.mariana.harmonia.activitys.ConfiguracionActivity
+import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -253,5 +255,17 @@ class NivelesAventuraActivity : AppCompatActivity() {
         val b = (Color.blue(startColor) * startRatio + Color.blue(endColor) * endRatio).toInt()
 
         return Color.rgb(r, g, b)
+    }
+
+    fun clickAtras(view: View){
+        val intent = Intent(this, EligeModoJuegoActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun volverModoJuego(view: View){
+        val intent = Intent(this, EligeModoJuegoActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

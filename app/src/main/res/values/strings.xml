@@ -12,6 +12,7 @@
     <string name="efectos_de_sonido">Música</string>
     <string name="sfx">Efectos de sonido</string>
     <string name="vibracion">Vibración</string>
+    <string name="VolverModoJuego"><u>Volver a la página principal</u></string>
     <string-array name="theme_options">
         <item>Predeterminado</item>
         <item>Claro</item>
