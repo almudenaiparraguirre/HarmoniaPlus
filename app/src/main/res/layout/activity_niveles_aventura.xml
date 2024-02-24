@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blanco"
+    android:background="#FFDEF7"
     tools:context=".NivelesAventuraActivity">
 
     <!-- Menú Superior -->
     <LinearLayout
         android:id="@+id/llTopBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
+        android:background="@drawable/background_stroke"
         tools:ignore="MissingConstraints">
 
         <!-- Foto de perfil -->
@@ -22,12 +23,16 @@
             android:id="@+id/cardview_perfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
             app:cardCornerRadius="100dp">
 
             <ImageView
                 android:id="@+id/imagenPerfil"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:clickable="true"
+                android:onClick="verPerfilUsuario"
                 android:src="@mipmap/img_perfil_luis_golden"
                 android:padding="8dp"/>
         </androidx.cardview.widget.CardView>
@@ -101,19 +106,6 @@
             android:orientation="vertical"
             android:id="@+id/llBotonera">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:onClick="clickAtras"
-                android:src="@mipmap/img_ico_volver_atras"
-                app:layout_constraintTop_toBottomOf="@+id/llTopBar"
-                app:layout_constraintStart_toStartOf="parent"/>
-
             <!-- Aquí puedes agregar más elementos según sea necesario -->
 
         </LinearLayout>
@@ -125,6 +117,7 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
+        android:background="@drawable/background_stroke"
         app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
         <TextView

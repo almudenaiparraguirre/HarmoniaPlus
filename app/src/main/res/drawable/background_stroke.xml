@@ -1,0 +1,8 @@
+<!-- res/drawable/background_stroke.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@android:color/white" />
+    <stroke
+        android:width="2dp"
+    android:color="@android:color/black" />
+</shape>

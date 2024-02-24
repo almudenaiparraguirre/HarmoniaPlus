@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.activitys.ConfiguracionActivity
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
+import com.mariana.harmonia.activitys.PerfilUsuarioActivity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -25,7 +26,7 @@ import kotlin.random.Random
 
 class NivelesAventuraActivity : AppCompatActivity() {
 
-    private val numCantNiveles = 50
+    private val numCantNiveles = 100
     private lateinit var llBotonera: LinearLayout
     private var botonCorrecto: Int = 0
     private var idNivelNoCompletado: Int = 0
@@ -229,17 +230,23 @@ class NivelesAventuraActivity : AppCompatActivity() {
     // Función para interpolar colores
     private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
         val colors = intArrayOf(
-            Color.WHITE,
-            Color.parseColor("#FFD3E6"), // Rosa claro y suave
-            Color.parseColor("#FFB6C1"), // Rosa medio y suave
-            Color.parseColor("#FF69B4"), // Rosa oscuro y suave
-            Color.parseColor("#E7D8F5"), // Morado claro y suave
-            Color.parseColor("#D8BFD8"), // Morado medio y suave
-            Color.parseColor("#8A2BE2"), // Morado oscuro y suave
-            Color.parseColor("#87CEEB"), // Azul cielo suave
-            Color.parseColor("#ADD8E6"), // Azul claro y suave
-            Color.parseColor("#4682B4"), // Azul acero
-            Color.parseColor("#4169E1"), // Azul real
+            Color.parseColor("#FFDEF7"), // Rosa claro y suave
+            Color.parseColor("#ffc5f1"), // Rosa claro y suave
+            Color.parseColor("#ffc5e3"), // Rosa claro y suave
+            Color.parseColor("#ffc5d4"), // Rosa claro y suave
+            Color.parseColor("#ffc5c6"), // Rosa claro y suave
+            Color.parseColor("#ffd3c5"), // Rosa claro y suave
+            Color.parseColor("#ffe2c5"),
+            Color.parseColor("#fff1c5"),
+            Color.parseColor("#ffffc5"),
+            Color.parseColor("#f1ffc5"),
+            Color.parseColor("#e2ffc5"),
+            Color.parseColor("#d4ffc5"),
+            Color.parseColor("#c6ffc5"),
+            Color.parseColor("#c5ffd3"),
+            Color.parseColor("#c5ffe2"),
+            Color.parseColor("#c5fff0"),
+            Color.parseColor("#c5ffff"),
         )
 
         val startIndex = (ratio * (colors.size - 1)).toInt()
@@ -265,6 +272,12 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     fun volverModoJuego(view: View){
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun verPerfilUsuario(view: View){
+        val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()
     }
