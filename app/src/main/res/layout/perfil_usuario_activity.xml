@@ -181,6 +181,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nombre_usuario" />
 
+            <RelativeLayout
+                android:id="@+id/editarLabelContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="MissingConstraints">
+
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -211,6 +222,21 @@
                     android:textColor="@color/gris"
                     android:textSize="15dp" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/etiquetaEditar"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/style_etiqueta_editar"
+                android:padding="5dp"
+                android:text="Pinche sobre el nombre de usuario o el email para editarlos"
+                android:textColor="@android:color/white"
+                android:textSize="10dp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="44dp"
+                android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -364,7 +390,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="PRICIPIANTE"
+                        android:text="PRINCIPIANTE"
                         android:textAlignment="center"
                         android:textSize="24dp"
                         android:textStyle="bold" />

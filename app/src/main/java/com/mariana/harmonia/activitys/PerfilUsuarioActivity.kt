@@ -2,7 +2,9 @@ package com.mariana.harmonia.activitys
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,6 +14,9 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -21,6 +26,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -44,33 +50,40 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var binding: MainActivityBinding
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
+    private lateinit var cardViewPerfil: CardView
     private lateinit var topTextView: TextView
+    private lateinit var progressBar1: ProgressBar
+    private lateinit var progressBar2: ProgressBar
+    private lateinit var progressBar3: ProgressBar
+    private lateinit var progressBar4: ProgressBar
+    private lateinit var progressBar5: ProgressBar
+    private lateinit var progressBar6: ProgressBar
+    private lateinit var progressBar7: ProgressBar
+    private lateinit var progressBar8: ProgressBar
+    private lateinit var porcentajeTextView1: TextView
+    private lateinit var porcentajeTextView2: TextView
+    private lateinit var porcentajeTextView3: TextView
+    private lateinit var porcentajeTextView4: TextView
+    private lateinit var porcentajeTextView5: TextView
+    private lateinit var porcentajeTextView6: TextView
+    private lateinit var porcentajeTextView7: TextView
+    private lateinit var porcentajeTextView8: TextView
+    private lateinit var editText: EditText
+    val originalText = "dorado40"
 
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
-        // cargarEstadisticasLogros()
-        val cardViewPerfil = findViewById<CardView>(R.id.cardview_perfil)
+        cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
 
-        cardViewPerfil.setOnClickListener {
-            mostrarDialogImagen(imagen)
-        }
-        binding = MainActivityBinding.inflate(layoutInflater)
-        lapiz.setOnClickListener { requestPermission() }
+        mostrarImagenGrande()
 
-        // Obtener el color promedio de la imagen
-        val bitmap = (imagen.drawable as BitmapDrawable).bitmap
-        val colorPromedio = obtenerColorPromedio(bitmap)
+        editText = findViewById(R.id.nombre_usuario)
 
-        //Este lIstener hace que al clicar fuera de la pantalla se deje de rellenar el campo del nombre
-        val constraintLayout: ConstraintLayout =
-            findViewById(R.id.constraintLayoutID) // Reemplaza con el ID de tu ConstraintLayout
-        val editText: EditText =
-            findViewById(R.id.nombre_usuario) // Reemplaza con el ID de tu EditText
-
+        val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
                 // Oculta el teclado
@@ -83,26 +96,53 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             false
         }
 
-        // Porcentaje barra Experiencia
-        val progressBar1 = findViewById<ProgressBar>(R.id.progressBarLogro1)
-        val porcentajeTextView1 = findViewById<TextView>(R.id.TextViewLogro1)
-        val progressBar2 = findViewById<ProgressBar>(R.id.progressBarLogro2)
-        val porcentajeTextView2 = findViewById<TextView>(R.id.TextViewLogro2)
-        val progressBar3 = findViewById<ProgressBar>(R.id.progressBarLogro3)
-        val porcentajeTextView3 = findViewById<TextView>(R.id.TextViewLogro3)
-        val progressBar4 = findViewById<ProgressBar>(R.id.progressBarLogro4)
-        val porcentajeTextView4 = findViewById<TextView>(R.id.TextViewLogro4)
-        val progressBar5 = findViewById<ProgressBar>(R.id.progressBarLogro5)
-        val porcentajeTextView5 = findViewById<TextView>(R.id.TextViewLogro5)
-        val progressBar6 = findViewById<ProgressBar>(R.id.progressBarLogro6)
-        val porcentajeTextView6 = findViewById<TextView>(R.id.TextViewLogro6)
-        val progressBar7 = findViewById<ProgressBar>(R.id.progressBarLogro7)
-        val porcentajeTextView7 = findViewById<TextView>(R.id.TextViewLogro7)
-        val progressBar8 = findViewById<ProgressBar>(R.id.progressBarLogro8)
-        val porcentajeTextView8 = findViewById<TextView>(R.id.TextViewLogro8)
+        editText.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                val newText = editText.text.toString()
+                if (newText.length < 4) {
+                    editText.setText(originalText)
+                }
+                else{
+                    mostrarDialogoConfirmacion()
+                }
+            }
+        }
 
-        // Puedes actualizar el porcentaje directamente
-        val porcentaje1 = 10 // ajusta esto a tu valor real de porcentaje
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No es necesario implementar
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No es necesario implementar
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // No es necesario implementar
+            }
+        })
+
+
+        // Porcentaje barra Experiencia
+        progressBar1 = findViewById(R.id.progressBarLogro1)
+        porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
+        progressBar2 = findViewById(R.id.progressBarLogro2)
+        porcentajeTextView2 = findViewById(R.id.TextViewLogro2)
+        progressBar3 = findViewById(R.id.progressBarLogro3)
+        porcentajeTextView3 = findViewById(R.id.TextViewLogro3)
+        progressBar4 = findViewById(R.id.progressBarLogro4)
+        porcentajeTextView4 = findViewById(R.id.TextViewLogro4)
+        progressBar5 = findViewById(R.id.progressBarLogro5)
+        porcentajeTextView5 = findViewById(R.id.TextViewLogro5)
+        progressBar6 = findViewById(R.id.progressBarLogro6)
+        porcentajeTextView6 = findViewById(R.id.TextViewLogro6)
+        progressBar7 = findViewById(R.id.progressBarLogro7)
+        porcentajeTextView7 = findViewById(R.id.TextViewLogro7)
+        progressBar8 = findViewById(R.id.progressBarLogro8)
+        porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
+
+
+        val porcentaje1 = 10
         progressBar1.progress = porcentaje1
         porcentajeTextView1.text = "$porcentaje1/100"
 
@@ -134,15 +174,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         progressBar8.progress = porcentaje8
         porcentajeTextView8.text = "$porcentaje8/100"
 
-
-        /*val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-        val profileImageUri = preferences.getString("profileImageUri", null)
-
-        if (profileImageUri != null) {
-            val uri = Uri.parse(profileImageUri)
-            imagen.setImageURI(uri)
-        }*/
-
         val niveles: JSONObject? = obtenerNivelesJSON()
 
         topTextView = findViewById(R.id.topText)
@@ -154,9 +185,48 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         } else {
             topTextView.text = "N/A"
         }
+
+        iniciarContadorToast()
     }
 
-        private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
+    private fun mostrarDialogoConfirmacion() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Cambiar nombre de usuario")
+        builder.setMessage("¿Estás seguro de que quieres cambiar el nombre de usuario?")
+        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+            cambiarNombreUsuario()
+        }
+        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
+            dialog.dismiss()
+            editText.setText(originalText)
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun cambiarNombreUsuario() {
+       Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun mostrarImagenGrande(){
+        cardViewPerfil.setOnClickListener {
+            mostrarDialogImagen(imagen)
+        }
+        binding = MainActivityBinding.inflate(layoutInflater)
+        lapiz.setOnClickListener { requestPermission() }
+    }
+
+    private fun iniciarContadorToast() {
+        Toast.makeText(
+            this,
+            "Pulse sobre el email o nombre de usuario para editarlos",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+    private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
             val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
             if (nivelesArray != null) {
@@ -203,29 +273,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 PERMISSION_REQUEST_CODE
             )
         }
-    }
-
-    private fun obtenerColorPromedio(bitmap: Bitmap): Int {
-        var red = 0
-        var green = 0
-        var blue = 0
-        var pixelCount = 0
-
-        for (y in 0 until bitmap.height) {
-            for (x in 0 until bitmap.width) {
-                val pixel = bitmap.getPixel(x, y)
-                red += Color.red(pixel)
-                green += Color.green(pixel)
-                blue += Color.blue(pixel)
-                pixelCount++
-            }
-        }
-
-        red /= pixelCount
-        green /= pixelCount
-        blue /= pixelCount
-
-        return Color.rgb(red, green, blue)
     }
 
     // FUN --> Mostrar la imagen del perfil en grande
