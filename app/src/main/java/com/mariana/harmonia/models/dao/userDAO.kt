@@ -45,7 +45,7 @@ class UserDao {
                             if (field != null) {
                                 onSuccess.invoke(field)
                             } else {
-                                onFailure.invoke(Exception("El campo $fieldName no existe en el documento"))
+                                onFailure.invoke(Exception("El campo $field no existe en el documento"))
                             }
                         } else {
                             onFailure.invoke(Exception("No se encontró el documento para el usuario con email: $email"))
