@@ -131,9 +131,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
             handler.postDelayed(object : Runnable {
                 override fun run() {
-                    if(!desafio){
+                    if (!desafio) {
                         isPerdido()
-                    }else{isPerdidoDesafio()}
+                    } else {
+                        isPerdidoDesafio()
+                    }
 
 
                     // Decrementar el tiempo
@@ -356,8 +358,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
 
-
-
     public fun cambiarTiempo(segundos: Int) {
         tiempoActual = segundos
         textViewTiempo.text = segundos.toString() + "s"
@@ -390,9 +390,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
                     cambiarImagen(notasArray[aciertos!!].toString())
                 }
                 cambiarTexto(nombreNota)
-                if(!desafio){
-                actualizarDatosInterfaz()
-                }else{
+                if (!desafio) {
+                    actualizarDatosInterfaz()
+                } else {
                     actualizarDatosInterfazDesafio()
                 }
                 animacionAcierto()
@@ -460,8 +460,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         tituloTextView.text = "Has perdido"
         val intent = Intent(this, derrotaDesafio_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
-        intent.putExtra("notasHacertadas",aciertos)
-        intent.putExtra("tiempoDurado",tiempoActual)
+        intent.putExtra("notasHacertadas", aciertos)
+        intent.putExtra("tiempoDurado", tiempoActual)
         perdido = true;
         finish()
         startActivity(intent)
@@ -754,7 +754,15 @@ class JuegoMusicalActivity : AppCompatActivity() {
         mostrarDialogoConfirmacion()
     }
 
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        mostrarDialogoConfirmacion()
+        Toast.makeText(this, "salir", Toast.LENGTH_SHORT).show()
+
+    }
+
     private fun mostrarDialogoConfirmacion() {
+        Toast.makeText(this, "mostrarDialogoConfirmacion", Toast.LENGTH_SHORT).show()
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Salir del nivel")
         builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")
@@ -820,7 +828,27 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     //metodos desafio:
     fun getArrayAleatorio(cantidad: Int): Array<String?> {
-        val notas = arrayOf("3g", "3a", "3b", "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c", "5d", "5e", "5f", "5g", "6c", "6d")
+        val notas = arrayOf(
+            "3g",
+            "3a",
+            "3b",
+            "4a",
+            "4b",
+            "4c",
+            "4d",
+            "4e",
+            "4f",
+            "4g",
+            "5a",
+            "5b",
+            "5c",
+            "5d",
+            "5e",
+            "5f",
+            "5g",
+            "6c",
+            "6d"
+        )
         val arrayAleatorio = arrayOfNulls<String>(cantidad)
 
         for (i in 0 until cantidad) {
@@ -830,18 +858,20 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
         return arrayAleatorio
     }
+
     fun cargarDatosDesafio() {
         tiempo = 60.0
         vidas = 1
         notasArray = getArrayAleatorio(1000)
 
     }
+
     private fun actualizarDatosInterfazDesafio() {
-        var vidasTotales =1
+        var vidasTotales = 1
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/∞"
         tituloTextView.text = "DESAFÍO"
-            contadorVidas.text = "1"
+        contadorVidas.text = "1"
     }
 
 
@@ -853,4 +883,5 @@ class JuegoMusicalActivity : AppCompatActivity() {
         handler.removeCallbacksAndMessages(null)
 
     }
+
 }
