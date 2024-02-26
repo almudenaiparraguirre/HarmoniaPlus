@@ -79,6 +79,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun irDesafio(view: View){
         val intent = Intent(this, JuegoMusicalActivity::class.java)
+        intent.putExtra("desafio", true)
         startActivity(intent)
     }
 

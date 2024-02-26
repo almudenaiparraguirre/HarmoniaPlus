@@ -3,9 +3,9 @@
     {
       "id": 1,
       "completado": true,
-      "tiempo": 120,
-      "notas": ["4c", "4d","4e","4f","4g","4a","4b","5c","5c","4b","4a","4g","4f","4e","4d","4c"],
-      "vidas": 11,
+      "tiempo": 10,
+      "notas": ["4c", "4d","4e","4f","4g","4a","4b","5c"],
+      "vidas":1000000,
       "etapa": 1
     },
     {

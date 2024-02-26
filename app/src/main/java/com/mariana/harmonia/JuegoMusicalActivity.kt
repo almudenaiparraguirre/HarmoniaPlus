@@ -44,10 +44,12 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     private var perdido: Boolean = false
     private var ganado: Boolean = false
+    private var desafio: Boolean = false
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
     private var tiempo: Double? = 60.0
+    private var tiempoActual: Int? = 0
 
     private var notasTotales: Int? = 0
     private var vidas: Int? = 0
@@ -62,6 +64,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.juego_musical_activity)
+
+        desafio = intent.getBooleanExtra("desafio", false)
 
 
         // Click notas negras
@@ -94,22 +98,22 @@ class JuegoMusicalActivity : AppCompatActivity() {
         fun iniciarContador() {
 
 
-                val countDownTimer = object : CountDownTimer(
-                    (tiempo!! * 1000 + 1000).toLong(),
-                    1000
-                ) { // Conteo desde 100 hasta 0 en intervalos de 1 segundo
-                    override fun onTick(millisUntilFinished: Long) {
-                        val secondsLeft = millisUntilFinished / 1000
-                        cambiarTiempo(secondsLeft.toInt())
-                    }
-
-                    override fun onFinish() {
-                        cambiarTiempo(0)
-                    }
+            val countDownTimer = object : CountDownTimer(
+                (tiempo!! * 1000 + 1000).toLong(),
+                1000
+            ) { // Conteo desde 100 hasta 0 en intervalos de 1 segundo
+                override fun onTick(millisUntilFinished: Long) {
+                    val secondsLeft = millisUntilFinished / 1000
+                    cambiarTiempo(secondsLeft.toInt())
                 }
 
-                // Inicia el contador
-                countDownTimer.start()
+                override fun onFinish() {
+                    cambiarTiempo(0)
+                }
+            }
+
+            // Inicia el contador
+            countDownTimer.start()
 
         }
 
@@ -117,48 +121,60 @@ class JuegoMusicalActivity : AppCompatActivity() {
         //Admin del tiempo
         fun iniciarCuentaRegresiva() {
 
-                val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
-                val duracionTotal =
-                    tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
-                val decrementoPorIntervalo =
-                    1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
+            val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
+            val duracionTotal =
+                tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+            val decrementoPorIntervalo =
+                1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
 
-                handler.postDelayed(object : Runnable {
-                    override fun run() {
-
+            handler.postDelayed(object : Runnable {
+                override fun run() {
+                    if(!desafio){
                         isPerdido()
+                    }else{isPerdidoDesafio()}
 
-                        // Decrementar el tiempo
-                        tiempo = tiempo!! - decrementoPorIntervalo
 
-                        // Calcular el progreso actual de la barra con números decimales
-                        val progresoActual =
-                            ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+                    // Decrementar el tiempo
+                    tiempo = tiempo!! - decrementoPorIntervalo
 
-                        // Actualizar la barra de progreso
-                        tiempoProgressBar.progress = progresoActual
+                    // Calcular el progreso actual de la barra con números decimales
+                    val progresoActual =
+                        ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
 
-                        // Volver a programar la ejecución después del intervalo de actualización
-                        if (tiempo!! > 0) {
-                            handler.postDelayed(this, intervalo)
-                        }
+                    // Actualizar la barra de progreso
+                    tiempoProgressBar.progress = progresoActual
+
+                    // Volver a programar la ejecución después del intervalo de actualización
+                    if (tiempo!! > 0) {
+                        handler.postDelayed(this, intervalo)
                     }
-                }, intervalo)
+                }
+            }, intervalo)
 
         }
 
 
 
 
-
-        nivel = intent.getIntExtra("numeroNivel", 1)
-        cargarDatosDelNivel(nivel!!)
-        //Condiciones iniciales
-        cambiarImagen(notasArray[0].toString())
-        cambiarTexto("...")
-        actualizarDatosInterfaz()
-        iniciarCuentaRegresiva()
-        iniciarContador()
+        if (!desafio) {
+            nivel = intent.getIntExtra("numeroNivel", 1)
+            cargarDatosDelNivel(nivel!!)
+            //Condiciones iniciales
+            cambiarImagen(notasArray[0].toString())
+            cambiarTexto("...")
+            actualizarDatosInterfaz()
+            iniciarCuentaRegresiva()
+            iniciarContador()
+        } else {
+            Toast.makeText(this, "desafio", Toast.LENGTH_SHORT).show()
+            nivel = intent.getIntExtra("numeroNivel", 999)
+            cargarDatosDesafio()
+            cambiarImagen(notasArray[0].toString())
+            cambiarTexto("...")
+            actualizarDatosInterfazDesafio()
+            iniciarCuentaRegresiva()
+            iniciarContador()
+        }
 
 
         //Activamos los listeners
@@ -338,23 +354,24 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
 
+
+
     public fun cambiarTiempo(segundos: Int) {
+        tiempoActual = segundos
         textViewTiempo.text = segundos.toString() + "s"
     }
-
-
-
-
 
 
     private fun actualizarDatosInterfaz() {
         var vidasTotales = vidas!! - (intentos!! - aciertos!!)
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
-        tituloTextView.text =  "Nivel-$nivel"
-        if(vidasTotales!!<=10){
-        contadorVidas.text = "X$vidasTotales"
-        }else{ contadorVidas.text = "X∞"}
+        tituloTextView.text = "Nivel-$nivel"
+        if (vidasTotales!! <= 10) {
+            contadorVidas.text = "X$vidasTotales"
+        } else {
+            contadorVidas.text = "X∞"
+        }
     }
 
     // NO TOCARRRRR Funciona bien :)
@@ -371,7 +388,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
                     cambiarImagen(notasArray[aciertos!!].toString())
                 }
                 cambiarTexto(nombreNota)
+                if(!desafio){
                 actualizarDatosInterfaz()
+                }else{
+                    actualizarDatosInterfazDesafio()
+                }
                 animacionAcierto()
                 isGanado()
             } else {
@@ -383,17 +404,17 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
 
-
     private fun quitarVida() {
         var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
-        if(vidasTotales>=0) {
-            if(vidasTotales!!<10){
-            contadorVidas.text = "X$vidasTotales"
-            }else{
+        if (vidasTotales >= 0) {
+            if (vidasTotales!! < 10) {
+                contadorVidas.text = "X$vidasTotales"
+            } else {
                 contadorVidas.text = "X∞"
             }
         }
     }
+
     private fun getAccuracy(): Int {
         var accuracyPercentage = 0
         if (aciertos!! > 0 && intentos!! > 0) {
@@ -404,7 +425,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
         return accuracyPercentage
     }
-    private fun ponerAccuracy(){
+
+    private fun ponerAccuracy() {
         var accuracy = getAccuracy()
         textViewAccuracy.text = "$accuracy%"
     }
@@ -418,12 +440,31 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     private fun perdido() {
-        tituloTextView.text = "Has perdido"
         val intent = Intent(this, derrota_activity::class.java)
+        intent.putExtra("numeroNivel", nivel)
         perdido = true;
         finish()
         startActivity(intent)
     }
+
+    private fun isPerdidoDesafio() {
+        var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+        if ((vidas!! - (intentos!! - aciertos!!)!! <= 0 || tiempoProgressBar.progress <= 0) && !perdido) {
+            perdidoDesafio()
+        }
+    }
+
+    private fun perdidoDesafio() {
+        tituloTextView.text = "Has perdido"
+        val intent = Intent(this, derrotaDesafio_activity::class.java)
+        intent.putExtra("numeroNivel", nivel)
+        intent.putExtra("notasHacertadas",aciertos)
+        intent.putExtra("tiempoDurado",tiempoActual)
+        perdido = true;
+        finish()
+        startActivity(intent)
+    }
+
 
     private fun isGanado() {
 
@@ -432,13 +473,17 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-        private fun ganado() {
-            val intent = Intent(this, victoria_activity::class.java)
-            ganado=true
-            finish()
-            startActivity(intent)
+    private fun ganado() {
+        val intent = Intent(this, victoria_activity::class.java)
+        intent.putExtra("numeroNivel", nivel)
+        ganado = true
+        finish()
+        startActivity(intent)
 
-        }
+
+
+        startActivity(intent)
+    }
 
     private fun terminarPartida() {
         detenerContador()
@@ -770,6 +815,33 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }
         }
     }
+
+    //metodos desafio:
+    fun getArrayAleatorio(cantidad: Int): Array<String?> {
+        val notas = arrayOf("3g", "3a", "3b", "4a", "4b", "4c", "4d", "4e", "4f", "4g", "5a", "5b", "5c", "5d", "5e", "5f", "5g", "6c", "6d")
+        val arrayAleatorio = arrayOfNulls<String>(cantidad)
+
+        for (i in 0 until cantidad) {
+            val notaAleatoria = notas.random()
+            arrayAleatorio[i] = notaAleatoria
+        }
+
+        return arrayAleatorio
+    }
+    fun cargarDatosDesafio() {
+        tiempo = 60.0
+        vidas = 1
+        notasArray = getArrayAleatorio(1000)
+
+    }
+    private fun actualizarDatosInterfazDesafio() {
+        var vidasTotales =1
+        notasTotales = notasArray.size
+        contadorTextView.text = "$aciertos/∞"
+        tituloTextView.text = "DESAFÍO"
+            contadorVidas.text = "1"
+    }
+
 
     fun detenerContador() {
         countDownTimer?.cancel()

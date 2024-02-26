@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".derrotaDesafio_activity">
+
+    <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Desafío perdido🥵​ "
+        android:textAlignment="center"
+        android:textSize="100dp"/>
+        <TextView
+            android:id="@+id/textViewResultados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="50dp"
+            android:text="s"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        >
+        <Button
+            android:id="@+id/buttonAbajoIz"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="☰"
+            android:layout_gravity="left"
+            android:clickable="true"
+            android:onClick="irMenu"/>
+        <Button
+            android:id="@+id/buttonArribaCen"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="🗘"
+            android:textSize="50dp"
+            android:clickable="true"
+            android:onClick="irRepetir" />
+
+    </LinearLayout>
+</LinearLayout>
