@@ -14,6 +14,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.InicioSesion
 import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
@@ -21,6 +23,7 @@ import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
@@ -53,7 +56,6 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             finishAffinity() // Cierra todas las actividades anteriores
         }
     }
-
 
     fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
@@ -155,8 +157,12 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             firebaseAuthWithGoogle(account)
         } catch (e: ApiException) {
             // Manejar el fallo en el inicio de sesión con Google
-            Log.w(TAG, "Fallo en el inicio de sesión con Google", e)
-            Toast.makeText(this, "Fallo en el inicio de sesión con Google", Toast.LENGTH_SHORT).show()
+            Log.w(TAG, "Fallo en el inicio de sesión con Google. Código de error: ${e.statusCode}", e)
+            Toast.makeText(
+                this,
+                "Fallo en el inicio de sesión con Google. Código de error: ${e.statusCode}",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -170,13 +176,32 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
                     if (task.isSuccessful) {
                         // Autenticación exitosa, redirigir a la siguiente actividad
                         Log.d(TAG, "Inicio de sesión con credenciales de Google exitoso")
-                        val intent = Intent(this, EligeModoJuegoActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        // Manejar el fallo en la autenticación con Firebase
-                        Log.w(TAG, "Fallo en la autenticación con Firebase", task.exception)
-                        Toast.makeText(this, "Autenticación fallida.", Toast.LENGTH_SHORT).show()
+
+                        // Obtener información del usuario de la cuenta de Google
+                        val userName = account?.displayName ?: "Usuario_${Random.nextInt(1000)}"
+
+                        // Crear un nuevo usuario en Firebase con la información de la cuenta de Google
+                        val newUser = firebaseAuth.currentUser
+                        if (newUser != null) {
+                            // Guardar el nombre de usuario en Firestore
+                            val db = FirebaseFirestore.getInstance()
+                            val userDoc = db.collection("users").document(newUser.uid)
+                            userDoc.set(mapOf("username" to userName))
+                                .addOnSuccessListener {
+                                    // Continuar con la lógica de la aplicación, por ejemplo, redirigir a la siguiente actividad
+                                    val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    // Manejar el fallo al guardar el nombre de usuario
+                                    Toast.makeText(this, "Error al guardar el nombre de usuario", Toast.LENGTH_SHORT).show()
+                                }
+                        } else {
+                            // Manejar el fallo en la autenticación con Firebase
+                            Log.w(TAG, "Fallo en la autenticación con Firebase", task.exception)
+                            Toast.makeText(this, "Autenticación fallida.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
         } catch (e: Exception) {

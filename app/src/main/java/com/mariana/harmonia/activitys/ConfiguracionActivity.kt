@@ -2,14 +2,18 @@ package com.mariana.harmonia.activitys
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -55,6 +59,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         buttonCambiarContra.setOnClickListener {
             mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
             mediaPlayer.start()
+            vibrarDispositivo()
         }
 
         textViewEliminarCuenta.setOnClickListener {
@@ -85,6 +90,16 @@ class ConfiguracionActivity : AppCompatActivity() {
                 switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
                 switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
             }
+        }
+    }
+
+    private fun vibrarDispositivo() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(100)
         }
     }
 

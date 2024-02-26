@@ -59,20 +59,6 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
-    private fun registrarUsuario(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // El registro fue exitoso
-                    val user = auth.currentUser
-                    // Puedes realizar otras acciones después del registro si es necesario
-                } else {
-                    // Si el registro falla, muestra un mensaje al usuario.
-                    Toast.makeText(baseContext, "Error en el registro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
     // FUN --> Intento de enviar email
     fun enviarEmail(view: View) {
         val emailText = email.text.toString().trim()
