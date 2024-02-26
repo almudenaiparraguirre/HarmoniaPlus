@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".victoria_activity">
+    android:background="@drawable/style_degradado_fondo_victoria"
+    tools:context=".activitys.pantallasExtras.victoria_activity">
 
     <TextView
         android:id="@+id/textView"
@@ -16,41 +17,82 @@
         android:textSize="100sp" />
 
 
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        >
-        <Button
-            android:id="@+id/buttonAbajoIz"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="☰"
-            android:layout_gravity="left"
-            android:clickable="true"
-            android:onClick="irMenu"/>
-        <Button
-            android:id="@+id/buttonArribaCen"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="🗘"
-            android:textSize="50dp"
-            android:clickable="true"
-            android:onClick="irRepetir" />
-        <Button
-            android:id="@+id/buttonAbajoDe"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="right"
-            android:layout_marginLeft="10dp"
-            android:text="➜"
-            android:clickable="true"
-            android:onClick="irSiguiente"/>
-    </LinearLayout>
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/buttonAbajoIz"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:onClick="irMenu"
+                    android:src="@mipmap/img_circulo_menu" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp">
+
+
+                <ImageView
+                    android:id="@+id/buttonArribaCen"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:clickable="true"
+                    android:onClick="irRepetir"
+                    android:src="@mipmap/img_circulo_reiniciar" />
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="100dp">
+
+
+
+                <ImageView
+                    android:id="@+id/buttonAbajoDe"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:onClick="irSiguiente"
+                    android:src="@mipmap/img_circulo_siguiente" />
+
+        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

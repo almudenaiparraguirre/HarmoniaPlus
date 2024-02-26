@@ -10,7 +10,8 @@
     <color name="gris">#666666</color>
     <color name="grisClaro">#AAAAAA</color>
     <color name="rosa_claro">#F2A6F4</color>
-    <color name="rojo">#FC421A</color>
+    <color name="rojo">#FC1A1A</color>
+    <color name="rojoClaro">#FF6C6C</color>
     <color name="rosa_perfil">#EEBCE3</color>
     <color name="fondo_default">#EEBCE3</color>
     <color name="grisAjustes">#E1E1E1</color>

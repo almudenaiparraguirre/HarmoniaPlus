@@ -1,10 +1,12 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys.pantallasExtras
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
+import com.mariana.harmonia.JuegoMusicalActivity
+import com.mariana.harmonia.NivelesAventuraActivity
+import com.mariana.harmonia.R
 
 class victoria_activity : AppCompatActivity() {
     private var nivel: Int = 0

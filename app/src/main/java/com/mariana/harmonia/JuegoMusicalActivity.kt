@@ -22,8 +22,10 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
+import com.mariana.harmonia.activitys.pantallasExtras.derrota_activity
+import com.mariana.harmonia.activitys.pantallasExtras.victoria_activity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream

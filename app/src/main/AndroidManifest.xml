@@ -24,13 +24,13 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
-            android:name=".derrotaDesafio_activity"
+            android:name=".activitys.pantallasExtras.derrotaDesafio_activity"
             android:exported="false" />
         <activity
-            android:name=".victoria_activity"
+            android:name=".activitys.pantallasExtras.victoria_activity"
             android:exported="false" />
         <activity
-            android:name=".derrota_activity"
+            android:name=".activitys.pantallasExtras.derrota_activity"
             android:exported="false" />
         <activity
             android:name=".JuegoMusicalActivity"

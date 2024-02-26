@@ -5,46 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".derrotaDesafio_activity">
+    android:background="@drawable/style_degradado_fondo_desafio_derrota"
+    tools:context=".activitys.pantallasExtras.derrotaDesafio_activity">
 
     <TextView
-        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Desafío perdido🥵​ "
         android:textAlignment="center"
-        android:textSize="100dp"/>
-        <TextView
-            android:id="@+id/textViewResultados"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="50dp"
-            android:text="s"/>
+        android:textSize="100dp" />
+
+    <TextView
+        android:id="@+id/textViewResultados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        android:textSize="50dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        >
-        <Button
-            android:id="@+id/buttonAbajoIz"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="☰"
-            android:layout_gravity="left"
-            android:clickable="true"
-            android:onClick="irMenu"/>
-        <Button
-            android:id="@+id/buttonArribaCen"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="🗘"
-            android:textSize="50dp"
-            android:clickable="true"
-            android:onClick="irRepetir" />
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/buttonAbajoIz"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:onClick="irMenu"
+                    android:src="@mipmap/img_circulo_menu" />
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="100dp">
+
+                <ImageView
+                    android:id="@+id/buttonArribaCen"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:clickable="true"
+                    android:onClick="irRepetir"
+                    android:src="@mipmap/img_circulo_reiniciar" />
+
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
     </LinearLayout>
 </LinearLayout>
