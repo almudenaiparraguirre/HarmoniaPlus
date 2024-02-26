@@ -8,27 +8,20 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Camera
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,9 +30,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
-/*import com.mariana.harmonia.databinding.ActivityMain2Binding*/
 import com.mariana.harmonia.databinding.MainActivityBinding
-import kotlinx.coroutines.CoroutineStart
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -53,7 +44,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         private const val REQUEST_CAMERA = 123
     }
 
-    private lateinit var binding: MainActivityBinding
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
     private lateinit var cardViewPerfil: CardView
@@ -127,7 +117,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // No es necesario implementar
             }
         })
-
 
         // Porcentaje barra Experiencia
         progressBar1 = findViewById(R.id.progressBarLogro1)
@@ -214,7 +203,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun cambiarNombreUsuario() {
        Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
-
 
     private fun mostrarImagenGrande(){
         cardViewPerfil.setOnClickListener {
@@ -357,8 +345,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
 
     fun volverModoJuego(view: View){
-        val intent = Intent(this, EligeModoJuegoActivity::class.java)
-        startActivity(intent)
         finish()
     }
 
@@ -394,8 +380,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
     }
-    private fun
-            guardarImagen(bitmap: Bitmap?) {
+    private fun guardarImagen(bitmap: Bitmap?) {
         // Guardar la imagen en preferencias o en otro lugar si es necesario
         // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
         // Ejemplo usando SharedPreferences:
