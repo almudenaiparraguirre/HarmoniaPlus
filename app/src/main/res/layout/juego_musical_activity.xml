@@ -91,16 +91,18 @@
             android:layout_height="150dp">
 
 
+
+
             <TextView
-                android:id="@+id/textViewTiempoContador"
+                android:id="@+id/textViewAccuracy"
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginHorizontal="10dp"
-                android:text="00:00"
-                android:textColor="@color/negro"
-                android:textSize="50dp" />
+                android:text="100%"
+                android:textColor="@color/gris"
+                android:textSize="30dp" />
 
 
             <TextView
@@ -161,6 +163,18 @@
                 android:progress="10000"
                 android:progressDrawable="@drawable/pink_progress_horizontal" />
 
+
+            <TextView
+                android:id="@+id/textViewTiempoContador"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginHorizontal="10dp"
+                android:text="00:00"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/negro"
+                android:textSize="50dp" />
             <ImageView
                 android:id="@+id/imageMarker"
                 android:layout_width="wrap_content"

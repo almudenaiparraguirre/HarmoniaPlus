@@ -37,6 +37,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private lateinit var tituloTextView: TextView
     private lateinit var contadorVidas: TextView
     private lateinit var textViewTiempo: TextView
+    private lateinit var textViewAccuracy: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
     private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
@@ -88,6 +89,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         tiempoProgressBar = findViewById<ProgressBar>(R.id.tiempoProgressBar)
         imagenProgressBar = findViewById(R.id.imageMarker)
         textViewTiempo = findViewById(R.id.textViewTiempoContador)
+        textViewAccuracy = findViewById(R.id.textViewAccuracy)
 
         fun iniciarContador() {
 
@@ -341,59 +343,15 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
 
-    private fun cargarDatosDelNivel(nivelId: Int) {
 
-        val nivelesJson = obtenerNivelesJSON()
-        val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
-        if (nivelesArray != null) {
-            for (i in 0 until nivelesArray.length()) {
-                val nivel = nivelesArray.getJSONObject(i)
-                val id = nivel.getInt("id")
-
-                if (id == nivelId) {
-                    val completado = nivel.getBoolean("completado")
-                    tiempo = nivel.getDouble("tiempo")
-                    val notasJSONArray = nivel.getJSONArray("notas")
-                    vidas = nivel.getInt("vidas")
-
-                    // Convierte JSONArray a Array<String>
-                    notasArray = Array(notasJSONArray.length()) { index ->
-                        notasJSONArray.getString(index)
-                    }
-
-                    // Aquí puedes usar las variables según tus necesidades
-                    // Por ejemplo:
-                    // tiempoTextView.text = tiempo.toString()
-
-                    break
-                }
-            }
-        }
-    }
-
-    private fun obtenerNivelesJSON(): JSONObject? {
-        var nivelesJson: JSONObject? = null
-        try {
-            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val jsonString = String(buffer, Charsets.UTF_8)
-            nivelesJson = JSONObject(jsonString)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return nivelesJson
-    }
 
 
     private fun actualizarDatosInterfaz() {
         var vidasTotales = vidas!! - (intentos!! - aciertos!!)
         notasTotales = notasArray.size
         contadorTextView.text = "$aciertos/$notasTotales"
-        tituloTextView.text = "Nivel-$nivel"
+        tituloTextView.text =  "Nivel-$nivel"
         if(vidasTotales!!<=10){
         contadorVidas.text = "X$vidasTotales"
         }else{ contadorVidas.text = "X∞"}
@@ -420,6 +378,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 animacionFallo()
                 quitarVida()
             }
+            ponerAccuracy()
         }
     }
 
@@ -435,6 +394,21 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }
         }
     }
+    private fun getAccuracy(): Int {
+        var accuracyPercentage = 0
+        if (aciertos!! > 0 && intentos!! > 0) {
+            val aciertosDouble = aciertos!!.toDouble()
+            val intentosDouble = intentos!!.toDouble()
+            val accuracy = aciertosDouble / intentosDouble
+            accuracyPercentage = (accuracy * 100).toInt()
+        }
+        return accuracyPercentage
+    }
+    private fun ponerAccuracy(){
+        var accuracy = getAccuracy()
+        textViewAccuracy.text = "$accuracy%"
+    }
+
 
     private fun isPerdido() {
         var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
@@ -447,6 +421,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         tituloTextView.text = "Has perdido"
         val intent = Intent(this, derrota_activity::class.java)
         perdido = true;
+        finish()
         startActivity(intent)
     }
 
@@ -460,14 +435,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         private fun ganado() {
             val intent = Intent(this, victoria_activity::class.java)
             ganado=true
+            finish()
             startActivity(intent)
-
-
-
-
-
-
-
 
         }
 
@@ -753,6 +722,53 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+    private fun obtenerNivelesJSON(): JSONObject? {
+        var nivelesJson: JSONObject? = null
+        try {
+            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val jsonString = String(buffer, Charsets.UTF_8)
+            nivelesJson = JSONObject(jsonString)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return nivelesJson
+    }
+
+    private fun cargarDatosDelNivel(nivelId: Int) {
+
+        val nivelesJson = obtenerNivelesJSON()
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
+
+        if (nivelesArray != null) {
+            for (i in 0 until nivelesArray.length()) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val id = nivel.getInt("id")
+
+                if (id == nivelId) {
+                    val completado = nivel.getBoolean("completado")
+                    tiempo = nivel.getDouble("tiempo")
+                    val notasJSONArray = nivel.getJSONArray("notas")
+                    vidas = nivel.getInt("vidas")
+
+                    // Convierte JSONArray a Array<String>
+                    notasArray = Array(notasJSONArray.length()) { index ->
+                        notasJSONArray.getString(index)
+                    }
+
+                    // Aquí puedes usar las variables según tus necesidades
+                    // Por ejemplo:
+                    // tiempoTextView.text = tiempo.toString()
+
+                    break
+                }
+            }
+        }
     }
 
     fun detenerContador() {
