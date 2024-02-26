@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Camera
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
@@ -15,6 +16,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
@@ -37,14 +39,18 @@ import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 /*import com.mariana.harmonia.databinding.ActivityMain2Binding*/
 import com.mariana.harmonia.databinding.MainActivityBinding
+import kotlinx.coroutines.CoroutineStart
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
+import android.util.Base64
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 122
+        private const val REQUEST_CAMERA = 123
     }
 
     private lateinit var binding: MainActivityBinding
@@ -214,9 +220,34 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
-        binding = MainActivityBinding.inflate(layoutInflater)
-        lapiz.setOnClickListener { requestPermission() }
+
+        lapiz.setOnClickListener {
+            mostrarDialogoElegirOrigen()
+        }
     }
+
+    private fun mostrarDialogoElegirOrigen() {
+        val opciones = arrayOf("Tomar foto", "Elegir de la galería")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Seleccionar origen de la imagen")
+            .setItems(opciones) { _, which ->
+                when (which) {
+                    0 -> {
+                        // Opción "Tomar foto" seleccionada
+                        requestCameraPermission()
+                    }
+                    1 -> {
+                        // Opción "Elegir de la galería" seleccionada
+                        abrirGaleria()
+                    }
+                }
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     private fun iniciarContadorToast() {
         Toast.makeText(
@@ -336,5 +367,65 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                // Permiso concedido, abrir la cámara
+                abrirCamara()
+            } else {
+                Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun requestCameraPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permiso ya concedido, abrir la cámara
+                abrirCamara()
+            }
+            else -> {
+                // Solicitar permiso para la cámara
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
+        }
+    }
+    private fun
+            guardarImagen(bitmap: Bitmap?) {
+        // Guardar la imagen en preferencias o en otro lugar si es necesario
+        // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
+        // Ejemplo usando SharedPreferences:
+        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("profileImageBitmap", encodeBitmapToBase64(bitmap))
+        editor.apply()
+    }
+
+    private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
+        val baos = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b: ByteArray = baos.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
+            // La imagen de la cámara está en el intent data
+            val imageBitmap = data?.extras?.get("data") as Bitmap?
+            // Actualizar la imagen en tu ImageView
+            imagen.setImageBitmap(imageBitmap)
+            // Guardar la imagen en preferencias o en otro lugar si es necesario
+            guardarImagen(imageBitmap)
+        }
+    }
+
+    private fun abrirCamara() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(intent, REQUEST_CAMERA)
     }
 }
