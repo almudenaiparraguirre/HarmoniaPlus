@@ -767,8 +767,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
         builder.setTitle("Salir del nivel")
         builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")
         builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-            val intent = Intent(this, NivelesAventuraActivity::class.java)
-            startActivity(intent)
+            perdido=true
+
+
             finish()
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
