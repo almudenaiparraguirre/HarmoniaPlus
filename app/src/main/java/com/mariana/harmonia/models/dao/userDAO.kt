@@ -68,5 +68,23 @@ class UserDao {
                     Log.w(TAG, "Error al eliminar usuario con email: $email", e)
                 }
         }
+
+        fun actualizarContrasena(email: String, nuevaContrasena: String) {
+            val emailKey = email.replace(".", ",")
+
+            val data = hashMapOf(
+                "contrasena" to nuevaContrasena
+                // Agrega cualquier otro campo que necesites actualizar
+            )
+
+            usersCollection.document(emailKey).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Contraseña actualizada para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al actualizar contraseña para el usuario con email: $email", e)
+                }
+        }
+
     }
 }

@@ -19,6 +19,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Switch
 import android.widget.TextView
@@ -34,6 +35,8 @@ import com.mariana.harmonia.databinding.InicioSesionActivityBinding
 class ConfiguracionActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var contrasenaAnterior: EditText
+    private lateinit var contrasenaNueva: EditText
     private lateinit var buttonCambiarContra: Button
     private lateinit var switchMusica: Switch
     private lateinit var switchOtraOpcion: Switch
@@ -46,9 +49,12 @@ class ConfiguracionActivity : AppCompatActivity() {
         const val MUSIC_SWITCH_STATE = "musicSwitchState"
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.configuracion_activity)
+        contrasenaAnterior = findViewById(R.id.edit_text_vieja_contrasena)
+        contrasenaNueva = findViewById(R.id.edit_text_nueva_contrasena)
         switchMusica = findViewById(R.id.switchMusica)
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
@@ -111,6 +117,15 @@ class ConfiguracionActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    fun actualizarContrasena(){
+        if (contrasenaAnterior.equals(contrasenaNueva)){
+            Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Cuenta")
@@ -150,7 +165,6 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun irPerfilUsuario(view: View){
-        auth.currentUser?.email?.let { UserDao.eliminarUsuario(email = it) }
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()
@@ -165,6 +179,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     private fun eliminarMiCuenta() {
+        auth.currentUser?.email?.let { UserDao.eliminarUsuario(email = it) }
         auth.signOut()
         Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
 

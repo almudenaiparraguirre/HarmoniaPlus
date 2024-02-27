@@ -118,6 +118,7 @@
                     android:textSize="14dp"/>
 
                 <EditText
+                    android:id="@+id/edit_text_vieja_contrasena"
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -143,6 +144,7 @@
                     android:textSize="14dp"/>
 
                 <EditText
+                    android:id="@+id/edit_text_nueva_contrasena"
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -157,6 +159,7 @@
                 android:textColor="@color/blanco"
                 android:textSize="14sp"
                 android:text="Cambiar contraseña"
+                android:onClick="actualizarContrasena"
                 android:background="@drawable/style_button_degradado"
                 app:layout_constraintTop_toBottomOf="@id/contrasenaNueva"
                 app:layout_constraintStart_toStartOf="parent"
