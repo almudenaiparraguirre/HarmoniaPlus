@@ -9,6 +9,8 @@ class UserDao {
         private val db = FirebaseFirestore.getInstance()
         private val usersCollection = db.collection("usuarios")
 
+
+        //CREA EL USUARIO
         fun createUsersCollectionIfNotExists() {
             usersCollection.get().addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
@@ -24,6 +26,8 @@ class UserDao {
             }
         }
 
+        //AÑADE USUARIO
+
         fun addUser(user: User) {
             // Agregar un usuario a la base de datos
             val emailKey = user.email?.replace(".", ",")
@@ -35,6 +39,7 @@ class UserDao {
                     }
             }
         }
+
 
         fun getUserField(email: String?, fieldName: String, onSuccess: (Any) -> Unit, onFailure: (Exception) -> Unit) {
             if (email != null) {
@@ -56,5 +61,12 @@ class UserDao {
                     }
             }
         }
+        // Método para devolver nivel y experiencia sobrante
+
+
+
+
+
+
     }
 }

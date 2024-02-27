@@ -3,7 +3,7 @@
     {
       "id": 1,
       "completado": true,
-      "tiempo": 10,
+      "tiempo": 1000000,
       "notas": ["4c", "4d","4e","4f","4g","4a","4b","5c"],
       "vidas":1000000,
       "etapa": 1

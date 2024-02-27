@@ -9,7 +9,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -25,17 +24,19 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
-import com.mariana.harmonia.databinding.MainActivityBinding
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import android.util.Base64
+import java.io.OutputStream
+
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -307,7 +308,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             0.2f,  // Escala de inicio
             1.0f,  // Escala de fin
             0.2f,  // Punto focal de inicio (X)
-            0.2f,  // Punto focal  de inicio (Y)
+            1.0f,  // Punto focal  de inicio (Y)
             Animation.RELATIVE_TO_SELF, 0.5f,  // Punto focal de fin (X)
             Animation.RELATIVE_TO_SELF, 0.5f   // Punto focal de fin (Y)
         )
@@ -329,20 +330,40 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         startForActivityGallery.launch(intent)
     }
 
-    private var selectedImageUri: Uri? = null
+        private var selectedImageUri: Uri? = null
+
     val startForActivityGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data = result.data?.data
                 selectedImageUri = data
+                Toast.makeText(this, selectedImageUri.toString(), Toast.LENGTH_LONG).show()
+                println(selectedImageUri.toString())
                 imagen.setImageURI(data)
-            }
 
-            val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-            val editor = preferences.edit()
-            editor.putString("profileImageUri", selectedImageUri.toString())
-            editor.apply()
+                // Guardar una copia de la imagen en el almacenamiento interno
+                selectedImageUri?.let { uri ->
+                    val inputStream = contentResolver.openInputStream(uri)
+                    val outputStream: OutputStream
+                    try {
+                        val file = File(filesDir, "imagen_guardada.jpg")
+                        outputStream = FileOutputStream(file)
+                        inputStream?.copyTo(outputStream)
+                        inputStream?.close()
+                        outputStream.close()
+                        Toast.makeText(this, "Imagen guardada en almacenamiento interno", Toast.LENGTH_SHORT).show()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Toast.makeText(this, "Error al guardar la imagen", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
+
+
+
+
+
 
     fun volverModoJuego(view: View){
         finish()
@@ -380,22 +401,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
     }
-    private fun guardarImagen(bitmap: Bitmap?) {
-        // Guardar la imagen en preferencias o en otro lugar si es necesario
-        // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
-        // Ejemplo usando SharedPreferences:
-        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-        val editor = preferences.edit()
-        editor.putString("profileImageBitmap", encodeBitmapToBase64(bitmap))
-        editor.apply()
-    }
 
-    private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
-        val baos = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val b: ByteArray = baos.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
-    }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -405,7 +413,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             // Actualizar la imagen en tu ImageView
             imagen.setImageBitmap(imageBitmap)
             // Guardar la imagen en preferencias o en otro lugar si es necesario
-            guardarImagen(imageBitmap)
+
         }
     }
 

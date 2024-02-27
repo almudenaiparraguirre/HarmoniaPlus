@@ -360,7 +360,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     public fun cambiarTiempo(segundos: Int) {
         tiempoActual = segundos
-        textViewTiempo.text = segundos.toString() + "s"
+        if(segundos>1000){
+            textViewTiempo.text = ""
+        }else{
+            textViewTiempo.text = segundos.toString() + "s"}
     }
 
 
@@ -479,15 +482,14 @@ class JuegoMusicalActivity : AppCompatActivity() {
         val intent = Intent(this, victoria_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
         ganado = true
+
+        pararConadores()
         finish()
         startActivity(intent)
 
-
-
-        startActivity(intent)
     }
 
-    private fun terminarPartida() {
+    private fun pararConadores() {
         detenerContador()
         detenerCuentaRegresiva()
         ganado = true
