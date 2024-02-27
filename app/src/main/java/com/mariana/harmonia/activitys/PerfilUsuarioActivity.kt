@@ -49,6 +49,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     companion object {
         private lateinit var firebaseAuth: FirebaseAuth
         private lateinit var nombreUsuarioTextView: TextView
+        private lateinit var gmailUsuarioTextView: TextView
 
         private const val PERMISSION_REQUEST_CODE = 122
         private const val REQUEST_CAMERA = 123
@@ -89,11 +90,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         mostrarImagenGrande()
         firebaseAuth = FirebaseAuth.getInstance()
+        //gmailUsuarioTextView.text = "cargando..."
 
-        obtenerNombreModoDeJuego()
 
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
+        gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
+        obtenerNombreModoDeJuego()
 
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
@@ -218,7 +221,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun cambiarNombreUsuario() {
-       Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
 
     private fun mostrarImagenGrande(){
@@ -263,22 +266,22 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
-            val nivelesArray = nivelesJson?.getJSONArray("niveles")
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
-            if (nivelesArray != null) {
-                for (i in nivelesArray.length() - 1 downTo 0) {
-                    val nivel = nivelesArray.getJSONObject(i)
-                    val completado = nivel.getBoolean("completado")
+        if (nivelesArray != null) {
+            for (i in nivelesArray.length() - 1 downTo 0) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val completado = nivel.getBoolean("completado")
 
-                    if (completado) {
-                        return nivel.getInt("id")
-                    }
+                if (completado) {
+                    return nivel.getInt("id")
                 }
             }
-            return null
         }
+        return null
+    }
 
-        private fun obtenerNivelesJSON(): JSONObject? {
+    private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {
             val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
@@ -502,6 +505,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun obtenerNombreModoDeJuego() {
         val currentUser = firebaseAuth.currentUser
         val emailFire = currentUser?.email
+        gmailUsuarioTextView.text = emailFire
         // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
         val email = emailFire?.replace(".", ",")
 
