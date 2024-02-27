@@ -56,5 +56,17 @@ class UserDao {
                     }
             }
         }
+
+        fun eliminarUsuario(email: String){
+            val emailKey = email.replace(".", ",")
+
+            usersCollection.document(emailKey).delete()
+                .addOnSuccessListener {
+                    Log.d(TAG, "Usuario eliminado con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al eliminar usuario con email: $email", e)
+                }
+        }
     }
 }

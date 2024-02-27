@@ -1,6 +1,7 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -75,12 +76,16 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Click botón confirmar código
     fun clickConfirmarCodigo(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, escribirNuevaContrasenaActivity::class.java)
         startActivity(intent)
     }
 
     // FUN --> Volver al inicio de sesión (pantalla principal)
     fun irIniciarSesion(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
@@ -88,6 +93,8 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         Utilidades.salirAplicacion(this)
     }
 }

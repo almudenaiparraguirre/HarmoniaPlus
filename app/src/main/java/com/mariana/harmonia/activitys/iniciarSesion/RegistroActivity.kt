@@ -2,6 +2,7 @@ package com.mariana.harmonia.activitys.iniciarSesion
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -47,6 +48,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun botonCrearCuenta(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         // 1. Obtener los valores ingresados en los campos de correo y contraseña
         val emailTextView = findViewById<TextView>(R.id.editText1)
         val contraseñaTextView = findViewById<TextView>(R.id.editText3)

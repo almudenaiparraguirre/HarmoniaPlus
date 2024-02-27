@@ -8,9 +8,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -36,6 +38,8 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
+import java.io.File
+import java.io.FileOutputStream
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -44,6 +48,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         private const val REQUEST_CAMERA = 123
     }
 
+    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
     private lateinit var cardViewPerfil: CardView
@@ -74,6 +79,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         mostrarImagenGrande()
 
@@ -330,25 +336,62 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private var selectedImageUri: Uri? = null
-    val startForActivityGallery =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data?.data
-                selectedImageUri = data
-                imagen.setImageURI(data)
-            }
 
-            val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-            val editor = preferences.edit()
-            editor.putString("profileImageUri", selectedImageUri.toString())
-            editor.apply()
+    val startForActivityGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data?.data
+            selectedImageUri = data
+            imagen.setImageURI(data)
+
+            // Descargar la imagen desde la URI y guardarla en un archivo
+            descargarYGuardarImagen(selectedImageUri)
         }
 
+        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("profileImageUri", selectedImageUri.toString())
+        editor.apply()
+    }
+
+    private fun descargarYGuardarImagen(imageUri: Uri?) {
+        if (imageUri != null) {
+            val inputStream: InputStream? = contentResolver.openInputStream(imageUri)
+
+            // Convertir la imagen a una cadena Base64
+            val base64String = inputStream?.readBytes()?.toString(Charsets.ISO_8859_1)
+
+            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
+            val file = File(getExternalFilesDir(null), "imagenes.txt")
+
+            try {
+                // Crear un flujo de salida para escribir en el archivo
+                val fileOutputStream = FileOutputStream(file)
+
+                // Escribir la cadena Base64 en el archivo
+                fileOutputStream.write(base64String?.toByteArray(Charsets.ISO_8859_1))
+
+                // Cerrar los flujos de entrada y salida
+                inputStream?.close()
+                fileOutputStream.close()
+
+                // Mostrar un mensaje de éxito
+                Toast.makeText(this, "Imagen descargada y guardada correctamente", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Error al descargar y guardar la imagen", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
     fun volverModoJuego(view: View){
+        mediaPlayer.start()
         finish()
     }
 
     fun irConfiguracion(view: View){
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
         finish()
@@ -389,6 +432,37 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         editor.putString("profileImageBitmap", encodeBitmapToBase64(bitmap))
         editor.apply()
     }
+
+    private fun guardarImagenEnArchivo(bitmap: Bitmap?) {
+        if (bitmap != null) {
+            // Convertir el bitmap a una cadena Base64
+            val imageString = encodeBitmapToBase64(bitmap)
+
+            // Obtener el directorio de almacenamiento externo específico de la aplicación
+            val directory = getExternalFilesDir(null)
+
+            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
+            val file = File(directory, "imagenes.txt")
+
+            try {
+                // Crear un flujo de salida para escribir en el archivo
+                val fileOutputStream = FileOutputStream(file)
+
+                // Escribir la cadena Base64 en el archivo
+                fileOutputStream.write(imageString.toByteArray())
+
+                // Cerrar el flujo de salida
+                fileOutputStream.close()
+
+                // Mostrar un mensaje de éxito
+                Toast.makeText(this, "Imagen guardada correctamente en 'imagenes.txt'", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Error al guardar la imagen'", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 
     private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
         val baos = ByteArrayOutputStream()
