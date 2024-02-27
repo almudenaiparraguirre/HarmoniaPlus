@@ -93,7 +93,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Registro exitoso
-                    val user = User(email = email,name = nombre )
+                    val user = User(email = email,name = nombre,355,1 )
 
                     // Llamar al método para crear la colección si no existe
                     UserDao.createUsersCollectionIfNotExists()

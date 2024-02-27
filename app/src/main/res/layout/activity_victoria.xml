@@ -83,7 +83,7 @@
                     android:id="@+id/buttonAbajoDe"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_marginLeft="10dp"
+
                     android:clickable="true"
                     android:onClick="irSiguiente"
                     android:src="@mipmap/img_circulo_siguiente" />
