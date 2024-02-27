@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -38,12 +39,17 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
 import java.io.File
 import java.io.FileOutputStream
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
+        private lateinit var firebaseAuth: FirebaseAuth
+        private lateinit var nombreUsuarioTextView: TextView
+
         private const val PERMISSION_REQUEST_CODE = 122
         private const val REQUEST_CAMERA = 123
     }
@@ -82,8 +88,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         mostrarImagenGrande()
+        firebaseAuth = FirebaseAuth.getInstance()
+
+        obtenerNombreModoDeJuego()
 
         editText = findViewById(R.id.nombre_usuario)
+        nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
+
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
@@ -486,5 +497,38 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
+    }
+
+    private fun obtenerNombreModoDeJuego() {
+        val currentUser = firebaseAuth.currentUser
+        val emailFire = currentUser?.email
+        // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
+        val email = emailFire?.replace(".", ",")
+
+
+
+        try {
+            UserDao.getUserField(email, "name",
+                onSuccess = { name ->
+                    runOnUiThread {
+                        nombreUsuarioTextView .text = name as? CharSequence ?: ""
+                        Toast.makeText(this,  name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
+
+
+                    }
+                }
+            ) { exception ->
+                Log.e(
+                    ContentValues.TAG,
+                    "Error al obtener el nombre del modo de juego: ${exception.message}",
+                    exception
+                )
+                nombreUsuarioTextView .text = "unnamed"
+
+            }
+        } catch (e: Exception) {
+            Log.e(ContentValues.TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
+            nombreUsuarioTextView .text = "unnamed"
+        }
     }
 }
