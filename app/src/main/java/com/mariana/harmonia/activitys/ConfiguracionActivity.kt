@@ -1,5 +1,6 @@
 package com.mariana.harmonia.activitys
 
+import UserDao
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
@@ -25,6 +26,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.auth.User
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.databinding.InicioSesionActivityBinding
@@ -148,6 +150,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun irPerfilUsuario(view: View){
+        auth.currentUser?.email?.let { UserDao.eliminarUsuario(email = it) }
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()

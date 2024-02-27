@@ -753,6 +753,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     fun clickAtras(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         mostrarDialogoConfirmacion()
     }
 

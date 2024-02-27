@@ -1,6 +1,7 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
 import android.content.Intent
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -56,6 +57,8 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Confirmación de la nueva contraseña
     fun clickConfirmarContrasenaNueva(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, ContrasenaRestablecidaCorrectamenteActivity::class.java)
         startActivity(intent)
     }
@@ -90,6 +93,8 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         Utilidades.salirAplicacion(this)
     }
 }

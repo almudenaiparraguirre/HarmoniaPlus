@@ -176,7 +176,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return button
     }
 
-
     private fun getRandomButtonDrawable(): Int {
         val buttonDrawables = listOf(
             R.drawable.style_round_button
@@ -206,6 +205,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
         return null
     }
+
     private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {
@@ -222,11 +222,11 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return nivelesJson
     }
 
-
     private fun colocarTextViewNivel(){
         var nivel  = idNivelNoCompletado.toString()
         textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
+
     // Función para interpolar colores
     private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
         val colors = intArrayOf(
