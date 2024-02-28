@@ -26,6 +26,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var nombreModoDeJuegoTextView: TextView
 
+
     companion object {
         private const val PREFS_NAME = "MyPrefsFile"
         private const val SESSION_KEY = "isSessionActive"
@@ -44,6 +45,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
         val porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreModoDeJuegoTextView = findViewById(R.id.nombreModoDeJuego)
+
 
         // Puedes actualizar el porcentaje directamente
         val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
