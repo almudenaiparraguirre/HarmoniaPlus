@@ -92,6 +92,25 @@ class UserDao {
                     Log.w(TAG, "Error al actualizar contraseña para el usuario con email: $email", e)
                 }
         }
+        fun getEmail(email: String){
+            val db = FirebaseFirestore.getInstance()
+            val usuarios = db.collection("usuarios")
+            val stateQuery = usuarios.whereEqualTo("email", email)
+            // Ejecutar la consulta y obtener el resultado
+            stateQuery.get().addOnSuccessListener { querySnapshot ->
+                println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
+                // Recorrer los documentos obtenidos
+                for (document in querySnapshot.documents) {
+                    // Obtener el nombre del usuario y imprimirlo por consola
+                    val nombre = document.getString("email")
+                    println("Nombre: $nombre")
+                }
+            }.addOnFailureListener { exception ->
+                // Manejar cualquier error que ocurra al ejecutar la consulta
+                println("Error al obtener los usuarios: $exception")
+            }
+
+        }
 
 
 

@@ -10,12 +10,10 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.mariana.harmonia.activitys.ConfiguracionActivity
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.PerfilUsuarioActivity
 import org.json.JSONObject
@@ -29,7 +27,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private val numCantNiveles = 100
     private lateinit var llBotonera: LinearLayout
     private var botonCorrecto: Int = 0
-    private var idNivelNoCompletado: Int = 0
+    private var nivelActual: Int = 0
     private lateinit var menuSuperior: LinearLayout
     private lateinit var textViewNivel: TextView
     private lateinit var mediaPlayer: MediaPlayer
@@ -38,7 +36,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
-        idNivelNoCompletado = obtenerIdPrimerNivelNoCompletado()!!
+        nivelActual = obtenerIdPrimerNivelNoCompletado()!!
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
         menuSuperior = findViewById(R.id.llTopBar)
@@ -60,7 +58,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         for (i in 1 until numCantNiveles) {
 
-            val button: View = if (i > idNivelNoCompletado) {
+            val button: View = if (i > nivelActual) {
                 createLockedButton()
             } else {
                 createUnlockedButton(i)
@@ -82,7 +80,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 lp.bottomMargin
             )
 
-            if(i > idNivelNoCompletado){
+            if(i > nivelActual){
                 button.isEnabled = false
                 button.setBackgroundResource(getRandomUnlockedButtonDrawable())
             }
@@ -223,7 +221,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     }
 
     private fun colocarTextViewNivel(){
-        var nivel  = idNivelNoCompletado.toString()
+        var nivel  = nivelActual.toString()
         textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
 

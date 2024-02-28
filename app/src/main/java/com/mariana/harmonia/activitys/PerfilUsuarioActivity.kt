@@ -4,12 +4,16 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.media.MediaPlayer
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,27 +28,34 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
+import com.mariana.harmonia.databinding.MainActivityBinding
 import org.json.JSONObject
-import java.io.File
-import java.io.FileOutputStream
+import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.io.OutputStream
-
+import android.util.Base64
+import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import java.io.File
+import java.io.FileOutputStream
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
+        private lateinit var firebaseAuth: FirebaseAuth
+        private lateinit var nombreUsuarioTextView: TextView
+        private lateinit var gmailUsuarioTextView: TextView
+
         private const val PERMISSION_REQUEST_CODE = 122
         private const val REQUEST_CAMERA = 123
     }
 
+    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
     private lateinit var cardViewPerfil: CardView
@@ -75,10 +86,18 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         mostrarImagenGrande()
+        firebaseAuth = FirebaseAuth.getInstance()
+        //gmailUsuarioTextView.text = "cargando..."
+
 
         editText = findViewById(R.id.nombre_usuario)
+        nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
+        gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
+        obtenerNombreModoDeJuego()
+
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
@@ -202,7 +221,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun cambiarNombreUsuario() {
-       Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
 
     private fun mostrarImagenGrande(){
@@ -247,22 +266,22 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
-            val nivelesArray = nivelesJson?.getJSONArray("niveles")
+        val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
-            if (nivelesArray != null) {
-                for (i in nivelesArray.length() - 1 downTo 0) {
-                    val nivel = nivelesArray.getJSONObject(i)
-                    val completado = nivel.getBoolean("completado")
+        if (nivelesArray != null) {
+            for (i in nivelesArray.length() - 1 downTo 0) {
+                val nivel = nivelesArray.getJSONObject(i)
+                val completado = nivel.getBoolean("completado")
 
-                    if (completado) {
-                        return nivel.getInt("id")
-                    }
+                if (completado) {
+                    return nivel.getInt("id")
                 }
             }
-            return null
         }
+        return null
+    }
 
-        private fun obtenerNivelesJSON(): JSONObject? {
+    private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {
             val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
@@ -308,7 +327,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             0.2f,  // Escala de inicio
             1.0f,  // Escala de fin
             0.2f,  // Punto focal de inicio (X)
-            1.0f,  // Punto focal  de inicio (Y)
+            0.2f,  // Punto focal  de inicio (Y)
             Animation.RELATIVE_TO_SELF, 0.5f,  // Punto focal de fin (X)
             Animation.RELATIVE_TO_SELF, 0.5f   // Punto focal de fin (Y)
         )
@@ -330,46 +349,63 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         startForActivityGallery.launch(intent)
     }
 
-        private var selectedImageUri: Uri? = null
+    private var selectedImageUri: Uri? = null
 
-    val startForActivityGallery =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data = result.data?.data
-                selectedImageUri = data
-                Toast.makeText(this, selectedImageUri.toString(), Toast.LENGTH_LONG).show()
-                println(selectedImageUri.toString())
-                imagen.setImageURI(data)
+    val startForActivityGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = result.data?.data
+            selectedImageUri = data
+            imagen.setImageURI(data)
 
-                // Guardar una copia de la imagen en el almacenamiento interno
-                selectedImageUri?.let { uri ->
-                    val inputStream = contentResolver.openInputStream(uri)
-                    val outputStream: OutputStream
-                    try {
-                        val file = File(filesDir, "imagen_guardada.jpg")
-                        outputStream = FileOutputStream(file)
-                        inputStream?.copyTo(outputStream)
-                        inputStream?.close()
-                        outputStream.close()
-                        Toast.makeText(this, "Imagen guardada en almacenamiento interno", Toast.LENGTH_SHORT).show()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                        Toast.makeText(this, "Error al guardar la imagen", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+            // Descargar la imagen desde la URI y guardarla en un archivo
+            descargarYGuardarImagen(selectedImageUri)
         }
 
+        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("profileImageUri", selectedImageUri.toString())
+        editor.apply()
+    }
 
+    private fun descargarYGuardarImagen(imageUri: Uri?) {
+        if (imageUri != null) {
+            val inputStream: InputStream? = contentResolver.openInputStream(imageUri)
 
+            // Convertir la imagen a una cadena Base64
+            val base64String = inputStream?.readBytes()?.toString(Charsets.ISO_8859_1)
 
+            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
+            val file = File(getExternalFilesDir(null), "imagenes.txt")
+
+            try {
+                // Crear un flujo de salida para escribir en el archivo
+                val fileOutputStream = FileOutputStream(file)
+
+                // Escribir la cadena Base64 en el archivo
+                fileOutputStream.write(base64String?.toByteArray(Charsets.ISO_8859_1))
+
+                // Cerrar los flujos de entrada y salida
+                inputStream?.close()
+                fileOutputStream.close()
+
+                // Mostrar un mensaje de éxito
+                Toast.makeText(this, "Imagen descargada y guardada correctamente", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Error al descargar y guardar la imagen", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 
     fun volverModoJuego(view: View){
+        mediaPlayer.start()
         finish()
     }
 
     fun irConfiguracion(view: View){
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
         finish()
@@ -401,9 +437,53 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
     }
+    private fun guardarImagen(bitmap: Bitmap?) {
+        // Guardar la imagen en preferencias o en otro lugar si es necesario
+        // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
+        // Ejemplo usando SharedPreferences:
+        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putString("profileImageBitmap", encodeBitmapToBase64(bitmap))
+        editor.apply()
+    }
+
+    private fun guardarImagenEnArchivo(bitmap: Bitmap?) {
+        if (bitmap != null) {
+            // Convertir el bitmap a una cadena Base64
+            val imageString = encodeBitmapToBase64(bitmap)
+
+            // Obtener el directorio de almacenamiento externo específico de la aplicación
+            val directory = getExternalFilesDir(null)
+
+            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
+            val file = File(directory, "imagenes.txt")
+
+            try {
+                // Crear un flujo de salida para escribir en el archivo
+                val fileOutputStream = FileOutputStream(file)
+
+                // Escribir la cadena Base64 en el archivo
+                fileOutputStream.write(imageString.toByteArray())
+
+                // Cerrar el flujo de salida
+                fileOutputStream.close()
+
+                // Mostrar un mensaje de éxito
+                Toast.makeText(this, "Imagen guardada correctamente en 'imagenes.txt'", Toast.LENGTH_SHORT).show()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                Toast.makeText(this, "Error al guardar la imagen'", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
 
-
+    private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
+        val baos = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b: ByteArray = baos.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -413,12 +493,46 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             // Actualizar la imagen en tu ImageView
             imagen.setImageBitmap(imageBitmap)
             // Guardar la imagen en preferencias o en otro lugar si es necesario
-
+            guardarImagen(imageBitmap)
         }
     }
 
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
+    }
+
+    private fun obtenerNombreModoDeJuego() {
+        val currentUser = firebaseAuth.currentUser
+        val emailFire = currentUser?.email
+        gmailUsuarioTextView.text = emailFire
+        // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
+        val email = emailFire?.replace(".", ",")
+
+
+
+        try {
+            UserDao.getUserField(email, "name",
+                onSuccess = { name ->
+                    runOnUiThread {
+                        nombreUsuarioTextView .text = name as? CharSequence ?: ""
+                        Toast.makeText(this,  name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
+
+
+                    }
+                }
+            ) { exception ->
+                Log.e(
+                    ContentValues.TAG,
+                    "Error al obtener el nombre del modo de juego: ${exception.message}",
+                    exception
+                )
+                nombreUsuarioTextView .text = "unnamed"
+
+            }
+        } catch (e: Exception) {
+            Log.e(ContentValues.TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
+            nombreUsuarioTextView .text = "unnamed"
+        }
     }
 }

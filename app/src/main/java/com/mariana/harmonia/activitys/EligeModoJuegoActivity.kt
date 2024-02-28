@@ -76,18 +76,18 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     fun clickOpciones(view: View){
 
         val db = FirebaseFirestore.getInstance()
-        val usuarios = db.collection("usuarios")
+            val usuarios = db.collection("usuarios")
 
-        //val stateQuery = usuarios.whereEqualTo("name", "Aitor@gmail,com")
-        println()
+        val stateQuery = usuarios.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email)
+        println(FirebaseAuth.getInstance().currentUser?.email)
 
         // Ejecutar la consulta y obtener el resultado
-        usuarios.get().addOnSuccessListener { querySnapshot ->
+        stateQuery.get().addOnSuccessListener { querySnapshot ->
             println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
             // Recorrer los documentos obtenidos
             for (document in querySnapshot.documents) {
                 // Obtener el nombre del usuario y imprimirlo por consola
-                val nombre = document.getDouble("vidas")
+                val nombre = document.getString("name")
                 println("Nombre: $nombre")
             }
         }.addOnFailureListener { exception ->
