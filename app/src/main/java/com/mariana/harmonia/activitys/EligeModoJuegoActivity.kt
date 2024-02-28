@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
@@ -53,6 +54,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
+
+
+
     }
 
     fun menu_perfil(view: View){
@@ -68,6 +72,27 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun clickOpciones(view: View){
+
+        val db = FirebaseFirestore.getInstance()
+        val usuarios = db.collection("usuarios")
+
+        val stateQuery = usuarios.whereEqualTo("name", "Aitor@gmail,com")
+        println()
+
+        // Ejecutar la consulta y obtener el resultado
+        stateQuery.get().addOnSuccessListener { querySnapshot ->
+            println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
+            // Recorrer los documentos obtenidos
+            for (document in querySnapshot.documents) {
+                // Obtener el nombre del usuario y imprimirlo por consola
+                val nombre = document.getString("nombre")
+                println("Nombre: $nombre")
+            }
+        }.addOnFailureListener { exception ->
+            // Manejar cualquier error que ocurra al ejecutar la consulta
+            println("Error al obtener los usuarios: $exception")
+        }
+
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }

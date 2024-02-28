@@ -577,7 +577,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
             "g" -> "SOL"
             "a" -> "LA"
             "b" -> "SI"
-            "db" -> "DO♭"
+            "db" -> "RE♭"
             "eb" -> "MI♭"
             "gb" -> "SOL♭"
             "ab" -> "LA♭"
