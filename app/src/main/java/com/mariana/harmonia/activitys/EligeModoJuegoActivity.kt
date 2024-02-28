@@ -78,16 +78,16 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val db = FirebaseFirestore.getInstance()
         val usuarios = db.collection("usuarios")
 
-        val stateQuery = usuarios.whereEqualTo("name", "Aitor@gmail,com")
+        //val stateQuery = usuarios.whereEqualTo("name", "Aitor@gmail,com")
         println()
 
         // Ejecutar la consulta y obtener el resultado
-        stateQuery.get().addOnSuccessListener { querySnapshot ->
+        usuarios.get().addOnSuccessListener { querySnapshot ->
             println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
             // Recorrer los documentos obtenidos
             for (document in querySnapshot.documents) {
                 // Obtener el nombre del usuario y imprimirlo por consola
-                val nombre = document.getString("nombre")
+                val nombre = document.getDouble("vidas")
                 println("Nombre: $nombre")
             }
         }.addOnFailureListener { exception ->
