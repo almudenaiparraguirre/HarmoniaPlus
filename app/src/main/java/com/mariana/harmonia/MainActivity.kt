@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         comprobarSesion(firebaseAuth)
 
         // Crear y mostrar la notificación
-        val textTitle = "¡Bienvenidooooooooooo!"
+        val textTitle = "¡Bienvenidoooooooooooo!"
         val textContent = "Graciaaaaaaas por usar nuestra aplicación."
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
