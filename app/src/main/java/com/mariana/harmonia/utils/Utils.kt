@@ -153,10 +153,6 @@ class Utils {
             }
         }
 
-
-
-
-
         fun actualizarCorreo(correoTextView: TextView?){
             val emailFire = currentUser?.email
             correoTextView?.text = emailFire

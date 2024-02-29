@@ -31,20 +31,20 @@
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- LinearLayout con ImageView y TextView -->
             <LinearLayout
-                android:layout_marginVertical="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_marginVertical="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <!-- ImageView a la izquierda -->
                 <ImageView
@@ -52,17 +52,16 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitCenter"
-                    android:src="@mipmap/img_ico_aplicacion"/>
+                    android:src="@mipmap/img_ico_aplicacion" />
 
                 <!-- TextView a la derecha -->
                 <TextView
-                    android:layout_gravity="bottom"
                     android:id="@+id/titleTextView"
-                    style="@style/Fuente_kameron"
+                    style="@style/Fuente_TimesNewRoman"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HARMONÍA+"
-                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom"
+                    android:text="  HARMONÍA+"
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />
@@ -72,10 +71,10 @@
             <TextView
 
                 android:id="@+id/subTitleTextView"
-                android:layout_gravity="top|center"
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="top|center"
                 android:text="Tu viaje musical comienza aquí"
                 android:textColor="@color/morado"
                 android:textSize="16sp" />
@@ -100,7 +99,7 @@
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="     ¡REGISTRATE!"
+                android:text="¡REGÍSTRATE!"
                 android:textColor="@color/rosa"
                 android:textSize="40dp" />
 
@@ -117,7 +116,8 @@
             android:id="@+id/editText1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/style_edittextstyle"
             android:hint="E-mail"
             android:textColor="@color/gris"
@@ -188,13 +188,15 @@
         <TextView
             android:id="@+id/mensaje"
             style="@style/Fuente_kameron"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="La contraseña debe contener al menos 8 caracteres, 1 minúscula, 1 mayúscula y 1 número"
             android:textAlignment="center"
-            android:textColor="@color/gris"
+            android:textColor="@color/negro"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -207,7 +209,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/style_button_degradado"
             android:onClick="botonCrearCuenta"
             android:padding="16dp"
@@ -219,19 +221,18 @@
             app:layout_constraintTop_toBottomOf="@+id/mensaje"
             tools:ignore="InvalidId" />
 
-        <!-- Salir -->
-
+        <!-- Volver inicio de sesión -->
         <TextView
             android:id="@+id/VolverInicioSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/Fuente_kameron"
             android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="-20dp"
+            android:layout_marginBottom="10dp"
             android:clickable="true"
             android:onClick="irIniciarSesion"
             android:padding="8dp"
             android:text="@string/VolverInicioSesionSubrrayado"
-            android:textColor="@color/gris"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -240,23 +241,6 @@
             app:layout_constraintTop_toBottomOf="@id/botonCrearCuenta"
             app:layout_constraintVertical_bias="0.5" />
 
-        <TextView
-            android:id="@+id/salirTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:layout_marginBottom="-20dp"
-            android:clickable="true"
-            android:onClick="irSalir"
-            android:padding="8dp"
-            android:text="@string/salirSubrrayado"
-            android:textColor="@color/gris"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/VolverInicioSesion"
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

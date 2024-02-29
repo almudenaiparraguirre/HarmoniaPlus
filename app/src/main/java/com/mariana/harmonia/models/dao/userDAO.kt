@@ -40,7 +40,6 @@ class UserDao {
             }
         }
 
-
         fun getUserField(email: String?, fieldName: String, onSuccess: (Any) -> Unit, onFailure: (Exception) -> Unit) {
             if (email != null) {
                 usersCollection.document(email).get()
@@ -109,11 +108,19 @@ class UserDao {
                 // Manejar cualquier error que ocurra al ejecutar la consulta
                 println("Error al obtener los usuarios: $exception")
             }
-
         }
 
-
-
-
+        fun getVidas(email: String?, onSuccess: (Int) -> Unit, onFailure: (Exception) -> Unit) {
+            getUserField(email, "vidas",
+                onSuccess = { field ->
+                    if (field is Long) {
+                        onSuccess.invoke(field.toInt()) // Convertir a Int si es Long
+                    } else {
+                        onFailure.invoke(Exception("El campo 'vidas' no es un entero"))
+                    }
+                },
+                onFailure = onFailure
+            )
+        }
     }
 }

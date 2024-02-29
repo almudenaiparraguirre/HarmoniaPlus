@@ -6,5 +6,6 @@ class User(
     var experiencia: Int? = 0,
     var nivelActual: Int? = 1,
     var vidas: Int? = 5,
+    var imagen: ByteArray = byteArrayOf(),
     var precisiones: MutableMap<Int, Int> = mutableMapOf()
 )

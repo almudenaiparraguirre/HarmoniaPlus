@@ -37,6 +37,8 @@ import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.utils.Utils
 import java.io.File
 import java.io.FileOutputStream
@@ -77,6 +79,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var experienciaTextView: TextView
     private lateinit var precisionTextView: TextView
     private lateinit var editText: EditText
+    private lateinit var miStorage: StorageReference
     val originalText = "dorado40"
 
     // FUN --> OnCreate
@@ -91,6 +94,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         mostrarImagenGrande()
         firebaseAuth = FirebaseAuth.getInstance()
         //gmailUsuarioTextView.text = "cargando..."
+
+        var metadata = storageMetadata {
+            contentType = "image/jpg"
+        }
 
 
         editText = findViewById(R.id.nombre_usuario)
@@ -404,7 +411,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-
     fun volverModoJuego(view: View){
         mediaPlayer.start()
         finish()
@@ -454,37 +460,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         editor.apply()
     }
 
-    private fun guardarImagenEnArchivo(bitmap: Bitmap?) {
-        if (bitmap != null) {
-            // Convertir el bitmap a una cadena Base64
-            val imageString = encodeBitmapToBase64(bitmap)
-
-            // Obtener el directorio de almacenamiento externo específico de la aplicación
-            val directory = getExternalFilesDir(null)
-
-            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
-            val file = File(directory, "imagenes.txt")
-
-            try {
-                // Crear un flujo de salida para escribir en el archivo
-                val fileOutputStream = FileOutputStream(file)
-
-                // Escribir la cadena Base64 en el archivo
-                fileOutputStream.write(imageString.toByteArray())
-
-                // Cerrar el flujo de salida
-                fileOutputStream.close()
-
-                // Mostrar un mensaje de éxito
-                Toast.makeText(this, "Imagen guardada correctamente en 'imagenes.txt'", Toast.LENGTH_SHORT).show()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Toast.makeText(this, "Error al guardar la imagen'", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-
     private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
         val baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
@@ -494,13 +469,21 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CAMERA && resultCode == Activity.RESULT_OK) {
-            // La imagen de la cámara está en el intent data
+
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
             val imageBitmap = data?.extras?.get("data") as Bitmap?
-            // Actualizar la imagen en tu ImageView
             imagen.setImageBitmap(imageBitmap)
-            // Guardar la imagen en preferencias o en otro lugar si es necesario
             guardarImagen(imageBitmap)
+            val uri = data?.data
+
+            val filePath = uri?.lastPathSegment?.let { miStorage.child("hit").child(it) }
+            if (uri != null) {
+                filePath?.putFile(uri)?.addOnSuccessListener { taskSnapshot ->
+                    Toast.makeText(this, "Éxito al subir el archivo", Toast.LENGTH_SHORT).show()
+                }?.addOnFailureListener { exception ->
+                    Toast.makeText(this, "Error al subir el archivo: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -508,6 +491,4 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
     }
-
-
 }

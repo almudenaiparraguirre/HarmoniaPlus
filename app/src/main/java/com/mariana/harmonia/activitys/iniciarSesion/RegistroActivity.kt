@@ -1,11 +1,9 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -15,19 +13,18 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.mariana.harmonia.models.entity.User
 
-
-
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
-    private lateinit var firebaseAuth: FirebaseAuth
-    // FUN --> OnCreate
 
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
+        Utilidades.colorearTexto(this, R.id.VolverInicioSesion)
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -96,22 +93,17 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Registro exitoso
-                    val user = User(email = email.lowercase(),name = nombre,355,1 )
 
-                    // Llamar al método para crear la colección si no existe
+                    val user = User(email = email.lowercase(),name = nombre,355, 1)
                     UserDao.createUsersCollectionIfNotExists()
 
-                    // Llamar al método addUser de UserDao para agregar el usuario
                     UserDao.addUser(user)
 
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    // Manejar caso en el que falla el registro
                     Toast.makeText(this, "Error al registrar usuario: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
-
 }

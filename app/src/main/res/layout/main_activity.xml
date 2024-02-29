@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:text="Introduce el email y la contraseña para iniciar sesión"
             android:textColor="@color/negro"
             android:textSize="14dp"
@@ -136,6 +136,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/introduce"
+            android:inputType="textEmailAddress"
             tools:ignore="UnknownId" />
 
         <!-- EditText 2 -->
@@ -145,7 +146,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/style_edittextstyle"
             android:hint="Contraseña"
             android:inputType="textPassword"
@@ -228,7 +229,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/style_button_degradado"
             android:onClick="irIniciarSesion"
             android:padding="16dp"
@@ -247,7 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_gravity="bottom|center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -277,7 +278,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-       <!-- <TextView
+        <TextView
             android:id="@+id/salirTextView"
             style="@style/Fuente_kameron"
             android:layout_width="wrap_content"
@@ -291,21 +292,8 @@
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrate" /> -->
+            app:layout_constraintTop_toBottomOf="@id/registrate" />
 
-        <Button
-            android:id="@+id/pruebaFirebase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="Prueba firebase"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registrate"
-            android:onClick="clickFireBase"
-
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -65,7 +65,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <!-- Número en la llama -->
+            <!-- Texto de los corazones -->
             <TextView
                 android:id="@+id/numeroCorazones"
                 style="@style/Fuente_kameron"
