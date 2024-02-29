@@ -171,7 +171,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
             iniciarCuentaRegresiva()
             iniciarContador()
         } else {
-            Toast.makeText(this, "desafio", Toast.LENGTH_SHORT).show()
             nivel = intent.getIntExtra("numeroNivel", 999)
             cargarDatosDesafio()
             cambiarImagen(notasArray[0].toString())
@@ -762,12 +761,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         mostrarDialogoConfirmacion()
-        Toast.makeText(this, "salir", Toast.LENGTH_SHORT).show()
 
     }
 
     private fun mostrarDialogoConfirmacion() {
-        Toast.makeText(this, "mostrarDialogoConfirmacion", Toast.LENGTH_SHORT).show()
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Salir del nivel")
         builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")

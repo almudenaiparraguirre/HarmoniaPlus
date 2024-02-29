@@ -42,6 +42,8 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var switchOtraOpcion: Switch
     private lateinit var textViewEliminarCuenta: TextView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var switchSonidos: Switch
+    private var sonidosActivados: Boolean = false
     val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     companion object {
@@ -59,10 +61,25 @@ class ConfiguracionActivity : AppCompatActivity() {
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
         textViewEliminarCuenta = findViewById(R.id.textViewEliminarCuenta)
+        switchSonidos = findViewById(R.id.switchSonidos)
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
 
         configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
+
+        switchSonidos.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                val thumbColor = ContextCompat.getColor(this, R.color.rosa)
+                val trackColor = ContextCompat.getColor(this, R.color.rosa)
+                mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+                mediaPlayer.start()
+
+                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
+            } else {
+                mediaPlayer.release()
+            }
+        }
 
         buttonCambiarContra.setOnClickListener {
             mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)

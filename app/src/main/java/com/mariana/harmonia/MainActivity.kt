@@ -32,12 +32,14 @@ import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.Manifest
+import android.media.MediaPlayer
 
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
     private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var mediaPlayer: MediaPlayer
 
     private val NOTIFICATION_ID = 1
     val CHANNEL_ID = "mi_canal_de_notificacion"
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         colorearTexto(this, R.id.titleTextView)
         colorearTexto(this, R.id.registrateTextView)
         colorearTexto(this, R.id.recuerdasContrasena)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
         firebaseAuth = FirebaseAuth.getInstance()
@@ -64,19 +67,15 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             .setContentText(textContent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        // Obtener el NotificationManager
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Crear el intent para abrir la actividad al hacer clic en la notificación
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        // Configurar el intent para la notificación
         builder.setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
-        // Crear el canal de notificación si es necesario (para versiones de Android >= 8.0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
@@ -108,11 +107,13 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
     fun clickNoRecuerdasLaContraseña(view: View){
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
         startActivity(intent)
+        mediaPlayer.start()
     }
 
     fun irRegistrate(view: View?){
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
+        mediaPlayer.start()
     }
 
     fun irIniciarSesion(view: View) {
@@ -155,6 +156,8 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
                     Toast.makeText(baseContext, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 }
             }
+
+        mediaPlayer.start()
     }
 
     fun irSalir(view: View) {

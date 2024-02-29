@@ -23,6 +23,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var email: EditText
     private lateinit var textoAdvertencia: TextView
     private lateinit var auth: FirebaseAuth
+    private lateinit var mediaPlayer: MediaPlayer
 
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         boton = findViewById(R.id.botonEmail)
         email = findViewById(R.id.editText1)
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         Utilidades.colorearTexto(this, R.id.titleTextView)
 

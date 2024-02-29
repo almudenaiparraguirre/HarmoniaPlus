@@ -37,7 +37,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.elige_modo_juego_activity)
         firebaseAuth = FirebaseAuth.getInstance()
 
-
+        Utilidades.colorearTexto(this, R.id.cerrarSesion)
+        Utilidades.colorearTexto(this, R.id.titleTextView)
 
         // Inicialización de vistas
        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
