@@ -63,6 +63,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         textViewEliminarCuenta = findViewById(R.id.textViewEliminarCuenta)
         switchSonidos = findViewById(R.id.switchSonidos)
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
@@ -135,6 +136,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun actualizarContrasena(){
+        mediaPlayer.start()
         if (contrasenaAnterior.equals(contrasenaNueva)){
             Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
         }
@@ -148,9 +150,11 @@ class ConfiguracionActivity : AppCompatActivity() {
         builder.setTitle("Eliminar Cuenta")
         builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás todos los progresos")
         builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+            mediaPlayer.start()
             eliminarMiCuenta()
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
+            mediaPlayer.start()
             dialog.dismiss()
         }
 
@@ -178,10 +182,12 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun volverModoJuego(view: View){
-        finish()
+        mediaPlayer.start()
+        onBackPressed()
     }
 
     fun irPerfilUsuario(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()
@@ -189,6 +195,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun cerrarSesionConfig(view: View){
+        mediaPlayer.start()
         auth.signOut()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -196,6 +203,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     private fun eliminarMiCuenta() {
+        mediaPlayer.start()
         UserDao.eliminarUsuario(auth.currentUser?.email.toString())
         auth.signOut()
         Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()

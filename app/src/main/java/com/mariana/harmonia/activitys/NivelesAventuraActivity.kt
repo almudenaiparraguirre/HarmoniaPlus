@@ -41,6 +41,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         menuSuperior = findViewById(R.id.llTopBar)
         textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         val lp = LinearLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.button_width),
@@ -87,6 +88,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
                 button.setBackgroundResource(getRandomButtonDrawable())
                 button.setOnClickListener {
+                    mediaPlayer.start()
                     val numeroNivel = button.id
                     val intent = Intent(this, JuegoMusicalActivity::class.java)
                     intent.putExtra("numeroNivel", numeroNivel)
@@ -262,18 +264,21 @@ class NivelesAventuraActivity : AppCompatActivity() {
     }
 
     fun clickAtras(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     fun volverModoJuego(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     fun verPerfilUsuario(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()

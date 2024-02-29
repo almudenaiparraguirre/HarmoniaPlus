@@ -50,6 +50,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Puedes actualizar el porcentaje directamente
         Utils.obtenerNivel(porcentajeTextView)
        Utils.obtenerExperiencia(progressBar)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)
@@ -61,11 +62,13 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun menu_perfil(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
     }
 
     fun cerrarSesion(view: View) {
+        mediaPlayer.start()
         firebaseAuth.signOut()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -94,16 +97,20 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             println("Error al obtener los usuarios: $exception")
         }*/
 
+        mediaPlayer.start()
+
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }
 
     fun irModoAventura(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
     }
 
     fun irDesafio(view: View){
+        mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("desafio", true)
         startActivity(intent)
