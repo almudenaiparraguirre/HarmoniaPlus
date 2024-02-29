@@ -56,7 +56,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         imageView.startAnimation(anim)
 
 
-
+           println(Utils.serializeImage(this,R.mipmap.img_perfil_luis_golden))
     }
 
     fun menu_perfil(view: View){
