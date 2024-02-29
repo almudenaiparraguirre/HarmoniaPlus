@@ -50,9 +50,17 @@
     },
     {
       "id": 7,
-      "completado": false,
+      "completado": true,
       "tiempo": 60,
       "notas":["4g", "5c", "4f", "4a", "4d", "4e", "5c", "4b", "4c", "4d", "4g", "4f", "4g", "4b", "4d", "4f", "4e", "4b", "5c", "4g", "4d", "4f", "4g", "4a", "4b", "4c"],
+      "vidas": 3,
+      "etapa": 1
+    },
+    {
+      "id": 8,
+      "completado": false,
+      "tiempo": 60,
+      "notas":["3gb","3g","3ab","3a","3bb","3b","4c","4db","4d","4eb","4e","4f","4gb","4g","4ab","4a","4bb","4b","5c","5db","5d","5eb","5e","5f","5gb","5g","5ab","5a","5bb","5b","6c","6db","6d"],
       "vidas": 3,
       "etapa": 1
     }
