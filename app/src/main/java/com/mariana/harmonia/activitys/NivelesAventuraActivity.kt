@@ -1,4 +1,4 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.content.Intent
 import android.graphics.Color
@@ -14,8 +14,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.mariana.harmonia.activitys.EligeModoJuegoActivity
-import com.mariana.harmonia.activitys.PerfilUsuarioActivity
+import com.mariana.harmonia.R
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream

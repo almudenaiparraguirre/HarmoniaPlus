@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.VIBRATE" />
-    <string name="channel_name">Harmonia_Channel</string>
+
 
     <application
         android:allowBackup="true"
@@ -33,10 +33,10 @@
             android:name=".activitys.pantallasExtras.derrota_activity"
             android:exported="false" />
         <activity
-            android:name=".JuegoMusicalActivity"
+            android:name=".activitys.JuegoMusicalActivity"
             android:exported="false" />
         <activity
-            android:name=".NivelesAventuraActivity"
+            android:name=".activitys.NivelesAventuraActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

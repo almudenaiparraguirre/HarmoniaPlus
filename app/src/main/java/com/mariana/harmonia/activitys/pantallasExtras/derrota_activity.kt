@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mariana.harmonia.JuegoMusicalActivity
-import com.mariana.harmonia.NivelesAventuraActivity
+import com.mariana.harmonia.activitys.JuegoMusicalActivity
+import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
 
 class derrota_activity : AppCompatActivity() {

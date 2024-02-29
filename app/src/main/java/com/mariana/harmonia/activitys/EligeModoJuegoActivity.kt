@@ -10,10 +10,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.mariana.harmonia.JuegoMusicalActivity
 import com.mariana.harmonia.MainActivity
-import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
@@ -23,7 +20,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var firebaseAuth: FirebaseAuth
 
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var nombreModoDeJuegoTextView: TextView
+    private lateinit var nombreTextView: TextView
+    private lateinit var porcentajeTextView: TextView
+    private lateinit var progressBar: ProgressBar
 
 
     companion object {
@@ -41,16 +40,15 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
 
         // Inicialización de vistas
-        val progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
-        val porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
-        nombreModoDeJuegoTextView = findViewById(R.id.nombreModoDeJuego)
+       progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
+         porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
+        nombreTextView = findViewById(R.id.nombreModoDeJuego)
         // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
-        Utils.obtenerModoDeJuego(nombreModoDeJuegoTextView)
+        Utils.obtenerNombre(nombreTextView)
 
         // Puedes actualizar el porcentaje directamente
-        val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
-        progressBar.progress = porcentaje
-        porcentajeTextView.text = "LV.2"
+        Utils.obtenerNivel(porcentajeTextView)
+       Utils.obtenerExperiencia(progressBar)
 
         // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)
@@ -75,7 +73,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun clickOpciones(view: View){
 
-        val db = FirebaseFirestore.getInstance()
+      /*  val db = FirebaseFirestore.getInstance()
             val usuarios = db.collection("usuarios")
 
         val stateQuery = usuarios.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email)
@@ -93,7 +91,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         }.addOnFailureListener { exception ->
             // Manejar cualquier error que ocurra al ejecutar la consulta
             println("Error al obtener los usuarios: $exception")
-        }
+        }*/
 
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)

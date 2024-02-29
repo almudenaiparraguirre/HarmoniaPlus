@@ -1,4 +1,4 @@
-package com.mariana.harmonia
+package com.mariana.harmonia.activitys
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
@@ -23,6 +23,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
 import com.mariana.harmonia.activitys.pantallasExtras.derrota_activity
 import com.mariana.harmonia.activitys.pantallasExtras.victoria_activity

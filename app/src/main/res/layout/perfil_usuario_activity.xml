@@ -274,7 +274,7 @@
                             android:src="@mipmap/img_cirulo_nieveles_completados" />
 
                         <TextView
-                            android:id="@+id/topText"
+                            android:id="@+id/nivelTextView"
                             style="@style/Fuente_kameron"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -329,7 +329,7 @@
                                 android:src="@mipmap/img_circulo_precision" />
 
                             <TextView
-                                android:id="@+id/leftText"
+                                android:id="@+id/precisionTextView"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -419,7 +419,7 @@
                                 android:src="@mipmap/img_circulo_experiencia" />
 
                             <TextView
-                                android:id="@+id/rightText"
+                                android:id="@+id/experienciaTextView"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

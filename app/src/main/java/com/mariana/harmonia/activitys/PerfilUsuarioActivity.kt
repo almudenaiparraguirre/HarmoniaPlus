@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -13,7 +12,6 @@ import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -33,13 +31,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
-import com.mariana.harmonia.databinding.MainActivityBinding
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.utils.Utils
 import java.io.File
@@ -77,6 +73,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var porcentajeTextView6: TextView
     private lateinit var porcentajeTextView7: TextView
     private lateinit var porcentajeTextView8: TextView
+    private lateinit var nivelTextView: TextView
+    private lateinit var experienciaTextView: TextView
+    private lateinit var precisionTextView: TextView
     private lateinit var editText: EditText
     val originalText = "dorado40"
 
@@ -98,7 +97,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
         //obtenerNombreModoDeJuego()
-        Utils.obtenerModoDeJuego(nombreUsuarioTextView)
+        Utils.obtenerNombre(nombreUsuarioTextView)
         Utils.actualizarCorreo(gmailUsuarioTextView)
 
 
@@ -159,6 +158,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         progressBar8 = findViewById(R.id.progressBarLogro8)
         porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
 
+        nivelTextView = findViewById(R.id.nivelTextView)
+        precisionTextView = findViewById(R.id.precisionTextView)
+        experienciaTextView = findViewById(R.id.experienciaTextView)
+
+        Utils.obtenerExperienciaTotal(experienciaTextView)
 
         val porcentaje1 = 10
         progressBar1.progress = porcentaje1
@@ -194,14 +198,14 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         val niveles: JSONObject? = obtenerNivelesJSON()
 
-        topTextView = findViewById(R.id.topText)
+
 
         val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
 
         if (ultimoNivelCompletadoId != null) {
-            topTextView.text = ultimoNivelCompletadoId.toString()
+            nivelTextView.text = ultimoNivelCompletadoId.toString()
         } else {
-            topTextView.text = "N/A"
+            nivelTextView.text = "N/A"
         }
 
         iniciarContadorToast()
