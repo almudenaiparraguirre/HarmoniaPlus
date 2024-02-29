@@ -547,7 +547,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     private fun playSound(soundFile: String) {
-        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier("sound_$soundFile", "raw", packageName))
+        val nombre: String = "sound_"+soundFile
+        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(nombre, "raw", packageName))
         val volume = 1f
         mediaPlayer.setVolume(volume, volume)
         mediaPlayer.start()
