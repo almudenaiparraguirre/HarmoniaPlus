@@ -196,7 +196,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     private fun eliminarMiCuenta() {
-        auth.currentUser?.email?.let { UserDao.eliminarUsuario(email = it) }
+        UserDao.eliminarUsuario(auth.currentUser?.email.toString())
         auth.signOut()
         Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
 

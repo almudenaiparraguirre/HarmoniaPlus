@@ -1,5 +1,7 @@
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.models.entity.User
 
@@ -64,14 +66,13 @@ class UserDao {
 
 
         fun eliminarUsuario(email: String){
-            val emailKey = email.replace(".", ",")
+            val user = Firebase.auth.currentUser!!
 
-            usersCollection.document(emailKey).delete()
-                .addOnSuccessListener {
-                    Log.d(TAG, "Usuario eliminado con email: $email")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error al eliminar usuario con email: $email", e)
+            user.delete()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "User account deleted.")
+                    }
                 }
         }
 
