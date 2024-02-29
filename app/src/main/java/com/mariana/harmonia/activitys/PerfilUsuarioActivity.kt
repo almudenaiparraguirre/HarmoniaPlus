@@ -41,6 +41,7 @@ import java.io.InputStream
 import android.util.Base64
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.mariana.harmonia.utils.Utils
 import java.io.File
 import java.io.FileOutputStream
 
@@ -96,7 +97,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
-        obtenerNombreModoDeJuego()
+        //obtenerNombreModoDeJuego()
+        Utils.obtenerModoDeJuego(nombreUsuarioTextView)
+        Utils.actualizarCorreo(gmailUsuarioTextView)
 
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
@@ -502,37 +505,5 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         startActivityForResult(intent, REQUEST_CAMERA)
     }
 
-    private fun obtenerNombreModoDeJuego() {
-        val currentUser = firebaseAuth.currentUser
-        val emailFire = currentUser?.email
-        gmailUsuarioTextView.text = emailFire
-        // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
-        val email = emailFire?.replace(".", ",")
 
-
-
-        try {
-            UserDao.getUserField(email, "name",
-                onSuccess = { name ->
-                    runOnUiThread {
-                        nombreUsuarioTextView .text = name as? CharSequence ?: ""
-                        Toast.makeText(this,  name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
-
-
-                    }
-                }
-            ) { exception ->
-                Log.e(
-                    ContentValues.TAG,
-                    "Error al obtener el nombre del modo de juego: ${exception.message}",
-                    exception
-                )
-                nombreUsuarioTextView .text = "unnamed"
-
-            }
-        } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
-            nombreUsuarioTextView .text = "unnamed"
-        }
-    }
 }

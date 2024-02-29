@@ -1,28 +1,27 @@
 package com.mariana.harmonia.activitys
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mariana.harmonia.JuegoMusicalActivity
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import com.mariana.harmonia.JuegoMusicalActivity
+import com.mariana.harmonia.utils.Utils
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var firebaseAuth: FirebaseAuth
+
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var nombreModoDeJuegoTextView: TextView
 
@@ -37,15 +36,16 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.elige_modo_juego_activity)
-
         firebaseAuth = FirebaseAuth.getInstance()
-        obtenerNombreModoDeJuego()
+
+
 
         // Inicialización de vistas
         val progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
         val porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreModoDeJuegoTextView = findViewById(R.id.nombreModoDeJuego)
-
+        // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
+        Utils.obtenerModoDeJuego(nombreModoDeJuegoTextView)
 
         // Puedes actualizar el porcentaje directamente
         val porcentaje = 50 // ajusta esto a tu valor real de porcentaje
@@ -110,37 +110,5 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         startActivity(intent)
     }
 
-    private fun obtenerNombreModoDeJuego() {
-        val currentUser = firebaseAuth.currentUser
-        val emailFire = currentUser?.email
-        // Suponiendo que tengas el email del usuario almacenado en una variable llamada "email"
-        val email = emailFire?.replace(".", ",")
-
-
-
-        try {
-            UserDao.getUserField(email, "name",
-                onSuccess = { name ->
-                    runOnUiThread {
-                        nombreModoDeJuegoTextView.text = name as? CharSequence ?: ""
-                        Toast.makeText(this,  name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
-
-
-                    }
-                }
-            ) { exception ->
-                Log.e(
-                    TAG,
-                    "Error al obtener el nombre del modo de juego: ${exception.message}",
-                    exception
-                )
-                nombreModoDeJuegoTextView.text = "unnamed"
-
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
-            nombreModoDeJuegoTextView.text = "unnamed"
-        }
-    }
 
 }
