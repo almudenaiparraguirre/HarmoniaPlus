@@ -1,12 +1,21 @@
 package com.mariana.harmonia
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,12 +31,17 @@ import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import android.Manifest
 
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
     private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
     private lateinit var firebaseAuth: FirebaseAuth
+
+    private val NOTIFICATION_ID = 1
+    val CHANNEL_ID = "mi_canal_de_notificacion"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +53,43 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         //Inicializar firebase
         firebaseAuth = FirebaseAuth.getInstance()
         comprobarSesion(firebaseAuth)
+
+        // Crear y mostrar la notificación
+        val textTitle = "¡Bienvenidooooooooooo!"
+        val textContent = "Graciaaaaaaas por usar nuestra aplicación."
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.nota_3b)
+            .setContentTitle(textTitle)
+            .setContentText(textContent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // Obtener el NotificationManager
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // Crear el intent para abrir la actividad al hacer clic en la notificación
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        // Configurar el intent para la notificación
+        builder.setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
+        // Crear el canal de notificación si es necesario (para versiones de Android >= 8.0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "Welcome Channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
+            notificationManager.createNotificationChannel(channel)
+        }
+
+        // Mostrar la notificación
+        notificationManager.notify(0, builder.build())
     }
+
 
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {
         val firebaseUser = firebaseAuth.currentUser
@@ -190,5 +240,58 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
     fun clickFireBase(view: View) {
         val intent = Intent(this, InicioSesion::class.java)
         startActivity(intent)
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.app_name)
+            val descriptionText = getString(R.string.efectos_de_sonido)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            // Register the channel with the system.
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun showNotification() {
+        // Crear y mostrar la notificación
+        val textTitle = "¡Bienvenidooooooooooo!"
+        val textContent = "Graciaaaaaaas por usar nuestra aplicación."
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.nota_3b)
+            .setContentTitle(textTitle)
+            .setContentText(textContent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        // Obtener el NotificationManager
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // Crear el canal de notificación si es necesario (para versiones de Android >= 8.0)
+        createNotificationChannel()
+
+        // Mostrar la notificación
+        notificationManager.notify(0, builder.build())
+
+        // Mostrar la notificación con permisos
+        with(NotificationManagerCompat.from(this)) {
+            if (ActivityCompat.checkSelfPermission(
+                    this@MainActivity,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+
+
+                return@with
+            }
+            // notificationId is a unique int for each notification that you must define.
+            notify(NOTIFICATION_ID, builder.build())
+        }
     }
 }
