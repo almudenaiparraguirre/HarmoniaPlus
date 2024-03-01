@@ -167,6 +167,16 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    fun actualizarCorreo(){
+        mediaPlayer.start()
+        if (contrasenaAnterior.equals(contrasenaNueva)){
+            Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Cuenta")
