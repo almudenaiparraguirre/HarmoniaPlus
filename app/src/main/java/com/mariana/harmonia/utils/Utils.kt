@@ -244,6 +244,10 @@ class Utils {
             }
         }
 
+
+
+
+
         fun actualizarExperiencia( nuevaExperiencia: Int) {
             val emailFire = currentUser?.email
             val email = emailFire?.replace(".", ",")
