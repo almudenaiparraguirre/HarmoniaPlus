@@ -3,12 +3,14 @@ package com.mariana.harmonia.activitys.iniciarSesion
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.firebase.Firebase
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
@@ -17,6 +19,7 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.mariana.harmonia.models.entity.User
+import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -46,6 +49,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.salirAplicacion(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun botonCrearCuenta(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -93,11 +97,13 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         return regex.matches(contraseña)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
+        val fechaRegistro = LocalDate.now()
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = User(email = email.lowercase(), name = nombre, 355, 1)
+                    val user = User(email = email.lowercase(), name = nombre, 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
                     //UserDao.createUsersCollectionIfNotExists()
                     UserDao.addUser(user)

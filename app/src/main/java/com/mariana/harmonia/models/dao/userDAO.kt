@@ -12,11 +12,11 @@ class UserDao {
         private val usersCollection = db.collection("usuarios")
 
 
+
         //CREA EL USUARIO
-        fun createUsersCollectionIfNotExists() {
+        /*fun createUsersCollectionIfNotExists() {
             usersCollection.get().addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
-                    // La colección de usuarios está vacía, así que la creamos
                     db.collection("usuarios").document("init").set(hashMapOf("init" to true))
                         .addOnSuccessListener {
                             Log.d(TAG, "Colección 'usuarios' creada exitosamente")
@@ -27,11 +27,9 @@ class UserDao {
                 }
             }
         }
-
+*/
         //AÑADE USUARIO
-
         fun addUser(user: User) {
-            // Agregar un usuario a la base de datos
             val emailKey = user.email?.replace(".", ",")
             emailKey?.let {
                 usersCollection.document(it).set(user)
@@ -62,19 +60,6 @@ class UserDao {
                     }
             }
         }
-        // Método para devolver nivel y experiencia sobrante
-
-
-        fun eliminarUsuario(email: String){
-            val user = Firebase.auth.currentUser!!
-
-            user.delete()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, "User account deleted.")
-                    }
-                }
-        }
 
         fun actualizarContrasena(email: String, nuevaContrasena: String) {
             val emailKey = email.replace(".", ",")
@@ -92,6 +77,7 @@ class UserDao {
                     Log.w(TAG, "Error al actualizar contraseña para el usuario con email: $email", e)
                 }
         }
+
         fun getEmail(email: String){
             val db = FirebaseFirestore.getInstance()
             val usuarios = db.collection("usuarios")
@@ -115,7 +101,7 @@ class UserDao {
             getUserField(email, "vidas",
                 onSuccess = { field ->
                     if (field is Long) {
-                        onSuccess.invoke(field.toInt()) // Convertir a Int si es Long
+                        onSuccess.invoke(field.toInt())
                     } else {
                         onFailure.invoke(Exception("El campo 'vidas' no es un entero"))
                     }

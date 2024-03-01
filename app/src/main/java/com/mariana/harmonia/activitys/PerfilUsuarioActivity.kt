@@ -1,6 +1,7 @@
 package com.mariana.harmonia.activitys
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
@@ -78,9 +79,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var precisionTextView: TextView
     private lateinit var editText: EditText
     private lateinit var miStorage: StorageReference
+    private lateinit var fechaRegistro: TextView
     val originalText = "dorado40"
 
     // FUN --> OnCreate
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
@@ -88,6 +91,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        fechaRegistro = findViewById(R.id.fechaRegistro)
+        fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
 
         mostrarImagenGrande()
         firebaseAuth = FirebaseAuth.getInstance()
