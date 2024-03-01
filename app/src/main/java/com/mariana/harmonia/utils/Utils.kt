@@ -114,8 +114,6 @@ class Utils {
                 }
             }
 
-
-
         fun obtenerNivel(nivel: TextView?) {
 
             val emailFire = currentUser?.email

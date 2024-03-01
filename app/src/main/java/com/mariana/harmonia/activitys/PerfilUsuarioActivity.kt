@@ -43,6 +43,7 @@ import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.utils.Utils
 import java.io.File
 import java.io.FileOutputStream
+import kotlin.math.min
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -80,7 +81,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var editText: EditText
     private lateinit var miStorage: StorageReference
     private lateinit var fechaRegistro: TextView
-    val originalText = "dorado40"
+    private lateinit var nivelRango: TextView
+    var mutableList: MutableList<String> = mutableListOf("Novato", "Principiante", "Amateur",
+        "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio")
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
@@ -90,6 +93,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
+        nivelRango = findViewById(R.id.nivelHabilidad)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         fechaRegistro = findViewById(R.id.fechaRegistro)
         fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
@@ -102,11 +106,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             contentType = "image/jpg"
         }
 
-
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
-        //obtenerNombreModoDeJuego()
         Utils.obtenerNombre(nombreUsuarioTextView)
         Utils.actualizarCorreo(gmailUsuarioTextView)
 
@@ -128,7 +130,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             if (!hasFocus) {
                 val newText = editText.text.toString()
                 if (newText.length < 4) {
-                    editText.setText(originalText)
+                    Utils.obtenerNombre(nombreUsuarioTextView)
                 }
                 else{
                     mostrarDialogoConfirmacion()
@@ -210,9 +212,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
 
         if (ultimoNivelCompletadoId != null) {
-            nivelTextView.text = ultimoNivelCompletadoId.toString()
+            nivelRango.text = asignarNivelHabilidad(ultimoNivelCompletadoId)
         } else {
-            nivelTextView.text = "N/A"
+            nivelRango.text = "NOVATO"
         }
 
         iniciarContadorToast()
@@ -227,7 +229,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
-            editText.setText(originalText)
+            Utils.obtenerNombre(nombreUsuarioTextView)
         }
 
         val dialog: AlertDialog = builder.create()
@@ -490,5 +492,20 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
+    }
+
+    private fun asignarNivelHabilidad(nivelActual: Int): String {
+        val nivelesDeHabilidad = mutableListOf(
+            "Novato", "Principiante", "Amateur", "Intermedio",
+            "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
+        )
+
+        val indiceNivel = (nivelActual - 1) / 10
+
+        // Asegúrate de no exceder el índice máximo
+        val indiceFinal = min(indiceNivel, nivelesDeHabilidad.size - 1)
+
+        // Obtiene el nivel de habilidad correspondiente
+        return nivelesDeHabilidad[indiceFinal]
     }
 }

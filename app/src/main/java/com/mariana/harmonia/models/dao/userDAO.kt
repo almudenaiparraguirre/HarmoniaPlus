@@ -11,8 +11,6 @@ class UserDao {
         private val db = FirebaseFirestore.getInstance()
         private val usersCollection = db.collection("usuarios")
 
-
-
         //CREA EL USUARIO
         /*fun createUsersCollectionIfNotExists() {
             usersCollection.get().addOnSuccessListener { documents ->
