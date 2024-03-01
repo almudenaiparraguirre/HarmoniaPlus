@@ -30,8 +30,6 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     companion object {
         private const val PREFS_NAME = "MyPrefsFile"
         private const val SESSION_KEY = "isSessionActive"
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -122,6 +120,4 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         intent.putExtra("desafio", true)
         startActivity(intent)
     }
-
-
 }
