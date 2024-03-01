@@ -23,32 +23,33 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var nombreTextView: TextView
     private lateinit var porcentajeTextView: TextView
     private lateinit var progressBar: ProgressBar
-    private var switchSonidosActivado: Boolean = false
+
 
     companion object {
         private const val PREFS_NAME = "MyPrefsFile"
         private const val SESSION_KEY = "isSessionActive"
+
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.elige_modo_juego_activity)
         firebaseAuth = FirebaseAuth.getInstance()
-        switchSonidosActivado = obtenerEstadoSonidosSwitch()
 
         Utilidades.colorearTexto(this, R.id.cerrarSesion)
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
         // Inicialización de vistas
-        progressBar = findViewById(R.id.progressBarCarga)
-        porcentajeTextView = findViewById(R.id.porcentajeTextView)
+       progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
+         porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
         Utils.obtenerNombre(nombreTextView)
 
         // Puedes actualizar el porcentaje directamente
         Utils.obtenerNivel(porcentajeTextView)
-        Utils.obtenerExperiencia(progressBar)
+       Utils.obtenerExperiencia(progressBar)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         // Inicialización de la animación
@@ -57,18 +58,13 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         imageView.startAnimation(anim)
 
 
-        println(Utils.serializeImage(this, R.mipmap.img_perfil_luis_golden))
+           println(Utils.serializeImage(this,R.mipmap.img_perfil_luis_golden))
     }
 
-    fun menu_perfil(view: View) {
+    fun menu_perfil(view: View){
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun obtenerEstadoSonidosSwitch(): Boolean {
-        val sharedPreferences = getSharedPreferences(ConfiguracionActivity.SHARED_PREFS, MODE_PRIVATE)
-        return sharedPreferences.getBoolean("sonidosSwitchState", false)
     }
 
     fun cerrarSesion(view: View) {
@@ -79,40 +75,41 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         finishAffinity() // Cierra todas las actividades anteriores
     }
 
-    fun clickOpciones(view: View) {
+    fun clickOpciones(view: View){
 
-        /*  val db = FirebaseFirestore.getInstance()
-              val usuarios = db.collection("usuarios")
+      /*  val db = FirebaseFirestore.getInstance()
+            val usuarios = db.collection("usuarios")
 
-          val stateQuery = usuarios.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email)
-          println(FirebaseAuth.getInstance().currentUser?.email)
+        val stateQuery = usuarios.whereEqualTo("email", FirebaseAuth.getInstance().currentUser?.email)
+        println(FirebaseAuth.getInstance().currentUser?.email)
 
-          // Ejecutar la consulta y obtener el resultado
-          stateQuery.get().addOnSuccessListener { querySnapshot ->
-              println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
-              // Recorrer los documentos obtenidos
-              for (document in querySnapshot.documents) {
-                  // Obtener el nombre del usuario y imprimirlo por consola
-                  val nombre = document.getString("name")
-                  println("Nombre: $nombre")
-              }
-          }.addOnFailureListener { exception ->
-              // Manejar cualquier error que ocurra al ejecutar la consulta
-              println("Error al obtener los usuarios: $exception")
-          }*/
+        // Ejecutar la consulta y obtener el resultado
+        stateQuery.get().addOnSuccessListener { querySnapshot ->
+            println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
+            // Recorrer los documentos obtenidos
+            for (document in querySnapshot.documents) {
+                // Obtener el nombre del usuario y imprimirlo por consola
+                val nombre = document.getString("name")
+                println("Nombre: $nombre")
+            }
+        }.addOnFailureListener { exception ->
+            // Manejar cualquier error que ocurra al ejecutar la consulta
+            println("Error al obtener los usuarios: $exception")
+        }*/
+
         mediaPlayer.start()
+
         val intent = Intent(this, ConfiguracionActivity::class.java)
-        intent.putExtra("switchSonidosActivado", switchSonidosActivado)
         startActivity(intent)
     }
 
-    fun irModoAventura(view: View) {
+    fun irModoAventura(view: View){
         mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
     }
 
-    fun irDesafio(view: View) {
+    fun irDesafio(view: View){
         mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("desafio", true)

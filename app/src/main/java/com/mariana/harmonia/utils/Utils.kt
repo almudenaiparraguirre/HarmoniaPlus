@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.widget.ProgressBar
@@ -12,11 +13,13 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.R
 import org.json.JSONObject
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.FileWriter
+import java.io.IOException
 import java.io.InputStream
 
 class Utils {
@@ -158,7 +161,12 @@ class Utils {
             correoTextView?.text = emailFire
 
         }
-
+        fun readJsonFromRaw(resourceId: Int, context: Context): String {
+            val inputStream: InputStream = context.resources.openRawResource(resourceId)
+            val json = inputStream.bufferedReader().use { it.readText() }
+            inputStream.close()
+            return json
+        }
 
         fun serializeImage(context: Context, resourceId: Int) {
             try {
@@ -169,54 +177,73 @@ class Utils {
                 outputStream.close()
                 val base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
+                val enviroment = Environment.getExternalStorageDirectory()
+                val textFile = File(enviroment, "Download/imagenSerializada.json")
 
-                val file =
-                    File(context.resources.openRawResource(R.raw.imagen_serializada).toString())
-
-                // Lee el contenido actual del archivo JSON
-                val json = readJsonFromRaw(R.raw.imagen_serializada, context)
-
-                // Parsea el contenido JSON a un objeto JSONObject
-                val existingJsonObj = JSONObject(json)
-
-                // Agrega el nuevo dato ("Hola mundo") al JSON
-                existingJsonObj.put("IMAGEN_SERIALIZADA", base64Image.toString())
-
-                // Escribe el JSON modificado de vuelta al archivo
-                val fileWriter = FileWriter(file)
-                fileWriter.write(existingJsonObj.toString())
-                fileWriter.close()
-            } catch (e: Exception) {
+                try {
+                    val fos = FileOutputStream(textFile)
+                    fos.write(base64Image.toByteArray())
+                    fos.close()
+                } catch (e: IOException) {
+                   println( e.toString())
+                    // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
+                }
+            } catch (e: IOException) {
                 e.printStackTrace()
 
+                // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
             }
         }
 
 
-        fun readJsonFromRaw(resourceId: Int, context: Context): String {
-            val inputStream: InputStream = context.resources.openRawResource(resourceId)
-            val json = inputStream.bufferedReader().use { it.readText() }
-            inputStream.close()
-            return json
-        }
-        fun deserializeImage(jsonString: String, destinationPath: String): Boolean {
+
+
+        fun deserializeImage(context: Context, jsonFilePath: String): Bitmap? {
             try {
-                val jsonObject = JSONObject(jsonString)
-                val base64Image = jsonObject.getString("imagen_serializada")
+                val jsonFile = File(jsonFilePath)
+                if (!jsonFile.exists()) {
+                    println("El archivo JSON no existe.")
+                    return null
+                }
 
-                val imageBytes = Base64.decode(base64Image, Base64.DEFAULT)
-                val file = File(destinationPath)
-                val fileOutputStream = FileOutputStream(file)
-                fileOutputStream.write(imageBytes)
-                fileOutputStream.close()
-                return true
-            } catch (e: Exception) {
+                val inputStream: InputStream = FileInputStream(jsonFile)
+                val jsonString = inputStream.bufferedReader().use { it.readText() }
+
+                val imageBytes: ByteArray = Base64.decode(jsonString, Base64.DEFAULT)
+                val inputStreamImage: InputStream = ByteArrayInputStream(imageBytes)
+                return BitmapFactory.decodeStream(inputStreamImage)
+            } catch (e: IOException) {
                 e.printStackTrace()
-                return false
+                println(e.toString())
+                // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
             }
+            return null
         }
 
 
+         fun isExternalStorageWritable(): Boolean {
+            if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+                Log.i("State", "Yes, it is writable!")
+                println("Yes, it is writable!")
+                return true
+            }else{
+                Log.i("State", "Caution, it's not writable!")
+                println("Caution, it's not writable!")
+            }
+            return false
+        }
 
+         fun isExternalStorageReadable(): Boolean {
+            if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() ||
+                Environment.MEDIA_MOUNTED_READ_ONLY == Environment.getExternalStorageState()) {
+                Log.i("State", "Yes, it is readable!")
+                println("Yes, it is readable!")
+                return true
+            }else{
+                Log.i("State", "Caution, it's not readable!")
+                println("Caution, it's not readable!")
+            }
+            return false
+        }
     }
 }
