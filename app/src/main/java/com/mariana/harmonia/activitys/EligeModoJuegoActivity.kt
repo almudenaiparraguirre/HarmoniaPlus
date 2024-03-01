@@ -3,6 +3,7 @@ package com.mariana.harmonia.activitys
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -22,6 +23,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var nombreTextView: TextView
     private lateinit var porcentajeTextView: TextView
+    private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
 
 
@@ -44,6 +46,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
          porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
+        imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
         // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
         Utils.obtenerNombre(nombreTextView)
 
@@ -57,8 +60,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
 
-
-           println(Utils.serializeImage(this,R.mipmap.img_perfil_luis_golden))
+          // println(Utils.serializeImage(this,R.mipmap.img_gema))
+         //   imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
     }
 
     fun menu_perfil(view: View){

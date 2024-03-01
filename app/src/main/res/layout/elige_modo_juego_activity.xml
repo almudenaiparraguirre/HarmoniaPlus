@@ -54,7 +54,7 @@
                     app:cardElevation="2dp">
 
                     <ImageView
-                        android:id="@+id/perfil_usuario"
+                        android:id="@+id/imageViewFotoPerfil"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"

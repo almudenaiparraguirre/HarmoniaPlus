@@ -388,7 +388,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
             // Si la nota es la indicada entra
             if (notasArray[aciertos!!]?.substring(1) == nombreNota) {
                 var nota = notasArray[aciertos!!]
-                playSound(nota!!)
+                playSound("sound_$nota")
+                println("pasadoPlaySound")
                 aciertos = aciertos?.plus(1)
 
 
@@ -547,8 +548,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     private fun playSound(soundFile: String) {
-        val nombre: String = "sound_"+soundFile
-        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(nombre, "raw", packageName))
+
+
+        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
         val volume = 1f
         mediaPlayer.setVolume(volume, volume)
         mediaPlayer.start()

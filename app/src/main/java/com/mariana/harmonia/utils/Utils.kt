@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.widget.ProgressBar
@@ -12,6 +13,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.R
 import org.json.JSONObject
+import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -161,35 +163,21 @@ class Utils {
 
 
         fun serializeImage(context: Context, resourceId: Int) {
-            try {
-                val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, resourceId)
-                val outputStream = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                val imageBytes: ByteArray = outputStream.toByteArray()
-                outputStream.close()
-                val base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
+            val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, resourceId)
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            val imageBytes: ByteArray = outputStream.toByteArray()
+            outputStream.close()
+            val base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+           // println(base64Image.toString())
 
-                val file =
-                    File(context.resources.openRawResource(R.raw.imagen_serializada).toString())
+            var enviroment = Environment.getExternalStorageDirectory()
+            val textFile = File("$enviroment/Download", "imagenSerializada.json")
+            val fos = FileOutputStream(textFile)
+            fos.write(base64Image.toString().toByteArray())
+            fos.close()
 
-                // Lee el contenido actual del archivo JSON
-                val json = readJsonFromRaw(R.raw.imagen_serializada, context)
-
-                // Parsea el contenido JSON a un objeto JSONObject
-                val existingJsonObj = JSONObject(json)
-
-                // Agrega el nuevo dato ("Hola mundo") al JSON
-                existingJsonObj.put("IMAGEN_SERIALIZADA", base64Image.toString())
-
-                // Escribe el JSON modificado de vuelta al archivo
-                val fileWriter = FileWriter(file)
-                fileWriter.write(existingJsonObj.toString())
-                fileWriter.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-
-            }
         }
 
 
@@ -199,21 +187,19 @@ class Utils {
             inputStream.close()
             return json
         }
-        fun deserializeImage(jsonString: String, destinationPath: String): Boolean {
-            try {
-                val jsonObject = JSONObject(jsonString)
-                val base64Image = jsonObject.getString("imagen_serializada")
-
-                val imageBytes = Base64.decode(base64Image, Base64.DEFAULT)
-                val file = File(destinationPath)
-                val fileOutputStream = FileOutputStream(file)
-                fileOutputStream.write(imageBytes)
-                fileOutputStream.close()
-                return true
-            } catch (e: Exception) {
-                e.printStackTrace()
-                return false
+        fun deserializeImage(context: Context, jsonFilePath: String): Bitmap? {
+            val jsonFile = File(jsonFilePath)
+            if (!jsonFile.exists()) {
+                println("El archivo JSON no existe.")
+                return null
             }
+
+            val inputStream: InputStream = jsonFile.inputStream()
+            val jsonString = inputStream.bufferedReader().use { it.readText() }
+
+            val imageBytes: ByteArray = Base64.decode(jsonString, Base64.DEFAULT)
+            val inputStreamImage: InputStream = ByteArrayInputStream(imageBytes)
+            return BitmapFactory.decodeStream(inputStreamImage)
         }
 
 
