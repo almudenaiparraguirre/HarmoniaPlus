@@ -49,7 +49,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         private lateinit var firebaseAuth: FirebaseAuth
         private lateinit var nombreUsuarioTextView: TextView
         private lateinit var gmailUsuarioTextView: TextView
-
         private const val PERMISSION_REQUEST_CODE = 122
         private const val REQUEST_CAMERA = 123
     }
@@ -58,7 +57,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var imagen: ImageView
     private lateinit var lapiz: ImageView
     private lateinit var cardViewPerfil: CardView
-    private lateinit var topTextView: TextView
     private lateinit var progressBar1: ProgressBar
     private lateinit var progressBar2: ProgressBar
     private lateinit var progressBar3: ProgressBar
@@ -204,9 +202,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView8.text = "$porcentaje8/100"
 
         val niveles: JSONObject? = obtenerNivelesJSON()
-
-
-
         val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
 
         if (ultimoNivelCompletadoId != null) {

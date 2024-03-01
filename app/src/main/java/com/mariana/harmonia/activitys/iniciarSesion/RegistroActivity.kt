@@ -79,7 +79,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         }
 
         // 5. Llamar a una función para registrar al usuario en Firebase
-        registrarUsuarioEnFirebase(email, contraseña,nombre)
+        registrarUsuarioEnFirebase(email, contraseña, nombre)
     }
 
     // FUN --> Validar la contraseña
@@ -88,21 +88,24 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         return regex.matches(contraseña)
     }
 
-    private fun registrarUsuarioEnFirebase(email: String, contraseña: String,nombre: String) {
+    private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Registro exitoso
+                    val user = User(email = email.lowercase(), name = nombre, 355, 1)
 
-                    val user = User(email = email.lowercase(),name = nombre,355, 1)
-                    UserDao.createUsersCollectionIfNotExists()
-
+                    //UserDao.createUsersCollectionIfNotExists()
                     UserDao.addUser(user)
 
+                    // Resto del código...
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this, "Error al registrar usuario: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error al registrar usuario: ${task.exception?.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
