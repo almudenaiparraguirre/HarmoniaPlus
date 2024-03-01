@@ -231,7 +231,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             dialog.dismiss()
             Utils.obtenerNombre(nombreUsuarioTextView)
         }
-
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
