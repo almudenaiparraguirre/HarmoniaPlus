@@ -19,6 +19,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.FileWriter
+import java.io.IOException
 import java.io.InputStream
 
 class Utils {
@@ -160,49 +161,89 @@ class Utils {
             correoTextView?.text = emailFire
 
         }
-
-
-        fun serializeImage(context: Context, resourceId: Int) {
-
-            val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, resourceId)
-            val outputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            val imageBytes: ByteArray = outputStream.toByteArray()
-            outputStream.close()
-            val base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
-           // println(base64Image.toString())
-
-            var enviroment = Environment.getExternalStorageDirectory()
-            val textFile = File("$enviroment/Download", "imagenSerializada.json")
-            val fos = FileOutputStream(textFile)
-            fos.write(base64Image.toString().toByteArray())
-            fos.close()
-
-        }
-
-
         fun readJsonFromRaw(resourceId: Int, context: Context): String {
             val inputStream: InputStream = context.resources.openRawResource(resourceId)
             val json = inputStream.bufferedReader().use { it.readText() }
             inputStream.close()
             return json
         }
-        fun deserializeImage(context: Context, jsonFilePath: String): Bitmap? {
-            val jsonFile = File(jsonFilePath)
-            if (!jsonFile.exists()) {
-                println("El archivo JSON no existe.")
-                return null
+
+        fun serializeImage(context: Context, resourceId: Int) {
+            try {
+                val bitmap: Bitmap = BitmapFactory.decodeResource(context.resources, resourceId)
+                val outputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                val imageBytes: ByteArray = outputStream.toByteArray()
+                outputStream.close()
+                val base64Image = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+
+                val enviroment = Environment.getExternalStorageDirectory()
+                val textFile = File(enviroment, "Download/imagenSerializada.json")
+
+                try {
+                    val fos = FileOutputStream(textFile)
+                    fos.write(base64Image.toByteArray())
+                    fos.close()
+                } catch (e: IOException) {
+                   println( e.toString())
+                    // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+
+                // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
             }
-
-            val inputStream: InputStream = jsonFile.inputStream()
-            val jsonString = inputStream.bufferedReader().use { it.readText() }
-
-            val imageBytes: ByteArray = Base64.decode(jsonString, Base64.DEFAULT)
-            val inputStreamImage: InputStream = ByteArrayInputStream(imageBytes)
-            return BitmapFactory.decodeStream(inputStreamImage)
         }
 
 
 
+
+        fun deserializeImage(context: Context, jsonFilePath: String): Bitmap? {
+            try {
+                val jsonFile = File(jsonFilePath)
+                if (!jsonFile.exists()) {
+                    println("El archivo JSON no existe.")
+                    return null
+                }
+
+                val inputStream: InputStream = FileInputStream(jsonFile)
+                val jsonString = inputStream.bufferedReader().use { it.readText() }
+
+                val imageBytes: ByteArray = Base64.decode(jsonString, Base64.DEFAULT)
+                val inputStreamImage: InputStream = ByteArrayInputStream(imageBytes)
+                return BitmapFactory.decodeStream(inputStreamImage)
+            } catch (e: IOException) {
+                e.printStackTrace()
+                println(e.toString())
+                // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
+            }
+            return null
+        }
+
+
+         fun isExternalStorageWritable(): Boolean {
+            if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
+                Log.i("State", "Yes, it is writable!")
+                println("Yes, it is writable!")
+                return true
+            }else{
+                Log.i("State", "Caution, it's not writable!")
+                println("Caution, it's not writable!")
+            }
+            return false
+        }
+
+         fun isExternalStorageReadable(): Boolean {
+            if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() ||
+                Environment.MEDIA_MOUNTED_READ_ONLY == Environment.getExternalStorageState()) {
+                Log.i("State", "Yes, it is readable!")
+                println("Yes, it is readable!")
+                return true
+            }else{
+                Log.i("State", "Caution, it's not readable!")
+                println("Caution, it's not readable!")
+            }
+            return false
+        }
     }
 }

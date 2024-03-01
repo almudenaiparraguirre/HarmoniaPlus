@@ -39,6 +39,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.elige_modo_juego_activity)
         firebaseAuth = FirebaseAuth.getInstance()
 
+        Utils.isExternalStorageWritable()
+        Utils.isExternalStorageReadable()
         Utilidades.colorearTexto(this, R.id.cerrarSesion)
         Utilidades.colorearTexto(this, R.id.titleTextView)
 
@@ -60,8 +62,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
 
-          // println(Utils.serializeImage(this,R.mipmap.img_gema))
-         //   imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
+           Utils.serializeImage(this,R.mipmap.img_gema)
+           imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
+
     }
 
     fun menu_perfil(view: View){
