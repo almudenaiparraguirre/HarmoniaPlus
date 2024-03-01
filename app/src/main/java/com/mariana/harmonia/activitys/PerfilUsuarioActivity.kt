@@ -107,6 +107,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
         //obtenerNombreModoDeJuego()
+
         Utils.obtenerNombre(nombreUsuarioTextView)
         Utils.actualizarCorreo(gmailUsuarioTextView)
 
