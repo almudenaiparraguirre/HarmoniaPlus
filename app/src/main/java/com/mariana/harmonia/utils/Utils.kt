@@ -15,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.R
 import org.json.JSONObject
 import java.io.ByteArrayInputStream
@@ -30,7 +31,9 @@ import java.util.Locale
 class Utils {
     companion object {
         val firebaseAuth = FirebaseAuth.getInstance()
+        private val db = FirebaseFirestore.getInstance()
         val currentUser = firebaseAuth.currentUser
+        private val usersCollection = db.collection("usuarios")
 
 
         @SuppressLint("SimpleDateFormat")
@@ -79,6 +82,36 @@ class Utils {
                 Log.e(ContentValues.TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
                 experiencia?.post {
                     experiencia?.text = "unnamed"
+                }
+            }
+        }
+        fun obtenerNivelActual(nivelActual: TextView) {
+
+            val emailFire = currentUser?.email
+            val email = emailFire?.replace(".", ",")
+
+            try {
+                UserDao.getUserField(email, "nivelActual",
+                    onSuccess = { name ->
+                        nivelActual?.post {
+                            nivelActual.text = name.toString() as? CharSequence ?: ""
+                            Toast.makeText(nivelActual.context, name as? CharSequence ?: "", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                ) { exception ->
+                    Log.e(
+                        ContentValues.TAG,
+                        "Error al obtener el nombre del modo de juego: ${exception.message}",
+                        exception
+                    )
+                    nivelActual?.post {
+                        nivelActual?.text = "999"
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(ContentValues.TAG, "Excepción al obtener el nombre del modo de juego: ${e.message}", e)
+                nivelActual?.post {
+                    nivelActual?.text = "999"
                 }
             }
         }
@@ -210,6 +243,62 @@ class Utils {
                 }
             }
         }
+
+        fun actualizarExperiencia( nuevaExperiencia: Int) {
+            val emailFire = currentUser?.email
+            val email = emailFire?.replace(".", ",")
+
+
+            val data = hashMapOf(
+                "experiencia" to nuevaExperiencia
+                // Agrega cualquier otro campo que necesites actualizar
+            )
+
+            usersCollection.document(email!!).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "Experiencia actualizada para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar experiencia para el usuario con email: $email", e)
+                }
+        }
+        fun actualizarNivelActual( nuevoNivelActual: Int) {
+            val emailFire = currentUser?.email
+            val email = emailFire?.replace(".", ",")
+
+
+            val data = hashMapOf(
+                "experiencia" to nuevoNivelActual
+                // Agrega cualquier otro campo que necesites actualizar
+            )
+
+            usersCollection.document(email!!).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "NivelActual actualizada para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar NivelActual para el usuario con email: $email", e)
+                }
+        }
+        fun actualizarVidas( nuevaVidas: Int) {
+            val emailFire = currentUser?.email
+            val email = emailFire?.replace(".", ",")
+
+
+            val data = hashMapOf(
+                "vidas" to nuevaVidas
+                // Agrega cualquier otro campo que necesites actualizar
+            )
+
+            usersCollection.document(email!!).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "nuevaVidas actualizada para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar nuevaVidas para el usuario con email: $email", e)
+                }
+        }
+
 
         fun actualizarCorreo(correoTextView: TextView?){
             val emailFire = currentUser?.email

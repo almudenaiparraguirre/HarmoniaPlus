@@ -125,6 +125,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         //fin oncreate
         colocarTextViewNivel()
         Utils.obtenerVidas(corazonesTextView)
+        Utils.obtenerNivelActual(corazonesTextView)
     }
 
     private fun createLockedButton(): Button {

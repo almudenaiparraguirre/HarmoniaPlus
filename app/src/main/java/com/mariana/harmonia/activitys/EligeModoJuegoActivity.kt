@@ -63,6 +63,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
            Utils.serializeImage(this,R.mipmap.img_gema)
            imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
 
+
     }
 
     fun menu_perfil(view: View){
