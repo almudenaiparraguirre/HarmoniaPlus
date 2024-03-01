@@ -3,6 +3,10 @@ plugins {
     id("org.jetbrains.kotlin.android")
 
     id("com.google.gms.google-services")
+    id("org.jetbrains.dokka") version "1.9.10"
+}
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
 }
 
 android {
@@ -40,12 +44,15 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
     //Splash
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    //DOKKA
+    dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
 
     //otors
     implementation ("androidx.activity:activity-ktx:1.3.0")

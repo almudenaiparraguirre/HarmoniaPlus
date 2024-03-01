@@ -3,6 +3,7 @@ package com.mariana.harmonia.activitys
 import UserDao
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -26,7 +28,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.auth.User
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
@@ -64,21 +68,33 @@ class ConfiguracionActivity : AppCompatActivity() {
         switchSonidos = findViewById(R.id.switchSonidos)
         sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        val switchSonidosActivado = sharedPreferences.getBoolean("sonidosSwitchState", false)
+        switchSonidos.isChecked = switchSonidosActivado
 
         configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
 
         switchSonidos.setOnCheckedChangeListener { _, isChecked ->
+            sonidosActivados = isChecked
+            guardarEstadoSonidosSwitch(sonidosActivados)
             if (isChecked) {
                 val thumbColor = ContextCompat.getColor(this, R.color.rosa)
                 val trackColor = ContextCompat.getColor(this, R.color.rosa)
                 mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
                 mediaPlayer.start()
+                sonidosActivados = true
 
-                switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
-                switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
+                switchSonidos.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchSonidos.trackTintList = ColorStateList.valueOf(trackColor)
             } else {
+                val thumbColor = ContextCompat.getColor(this, R.color.gris)
+                val trackColor = ContextCompat.getColor(this, R.color.grisClaro)
+
                 mediaPlayer.release()
+                sonidosActivados = false
+
+                switchSonidos.thumbTintList = ColorStateList.valueOf(thumbColor)
+                switchSonidos.trackTintList = ColorStateList.valueOf(trackColor)
             }
         }
 
@@ -135,6 +151,12 @@ class ConfiguracionActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    private fun guardarEstadoSonidosSwitch(value: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("sonidosSwitchState", value)
+        editor.apply()
+    }
+
     fun actualizarContrasena(){
         mediaPlayer.start()
         if (contrasenaAnterior.equals(contrasenaNueva)){
@@ -182,6 +204,14 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun volverModoJuego(view: View){
+        val user = Firebase.auth.currentUser
+        user?.let {
+            val name = it.displayName
+            val email = it.email
+            val photoUrl = it.photoUrl
+
+            println(name + " - " + email)
+        }
         mediaPlayer.start()
         onBackPressed()
     }
@@ -204,7 +234,15 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     private fun eliminarMiCuenta() {
         mediaPlayer.start()
-        UserDao.eliminarUsuario(auth.currentUser?.email.toString())
+        //UserDao.eliminarUsuario(auth.currentUser?.email.toString())
+        val user = Firebase.auth.currentUser!!
+
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
         auth.signOut()
         Toast.makeText(this, "Cuenta eliminada", Toast.LENGTH_SHORT).show()
 

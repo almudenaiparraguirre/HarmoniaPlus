@@ -62,12 +62,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
 
-      //  Utils.serializeImage(this,R.mipmap.img_gema)
-        //imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
-
-        Utils.actualizarExperiencia(127)
-        Utils.actualizarVidas(200)
-        Utils.actualizarNivelActual(3)
+           Utils.serializeImage(this,R.mipmap.img_gema)
+           imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
 
     }
 
