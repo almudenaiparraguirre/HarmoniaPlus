@@ -15,6 +15,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
+import com.mariana.harmonia.utils.Utils
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -29,6 +30,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private var nivelActual: Int = 0
     private lateinit var menuSuperior: LinearLayout
     private lateinit var textViewNivel: TextView
+    private lateinit var corazonesTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
 
@@ -41,7 +43,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         menuSuperior = findViewById(R.id.llTopBar)
         textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
+        corazonesTextView = findViewById(R.id.numeroCorazones)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+
 
         val lp = LinearLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.button_width),
@@ -120,6 +124,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         //fin oncreate
         colocarTextViewNivel()
+        Utils.obtenerVidas(corazonesTextView)
     }
 
     private fun createLockedButton(): Button {

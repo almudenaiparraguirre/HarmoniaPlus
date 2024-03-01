@@ -1,9 +1,11 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -81,6 +83,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         // 5. Llamar a una función para registrar al usuario en Firebase
         registrarUsuarioEnFirebase(email, contraseña,nombre)
     }
+
+
+
 
     // FUN --> Validar la contraseña
     private fun validarContraseña(contraseña: String): Boolean {
