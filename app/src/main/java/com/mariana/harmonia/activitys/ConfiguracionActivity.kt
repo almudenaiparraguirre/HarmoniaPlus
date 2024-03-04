@@ -11,6 +11,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,16 +32,20 @@ import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.auth.User
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.databinding.InicioSesionActivityBinding
+import com.mariana.harmonia.utils.Utils
 
 class ConfiguracionActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var contrasenaAnterior: EditText
     private lateinit var contrasenaNueva: EditText
+    private lateinit var correoAnterior: EditText
+    private lateinit var correoNuevo: EditText
     private lateinit var buttonCambiarContra: Button
     private lateinit var switchMusica: Switch
     private lateinit var switchOtraOpcion: Switch
@@ -61,6 +66,8 @@ class ConfiguracionActivity : AppCompatActivity() {
         setContentView(R.layout.configuracion_activity)
         contrasenaAnterior = findViewById(R.id.edit_text_vieja_contrasena)
         contrasenaNueva = findViewById(R.id.edit_text_nueva_contrasena)
+        correoAnterior = findViewById(R.id.edit_text_viejo_correo)
+        correoNuevo = findViewById(R.id.edit_text_nuevo_correo)
         switchMusica = findViewById(R.id.switchMusica)
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
@@ -159,21 +166,23 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     fun actualizarContrasena(){
         mediaPlayer.start()
-        if (contrasenaAnterior.equals(contrasenaNueva)){
+        if (contrasenaAnterior == contrasenaNueva){
             Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
         }
         else{
+            UserDao.actualizarContrasena(Firebase.auth.currentUser?.email.toString(), contrasenaNueva.toString())
             Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
         }
     }
 
-    fun actualizarCorreo(){
+    fun actualizarCorreo(view: View) {
         mediaPlayer.start()
-        if (contrasenaAnterior.equals(contrasenaNueva)){
-            Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
-        }
-        else{
-            Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+
+        if (correoAnterior.text.toString() == correoNuevo.text.toString()) {
+            Toast.makeText(this, "Los correos introducidos son iguales", Toast.LENGTH_SHORT).show()
+        } else {
+            Utils.setCorreo(correoNuevo.text.toString())
+            Toast.makeText(this, "El correo se ha actualizado con éxito", Toast.LENGTH_SHORT).show()
         }
     }
 

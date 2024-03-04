@@ -4,6 +4,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.models.entity.User
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 
 class UserDao {
 
@@ -11,6 +13,21 @@ class UserDao {
         private val db = FirebaseFirestore.getInstance()
         private val usersCollection = db.collection("usuarios")
 
+        //CREA EL USUARIO
+        /*fun createUsersCollectionIfNotExists() {
+            usersCollection.get().addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    db.collection("usuarios").document("init").set(hashMapOf("init" to true))
+                        .addOnSuccessListener {
+                            Log.d(TAG, "Colección 'usuarios' creada exitosamente")
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error al crear la colección 'usuarios'", e)
+                        }
+                }
+            }
+        }
+*/
         //AÑADE USUARIO
         fun addUser(user: User) {
             val emailKey = user.email?.replace(".", ",")
@@ -61,5 +78,52 @@ class UserDao {
                 }
         }
 
+        fun getEmail(email: String){
+            val db = FirebaseFirestore.getInstance()
+            val usuarios = db.collection("usuarios")
+            val stateQuery = usuarios.whereEqualTo("email", email)
+            // Ejecutar la consulta y obtener el resultado
+            stateQuery.get().addOnSuccessListener { querySnapshot ->
+                println("Consulta exitosa. Documentos encontrados: ${querySnapshot.size()}")
+                // Recorrer los documentos obtenidos
+                for (document in querySnapshot.documents) {
+                    // Obtener el nombre del usuario y imprimirlo por consola
+                    val nombre = document.getString("email")
+                    println("Nombre: $nombre")
+                }
+            }.addOnFailureListener { exception ->
+                // Manejar cualquier error que ocurra al ejecutar la consulta
+                println("Error al obtener los usuarios: $exception")
+            }
+        }
+
+        fun getVidas(email: String?, onSuccess: (Int) -> Unit, onFailure: (Exception) -> Unit) {
+            getUserField(email, "vidas",
+                onSuccess = { field ->
+                    if (field is Long) {
+                        onSuccess.invoke(field.toInt())
+                    } else {
+                        onFailure.invoke(Exception("El campo 'vidas' no es un entero"))
+                    }
+                },
+                onFailure = onFailure
+            )
+        }
+
+        fun actualizarCorreo(email: String, nuevoCorreo: String){
+            val emailKey = email.replace(".", ",")
+
+            val data = hashMapOf(
+                "email" to nuevoCorreo
+            )
+
+            usersCollection.document(emailKey).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Correo actualizado para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al actualizar correo para el usuario con email: $email", e)
+                }
+        }
     }
 }
