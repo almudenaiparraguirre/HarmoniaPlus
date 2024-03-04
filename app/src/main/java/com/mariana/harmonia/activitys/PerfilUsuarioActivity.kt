@@ -90,7 +90,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
+    override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
         cardViewPerfil = findViewById(R.id.cardview_perfil)
@@ -98,42 +98,12 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         lapiz = findViewById(R.id.lapiz_editar)
         nivelRango = findViewById(R.id.nivelHabilidad)
         fechaRegistro = findViewById(R.id.fechaRegistro)
-        fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
-        nombreUsuarioTextView.text = Utils.getNombre()
-        gmailUsuarioTextView.text = Utils.getCorreo()
-        experienciaTextView.text = Utils.getExperiencia()
-        mostrarImagenGrande()
-
-        val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
-        constraintLayout.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                // Oculta el teclado
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(editText.windowToken, 0)
-
-                // Quita el foco del EditText
-                editText.clearFocus()
-            }
-            false
-        }
-
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No es necesario implementar
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No es necesario implementar
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // No es necesario implementar
-            }
-        })
-
+        nivelTextView = findViewById(R.id.nivelTextView)
+        precisionTextView = findViewById(R.id.precisionTextView)
+        experienciaTextView = findViewById(R.id.experienciaTextView)
         // Porcentaje barra Experiencia
         progressBar1 = findViewById(R.id.progressBarLogro1)
         porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
@@ -152,11 +122,33 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         progressBar8 = findViewById(R.id.progressBarLogro8)
         porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
 
-        nivelTextView = findViewById(R.id.nivelTextView)
-        precisionTextView = findViewById(R.id.precisionTextView)
-        experienciaTextView = findViewById(R.id.experienciaTextView)
+
+        inicializarConBase()
+        mostrarImagenGrande()
+        crearMenuSuperior()
+        setPorcentajesLogros()
 
 
+
+        val niveles: JSONObject? = obtenerNivelesJSON()
+        val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
+
+        if (ultimoNivelCompletadoId != null) {
+            nivelRango.text = asignarNivelHabilidad(ultimoNivelCompletadoId)
+        } else {
+            nivelRango.text = "NOVATO"
+        }
+
+    }
+
+    private fun inicializarConBase() = runBlocking{
+        fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
+        nombreUsuarioTextView.text = Utils.getNombre()
+        gmailUsuarioTextView.text = Utils.getCorreo()
+        experienciaTextView.text = Utils.getExperiencia()
+    }
+
+    private fun setPorcentajesLogros() {
         val porcentaje1 = 10
         progressBar1.progress = porcentaje1
         porcentajeTextView1.text = "$porcentaje1/100"
@@ -188,18 +180,37 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val porcentaje8 = 80
         progressBar8.progress = porcentaje8
         porcentajeTextView8.text = "$porcentaje8/100"
+    }
 
-        val niveles: JSONObject? = obtenerNivelesJSON()
-        val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
+    private fun crearMenuSuperior() {
+        val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
+        constraintLayout.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                // Oculta el teclado
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editText.windowToken, 0)
 
-        if (ultimoNivelCompletadoId != null) {
-            nivelRango.text = asignarNivelHabilidad(ultimoNivelCompletadoId)
-        } else {
-            nivelRango.text = "NOVATO"
+                // Quita el foco del EditText
+                editText.clearFocus()
+            }
+            false
         }
 
-        iniciarContadorToast()
-        println(Utils.getNivelActual())
+
+
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // No es necesario implementar
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // No es necesario implementar
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // No es necesario implementar
+            }
+        })
     }
 
     private fun mostrarDialogoConfirmacion() {
@@ -256,13 +267,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
 
-    private fun iniciarContadorToast() {
-        Toast.makeText(
-            this,
-            "Pulse sobre el email o nombre de usuario para editarlos",
-            Toast.LENGTH_LONG
-        ).show()
-    }
+
 
     private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
         val nivelesArray = nivelesJson?.getJSONArray("niveles")

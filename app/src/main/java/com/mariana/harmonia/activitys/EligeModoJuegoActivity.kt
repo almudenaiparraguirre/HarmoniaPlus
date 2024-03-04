@@ -41,12 +41,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
-        inicializarConBase()
-        // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)
+        inicializarConBase()
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
-
         inicilalizarVariablesThis()
     }
     fun inicializarConBase()= runBlocking {   firebaseAuth = FirebaseAuth.getInstance()

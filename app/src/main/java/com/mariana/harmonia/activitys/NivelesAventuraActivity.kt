@@ -35,26 +35,27 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
 
-    override fun onCreate(savedInstanceState: Bundle?) = runBlocking  {
+    override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
-        nivelActual = Utils.getNivelActual()!!
+
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
         menuSuperior = findViewById(R.id.llTopBar)
         textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
         corazonesTextView = findViewById(R.id.numeroCorazones)
-
+        inicializarConBase()
         crearCirculos()
 
-
-
-        corazonesTextView.text = Utils.getVidas().toString()
         colocarTextViewNivel()
 
     }
 
+    private fun inicializarConBase()= runBlocking {
+        nivelActual = Utils.getNivelActual()!!
+        corazonesTextView.text = Utils.getVidas().toString()
+    }
 
 
     private fun crearCirculos() {
@@ -138,6 +139,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", numeroNivel)
         startActivity(intent)
+        finish()
 
 
     }
