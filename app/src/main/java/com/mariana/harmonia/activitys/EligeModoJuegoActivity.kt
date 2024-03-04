@@ -15,6 +15,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.runBlocking
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -32,15 +33,14 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         private const val SESSION_KEY = "isSessionActive"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.elige_modo_juego_activity)
         firebaseAuth = FirebaseAuth.getInstance()
 
         Utils.isExternalStorageWritable()
         Utils.isExternalStorageReadable()
-        Utilidades.colorearTexto(this, R.id.cerrarSesion)
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+
 
         // Inicialización de vistas
        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
@@ -48,22 +48,36 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
         // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
-        Utils.obtenerNombre(nombreTextView)
 
-        // Puedes actualizar el porcentaje directamente
-        Utils.obtenerNivel(porcentajeTextView)
-       Utils.obtenerExperiencia(progressBar)
-        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+
+
+
+        nombreTextView.text = Utils.getNombre()
+
+        porcentajeTextView.text = Utils.getNivelActual()
+
+        progressBar.progress = Utils.getExperiencia()!!.toInt()%100
+
+
+
 
         // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
 
-           Utils.serializeImage(this,R.mipmap.img_gema)
-           imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
+        inicilalizarVariablesThis()
 
 
+
+    }
+
+    private fun inicilalizarVariablesThis() {
+        Utilidades.colorearTexto(this, R.id.cerrarSesion)
+        Utilidades.colorearTexto(this, R.id.titleTextView)
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        Utils.serializeImage(this,R.mipmap.img_gema)
+        imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
     }
 
     fun menu_perfil(view: View){

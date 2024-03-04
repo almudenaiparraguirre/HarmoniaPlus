@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -34,7 +35,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) = runBlocking  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
         nivelActual = obtenerIdPrimerNivelNoCompletado()!!
@@ -44,7 +45,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
         corazonesTextView = findViewById(R.id.numeroCorazones)
-        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+
 
 
         val lp = LinearLayout.LayoutParams(
@@ -94,9 +95,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 button.setOnClickListener {
                     mediaPlayer.start()
                     val numeroNivel = button.id
-                    val intent = Intent(this, JuegoMusicalActivity::class.java)
-                    intent.putExtra("numeroNivel", numeroNivel)
-                    startActivity(intent)
+                    clickBotonNivel(numeroNivel)
+
                 }
             }
 
@@ -124,11 +124,19 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         //fin oncreate
         colocarTextViewNivel()
-        Utils.obtenerVidas(corazonesTextView)
-        Utils.obtenerNivelActual(corazonesTextView)
+        corazonesTextView.text = Utils.getVidas()
+        corazonesTextView.text = Utils.getNivelActual()
+    }
+
+    private fun clickBotonNivel(numeroNivel: Int) {
+        val intent = Intent(this, JuegoMusicalActivity::class.java)
+        intent.putExtra("numeroNivel", numeroNivel)
+        startActivity(intent)
+
     }
 
     private fun createLockedButton(): Button {
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
         lockedButton.textSize = 20f
         lockedButton.gravity = Gravity.CENTER

@@ -41,6 +41,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.math.min
@@ -82,19 +83,21 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var miStorage: StorageReference
     private lateinit var fechaRegistro: TextView
     private lateinit var nivelRango: TextView
-    var mutableList: MutableList<String> = mutableListOf("Novato", "Principiante", "Amateur",
-        "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio")
+    var mutableList: MutableList<String> = mutableListOf(
+        "Novato", "Principiante", "Amateur",
+        "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
+    )
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
         cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
         nivelRango = findViewById(R.id.nivelHabilidad)
-        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+
         fechaRegistro = findViewById(R.id.fechaRegistro)
         fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
 
@@ -109,8 +112,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
-        Utils.obtenerNombre(nombreUsuarioTextView)
-        Utils.actualizarCorreo(gmailUsuarioTextView)
+        nombreUsuarioTextView.text = Utils.getNombre()
+        gmailUsuarioTextView.text = Utils.getCorreo()
 
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
@@ -126,17 +129,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             false
         }
 
-        editText.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val newText = editText.text.toString()
-                if (newText.length < 4) {
-                    Utils.obtenerNombre(nombreUsuarioTextView)
-                }
-                else{
-                    mostrarDialogoConfirmacion()
-                }
-            }
-        }
+        nombreUsuarioTextView.text = Utils.getNombre()
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -173,8 +166,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nivelTextView = findViewById(R.id.nivelTextView)
         precisionTextView = findViewById(R.id.precisionTextView)
         experienciaTextView = findViewById(R.id.experienciaTextView)
-
-        Utils.obtenerExperienciaTotal(experienciaTextView)
+        Utils.setExperiencia(10)
+        experienciaTextView.text = Utils.getExperiencia()
+        nombreUsuarioTextView.text = Utils.getNombre()!!
 
         val porcentaje1 = 10
         progressBar1.progress = porcentaje1
@@ -218,6 +212,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
 
         iniciarContadorToast()
+        println(Utils.getNivelActual())
     }
 
     private fun mostrarDialogoConfirmacion() {
@@ -229,17 +224,18 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
-            Utils.obtenerNombre(nombreUsuarioTextView)
+
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
 
     private fun cambiarNombreUsuario() {
+
         Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
 
-    private fun mostrarImagenGrande(){
+    private fun mostrarImagenGrande() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
@@ -260,6 +256,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                         // Opción "Tomar foto" seleccionada
                         requestCameraPermission()
                     }
+
                     1 -> {
                         // Opción "Elegir de la galería" seleccionada
                         abrirGaleria()
@@ -366,21 +363,22 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     private var selectedImageUri: Uri? = null
 
-    val startForActivityGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data?.data
-            selectedImageUri = data
-            imagen.setImageURI(data)
+    val startForActivityGallery =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.data
+                selectedImageUri = data
+                imagen.setImageURI(data)
 
-            // Descargar la imagen desde la URI y guardarla en un archivo
-            descargarYGuardarImagen(selectedImageUri)
+                // Descargar la imagen desde la URI y guardarla en un archivo
+                descargarYGuardarImagen(selectedImageUri)
+            }
+
+            val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+            val editor = preferences.edit()
+            editor.putString("profileImageUri", selectedImageUri.toString())
+            editor.apply()
         }
-
-        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-        val editor = preferences.edit()
-        editor.putString("profileImageUri", selectedImageUri.toString())
-        editor.apply()
-    }
 
     private fun descargarYGuardarImagen(imageUri: Uri?) {
         if (imageUri != null) {
@@ -404,20 +402,26 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 fileOutputStream.close()
 
                 // Mostrar un mensaje de éxito
-                Toast.makeText(this, "Imagen descargada y guardada correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Imagen descargada y guardada correctamente",
+                    Toast.LENGTH_SHORT
+                ).show()
             } catch (e: IOException) {
                 e.printStackTrace()
-                Toast.makeText(this, "Error al descargar y guardar la imagen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error al descargar y guardar la imagen", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    fun volverModoJuego(view: View){
+    fun volverModoJuego(view: View) {
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         finish()
     }
 
-    fun irConfiguracion(view: View){
+    fun irConfiguracion(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
@@ -445,12 +449,14 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // Permiso ya concedido, abrir la cámara
                 abrirCamara()
             }
+
             else -> {
                 // Solicitar permiso para la cámara
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
     }
+
     private fun guardarImagen(bitmap: Bitmap?) {
         // Guardar la imagen en preferencias o en otro lugar si es necesario
         // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
@@ -482,7 +488,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 filePath?.putFile(uri)?.addOnSuccessListener { taskSnapshot ->
                     Toast.makeText(this, "Éxito al subir el archivo", Toast.LENGTH_SHORT).show()
                 }?.addOnFailureListener { exception ->
-                    Toast.makeText(this, "Error al subir el archivo: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error al subir el archivo: ${exception.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
