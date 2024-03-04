@@ -86,7 +86,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         }
 
         // 5. Llamar a una función para registrar al usuario en Firebase
-        registrarUsuarioEnFirebase(email, nombre)
+        registrarUsuarioEnFirebase(email, contraseña, nombre)
     }
 
     // FUN --> Validar la contraseña
@@ -96,12 +96,12 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun registrarUsuarioEnFirebase(email: String, nombre: String) {
+    private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         val fechaRegistro = LocalDate.now()
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mFirebaseAnalytics.setUserId(email + LocalDate.now())
 
-        firebaseAuth.createUserWithEmailAndPassword(email, nombre)
+        firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = User(email = email.lowercase(), name = nombre, 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
@@ -120,5 +120,4 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
     }
-
 }
