@@ -47,12 +47,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         imageView.startAnimation(anim)
         inicilalizarVariablesThis()
     }
-    fun inicializarConBase()= runBlocking {   firebaseAuth = FirebaseAuth.getInstance()
-
+    fun inicializarConBase()= runBlocking {
         nombreTextView.text = Utils.getNombre()
-
-        porcentajeTextView.text = Utils.getNivelActual().toString()
-
+        porcentajeTextView.text = (Utils.getExperiencia()!!.toInt()/100).toString()
         progressBar.progress = Utils.getExperiencia()!!.toInt()%100
 
     }
