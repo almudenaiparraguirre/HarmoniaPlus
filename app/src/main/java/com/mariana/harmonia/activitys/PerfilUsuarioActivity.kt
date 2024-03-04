@@ -97,24 +97,15 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
         nivelRango = findViewById(R.id.nivelHabilidad)
-
         fechaRegistro = findViewById(R.id.fechaRegistro)
         fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
-
-        mostrarImagenGrande()
-        firebaseAuth = FirebaseAuth.getInstance()
-        //gmailUsuarioTextView.text = "cargando..."
-
-        var metadata = storageMetadata {
-            contentType = "image/jpg"
-        }
-
         editText = findViewById(R.id.nombre_usuario)
         nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
         gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
         nombreUsuarioTextView.text = Utils.getNombre()
         gmailUsuarioTextView.text = Utils.getCorreo()
-
+        experienciaTextView.text = Utils.getExperiencia()
+        mostrarImagenGrande()
 
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
@@ -128,8 +119,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
-
-        nombreUsuarioTextView.text = Utils.getNombre()
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -166,9 +155,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nivelTextView = findViewById(R.id.nivelTextView)
         precisionTextView = findViewById(R.id.precisionTextView)
         experienciaTextView = findViewById(R.id.experienciaTextView)
-        Utils.setExperiencia(10)
-        experienciaTextView.text = Utils.getExperiencia()
-        nombreUsuarioTextView.text = Utils.getNombre()!!
+
 
         val porcentaje1 = 10
         progressBar1.progress = porcentaje1

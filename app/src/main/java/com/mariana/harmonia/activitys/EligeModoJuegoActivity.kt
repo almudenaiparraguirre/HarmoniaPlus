@@ -3,7 +3,6 @@ package com.mariana.harmonia.activitys
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -33,42 +32,30 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         private const val SESSION_KEY = "isSessionActive"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) = runBlocking {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.elige_modo_juego_activity)
-        firebaseAuth = FirebaseAuth.getInstance()
-
         Utils.isExternalStorageWritable()
         Utils.isExternalStorageReadable()
-
-
-        // Inicialización de vistas
-       progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
-         porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
+        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
+        porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
-        // Llama al método de utilidades para obtener el modo de juego y actualizar el TextView
-
-
-
-
-        nombreTextView.text = Utils.getNombre()
-
-        porcentajeTextView.text = Utils.getNivelActual().toString()
-
-        progressBar.progress = Utils.getExperiencia()!!.toInt()%100
-
-
-
-
+        inicializarConBase()
         // Inicialización de la animación
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
 
         inicilalizarVariablesThis()
+    }
+    fun inicializarConBase()= runBlocking {   firebaseAuth = FirebaseAuth.getInstance()
 
+        nombreTextView.text = Utils.getNombre()
 
+        porcentajeTextView.text = Utils.getNivelActual().toString()
+
+        progressBar.progress = Utils.getExperiencia()!!.toInt()%100
 
     }
 
