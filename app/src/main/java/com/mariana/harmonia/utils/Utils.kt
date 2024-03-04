@@ -161,10 +161,9 @@ class Utils {
 
 
 
-        fun setCorreo(correo: Int) {
+        fun setCorreo(correo: String) {
             val emailFire = currentUser?.email
             val email = emailFire?.replace(".", ",")
-
 
             val data = hashMapOf(
                 "email" to correo
@@ -173,10 +172,10 @@ class Utils {
 
             usersCollection.document(email!!).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Experiencia actualizada para el usuario con email: $email")
+                    Log.d(ContentValues.TAG, "Correo actualizado para el usuario con email: $email")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar experiencia para el usuario con email: $email", e)
+                    Log.w(ContentValues.TAG, "Error al actualizar correo para el usuario con email: $email", e)
                 }
         }
 
