@@ -34,6 +34,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
+
         setContentView(R.layout.elige_modo_juego_activity)
         Utils.isExternalStorageWritable()
         Utils.isExternalStorageReadable()

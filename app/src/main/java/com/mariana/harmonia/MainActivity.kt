@@ -33,6 +33,9 @@ import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.Manifest
 import android.media.MediaPlayer
+import androidx.annotation.RequiresApi
+import com.mariana.harmonia.models.entity.User
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity(),PlantillaActivity {
 
@@ -190,6 +193,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -200,6 +204,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
         try {
             // Obtener la cuenta de Google desde el resultado de la tarea
@@ -213,6 +218,7 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         try {
             // Obtener credenciales de autenticación de Google
@@ -221,6 +227,18 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        // Obtener la cuenta de usuario de Firebase
+                        val firebaseUser = firebaseAuth.currentUser
+                        // Obtener el nombre y el correo electrónico del usuario de la cuenta de Google
+                        val googleName = account?.displayName
+                        val googleEmail = account?.email
+                        Log.d(TAG, "Nombre de Google: $googleName")
+                        Log.d(TAG, "Correo electrónico de Google: $googleEmail")
+                        val fechaRegistro = LocalDate.now()
+
+                        val user = User(email = googleEmail?.lowercase(), name = googleEmail, 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                        UserDao.addUser(user)
+
                         // Autenticación exitosa, redirigir a la siguiente actividad
                         Log.d(TAG, "Inicio de sesión con credenciales de Google exitoso")
                         val intent = Intent(this, EligeModoJuegoActivity::class.java)
@@ -240,29 +258,9 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         }
     }
 
-    fun clickFireBase(view: View) {
-        val intent = Intent(this, InicioSesion::class.java)
-        startActivity(intent)
-    }
+}
 
-    private fun createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is not in the Support Library.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = getString(R.string.app_name)
-            val descriptionText = getString(R.string.efectos_de_sonido)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system.
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
-    private fun showNotification() {
+   /* private fun showNotification() {
         // Crear y mostrar la notificación
         val textTitle = "¡Bienvenidooooooooooo!"
         val textContent = "Graciaaaaaaas por usar nuestra aplicación."
@@ -295,6 +293,9 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             }
             // notificationId is a unique int for each notification that you must define.
             notify(NOTIFICATION_ID, builder.build())
+
+
         }
-    }
-}
+*/
+
+
