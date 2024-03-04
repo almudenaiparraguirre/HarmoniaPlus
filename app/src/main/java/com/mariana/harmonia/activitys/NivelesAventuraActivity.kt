@@ -38,7 +38,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) = runBlocking  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
-        nivelActual = obtenerIdPrimerNivelNoCompletado()!!
+        nivelActual = Utils.getNivelActual()!!
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
         menuSuperior = findViewById(R.id.llTopBar)
@@ -46,7 +46,18 @@ class NivelesAventuraActivity : AppCompatActivity() {
         scrollView = findViewById(R.id.scrollView)
         corazonesTextView = findViewById(R.id.numeroCorazones)
 
+        crearCirculos()
 
+
+
+        corazonesTextView.text = Utils.getVidas().toString()
+        colocarTextViewNivel()
+
+    }
+
+
+
+    private fun crearCirculos() {
 
         val lp = LinearLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.button_width),
@@ -121,17 +132,13 @@ class NivelesAventuraActivity : AppCompatActivity() {
             // Establece el color de fondo del ScrollView
             scrollView.setBackgroundColor(color)
         }
-
-        //fin oncreate
-        colocarTextViewNivel()
-        corazonesTextView.text = Utils.getVidas()
-        corazonesTextView.text = Utils.getNivelActual()
     }
 
     private fun clickBotonNivel(numeroNivel: Int) {
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", numeroNivel)
         startActivity(intent)
+
 
     }
 
@@ -202,22 +209,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    private fun obtenerIdPrimerNivelNoCompletado(): Int? {
-        val nivelesJson = obtenerNivelesJSON()
-        val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
-        if (nivelesArray != null) {
-            for (i in 0 until nivelesArray.length()) {
-                val nivel = nivelesArray.getJSONObject(i)
-                val completado = nivel.getBoolean("completado")
-
-                if (!completado) {
-                    return nivel.getInt("id")
-                }
-            }
-        }
-        return null
-    }
 
     private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null

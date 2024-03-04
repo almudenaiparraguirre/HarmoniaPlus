@@ -30,6 +30,7 @@ class Utils {
         private val db = FirebaseFirestore.getInstance()
         val currentUser = firebaseAuth.currentUser
         private val usersCollection = db.collection("usuarios")
+        val email = currentUser?.email?.replace(".", ",")
 
 
 
@@ -37,7 +38,6 @@ class Utils {
 
 
         suspend fun getCorreo(): String? {
-            val email = Utils.currentUser?.email?.replace(".", ",")
             val docRef = db.collection("usuarios").document(email.toString())
 
             return try {
@@ -57,7 +57,6 @@ class Utils {
         }
 
         suspend fun getNombre(): String? {
-            val email = Utils.currentUser?.email?.replace(".", ",")
             val docRef = db.collection("usuarios").document(email.toString())
 
             return try {
@@ -80,7 +79,6 @@ class Utils {
 
 
         suspend fun getExperiencia(): String? {
-            val email = Utils.currentUser?.email?.replace(".", ",")
             val docRef = db.collection("usuarios").document(email.toString())
 
             return try {
@@ -101,9 +99,7 @@ class Utils {
 
 
 
-
-        suspend fun getNivelActual(): String? {
-            val email = Utils.currentUser?.email?.replace(".", ",")
+        suspend fun getNivelActual(): Int? {
             val docRef = db.collection("usuarios").document(email.toString())
 
             return try {
@@ -111,18 +107,18 @@ class Utils {
                 if (document.exists()) {
                     val nivelActual = document.data?.get("nivelActual")
                     println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
+                    (nivelActual as? Long)?.toInt() // Convertir a Int
                 } else {
-                    println("No such document")
+                    println("No existe el documento")
                     null
                 }
             } catch (exception: Exception) {
-                println("Error getting documents: $exception")
+                println("Error al obtener documentos: $exception")
                 null
             }
         }
+
         suspend fun getVidas(): String? {
-            val email = Utils.currentUser?.email?.replace(".", ",")
             val docRef = db.collection("usuarios").document(email.toString())
 
             return try {
@@ -162,9 +158,6 @@ class Utils {
 
 
         fun setCorreo(correo: String) {
-            val emailFire = currentUser?.email
-            val email = emailFire?.replace(".", ",")
-
             val data = hashMapOf(
                 "email" to correo
                 // Agrega cualquier otro campo que necesites actualizar
@@ -180,11 +173,7 @@ class Utils {
         }
 
         fun setExperiencia(nuevaExperiencia: Int) {
-            val emailFire = currentUser?.email
-            val email = emailFire?.replace(".", ",")
-
-
-            val data = hashMapOf(
+                  val data = hashMapOf(
                 "experiencia" to nuevaExperiencia
                 // Agrega cualquier otro campo que necesites actualizar
             )
@@ -198,12 +187,8 @@ class Utils {
                 }
         }
         fun setNivelActual(nuevoNivelActual: Int) {
-            val emailFire = currentUser?.email
-            val email = emailFire?.replace(".", ",")
-
-
             val data = hashMapOf(
-                "experiencia" to nuevoNivelActual
+                "nivelActual" to nuevoNivelActual
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
@@ -216,10 +201,6 @@ class Utils {
                 }
         }
         fun setVidas(nuevaVidas: Int) {
-            val emailFire = currentUser?.email
-            val email = emailFire?.replace(".", ",")
-
-
             val data = hashMapOf(
                 "vidas" to nuevaVidas
                 // Agrega cualquier otro campo que necesites actualizar
@@ -234,12 +215,6 @@ class Utils {
                 }
         }
 
-
-        fun actualizarCorreo(correoTextView: TextView?){
-            val emailFire = currentUser?.email
-            correoTextView?.text = emailFire
-
-        }
         fun readJsonFromRaw(resourceId: Int, context: Context): String {
             val inputStream: InputStream = context.resources.openRawResource(resourceId)
             val json = inputStream.bufferedReader().use { it.readText() }
