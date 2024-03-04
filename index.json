@@ -1,42 +1,36 @@
 {
   "info": {
     "_postman_id": "tu_postman_id_generado",
-    "name": "API Collection",
+    "name": "API Collection con Imágenes",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "Obtener Usuarios",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "https://api.example.com/users",
-          "protocol": "https",
-          "host": ["api", "example", "com"],
-          "path": ["users"]
-        }
-      }
-    },
-    {
-      "name": "Crear Usuario",
+      "name": "Subir Imagen",
       "request": {
         "method": "POST",
         "url": {
-          "raw": "https://api.example.com/users",
+          "raw": "https://api.example.com/upload",
           "protocol": "https",
           "host": ["api", "example", "com"],
-          "path": ["users"]
-        },
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"name\": \"Nuevo Usuario\",\n  \"email\": \"nuevo@example.com\"\n}"
+          "path": ["upload"]
         },
         "header": [
           {
             "key": "Content-Type",
-            "value": "application/json"
+            "value": "multipart/form-data"
           }
-        ]
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "src": ["https://rickandmortyapi.com/api/character/avatar/361.jpeg"]
+            }
+          ]
+        }
       }
     }
   ]
