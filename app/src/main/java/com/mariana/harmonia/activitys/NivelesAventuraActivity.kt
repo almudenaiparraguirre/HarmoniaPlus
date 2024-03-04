@@ -39,6 +39,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
 
+        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
         menuSuperior = findViewById(R.id.llTopBar)
@@ -145,7 +146,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     }
 
     private fun createLockedButton(): Button {
-        mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        //mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
         lockedButton.textSize = 20f
         lockedButton.gravity = Gravity.CENTER
