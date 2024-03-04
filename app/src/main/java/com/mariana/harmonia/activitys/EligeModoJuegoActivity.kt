@@ -14,6 +14,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
@@ -49,11 +50,13 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         imageView.startAnimation(anim)
         inicilalizarVariablesThis()
     }
-    fun inicializarConBase()= runBlocking {
-        nombreTextView.text = Utils.getNombre()
-        porcentajeTextView.text = (Utils.getExperiencia()!!.toInt()/100).toString()
-        progressBar.progress = Utils.getExperiencia()!!.toInt()%100
+    fun inicializarConBase() = runBlocking {
+        val nombreDeferred = async { Utils.getNombre() }
+        val experienciaDeferred = async { Utils.getExperiencia() }
 
+        nombreTextView.text = nombreDeferred.await()
+        porcentajeTextView.text = (experienciaDeferred.await()?.toInt() ?: 0 / 100).toString()
+        progressBar.progress = experienciaDeferred.await()?.toInt() ?: 0 % 100
     }
 
     private fun inicilalizarVariablesThis() {

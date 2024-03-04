@@ -145,6 +145,8 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             return
         }
 
+        //val emailEncriptado = RegistroActivity.HashUtils.sha256(emailText)
+
         firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
