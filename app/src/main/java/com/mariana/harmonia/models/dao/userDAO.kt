@@ -4,6 +4,8 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.models.entity.User
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 
 class UserDao {
 
@@ -106,6 +108,22 @@ class UserDao {
                 },
                 onFailure = onFailure
             )
+        }
+
+        fun actualizarCorreo(email: String, nuevoCorreo: String){
+            val emailKey = email.replace(".", ",")
+
+            val data = hashMapOf(
+                "email" to nuevoCorreo
+            )
+
+            usersCollection.document(emailKey).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Correo actualizado para el usuario con email: $email")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al actualizar correo para el usuario con email: $email", e)
+                }
         }
     }
 }

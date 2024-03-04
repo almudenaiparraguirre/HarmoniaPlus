@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
@@ -88,9 +89,6 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         registrarUsuarioEnFirebase(email, contraseña, nombre)
     }
 
-
-
-
     // FUN --> Validar la contraseña
     private fun validarContraseña(contraseña: String): Boolean {
         val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")
@@ -100,6 +98,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         val fechaRegistro = LocalDate.now()
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        mFirebaseAnalytics.setUserId(email + LocalDate.now())
+
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -109,8 +110,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
                     UserDao.addUser(user)
 
                     // Resto del código...
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(
                         this,

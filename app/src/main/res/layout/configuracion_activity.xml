@@ -203,7 +203,7 @@
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:inputType="textPassword"/>
+                    android:inputType="textEmailAddress"/>
 
             </LinearLayout>
 
@@ -224,11 +224,11 @@
                     android:textSize="14dp"/>
 
                 <EditText
-                    android:id="@+id/edit_text_nueo_correo"
+                    android:id="@+id/edit_text_nuevo_correo"
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:inputType="textPassword"/>
+                    android:inputType="textEmailAddress"/>
 
             </LinearLayout>
 
@@ -239,6 +239,7 @@
                 android:textColor="@color/blanco"
                 android:textSize="14sp"
                 android:text="Cambiar correo"
+                android:clickable="true"
                 android:onClick="actualizarCorreo"
                 android:background="@drawable/style_button_degradado"
                 app:layout_constraintTop_toBottomOf="@id/correoNuevo"
