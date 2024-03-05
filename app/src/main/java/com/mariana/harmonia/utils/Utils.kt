@@ -75,15 +75,14 @@ class Utils {
 
 
 
-        suspend fun getExperiencia(): String? {
+        suspend fun getExperiencia(): Int? {
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
                 if (document.exists()) {
-                    val nivelActual = document.data?.get("experiencia")
-                    println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
+                    val experiencia = document.data?.get("experiencia") as? Long
+                    experiencia?.toInt()
                 } else {
                     println("No such document")
                     null
@@ -93,6 +92,7 @@ class Utils {
                 null
             }
         }
+
 
 
 
@@ -133,6 +133,27 @@ class Utils {
                 null
             }
         }
+        suspend fun getPrecisiones(): List<Int>? {
+            val docRef = db.collection("usuarios").document(emailEncriptado)
+
+            return try {
+                val document = docRef.get().await()
+                if (document.exists()) {
+                    val precisionesList = document.data?.get("precisiones") as? List<Int>
+                    println("precisiones: $precisionesList")
+                    precisionesList
+                } else {
+                    println("No such document")
+                    null
+                }
+            } catch (exception: Exception) {
+                println("Error getting documents: $exception")
+                null
+            }
+        }
+
+
+
         @SuppressLint("SimpleDateFormat")
         fun obtenerFechaActualEnTexto(): String {
             val fechaActual: String
@@ -210,6 +231,43 @@ class Utils {
                 .addOnFailureListener { e ->
                     Log.w(ContentValues.TAG, "Error al actualizar nuevaVidas para el usuario con email: $email", e)
                 }
+        }
+        fun setPrecisiones(precisiones: List<Int>) {
+            val data = hashMapOf(
+                "precisiones" to precisiones
+            )
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "Precisión actualizada correctamente")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar la precisión", e)
+                }
+        }
+
+
+        suspend fun getMediaPrecisiones(): Int {
+            val precisionesList = Utils.getPrecisiones() ?: return 0
+
+            if (precisionesList.isNotEmpty()) {
+                var suma = 0
+                var contador = 0
+
+                for (precision in precisionesList) {
+                    if (precision != 0) {
+                        suma += precision
+                        contador++
+                    }
+                }
+
+                return if (contador > 0) {
+                    suma / contador
+                } else {
+                    0
+                }
+            }
+
+            return 0
         }
 
         fun readJsonFromRaw(resourceId: Int, context: Context): String {

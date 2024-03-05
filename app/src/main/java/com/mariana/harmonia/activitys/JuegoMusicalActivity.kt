@@ -483,16 +483,18 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
+
     private fun ganado() {
         val intent = Intent(this, victoria_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
+        intent.putExtra("precision",getAccuracy() ) // Aquí pasas la segunda variable
         ganado = true
 
         pararConadores()
         finish()
         startActivity(intent)
-
     }
+
 
     private fun pararConadores() {
         detenerContador()
