@@ -146,6 +146,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreUsuarioTextView.text = Utils.getNombre()
         gmailUsuarioTextView.text = Utils.getCorreo()
         experienciaTextView.text = Utils.getExperiencia()
+        nivelTextView.text= Utils.getNivelActual().toString()
     }
 
     private fun setPorcentajesLogros() {

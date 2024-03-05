@@ -160,7 +160,7 @@ class Utils {
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
-            usersCollection.document(email!!).update(data as Map<String, Any>)
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
                     Log.d(ContentValues.TAG, "Correo actualizado para el usuario con email: $email")
                 }
@@ -175,7 +175,7 @@ class Utils {
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
-            usersCollection.document(email!!).update(data as Map<String, Any>)
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
                     Log.d(ContentValues.TAG, "Experiencia actualizada para el usuario con email: $email")
                 }
@@ -189,7 +189,7 @@ class Utils {
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
-            usersCollection.document(email!!).update(data as Map<String, Any>)
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
                     Log.d(ContentValues.TAG, "NivelActual actualizada para el usuario con email: $email")
                 }
@@ -203,7 +203,7 @@ class Utils {
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
-            usersCollection.document(email!!).update(data as Map<String, Any>)
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
                     Log.d(ContentValues.TAG, "nuevaVidas actualizada para el usuario con email: $email")
                 }
