@@ -66,8 +66,6 @@ class ConfiguracionActivity : AppCompatActivity() {
         setContentView(R.layout.configuracion_activity)
         contrasenaAnterior = findViewById(R.id.edit_text_vieja_contrasena)
         contrasenaNueva = findViewById(R.id.edit_text_nueva_contrasena)
-        correoAnterior = findViewById(R.id.edit_text_viejo_correo)
-        correoNuevo = findViewById(R.id.edit_text_nuevo_correo)
         switchMusica = findViewById(R.id.switchMusica)
         switchOtraOpcion = findViewById(R.id.switchSonidos)
         buttonCambiarContra = findViewById(R.id.buttonCambiarContrasena)
