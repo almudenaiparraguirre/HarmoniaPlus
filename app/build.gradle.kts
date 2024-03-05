@@ -57,6 +57,8 @@ dependencies {
     //otors
     implementation ("androidx.activity:activity-ktx:1.3.0")
     implementation ("androidx.fragment:fragment-ktx:1.3.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     //Default
     implementation("androidx.core:core-ktx:1.9.0")
@@ -66,6 +68,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+    implementation("com.firebaseui:firebase-ui-storage:7.2.0")
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     testImplementation("junit:junit:4.13.2")

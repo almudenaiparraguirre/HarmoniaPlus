@@ -9,6 +9,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -37,13 +38,22 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.ImageViewTarget
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.storage
 import com.google.firebase.storage.storageMetadata
+import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.utils.Utils
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.FileOutputStream
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 import kotlin.math.min
 
 class PerfilUsuarioActivity : AppCompatActivity() {
@@ -83,6 +93,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var miStorage: StorageReference
     private lateinit var fechaRegistro: TextView
     private lateinit var nivelRango: TextView
+    private lateinit var centerCircle: ImageView
+    private lateinit var binding: PerfilUsuarioActivityBinding
+    var storage = FirebaseStorage.getInstance()
     var mutableList: MutableList<String> = mutableListOf(
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
@@ -93,6 +106,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
+        binding = PerfilUsuarioActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         cardViewPerfil = findViewById(R.id.cardview_perfil)
         imagen = findViewById(R.id.roundedImageView)
         lapiz = findViewById(R.id.lapiz_editar)
@@ -104,6 +119,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nivelTextView = findViewById(R.id.nivelTextView)
         precisionTextView = findViewById(R.id.precisionTextView)
         experienciaTextView = findViewById(R.id.experienciaTextView)
+        centerCircle = findViewById(R.id.centerCircle)
         // Porcentaje barra Experiencia
         progressBar1 = findViewById(R.id.progressBarLogro1)
         porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
@@ -128,8 +144,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         crearMenuSuperior()
         setPorcentajesLogros()
 
-
-
         val niveles: JSONObject? = obtenerNivelesJSON()
         val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
 
@@ -138,7 +152,35 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         } else {
             nivelRango.text = "NOVATO"
         }
+        //loadWithGlide()
+        downloadImage()
+    }
 
+        fun loadWithGlide() {
+            val context = this
+            // Reference to an image file in Cloud Storage
+            val storageReference = storage.getReferenceFromUrl(
+                "https://firebasestorage.googleapis.com/v0/b/harmonia-mariana.appspot.com/o/LogoAplicacion.png?alt=media&token=0765693f-670b-4494-a115-beb32831f007"
+            )
+
+            // Download directly from StorageReference using Glide
+            // (See MyAppGlideModule for Loader registration)
+            Glide.with(context)
+                .load(storageReference)
+                .into(centerCircle)
+        }
+
+    private fun downloadImage() {
+        val storageRef = storage.reference
+        val imagesRef = storageRef.child("imagenesPerfilGente/pablo.png")
+        imagesRef.downloadUrl.addOnSuccessListener { url ->
+            // Llega el archivo
+            Glide.with(this)
+                .load(url)
+                .into(binding.centerCircle)
+        }.addOnFailureListener {
+            println(it.message)
+        }
     }
 
     private fun inicializarConBase() = runBlocking{
@@ -235,7 +277,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun mostrarImagenGrande() {
-        cardViewPerfil.setOnClickListener {
+       cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
 
@@ -300,23 +342,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return nivelesJson
-    }
-
-    private fun requestPermission() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_MEDIA_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            abrirGaleria()
-        } else {
-            // Solicitar permisos explícitamente
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
-                PERMISSION_REQUEST_CODE
-            )
-        }
     }
 
     // FUN --> Mostrar la imagen del perfil en grande
