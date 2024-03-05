@@ -103,7 +103,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
     )
-    var listaImagenesStorage: MutableList<String> = mutableListOf("pablo.png", "LogoAplicacion.png")
+    var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "aitor", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
@@ -147,14 +147,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         crearMenuSuperior()
         setPorcentajesLogros()
 
-        val niveles: JSONObject? = obtenerNivelesJSON()
-        val ultimoNivelCompletadoId = obtenerUltimoNivelCompletado(niveles)
-
-        if (ultimoNivelCompletadoId != null) {
-            nivelRango.text = asignarNivelHabilidad(ultimoNivelCompletadoId)
-        } else {
-            nivelRango.text = "NOVATO"
-        }
         runBlocking {
             downloadImage()
         }
@@ -162,42 +154,53 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     private suspend fun downloadImage() {
         val storageRef = storage.reference
-        var etapa = obtenerNombreEtapa()
+        val etapa = obtenerNombreEtapa()
 
         if (listaImagenesStorage.isNotEmpty()) {
-            Toast.makeText(this, "No vacia", Toast.LENGTH_SHORT)
-            val randomIndex = Random.nextInt(listaImagenesStorage.size)
-            val nombreImagen = listaImagenesStorage[randomIndex]
-            val imagesRef = storageRef.child("ImagenesEtapa/$nombreImagen")
+
+            var nombreImagen = when (etapa) {
+                "Novato" -> listaImagenesStorage[0]
+                "Principiante" -> listaImagenesStorage[1]
+                "Amateur" -> listaImagenesStorage[2]
+                "Intermedio" -> listaImagenesStorage[3]
+                "Avanzado" -> listaImagenesStorage[4]
+                "Experto" -> listaImagenesStorage[5]
+                else -> {null}
+            }
+
+            val imagesRef = storageRef.child("ImagenesEtapa/$nombreImagen.png")
 
             imagesRef.downloadUrl.addOnSuccessListener { url ->
                 Glide.with(this)
                     .load(url)
                     .into(binding.centerCircle)
-            }.addOnFailureListener {
-                println(it.message)
+            }.addOnFailureListener { exception ->
+                println("Error al cargar la imagen: ${exception.message}")
             }
         } else {
             println("La lista de imágenes está vacía")
         }
     }
 
+
     private suspend fun obtenerNombreEtapa(): String {
         val nivel = Utils.getNivelActual()
-        var etapa: String? = null
+        val etapa: String?
 
-        when (nivel){
-            in 1..10 -> etapa = mutableList[0]
-            in 11..20 -> etapa = mutableList[1]
-            in 21..30 -> etapa = mutableList[2]
-            in 31..40 -> etapa = mutableList[3]
-            in 41..50 -> etapa = mutableList[4]
-            else -> etapa = mutableList[5]
+        etapa = when (nivel) {
+            in 1..10 -> mutableList[0]
+            in 11..20 -> mutableList[1]
+            in 21..30 -> mutableList[2]
+            in 31..40 -> mutableList[3]
+            in 41..50 -> mutableList[4]
+            else -> mutableList[5]
         }
+
         nivelRango.text = etapa.uppercase()
         return etapa.toString()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun inicializarConBase() = runBlocking{
         fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
         nombreUsuarioTextView.text = Utils.getNombre()
