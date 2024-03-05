@@ -153,12 +153,14 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         } else {
             nivelRango.text = "NOVATO"
         }
-        downloadImage()
+        runBlocking {
+            downloadImage()
+        }
     }
 
-    private fun downloadImage() {
+    private suspend fun downloadImage() {
         val storageRef = storage.reference
-        //var etapa = obtenerNombreEtapa().toString()
+        var etapa = obtenerNombreEtapa()
 
         if (listaImagenesStorage.isNotEmpty()) {
             Toast.makeText(this, "No vacia", Toast.LENGTH_SHORT)
@@ -188,6 +190,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             in 21..30 -> etapa = mutableList[2]
             in 31..40 -> etapa = mutableList[3]
             in 41..50 -> etapa = mutableList[4]
+            else -> etapa = mutableList[5]
         }
         return etapa.toString()
     }
