@@ -145,8 +145,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
         nombreUsuarioTextView.text = Utils.getNombre()
         gmailUsuarioTextView.text = Utils.getCorreo()
-        experienciaTextView.text = Utils.getExperiencia()
+        experienciaTextView.text = Utils.getExperiencia().toString()
         nivelTextView.text= Utils.getNivelActual().toString()
+        precisionTextView.text =Utils.getMediaPrecisiones().toString()+"%"
     }
 
     private fun setPorcentajesLogros() {

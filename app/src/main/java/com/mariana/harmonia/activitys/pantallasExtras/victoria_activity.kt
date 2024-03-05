@@ -13,10 +13,12 @@ import kotlinx.coroutines.runBlocking
 
 class victoria_activity : AppCompatActivity() {
     private var nivel: Int = 0
+    private var precision: Int = 0
     private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         nivel = intent.getIntExtra("numeroNivel", 1)
+        precision = intent.getIntExtra("precision", 0)
         actualizarDatos()
 
         setContentView(R.layout.activity_victoria)
@@ -26,6 +28,9 @@ class victoria_activity : AppCompatActivity() {
     private fun actualizarDatos()= runBlocking {
         Utils.setNivelActual((nivel+1))
         Utils.setExperiencia(Utils.getExperiencia()!!.toInt()+(20+(nivel*10+10)))
+        var precisionesList = Utils.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
+        precisionesList[nivel-1] = precision
+        Utils.setPrecisiones(precisionesList)
     }
 
 

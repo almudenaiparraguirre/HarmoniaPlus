@@ -10,7 +10,7 @@ class User(
     var experiencia: Int? = 0,
     var nivelActual: Int? = 1,
     var vidas: Int? = 5,
-    var precisiones: MutableMap<Int, Int> = mutableMapOf(),
+    val precisiones: List<Int> = listOf(),
     var imagen: String? = null,
     var mesRegistro: Month,
     var anioRegistro: Int

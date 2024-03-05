@@ -51,12 +51,13 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         inicilalizarVariablesThis()
     }
     fun inicializarConBase() = runBlocking {
-        val nombreDeferred = async { Utils.getNombre() }
-        val experienciaDeferred = async { Utils.getExperiencia() }
+        var nivel = Utils.getExperiencia()!!/100
+        var experienciaSobrante = Utils.getExperiencia()!!%100
 
-        nombreTextView.text = nombreDeferred.await()
-        porcentajeTextView.text = (experienciaDeferred.await()?.toInt() ?: 0 / 100).toString()
-        progressBar.progress = experienciaDeferred.await()?.toInt() ?: 0 % 100
+
+        nombreTextView.text = Utils.getNombre()
+        porcentajeTextView.text = nivel.toString()
+        progressBar.progress = experienciaSobrante
     }
 
     private fun inicilalizarVariablesThis() {
