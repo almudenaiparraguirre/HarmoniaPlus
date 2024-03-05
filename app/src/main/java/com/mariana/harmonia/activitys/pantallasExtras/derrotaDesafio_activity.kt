@@ -9,6 +9,9 @@ import android.widget.TextView
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class derrotaDesafio_activity : AppCompatActivity() {
     private var nivel: Int = 0
@@ -26,7 +29,18 @@ class derrotaDesafio_activity : AppCompatActivity() {
         var tiempo = ((tiempoDurado-60)*-1)
         textViewResultados.text = "Total=$notasHacertadas\nTiempo=$tiempo s"
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        actualizarDatosInterfaz()
     }
+
+    private fun actualizarDatosInterfaz() = runBlocking {
+        val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
+        val puntuacionDB = Utils.getPuntuacionDesafio()
+        val mayorHaciertos = puntuacionDB?.first ?:0
+        Utils.setPuntuacionDesafio(puntuacion)
+
+        Utils.setPuntuacionDesafioGlobal(puntuacion)
+    }
+
     fun irRepetir(view: View) {
         mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)

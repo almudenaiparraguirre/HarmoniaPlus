@@ -12,6 +12,7 @@ import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -23,6 +24,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.security.MessageDigest
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class Utils {
@@ -73,8 +77,6 @@ class Utils {
         }
 
 
-
-
         suspend fun getExperiencia(): Int? {
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
@@ -92,8 +94,6 @@ class Utils {
                 null
             }
         }
-
-
 
 
         suspend fun getNivelActual(): Int? {
@@ -133,6 +133,7 @@ class Utils {
                 null
             }
         }
+
         suspend fun getPrecisiones(): List<Int>? {
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
@@ -152,6 +153,29 @@ class Utils {
             }
         }
 
+        suspend fun getPuntuacionDesafio(): Pair<Int, Int>? {
+            val docRef = db.collection("usuarios").document(emailEncriptado)
+
+            return try {
+                val document = docRef.get().await()
+                if (document.exists()) {
+                    val precisionesList = document.data?.get("precisiones") as? List<Int>
+                    println("precisiones: $precisionesList")
+
+                    if (precisionesList != null && precisionesList.size >= 2) {
+                        Pair(precisionesList[0], precisionesList[1])
+                    } else {
+                        null
+                    }
+                } else {
+                    println("No such document")
+                    null
+                }
+            } catch (exception: Exception) {
+                println("Error getting documents: $exception")
+                null
+            }
+        }
 
 
         @SuppressLint("SimpleDateFormat")
@@ -161,7 +185,10 @@ class Utils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 // Para versiones de Android 8.0 y superiores
                 val currentDate = java.time.LocalDate.now()
-                val formatter = java.time.format.DateTimeFormatter.ofPattern("MMMM 'de' yyyy", Locale.getDefault())
+                val formatter = java.time.format.DateTimeFormatter.ofPattern(
+                    "MMMM 'de' yyyy",
+                    Locale.getDefault()
+                )
                 fechaActual = currentDate.format(formatter)
             } else {
                 // Para versiones anteriores a Android 8.0
@@ -172,7 +199,6 @@ class Utils {
 
             return fechaActual
         }
-
 
 
         fun setCorreo(correo: String) {
@@ -186,24 +212,36 @@ class Utils {
                     Log.d(ContentValues.TAG, "Correo actualizado para el usuario con email: $email")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar correo para el usuario con email: $email", e)
+                    Log.w(
+                        ContentValues.TAG,
+                        "Error al actualizar correo para el usuario con email: $email",
+                        e
+                    )
                 }
         }
 
         fun setExperiencia(nuevaExperiencia: Int) {
-                  val data = hashMapOf(
+            val data = hashMapOf(
                 "experiencia" to nuevaExperiencia
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
             usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Experiencia actualizada para el usuario con email: $email")
+                    Log.d(
+                        ContentValues.TAG,
+                        "Experiencia actualizada para el usuario con email: $email"
+                    )
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar experiencia para el usuario con email: $email", e)
+                    Log.w(
+                        ContentValues.TAG,
+                        "Error al actualizar experiencia para el usuario con email: $email",
+                        e
+                    )
                 }
         }
+
         fun setNivelActual(nuevoNivelActual: Int) {
             val data = hashMapOf(
                 "nivelActual" to nuevoNivelActual
@@ -212,12 +250,20 @@ class Utils {
 
             usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "NivelActual actualizada para el usuario con email: $email")
+                    Log.d(
+                        ContentValues.TAG,
+                        "NivelActual actualizada para el usuario con email: $email"
+                    )
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar NivelActual para el usuario con email: $email", e)
+                    Log.w(
+                        ContentValues.TAG,
+                        "Error al actualizar NivelActual para el usuario con email: $email",
+                        e
+                    )
                 }
         }
+
         fun setVidas(nuevaVidas: Int) {
             val data = hashMapOf(
                 "vidas" to nuevaVidas
@@ -226,12 +272,20 @@ class Utils {
 
             usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "nuevaVidas actualizada para el usuario con email: $email")
+                    Log.d(
+                        ContentValues.TAG,
+                        "nuevaVidas actualizada para el usuario con email: $email"
+                    )
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar nuevaVidas para el usuario con email: $email", e)
+                    Log.w(
+                        ContentValues.TAG,
+                        "Error al actualizar nuevaVidas para el usuario con email: $email",
+                        e
+                    )
                 }
         }
+
         fun setPrecisiones(precisiones: List<Int>) {
             val data = hashMapOf(
                 "precisiones" to precisiones
@@ -242,6 +296,39 @@ class Utils {
                 }
                 .addOnFailureListener { e ->
                     Log.w(ContentValues.TAG, "Error al actualizar la precisión", e)
+                }
+        }
+
+        fun setPuntuacionDesafio(puntuacion: Pair<Int, Int>) {
+            val data = hashMapOf(
+                "puntuacionDesafio" to puntuacion
+            )
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
+                }
+        }
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int,Int>) {
+            val desafioCollection = db.collection("desafio")
+            val currentDateTime = java.time.LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm-ss")
+            val fechaActual =currentDateTime.format(formatter)+" User="+ currentUser?.email
+
+            println(fechaActual)
+
+            val data = hashMapOf(
+                fechaActual to puntuacion
+            )
+            desafioCollection.document("puntuaciones").update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
                 }
         }
 
@@ -294,7 +381,7 @@ class Utils {
                     fos.write(base64Image.toByteArray())
                     fos.close()
                 } catch (e: IOException) {
-                   println( e.toString())
+                    println(e.toString())
                     // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
                 }
             } catch (e: IOException) {
@@ -303,8 +390,6 @@ class Utils {
                 // Manejar la excepción, por ejemplo, mostrar un mensaje al usuario
             }
         }
-
-
 
 
         fun deserializeImage(context: Context, jsonFilePath: String): Bitmap? {
@@ -330,32 +415,33 @@ class Utils {
         }
 
 
-         fun isExternalStorageWritable(): Boolean {
+        fun isExternalStorageWritable(): Boolean {
             if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
                 Log.i("State", "Yes, it is writable!")
                 println("Yes, it is writable!")
                 return true
-            }else{
+            } else {
                 Log.i("State", "Caution, it's not writable!")
                 println("Caution, it's not writable!")
             }
             return false
         }
 
-         fun isExternalStorageReadable(): Boolean {
+        fun isExternalStorageReadable(): Boolean {
             if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() ||
-                Environment.MEDIA_MOUNTED_READ_ONLY == Environment.getExternalStorageState()) {
+                Environment.MEDIA_MOUNTED_READ_ONLY == Environment.getExternalStorageState()
+            ) {
                 Log.i("State", "Yes, it is readable!")
                 println("Yes, it is readable!")
                 return true
-            }else{
+            } else {
                 Log.i("State", "Caution, it's not readable!")
                 println("Caution, it's not readable!")
             }
             return false
         }
 
-         fun hashString(type: String, input: String): String {
+        fun hashString(type: String, input: String): String {
             val HEX_CHARS = "0123456789ABCDEF"
             val bytes = MessageDigest
                 .getInstance(type)
@@ -370,7 +456,7 @@ class Utils {
 
             return result.toString()
 
-    }
+        }
 
     }
 }
