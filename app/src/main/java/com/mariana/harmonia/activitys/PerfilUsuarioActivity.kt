@@ -55,6 +55,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 import kotlin.math.min
+import kotlin.random.Random
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -100,6 +101,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
     )
+    var listaImagenesStorage: MutableList<String> = mutableListOf("pablo.png", "LogoAplicacion.png")
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
@@ -138,7 +140,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         progressBar8 = findViewById(R.id.progressBarLogro8)
         porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
 
-
         inicializarConBase()
         mostrarImagenGrande()
         crearMenuSuperior()
@@ -152,35 +153,43 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         } else {
             nivelRango.text = "NOVATO"
         }
-        //loadWithGlide()
         downloadImage()
     }
 
-        fun loadWithGlide() {
-            val context = this
-            // Reference to an image file in Cloud Storage
-            val storageReference = storage.getReferenceFromUrl(
-                "https://firebasestorage.googleapis.com/v0/b/harmonia-mariana.appspot.com/o/LogoAplicacion.png?alt=media&token=0765693f-670b-4494-a115-beb32831f007"
-            )
-
-            // Download directly from StorageReference using Glide
-            // (See MyAppGlideModule for Loader registration)
-            Glide.with(context)
-                .load(storageReference)
-                .into(centerCircle)
-        }
-
     private fun downloadImage() {
         val storageRef = storage.reference
-        val imagesRef = storageRef.child("imagenesPerfilGente/pablo.png")
-        imagesRef.downloadUrl.addOnSuccessListener { url ->
-            // Llega el archivo
-            Glide.with(this)
-                .load(url)
-                .into(binding.centerCircle)
-        }.addOnFailureListener {
-            println(it.message)
+        //var etapa = obtenerNombreEtapa().toString()
+
+        if (listaImagenesStorage.isNotEmpty()) {
+            Toast.makeText(this, "No vacia", Toast.LENGTH_SHORT)
+            val randomIndex = Random.nextInt(listaImagenesStorage.size)
+            val nombreImagen = listaImagenesStorage[randomIndex]
+            val imagesRef = storageRef.child("ImagenesEtapa/$nombreImagen")
+
+            imagesRef.downloadUrl.addOnSuccessListener { url ->
+                Glide.with(this)
+                    .load(url)
+                    .into(binding.centerCircle)
+            }.addOnFailureListener {
+                println(it.message)
+            }
+        } else {
+            println("La lista de imágenes está vacía")
         }
+    }
+
+    private suspend fun obtenerNombreEtapa(): String {
+        val nivel = Utils.getNivelActual()
+        var etapa: String? = null
+
+        when (nivel){
+            in 1..10 -> etapa = mutableList[0]
+            in 11..20 -> etapa = mutableList[1]
+            in 21..30 -> etapa = mutableList[2]
+            in 31..40 -> etapa = mutableList[3]
+            in 41..50 -> etapa = mutableList[4]
+        }
+        return etapa.toString()
     }
 
     private fun inicializarConBase() = runBlocking{
