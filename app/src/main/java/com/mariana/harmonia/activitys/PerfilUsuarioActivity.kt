@@ -38,6 +38,8 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
 import android.util.Base64
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.google.firebase.Firebase
@@ -192,6 +194,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             in 41..50 -> etapa = mutableList[4]
             else -> etapa = mutableList[5]
         }
+        nivelRango.text = etapa.uppercase()
         return etapa.toString()
     }
 
