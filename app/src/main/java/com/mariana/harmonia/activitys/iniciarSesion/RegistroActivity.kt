@@ -90,7 +90,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         }
 
         // 5. Llamar a una función para registrar al usuario en Firebase
-        registrarUsuarioEnFirebase(email, contraseña, nombre)
+        registrarUsuarioEnFirebase(email.lowercase(), contraseña, nombre)
     }
 
     // FUN --> Validar la contraseña
@@ -119,16 +119,19 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
+        val emailEncriptado = HashUtils.sha256(email.lowercase())
         val fechaRegistro = LocalDate.now()
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-        mFirebaseAnalytics.setUserId(email + LocalDate.now())
+        mFirebaseAnalytics.setUserId(LocalDate.now().toString())
 
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val encriptado = HashUtils.sha256(email)
+                    val encriptado = HashUtils.sha256(email!!.lowercase())
+                    val encriptado2= HashUtils.sha256(email!!.lowercase())
+                    println(email+"/"+encriptado)
                     println("ENCRIPTADO: $encriptado")
-                    val user = User(email = email, name = nombre, 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                    val user = User(email = emailEncriptado  , name = nombre,correo = email.lowercase(), 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
                     //UserDao.createUsersCollectionIfNotExists()
                     UserDao.addUser(user)

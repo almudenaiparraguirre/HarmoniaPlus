@@ -34,10 +34,13 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.Manifest
 import android.media.MediaPlayer
 import androidx.annotation.RequiresApi
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.mariana.harmonia.models.entity.User
+import com.mariana.harmonia.utils.HashUtils
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity(),PlantillaActivity {
+class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
@@ -70,12 +73,14 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             .setContentText(textContent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         builder.setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
@@ -107,13 +112,13 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         }
     }
 
-    fun clickNoRecuerdasLaContraseña(view: View){
+    fun clickNoRecuerdasLaContraseña(view: View) {
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
         startActivity(intent)
         mediaPlayer.start()
     }
 
-    fun irRegistrate(view: View?){
+    fun irRegistrate(view: View?) {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
         mediaPlayer.start()
@@ -129,40 +134,52 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         val contrasenaText = contrasena.text.toString()
 
         if (emailText.isEmpty() || contrasenaText.isEmpty()) {
-            Toast.makeText(baseContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
         // Validación del formato de correo electrónico
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            Toast.makeText(baseContext, "Formato de correo electrónico no válido", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                baseContext,
+                "Formato de correo electrónico no válido",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
         // Validación de la longitud de la contraseña
         if (contrasenaText.length < 6) {
-            Toast.makeText(baseContext, "La contraseña debe tener al menos 6 caracteres,asegurese de su contraseña", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                baseContext,
+                "La contraseña debe tener al menos 6 caracteres,asegurese de su contraseña",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
 
-        //val emailEncriptado = RegistroActivity.HashUtils.sha256(emailText)
+        val emailEncriptado = HashUtils.sha256(emailText)
+        println(emailText + "/" + emailEncriptado)
 
-        firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = firebaseAuth.currentUser
-                    Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, EligeModoJuegoActivity::class.java)
-                    startActivity(intent)
+        val usersRef = FirebaseFirestore.getInstance().collection("usuarios")
 
-                    finish()
-                } else {
-                    Log.e("InicioSesion", "Error al iniciar sesión", task.exception)
-                    Toast.makeText(baseContext, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
-                }
+// Verificar si el correo electrónico está presente en la colección de usuarios
+        usersRef.whereEqualTo("email", emailEncriptado).get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
+                        .addOnCompleteListener(this) { task ->
+
+                            Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
+                                .show()
+                            val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    mediaPlayer.start()
+                }else {  Toast.makeText(baseContext, " No se pudo iniciar sesión", Toast.LENGTH_SHORT)}
             }
-
-        mediaPlayer.start()
     }
 
     fun irSalir(view: View) {
@@ -179,7 +196,12 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
             signInWithGoogle()
         } catch (e: Exception) {
             Log.e(TAG, "Error durante el inicio de sesión con Google", e)
-            Toast.makeText(this, "Error durante el inicio de sesión con Google", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Error durante el inicio de sesión con Google",
+                Toast.LENGTH_SHORT
+            )
+                .show()
         }
     }
 
@@ -216,7 +238,11 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
         } catch (e: ApiException) {
             // Manejar el fallo en el inicio de sesión con Google
             Log.w(TAG, "Fallo en el inicio de sesión con Google", e)
-            Toast.makeText(this, "Fallo en el inicio de sesión con Google", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Fallo en el inicio de sesión con Google",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -238,66 +264,89 @@ class MainActivity : AppCompatActivity(),PlantillaActivity {
                         Log.d(TAG, "Correo electrónico de Google: $googleEmail")
                         val fechaRegistro = LocalDate.now()
 
-                        val user = User(email = googleEmail?.lowercase(), name = googleEmail, 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                        val user = User(
+                            email = googleEmail?.lowercase(),
+                            name = googleEmail,
+                            correo = googleEmail,
+                            355,
+                            1,
+                            mesRegistro = fechaRegistro.month,
+                            anioRegistro = fechaRegistro.year
+                        )
                         UserDao.addUser(user)
 
                         // Autenticación exitosa, redirigir a la siguiente actividad
-                        Log.d(TAG, "Inicio de sesión con credenciales de Google exitoso")
+                        Log.d(
+                            TAG,
+                            "Inicio de sesión con credenciales de Google exitoso"
+                        )
                         val intent = Intent(this, EligeModoJuegoActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
                         // Manejar el fallo en la autenticación con Firebase
-                        Log.w(TAG, "Fallo en la autenticación con Firebase", task.exception)
-                        Toast.makeText(this, "Autenticación fallida.", Toast.LENGTH_SHORT).show()
+                        Log.w(
+                            TAG,
+                            "Fallo en la autenticación con Firebase",
+                            task.exception
+                        )
+                        Toast.makeText(
+                            this,
+                            "Autenticación fallida.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
         } catch (e: Exception) {
             // Manejar errores durante la autenticación con Google
             Log.e(TAG, "Error durante la autenticación con Google", e)
             e.printStackTrace()
-            Toast.makeText(this, "Error durante la autenticación con Google", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                "Error durante la autenticación con Google",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
 }
 
-   /* private fun showNotification() {
-        // Crear y mostrar la notificación
-        val textTitle = "¡Bienvenidooooooooooo!"
-        val textContent = "Graciaaaaaaas por usar nuestra aplicación."
+/* private fun showNotification() {
+     // Crear y mostrar la notificación
+     val textTitle = "¡Bienvenidooooooooooo!"
+     val textContent = "Graciaaaaaaas por usar nuestra aplicación."
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.nota_3b)
-            .setContentTitle(textTitle)
-            .setContentText(textContent)
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+     val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+         .setSmallIcon(R.drawable.nota_3b)
+         .setContentTitle(textTitle)
+         .setContentText(textContent)
+         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        // Obtener el NotificationManager
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+     // Obtener el NotificationManager
+     val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        // Crear el canal de notificación si es necesario (para versiones de Android >= 8.0)
-        createNotificationChannel()
+     // Crear el canal de notificación si es necesario (para versiones de Android >= 8.0)
+     createNotificationChannel()
 
-        // Mostrar la notificación
-        notificationManager.notify(0, builder.build())
+     // Mostrar la notificación
+     notificationManager.notify(0, builder.build())
 
-        // Mostrar la notificación con permisos
-        with(NotificationManagerCompat.from(this)) {
-            if (ActivityCompat.checkSelfPermission(
-                    this@MainActivity,
-                    Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-
-
-                return@with
-            }
-            // notificationId is a unique int for each notification that you must define.
-            notify(NOTIFICATION_ID, builder.build())
+     // Mostrar la notificación con permisos
+     with(NotificationManagerCompat.from(this)) {
+         if (ActivityCompat.checkSelfPermission(
+                 this@MainActivity,
+                 Manifest.permission.POST_NOTIFICATIONS
+             ) != PackageManager.PERMISSION_GRANTED
+         ) {
 
 
-        }
+             return@with
+         }
+         // notificationId is a unique int for each notification that you must define.
+         notify(NOTIFICATION_ID, builder.build())
+
+
+     }
 */
 
 

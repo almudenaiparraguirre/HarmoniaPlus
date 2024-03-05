@@ -31,20 +31,16 @@ class Utils {
         private val db = FirebaseFirestore.getInstance()
         val currentUser = firebaseAuth.currentUser
         private val usersCollection = db.collection("usuarios")
-        val email = currentUser?.email?.replace(".", ",")
-
-
-
-
+        val email = currentUser?.email?.lowercase()
+        val emailEncriptado = HashUtils.sha256(email!!)
 
 
         suspend fun getCorreo(): String? {
-            val docRef = db.collection("usuarios").document(email.toString())
-
+            val docRef = db.collection("usuarios").document(emailEncriptado)
             return try {
                 val document = docRef.get().await()
                 if (document.exists()) {
-                    val nivelActual = document.data?.get("email")
+                    val nivelActual = document.data?.get("correo")
                     println("Nivel actual: $nivelActual")
                     nivelActual?.toString()
                 } else {
@@ -58,7 +54,7 @@ class Utils {
         }
 
         suspend fun getNombre(): String? {
-            val docRef = db.collection("usuarios").document(email.toString())
+            val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
@@ -80,7 +76,7 @@ class Utils {
 
 
         suspend fun getExperiencia(): String? {
-            val docRef = db.collection("usuarios").document(email.toString())
+            val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
@@ -101,7 +97,7 @@ class Utils {
 
 
         suspend fun getNivelActual(): Int? {
-            val docRef = db.collection("usuarios").document(email.toString())
+            val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
@@ -120,7 +116,7 @@ class Utils {
         }
 
         suspend fun getVidas(): String? {
-            val docRef = db.collection("usuarios").document(email.toString())
+            val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
@@ -160,7 +156,7 @@ class Utils {
 
         fun setCorreo(correo: String) {
             val data = hashMapOf(
-                "email" to correo
+                "correo" to correo
                 // Agrega cualquier otro campo que necesites actualizar
             )
 
