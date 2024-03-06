@@ -39,6 +39,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
         firebaseAuth = FirebaseAuth.getInstance()
         val db = Firebase.firestore
+        storage = FirebaseStorage.getInstance()
+
 
     }
 

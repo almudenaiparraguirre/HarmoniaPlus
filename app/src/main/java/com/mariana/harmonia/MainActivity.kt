@@ -208,8 +208,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         // Configuración de inicio de sesión con Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com")
-            .requestEmail()
-            .build()
+            .requestEmail().build()
 
         val googleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInIntent = googleSignInClient.signInIntent

@@ -81,6 +81,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         firebaseAuth.signOut()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
         finishAffinity() // Cierra todas las actividades anteriores
     }
 
