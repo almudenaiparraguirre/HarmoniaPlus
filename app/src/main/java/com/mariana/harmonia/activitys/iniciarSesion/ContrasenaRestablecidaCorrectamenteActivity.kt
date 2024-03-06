@@ -13,7 +13,7 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), Plantil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.contrasena_restablecida_correctamente_activity)
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
     }
 
     // FUN --> Iniciar sesión

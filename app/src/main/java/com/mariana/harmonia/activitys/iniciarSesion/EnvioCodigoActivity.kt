@@ -26,7 +26,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.envio_codigo_activity)
 
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         textoNoRecibido = findViewById(R.id.textoNoRecibido)
         textoNoRecibido.isEnabled = false

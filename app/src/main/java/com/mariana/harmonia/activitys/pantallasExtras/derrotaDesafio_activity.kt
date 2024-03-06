@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.utils.Utils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -19,19 +20,43 @@ class derrotaDesafio_activity : AppCompatActivity() {
     private var nivel: Int = 0
     private var notasHacertadas: Int = 0
     private var tiempoDurado: Int = 0
-    private lateinit var textViewResultados: TextView
+    private lateinit var textViewResultadoTotal: TextView
+    private lateinit var textViewResultadoTiempo: TextView
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var finTextView: TextView
+    private lateinit var emogiTextView: TextView
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_derrota_desafio)
+        //variablesIntent
         nivel = intent.getIntExtra("numeroNivel", 999)
         notasHacertadas = intent.getIntExtra("notasHacertadas", 0)
         tiempoDurado = intent.getIntExtra("tiempoDurado", 0)
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_derrota_desafio)
-        textViewResultados = findViewById(R.id.textViewResultados)
+
+        val emojis = arrayOf("😄", "😃", "😁", "😊", "😆")
+
+        textViewResultadoTotal = findViewById(R.id.textViewResultadoTotal)
+        textViewResultadoTiempo = findViewById(R.id.textViewResultadoTiempo)
+        emogiTextView = findViewById(R.id.emogiTextView)
+        finTextView = findViewById(R.id.desafioTextView)
+
         var tiempo = ((tiempoDurado-60)*-1)
-        textViewResultados.text = "Total=$notasHacertadas\nTiempo=$tiempo s"
+
+        //Colorar datos
+        emogiTextView.text = emojis.random().toString()
+        textViewResultadoTotal.text = "Total: $notasHacertadas"
+        textViewResultadoTiempo.text = "Tiempo: $tiempo s"
+        Utilidades.degradadoTexto(this, finTextView.id, R.color.morado, R.color.negro)
+
+        //sonido
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+
+       //sonido Finalizar
+        mediaPlayer = MediaPlayer.create(this, R.raw.desafio_finish_sound)
+        mediaPlayer.setVolume(0.5f,0.5f);
+        mediaPlayer.start()
         actualizarDatosInterfaz()
     }
 

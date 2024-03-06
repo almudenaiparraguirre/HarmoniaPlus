@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +12,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -25,19 +22,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
-import com.mariana.harmonia.activitys.InicioSesion
 import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.activitys.Utilidades
-import com.mariana.harmonia.activitys.Utilidades.Companion.colorearTexto
+import com.mariana.harmonia.activitys.Utilidades.Companion.degradadoTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import android.Manifest
 import android.media.MediaPlayer
 import androidx.annotation.RequiresApi
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
+import com.mariana.harmonia.utils.Utils
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity(), PlantillaActivity {
@@ -54,9 +48,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        colorearTexto(this, R.id.titleTextView)
-        colorearTexto(this, R.id.registrateTextView)
-        colorearTexto(this, R.id.recuerdasContrasena)
+        degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        degradadoTexto(this, R.id.registrateTextView,R.color.rosa,R.color.morado)
+        degradadoTexto(this, R.id.recuerdasContrasena,R.color.rosa,R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
@@ -102,7 +96,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val firebaseUser = firebaseAuth.currentUser
 
         if (firebaseUser == null && this !is MainActivity) {
-            // No hay usuario autenticado y no estamos en la pantalla de inicio de sesión,
+
             // redirigir a la pantalla de inicio de sesión
         } else if (firebaseUser != null) {
             // Hay un usuario autenticado, redirigir a la pantalla principal
@@ -170,12 +164,16 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 if (!documents.isEmpty) {
                     firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
                         .addOnCompleteListener(this) { task ->
+                            Utils.firebaseAuth = FirebaseAuth.getInstance()
                             Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
                                 .show()
+
                             val intent = Intent(this, EligeModoJuegoActivity::class.java)
                             startActivity(intent)
                             finish()
+
                         }
+
                     mediaPlayer.start()
                 }else {  Toast.makeText(baseContext, " No se pudo iniciar sesión", Toast.LENGTH_SHORT)}
             }

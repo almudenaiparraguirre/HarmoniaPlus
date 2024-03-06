@@ -9,19 +9,43 @@
     tools:context=".activitys.pantallasExtras.derrotaDesafio_activity">
 
     <TextView
+        android:id="@+id/desafioTextView"
+        style="@style/Fuente_TimesNewRoman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Desafío perdido🥵​ "
+        android:text="Desafío finalizado "
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textSize="80dp" />
+    <TextView
+        android:id="@+id/emogiTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="🥵"
         android:textAlignment="center"
         android:textSize="100dp" />
 
     <TextView
-        android:id="@+id/textViewResultados"
+        android:id="@+id/textViewResultadoTotal"
+        style="@style/Fuente_TimesNewRoman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text=""
+        android:textAlignment="center"
+        android:text="*"
+        android:textSize="50dp" />
+    <TextView
+        android:id="@+id/textViewResultadoTiempo"
+        style="@style/Fuente_TimesNewRoman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="*"
         android:textSize="50dp" />
 
     <LinearLayout

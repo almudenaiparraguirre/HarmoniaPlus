@@ -9,12 +9,26 @@
     tools:context=".activitys.pantallasExtras.victoria_activity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/victoriaTextView"
+        style="@style/Fuente_TimesNewRoman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VICTORIA"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="50dp"
+        android:textSize="80sp" />
+
+    <TextView
+        android:id="@+id/emogiTextView"
+        style="@style/Fuente_TimesNewRoman"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Has Ganado🥳​ "
+        android:text="😄"
+        android:layout_gravity="center"
         android:textAlignment="center"
-        android:textSize="100sp" />
+        android:layout_marginTop="50dp"
+        android:textSize="85sp" />
 
 
     <LinearLayout

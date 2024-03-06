@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.widget.TextView
-import com.mariana.harmonia.R
 
 class Utilidades {
 
@@ -14,7 +13,7 @@ class Utilidades {
             activity.finishAffinity()
         }
 
-        fun colorearTexto(contexto: Context, id: Int) {
+        fun degradadoTexto(contexto: Context, id: Int, colorRosa: Int, colorMorado: Int) {
             val titleTextView = (contexto as Activity).findViewById<TextView>(id)
             val paint = titleTextView.paint
             val width = paint.measureText(titleTextView.text.toString())
@@ -22,8 +21,8 @@ class Utilidades {
             titleTextView.paint.shader = LinearGradient(
                 0f, 0f, width, titleTextView.textSize,
                 intArrayOf(
-                    contexto.resources.getColor(R.color.rosa),
-                    contexto.resources.getColor(R.color.morado)
+                    contexto.resources.getColor(colorRosa),
+                    contexto.resources.getColor(colorMorado)
                 ),
                 null,
                 Shader.TileMode.CLAMP

@@ -32,14 +32,13 @@ import java.util.Locale
 class Utils {
     companion object {
         var firebaseAuth = FirebaseAuth.getInstance()
-            private set // Agrega un setter privado para actualizar firebaseAuth
+        var db = FirebaseFirestore.getInstance()
+        var currentUser = firebaseAuth.currentUser
+        var email = currentUser?.email?.lowercase()
 
-        private val db = FirebaseFirestore.getInstance()
-        val currentUser = firebaseAuth.currentUser
-        private val usersCollection = db.collection("usuarios")
-        val email = currentUser?.email?.lowercase()
-        val emailEncriptado = HashUtils.sha256(email!!)
+        var usersCollection = db.collection("usuarios")
 
+        var emailEncriptado = HashUtils.sha256(email!!)
 
 
         suspend fun getCorreo(): String? {
@@ -314,12 +313,13 @@ class Utils {
                     Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
                 }
         }
+
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int,Int>) {
+        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int, Int>) {
             val desafioCollection = db.collection("desafio")
             val currentDateTime = java.time.LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm-ss")
-            val fechaActual =currentDateTime.format(formatter)+" User="+ currentUser?.email
+            val fechaActual = currentDateTime.format(formatter) + " User=" + currentUser?.email
 
             println(fechaActual)
 

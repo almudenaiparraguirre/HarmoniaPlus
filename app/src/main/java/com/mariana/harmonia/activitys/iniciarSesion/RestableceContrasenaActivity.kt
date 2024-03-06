@@ -35,7 +35,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         // Inicializa FirebaseAuth
         auth = FirebaseAuth.getInstance()

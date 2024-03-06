@@ -22,7 +22,6 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
-import java.security.MessageDigest
 import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
@@ -34,8 +33,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
-        Utilidades.colorearTexto(this, R.id.VolverInicioSesion)
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+        Utilidades.degradadoTexto(this, R.id.VolverInicioSesion,R.color.rosa,R.color.morado)
+        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         firebaseAuth = FirebaseAuth.getInstance()
         val db = Firebase.firestore

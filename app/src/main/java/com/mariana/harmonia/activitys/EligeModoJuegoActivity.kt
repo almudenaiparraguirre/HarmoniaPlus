@@ -14,7 +14,6 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
@@ -35,6 +34,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.elige_modo_juego_activity) // Inflar el layout primero
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -63,8 +63,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     private fun inicilalizarVariablesThis() {
-        Utilidades.colorearTexto(this, R.id.cerrarSesion)
-        Utilidades.colorearTexto(this, R.id.titleTextView)
+        Utilidades.degradadoTexto(this, R.id.cerrarSesion,R.color.rosa,R.color.morado)
+        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         Utils.serializeImage(this,R.mipmap.img_gema)
         imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
@@ -79,8 +79,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
         firebaseAuth.signOut()
+        Utils.currentUser?.reload()
+
+
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        this.getApplicationContext().getCacheDir().delete();
         finish()
         finishAffinity() // Cierra todas las actividades anteriores
     }
