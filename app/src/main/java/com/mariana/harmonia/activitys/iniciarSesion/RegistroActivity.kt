@@ -116,7 +116,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
+     fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         val emailEncriptado = HashUtils.sha256(email.lowercase())
         val fechaRegistro = LocalDate.now()
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
