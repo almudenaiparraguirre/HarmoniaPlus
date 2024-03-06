@@ -61,7 +61,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         // 1. Obtener los valores ingresados en los campos de correo y contraseña
         val emailTextView = findViewById<TextView>(R.id.editText1)
         val contraseñaTextView = findViewById<TextView>(R.id.editText3)
-        val email = emailTextView.text.toString()
+        val email = emailTextView.text.toString().lowercase()
         val contraseña = contraseñaTextView.text.toString()
         val nombreTextView = findViewById<TextView>(R.id.editText2)
         val nombre = nombreTextView.text.toString()
