@@ -18,6 +18,7 @@ class victoria_activity : AppCompatActivity() {
     private var precision: Int = 0
     private lateinit var victoriaTextView: TextView
     private lateinit var emogiTextView: TextView
+    private lateinit var frasesTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,18 +28,74 @@ class victoria_activity : AppCompatActivity() {
         actualizarDatos()
 
         val emojis = arrayOf("😄", "😃", "😁", "😊", "😆")
+        val frases = arrayOf(
+            "¡Excelente trabajo! 💪",
+            "¡Eres un maestro! 🌟",
+            "¡Lo lograste! 😎",
+            "¡Increíble! 🚀",
+            "¡Eres un campeón! 🏆",
+            "¡Fantástico! 🎉",
+            "¡Asombroso desempeño!",
+            "¡Impecable! 👌",
+            "¡Eres un experto! 💡",
+            "¡Muy bien hecho! 👍",
+            "¡Eres un genio! 🧠",
+            "¡Maravilloso! ✨",
+            "¡Eres un héroe! 🦸‍♂️",
+            "¡Bravo! 👏",
+            "¡Eres un ganador! 🥇",
+            "¡Inmejorable! 💯",
+            "¡Espectacular! 🌟",
+            "¡Increíblemente bien! 🌈",
+            "¡Estupendo! 🎈",
+            "¡Fantástico desempeño! 💥",
+            "¡Eres una leyenda! 🏅",
+            "¡Eres impresionante! 🤩",
+            "¡Sobresaliente! 🌠",
+            "¡Eres un prodigio! 🌟",
+            "¡Excepcional! 👌",
+            "¡Espléndido! ✨",
+            "¡Eres un fenómeno!",
+            "¡Sobresaliente! 🏆",
+            "¡Eres un talento natural!",
+            "¡Impecable ejecución! 💪",
+            "¡Eres un virtuoso! 🎻",
+            "¡Magnífico! 🌟",
+            "¡Impresionante! 🌟",
+            "¡Eres un prodigio! 🌟",
+            "¡Espectacular desempeño!",
+            "¡Eres una inspiración!",
+            "¡Estelar! 🌟",
+            "¡Eres un fenómeno! 💥",
+            "¡Brillante! ✨",
+            "¡Eres imparable! 🌟",
+            "¡Espectacular! 💥",
+            "¡Eres un virtuoso! 🎹",
+            "¡Asombroso! 🌟",
+            "¡Eres una maravilla! 🌟",
+            "¡Espléndido desempeño! 💥",
+            "¡Increíble logro! 🏆",
+            "¡Eres un prodigio! 🌟",
+            "¡Espectacular ! 💥",
+            "¡Eres una estrella! 🌟",
+            "facilito 😎",
+            "¡Espléndido! 🎉"
+        )
+
 
         emogiTextView = findViewById(R.id.emogiTextView)
         victoriaTextView = findViewById(R.id.victoriaTextView)
+        frasesTextView = findViewById(R.id.fraseTextView)
         Utilidades.degradadoTexto(this, victoriaTextView.id, R.color.rosa, R.color.morado)
         emogiTextView.text = emojis.random().toString()
+        frasesTextView.text = frases.random().toString()
         mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
-        mediaPlayer.setVolume(0.5f,0.5f);
+        mediaPlayer.setVolume(0.5f, 0.5f);
         mediaPlayer.start()
 
     }
 
-    private fun actualizarDatos()= runBlocking {
+    private fun actualizarDatos() = runBlocking {
         try {
             Utils.setNivelActual(nivel + 1)
             Utils.setExperiencia((Utils.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
@@ -69,11 +126,12 @@ class victoria_activity : AppCompatActivity() {
         startActivity(intent)
 
     }
+
     fun irSiguiente(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)
-        intent.putExtra("numeroNivel", (nivel+1))
+        intent.putExtra("numeroNivel", (nivel + 1))
         finish()
         startActivity(intent)
     }

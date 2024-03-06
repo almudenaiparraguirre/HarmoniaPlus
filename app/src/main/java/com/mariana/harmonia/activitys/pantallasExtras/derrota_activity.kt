@@ -80,8 +80,8 @@ class derrota_activity : AppCompatActivity() {
         derrotaTextView = findViewById(R.id.derrotaTextView)
         frasesTextView = findViewById(R.id.fraseTextView)
         degradadoTexto(this, derrotaTextView.id, R.color.rojo, R.color.negro)
-        frasesTextView.text = frases.random().toString()
         emogiTextView.text = emojis.random().toString()
+        frasesTextView.text = frases.random().toString()
         mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)
         mediaPlayer.setVolume(0.5f, 0.5f);
         mediaPlayer.start()
