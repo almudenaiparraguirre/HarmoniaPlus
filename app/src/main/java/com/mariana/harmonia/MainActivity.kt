@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val contrasena: TextView = findViewById(R.id.editText2)
 
         // Validación de campos
-        val emailText = Email.text.toString()
+        val emailText = Email.text.toString().lowercase()
         val contrasenaText = contrasena.text.toString()
 
         if (emailText.isEmpty() || contrasenaText.isEmpty()) {
