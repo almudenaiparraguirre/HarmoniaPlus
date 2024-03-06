@@ -35,25 +35,27 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        firebaseAuth = FirebaseAuth.getInstance()
+        setContentView(R.layout.elige_modo_juego_activity) // Inflar el layout primero
 
-        setContentView(R.layout.elige_modo_juego_activity)
+        firebaseAuth = FirebaseAuth.getInstance()
         Utils.isExternalStorageWritable()
         Utils.isExternalStorageReadable()
-        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
-        porcentajeTextView = findViewById<TextView>(R.id.porcentajeTextView)
-        nombreTextView = findViewById(R.id.nombreModoDeJuego)
-        imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
+
         val imageView: ImageView = findViewById(R.id.fondoImageView)
-        inicializarConBase()
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
         imageView.startAnimation(anim)
+
+        nombreTextView = findViewById(R.id.nombreModoDeJuego)
+        porcentajeTextView = findViewById(R.id.porcentajeTextView)
+        progressBar = findViewById<ProgressBar>(R.id.progressBarCarga)
+        imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil) // Inicializar imageViewFotoPerfil
+
         inicilalizarVariablesThis()
+        inicializarConBase()
     }
     fun inicializarConBase() = runBlocking {
         var nivel = Utils.getExperiencia()!!/100
         var experienciaSobrante = Utils.getExperiencia()!!%100
-
 
         nombreTextView.text = Utils.getNombre()
         porcentajeTextView.text = nivel.toString()

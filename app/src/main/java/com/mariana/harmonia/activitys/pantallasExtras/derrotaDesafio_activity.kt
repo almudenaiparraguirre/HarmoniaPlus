@@ -2,10 +2,12 @@ package com.mariana.harmonia.activitys.pantallasExtras
 
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
@@ -19,6 +21,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
     private var tiempoDurado: Int = 0
     private lateinit var textViewResultados: TextView
     private lateinit var mediaPlayer: MediaPlayer
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         nivel = intent.getIntExtra("numeroNivel", 999)
         notasHacertadas = intent.getIntExtra("notasHacertadas", 0)
@@ -32,12 +35,12 @@ class derrotaDesafio_activity : AppCompatActivity() {
         actualizarDatosInterfaz()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
         val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
         val puntuacionDB = Utils.getPuntuacionDesafio()
         val mayorHaciertos = puntuacionDB?.first ?:0
         Utils.setPuntuacionDesafio(puntuacion)
-
         Utils.setPuntuacionDesafioGlobal(puntuacion)
     }
 

@@ -70,7 +70,6 @@
             tools:context=".activitys.PerfilUsuarioActivity">
 
             <!-- Fondo general -->
-
             <ImageView
                 android:id="@+id/fondoMitadSuperiorBackground"
                 android:layout_width="match_parent"
@@ -141,7 +140,6 @@
                     android:layout_height="100dp"
                     android:background="@color/blanco"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/img_perfil_luis_golden"
                     app:cardCornerRadius="200dp" />
 
             </androidx.cardview.widget.CardView>
@@ -373,8 +371,7 @@
                             <ImageView
                                 android:id="@+id/centerCircle"
                                 android:layout_width="150dp"
-                                android:layout_height="150dp"
-                                android:src="@mipmap/img_foto_aprendiz" />
+                                android:layout_height="150dp" />
 
                             <TextView
                                 android:id="@+id/centerText"
@@ -1137,9 +1134,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
+                                    android:layout_marginBottom="20dp"
                                     android:textColor="@android:color/black"
                                     android:textSize="12sp"
-                                    android:layout_marginBottom="20dp"
                                     android:textStyle="bold" />
                             </RelativeLayout>
 

@@ -11,18 +11,32 @@
 
 
         <TextView
+            android:id="@+id/derrotaTextView"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Has perdido😈​ "
+            android:text="DERROTA"
             android:textAlignment="center"
-            android:textSize="100dp"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:textSize="90dp"/>
+
+    <TextView
+        android:id="@+id/emogiTextView"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="😞"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:textSize="90dp"/>
 
      <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginTop="50dp"
+    android:layout_marginTop="100dp"
     android:layout_gravity="center"
     >
          <RelativeLayout

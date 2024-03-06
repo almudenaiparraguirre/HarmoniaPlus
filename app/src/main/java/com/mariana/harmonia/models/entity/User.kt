@@ -10,7 +10,6 @@ class User(
     var experiencia: Int? = 0,
     var nivelActual: Int? = 1,
     var vidas: Int? = 5,
-    val precisiones: List<Int> = listOf(),
     val puntuacionDesafio: Pair<Int, Int> = Pair(0,0),
     var imagen: String? = null,
     var mesRegistro: Month,

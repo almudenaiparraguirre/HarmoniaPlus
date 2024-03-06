@@ -28,17 +28,13 @@ class victoria_activity : AppCompatActivity() {
     private fun actualizarDatos()= runBlocking {
         try {
             Utils.setNivelActual(nivel + 1)
-            Utils.setExperiencia(Utils.getExperiencia()?.toInt() ?: 0 + (20 + (nivel * 10 + 10)))
-            val precisionesList = Utils.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
-            if (precisionesList.size >= nivel) {
-                precisionesList[nivel - 1] = precision
-                Utils.setPrecisiones(precisionesList)
-            } else {
-
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-
+            Utils.setExperiencia((Utils.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
+            var precisionesList = Utils.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
+            precisionesList[nivel - 1] = precision
+            Utils.setPrecisiones(precisionesList)
+        } catch (e: IndexOutOfBoundsException) {
+            // Manejar la excepción aquí
+            println("Índice fuera de los límites: ${e.message}")
         }
     }
 
