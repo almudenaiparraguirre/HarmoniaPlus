@@ -19,6 +19,7 @@ import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
+import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
 import java.security.MessageDigest
@@ -26,8 +27,7 @@ import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
-
-
+    private lateinit var storage: FirebaseStorage
     private lateinit var firebaseAuth: FirebaseAuth
 
     // FUN --> OnCreate
@@ -99,23 +99,21 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         return regex.matches(contraseña)
     }
 
-    private fun hashString(type: String, input: String): String {
-        val HEX_CHARS = "0123456789ABCDEF"
-        val bytes = MessageDigest
-            .getInstance(type)
-            .digest(input.toByteArray())
-        val result = StringBuilder(bytes.size * 2)
+    private fun establecerFotoPerfilPorDefecto(email: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val storageRef = storage.reference
+        val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/pablo.png")
+        val userImageRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
 
-        bytes.forEach {
-            val i = it.toInt()
-            result.append(HEX_CHARS[i shr 4 and 0x0f])
-            result.append(HEX_CHARS[i and 0x0f])
+        defaultProfileImageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
+            userImageRef.putBytes(bytes).addOnSuccessListener { _ ->
+            }.addOnFailureListener { exception ->
+                Log.e(TAG, "Error al establecer la foto de perfil por defecto: ${exception.message}")
+            }
+        }.addOnFailureListener { exception ->
+            Log.e(TAG, "Error al descargar la foto de perfil por defecto: ${exception.message}")
         }
-
-        return result.toString()
     }
-
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
@@ -128,15 +126,12 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val encriptado = HashUtils.sha256(email!!.lowercase())
-                    val encriptado2= HashUtils.sha256(email!!.lowercase())
                     println(email+"/"+encriptado)
                     println("ENCRIPTADO: $encriptado")
                     val user = User(email = emailEncriptado  , name = nombre,correo = email.lowercase(), 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
-                    //UserDao.createUsersCollectionIfNotExists()
                     UserDao.addUser(user)
-
-                    // Resto del código...
+                    establecerFotoPerfilPorDefecto(email)
                     finish()
                 } else {
                     Toast.makeText(

@@ -42,6 +42,7 @@ import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
+import com.google.android.gms.fido.fido2.api.common.RequestOptions
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
@@ -62,10 +63,8 @@ import kotlin.random.Random
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
-        private lateinit var firebaseAuth: FirebaseAuth
         private lateinit var nombreUsuarioTextView: TextView
         private lateinit var gmailUsuarioTextView: TextView
-        private const val PERMISSION_REQUEST_CODE = 122
         private const val REQUEST_CAMERA = 123
     }
 
@@ -98,12 +97,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var nivelRango: TextView
     private lateinit var centerCircle: ImageView
     private lateinit var binding: PerfilUsuarioActivityBinding
+    private lateinit var originalText: Editable
     var storage = FirebaseStorage.getInstance()
     var mutableList: MutableList<String> = mutableListOf(
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
     )
-    var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "aitor", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
+    var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "bendicion", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
     // FUN --> OnCreate
     @SuppressLint("MissingInflatedId")
@@ -124,6 +124,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         precisionTextView = findViewById(R.id.precisionTextView)
         experienciaTextView = findViewById(R.id.experienciaTextView)
         centerCircle = findViewById(R.id.centerCircle)
+        originalText = editText.text
+
         // Porcentaje barra Experiencia
         progressBar1 = findViewById(R.id.progressBarLogro1)
         porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
@@ -142,6 +144,14 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         progressBar8 = findViewById(R.id.progressBarLogro8)
         porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
 
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val storageRef: StorageReference = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
+        val imagesRef = storageRef.child("ImagenesEtapa/$userId.jpg")
+        println("Image URL: $imagesRef")
+        Glide.with(this)
+            .load(imagesRef) // If you want to display a circular image
+            .into(imagen)
+
         inicializarConBase()
         mostrarImagenGrande()
         crearMenuSuperior()
@@ -149,6 +159,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         runBlocking {
             downloadImage()
+            downloadImage2()
         }
     }
 
@@ -182,12 +193,61 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val newImageName = "nuevo_nombre.jpg"
+
+        // Descarga la imagen en un Bitmap
+        val bitmap = Glide.with(this)
+            .asBitmap()
+            .load(oldImageUrl)
+            .submit()
+            .get()
+
+        // Guarda la imagen en un archivo temporal con el nuevo nombre
+        val newImageFile = File.createTempFile("temp", ".jpg", cacheDir)
+        val outputStream = FileOutputStream(newImageFile)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        // Sube la nueva imagen a Firebase Storage con el nuevo nombre
+        val newImageRef = storage.reference.child("ImagenesEtapa").child("$userId/$newImageName")
+        val newImageUri = Uri.fromFile(newImageFile)
+
+        newImageRef.putFile(newImageUri)
+            .addOnSuccessListener {
+                println("Éxito al subir la nueva imagen con el nombre $newImageName")
+
+                // Ahora puedes usar newImageRef para mostrar la imagen en tu app
+            }
+            .addOnFailureListener { exception ->
+                println("Error al subir la nueva imagen: ${exception.message}")
+            }
+    }
+
+    private fun downloadImage2() {
+        val storageRef = storage.reference
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
+
+        imagesRef.downloadUrl.addOnSuccessListener { url ->
+            Glide.with(this)
+                .load(url)
+                .into(imagen)
+
+            // Call the function to change the name and upload the image
+            runBlocking {
+                changeAndUploadImage(url)
+            }
+        }.addOnFailureListener { exception ->
+            println("Error al cargar la imagen: ${exception.message}")
+        }
+    }
 
     private suspend fun obtenerNombreEtapa(): String {
-        val nivel = Utils.getNivelActual()
-        val etapa: String?
 
-        etapa = when (nivel) {
+        val etapa: String? = when (Utils.getNivelActual()) {
             in 1..10 -> mutableList[0]
             in 11..20 -> mutableList[1]
             in 21..30 -> mutableList[2]
@@ -195,8 +255,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             in 41..50 -> mutableList[4]
             else -> mutableList[5]
         }
-
-        nivelRango.text = etapa.uppercase()
+        nivelRango.text = etapa?.uppercase()
         return etapa.toString()
     }
 
@@ -345,22 +404,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
         return null
-    }
-
-    private fun obtenerNivelesJSON(): JSONObject? {
-        var nivelesJson: JSONObject? = null
-        try {
-            val inputStream: InputStream = resources.openRawResource(R.raw.info_niveles)
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val jsonString = String(buffer, Charsets.UTF_8)
-            nivelesJson = JSONObject(jsonString)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return nivelesJson
     }
 
     // FUN --> Mostrar la imagen del perfil en grande
@@ -538,20 +581,5 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
-    }
-
-    private fun asignarNivelHabilidad(nivelActual: Int): String {
-        val nivelesDeHabilidad = mutableListOf(
-            "Novato", "Principiante", "Amateur", "Intermedio",
-            "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
-        )
-
-        val indiceNivel = (nivelActual - 1) / 10
-
-        // Asegúrate de no exceder el índice máximo
-        val indiceFinal = min(indiceNivel, nivelesDeHabilidad.size - 1)
-
-        // Obtiene el nivel de habilidad correspondiente
-        return nivelesDeHabilidad[indiceFinal]
     }
 }
