@@ -149,7 +149,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val imagesRef = storageRef.child("ImagenesEtapa/$userId.jpg")
         println("Image URL: $imagesRef")
         Glide.with(this)
-            .load(imagesRef) // If you want to display a circular image
+            .load(imagesRef)
             .into(imagen)
 
         inicializarConBase()
@@ -193,7 +193,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
+    private fun changeAndUploadImage(oldImageUrl: Uri) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val newImageName = "nuevo_nombre.jpg"
 
@@ -246,7 +246,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private suspend fun obtenerNombreEtapa(): String {
-
         val etapa: String? = when (Utils.getNivelActual()) {
             in 1..10 -> mutableList[0]
             in 11..20 -> mutableList[1]
@@ -538,13 +537,27 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun guardarImagen(bitmap: Bitmap?) {
-        // Guardar la imagen en preferencias o en otro lugar si es necesario
-        // Puedes utilizar SharedPreferences o almacenamiento en el sistema de archivos
-        // Ejemplo usando SharedPreferences:
-        val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
-        val editor = preferences.edit()
-        editor.putString("profileImageBitmap", encodeBitmapToBase64(bitmap))
-        editor.apply()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (userId != null) {
+            val storageRef = storage.reference
+            val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
+
+            // Guardar la imagen en Firebase Storage
+            val baos = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+            val data = baos.toByteArray()
+
+            imagesRef.putBytes(data)
+                .addOnSuccessListener {
+                    println("Éxito al subir la imagen con el nombre $userId.jpg")
+                }
+                .addOnFailureListener { exception ->
+                    println("Error al subir la imagen: ${exception.message}")
+                }
+        } else {
+            println("El ID del usuario es nulo.")
+        }
     }
 
     private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
