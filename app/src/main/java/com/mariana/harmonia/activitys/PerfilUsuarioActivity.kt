@@ -43,6 +43,7 @@ import androidx.core.view.marginTop
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.google.android.gms.fido.fido2.api.common.RequestOptions
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
@@ -51,7 +52,9 @@ import com.google.firebase.storage.storage
 import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import javax.crypto.Cipher
@@ -146,7 +149,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val storageRef: StorageReference = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
-        val imagesRef = storageRef.child("ImagenesEtapa/$userId.jpg")
+        val imagesRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
         println("Image URL: $imagesRef")
         Glide.with(this)
             .load(imagesRef)
@@ -193,38 +196,39 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeAndUploadImage(oldImageUrl: Uri) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val newImageName = "nuevo_nombre.jpg"
+    private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
+        withContext(Dispatchers.IO) {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val newImageName = "nuevo_nombre.jpg"
 
-        // Descarga la imagen en un Bitmap
-        val bitmap = Glide.with(this)
-            .asBitmap()
-            .load(oldImageUrl)
-            .submit()
-            .get()
+            // Descarga la imagen en un Bitmap
+            val bitmap = Glide.with(this@PerfilUsuarioActivity)
+                .asBitmap()
+                .load(oldImageUrl)
+                .submit()
+                .get()
 
-        // Guarda la imagen en un archivo temporal con el nuevo nombre
-        val newImageFile = File.createTempFile("temp", ".jpg", cacheDir)
-        val outputStream = FileOutputStream(newImageFile)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-        outputStream.flush()
-        outputStream.close()
+            // Guarda la imagen en un archivo temporal con el nuevo nombre
+            val newImageFile = File.createTempFile("temp", ".jpg", cacheDir)
+            val outputStream = FileOutputStream(newImageFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
 
-        // Sube la nueva imagen a Firebase Storage con el nuevo nombre
-        val newImageRef = storage.reference.child("ImagenesEtapa").child("$userId/$newImageName")
-        val newImageUri = Uri.fromFile(newImageFile)
+            // Sube la nueva imagen a Firebase Storage con el nuevo nombre
+            val newImageRef = storage.reference.child("imagenesPerfilGente").child("$userId/$newImageName")
+            val newImageUri = Uri.fromFile(newImageFile)
 
-        newImageRef.putFile(newImageUri)
-            .addOnSuccessListener {
-                println("Éxito al subir la nueva imagen con el nombre $newImageName")
+            try {
+                Tasks.await(newImageRef.putFile(newImageUri))
 
-                // Ahora puedes usar newImageRef para mostrar la imagen en tu app
-            }
-            .addOnFailureListener { exception ->
+                // Now you can use newImageRef to show the image in your app if needed
+            } catch (exception: Exception) {
                 println("Error al subir la nueva imagen: ${exception.message}")
             }
+        }
     }
+
 
     private fun downloadImage2() {
         val storageRef = storage.reference
@@ -386,9 +390,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
-
-
     private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
         val nivelesArray = nivelesJson?.getJSONArray("niveles")
 
@@ -441,7 +442,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private var selectedImageUri: Uri? = null
-
     val startForActivityGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -450,7 +450,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 imagen.setImageURI(data)
 
                 // Descargar la imagen desde la URI y guardarla en un archivo
-                descargarYGuardarImagen(selectedImageUri)
+                //descargarYGuardarImagen(selectedImageUri)
+                guardarImagenEnFirebase(selectedImageUri)
             }
 
             val preferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
@@ -458,6 +459,27 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             editor.putString("profileImageUri", selectedImageUri.toString())
             editor.apply()
         }
+
+    private fun guardarImagenEnFirebase(imageUri: Uri?) {
+        if (imageUri != null) {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId != null) {
+                val storageRef = storage.reference
+                val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
+
+                // Subir la imagen a Firebase Storage con el nuevo nombre
+                imagesRef.putFile(imageUri)
+                    .addOnSuccessListener {
+                        println("Éxito al subir la imagen con el nombre $userId")
+                    }
+                    .addOnFailureListener { exception ->
+                        println("Error al subir la imagen: ${exception.message}")
+                    }
+            } else {
+                println("El ID del usuario es nulo.")
+            }
+        }
+    }
 
     private fun descargarYGuardarImagen(imageUri: Uri?) {
         if (imageUri != null) {
