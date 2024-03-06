@@ -31,12 +31,15 @@ import java.util.Locale
 
 class Utils {
     companion object {
-        val firebaseAuth = FirebaseAuth.getInstance()
+        var firebaseAuth = FirebaseAuth.getInstance()
+            private set // Agrega un setter privado para actualizar firebaseAuth
+
         private val db = FirebaseFirestore.getInstance()
         val currentUser = firebaseAuth.currentUser
         private val usersCollection = db.collection("usuarios")
         val email = currentUser?.email?.lowercase()
         val emailEncriptado = HashUtils.sha256(email!!)
+
 
 
         suspend fun getCorreo(): String? {

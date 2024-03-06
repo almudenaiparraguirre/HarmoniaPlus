@@ -170,7 +170,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 if (!documents.isEmpty) {
                     firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
                         .addOnCompleteListener(this) { task ->
-
                             Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
                                 .show()
                             val intent = Intent(this, EligeModoJuegoActivity::class.java)
