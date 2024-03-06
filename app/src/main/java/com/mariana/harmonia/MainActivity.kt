@@ -264,15 +264,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                         Log.d(TAG, "Correo electrónico de Google: $googleEmail")
                         val fechaRegistro = LocalDate.now()
 
-                        val user = User(
-                            email = googleEmail?.lowercase(),
-                            name = googleEmail,
-                            correo = googleEmail,
-                            355,
-                            1,
-                            mesRegistro = fechaRegistro.month,
-                            anioRegistro = fechaRegistro.year
-                        )
+                        val emailEncriptado = googleEmail?.let { HashUtils.sha256(it.lowercase()) }
+                        val user = User(email = emailEncriptado  , name = googleName,correo = googleEmail?.lowercase(), 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+
                         UserDao.addUser(user)
 
                         // Autenticación exitosa, redirigir a la siguiente actividad
