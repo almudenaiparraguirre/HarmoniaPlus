@@ -103,6 +103,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }*/
         }.addOnFailureListener { exception ->
             println("Error al cargar la imagen: ${exception.message}")
+            imageViewFotoPerfil.setImageResource(R.mipmap.fotoperfil_guitarra)
         }
     }
 

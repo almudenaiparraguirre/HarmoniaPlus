@@ -186,7 +186,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         super.onBackPressed()
     }
 
-    fun iniciarSesionPruebas(view: View?) {
+    fun iniciarSesionGoogle(view: View?) {
         try {
             signInWithGoogle()
         } catch (e: Exception) {

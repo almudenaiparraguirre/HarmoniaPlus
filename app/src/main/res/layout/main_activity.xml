@@ -197,7 +197,7 @@
                 android:background="@drawable/style_button_google"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:onClick="iniciarSesionPruebas"
+                android:onClick="iniciarSesionGoogle"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

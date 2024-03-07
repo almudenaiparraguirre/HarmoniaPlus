@@ -200,9 +200,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                     .into(binding.centerCircle)
             }.addOnFailureListener { exception ->
                 println("Error al cargar la imagen: ${exception.message}")
+                imagen.setImageResource(R.mipmap.fotoperfil_guitarra)
             }
         } else {
             println("La lista de imágenes está vacía")
+            imagen.setImageResource(R.mipmap.fotoperfil_guitarra)
         }
     }
 
@@ -261,6 +263,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }.addOnFailureListener { exception ->
             println("Error al cargar la imagen: ${exception.message}")
+
         }
     }
 
