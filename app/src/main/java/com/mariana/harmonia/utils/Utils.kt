@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mariana.harmonia.models.db.FirebaseDB
 import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -31,8 +32,8 @@ import java.util.Locale
 
 class Utils {
     companion object {
-        var firebaseAuth = FirebaseAuth.getInstance()
-        var db = FirebaseFirestore.getInstance()
+        var firebaseAuth = FirebaseDB.getInstanceFirebase()
+        var db =  FirebaseDB.getInstanceFirestore()
         var currentUser = firebaseAuth.currentUser
         var email = currentUser?.email?.lowercase()
 

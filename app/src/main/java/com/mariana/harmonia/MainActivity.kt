@@ -29,6 +29,7 @@ import com.mariana.harmonia.activitys.Utilidades.Companion.degradadoTexto
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.media.MediaPlayer
 import androidx.annotation.RequiresApi
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
 import com.mariana.harmonia.utils.Utils
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     private val TAG = "MainActivity"
     private val RC_SIGN_IN = 9001
-    private lateinit var firebaseAuth: FirebaseAuth
+
     private lateinit var mediaPlayer: MediaPlayer
 
     private val NOTIFICATION_ID = 1
@@ -54,8 +55,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
-        firebaseAuth = FirebaseAuth.getInstance()
-        comprobarSesion(firebaseAuth)
+
+        comprobarSesion(FirebaseDB.getInstanceFirebase())
 
         // Crear y mostrar la notificación
         val textTitle = "¡Bienvenidoooooooooooo!"
@@ -156,15 +157,14 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val emailEncriptado = HashUtils.sha256(emailText)
         println(emailText + "/" + emailEncriptado)
 
-        val usersRef = FirebaseFirestore.getInstance().collection("usuarios")
+        val usersRef = FirebaseDB.getInstanceFirestore().collection("usuarios")
 
 // Verificar si el correo electrónico está presente en la colección de usuarios
         usersRef.whereEqualTo("email", emailEncriptado).get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
-                    firebaseAuth.signInWithEmailAndPassword(emailText, contrasenaText)
+                    FirebaseDB.getInstanceFirebase().signInWithEmailAndPassword(emailText, contrasenaText)
                         .addOnCompleteListener(this) { task ->
-                            Utils.firebaseAuth = FirebaseAuth.getInstance()
                             Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
                                 .show()
 
@@ -248,11 +248,11 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
             // Obtener credenciales de autenticación de Google
             val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
             // Autenticar con Firebase usando las credenciales de Google
-            firebaseAuth.signInWithCredential(credential)
+            FirebaseDB.getInstanceFirebase().signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Obtener la cuenta de usuario de Firebase
-                        val firebaseUser = firebaseAuth.currentUser
+                        val firebaseUser =  FirebaseDB.getInstanceFirebase().currentUser
                         // Obtener el nombre y el correo electrónico del usuario de la cuenta de Google
                         val googleName = account?.displayName
                         val googleEmail = account?.email

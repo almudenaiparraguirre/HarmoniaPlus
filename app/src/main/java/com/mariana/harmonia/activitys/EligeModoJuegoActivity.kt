@@ -22,6 +22,7 @@ import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -30,20 +31,20 @@ import kotlinx.coroutines.runBlocking
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     private   var RC_NOTIFICATION = 99
-    private lateinit var firebaseAuth: FirebaseAuth
+
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var nombreTextView: TextView
     private lateinit var porcentajeTextView: TextView
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
-    var storage = FirebaseStorage.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.elige_modo_juego_activity) // Inflar el layout primero
 
-        firebaseAuth = FirebaseAuth.getInstance()
+
         Utils.isExternalStorageWritable()
         Utils.isExternalStorageReadable()
 
@@ -86,8 +87,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
 
     private fun downloadImage2() {
-        val storageRef = storage.reference
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val storageRef = FirebaseDB.getInstanceStorage().reference
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
         val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
         imagesRef.downloadUrl.addOnSuccessListener { url ->
@@ -112,7 +113,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
-        firebaseAuth.signOut()
+        FirebaseDB.getInstanceFirebase().signOut()
         Utils.currentUser?.reload()
 
 

@@ -52,6 +52,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.storage
 import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -105,7 +106,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var centerCircle: ImageView
     private lateinit var binding: PerfilUsuarioActivityBinding
     private lateinit var originalText: Editable
-    var storage = FirebaseStorage.getInstance()
+
     var mutableList: MutableList<String> = mutableListOf(
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
@@ -154,8 +155,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         experienciaTextView = findViewById(R.id.experienciaTextView)
         centerCircle = findViewById(R.id.centerCircle)
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        val storageRef: StorageReference = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
+        val storageRef: StorageReference = FirebaseDB.getInstanceStorage().reference.child("imagenesPerfilGente").child("$userId.jpg")
         val imagesRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
         println("Image URL: $imagesRef")
         Glide.with(this)
@@ -175,7 +176,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {
-        val storageRef = storage.reference
+        val storageRef = FirebaseDB.getInstanceStorage().reference
         val etapa = obtenerNombreEtapa()
 
         if (listaImagenesStorage.isNotEmpty()) {
@@ -207,10 +208,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     // Guarda la imagen de perfil del usuario en Firebase
     private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
         withContext(Dispatchers.IO) {
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
 
             // Delete the old image from Firebase Storage
-            val oldImageRef = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
+            val oldImageRef = FirebaseDB.getInstanceStorage().reference.child("imagenesPerfilGente").child("$userId.jpg")
             try {
                 Tasks.await(oldImageRef.delete())
             } catch (exception: Exception) {
@@ -225,7 +226,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 .get()
 
             // Sube la nueva imagen a Firebase Storage con el nombre del usuario
-            val newImageRef = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
+            val newImageRef = FirebaseDB.getInstanceStorage().reference.child("imagenesPerfilGente").child("$userId.jpg")
             try {
                 // Save the new image to Firebase Storage
                 val baos = ByteArrayOutputStream()
@@ -244,8 +245,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     //Descarga de Firebase la imagen de perfil correspondiente al usuario
     private fun downloadImage2() {
-        val storageRef = storage.reference
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val storageRef = FirebaseDB.getInstanceStorage().reference
+        val userId =FirebaseDB.getInstanceFirebase().currentUser?.uid
         val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
         imagesRef.downloadUrl.addOnSuccessListener { url ->
@@ -460,9 +461,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     private fun guardarImagenEnFirebase(imageUri: Uri?) {
         if (imageUri != null) {
-            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
             if (userId != null) {
-                val storageRef = storage.reference
+                val storageRef = FirebaseDB.getInstanceStorage().reference
                 val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
                 // Subir la imagen a Firebase Storage con el nuevo nombre
@@ -522,10 +523,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun guardarImagen(bitmap: Bitmap?) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
 
         if (userId != null) {
-            val storageRef = storage.reference
+            val storageRef = FirebaseDB.getInstanceStorage().reference
             val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
             // Guardar la imagen en Firebase Storage
