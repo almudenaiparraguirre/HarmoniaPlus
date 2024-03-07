@@ -6,11 +6,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.models.entity.User
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
+import com.mariana.harmonia.models.db.FirebaseDB
 
 class UserDao {
 
     companion object {
-        private val db = FirebaseFirestore.getInstance()
+        private val db = FirebaseDB.getInstanceFirestore()
         private val usersCollection = db.collection("usuarios")
 
         //CREA EL USUARIO
@@ -79,7 +80,7 @@ class UserDao {
         }
 
         fun getEmail(email: String){
-            val db = FirebaseFirestore.getInstance()
+
             val usuarios = db.collection("usuarios")
             val stateQuery = usuarios.whereEqualTo("email", email)
             // Ejecutar la consulta y obtener el resultado

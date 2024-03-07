@@ -21,6 +21,7 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.FirebaseStorage
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
 import kotlinx.coroutines.runBlocking
@@ -38,9 +39,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.degradadoTexto(this, R.id.VolverInicioSesion,R.color.rosa,R.color.morado)
         Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseDB.getInstanceFirebase()
         val db = Firebase.firestore
-        storage = FirebaseStorage.getInstance()
+        storage = FirebaseDB.getInstanceStorage()
 
 
     }
@@ -103,7 +104,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     private fun establecerFotoPerfilPorDefecto(email: String) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
         val storageRef = storage.reference
         val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/pablo.png")
         val userImageRef = storageRef.child("imagenesPerfilGente/$userId.jpg")

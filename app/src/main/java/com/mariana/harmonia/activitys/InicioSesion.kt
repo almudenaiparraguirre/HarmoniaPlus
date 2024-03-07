@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.R
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.HashUtils
 
 class InicioSesion : AppCompatActivity() {
@@ -18,7 +19,7 @@ class InicioSesion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.inicio_sesion_activity)
-        firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseDB.getInstanceFirebase()
     }
 
     private fun signIn(email: String, contrasena: String) {

@@ -15,6 +15,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.models.db.FirebaseDB
 
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -38,7 +39,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         // Inicializa FirebaseAuth
-        auth = FirebaseAuth.getInstance()
+        auth = FirebaseDB.getInstanceFirebase()
 
         boton.setOnClickListener {
             val emailText = email.text.toString().trim()

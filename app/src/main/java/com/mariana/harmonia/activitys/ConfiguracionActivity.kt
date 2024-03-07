@@ -37,6 +37,7 @@ import com.google.firebase.firestore.auth.User
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.databinding.InicioSesionActivityBinding
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 
 class ConfiguracionActivity : AppCompatActivity() {
@@ -53,7 +54,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var switchSonidos: Switch
     private var sonidosActivados: Boolean = false
-    val auth: FirebaseAuth = FirebaseAuth.getInstance()
+    val auth: FirebaseAuth = FirebaseDB.getInstanceFirebase()
 
     companion object {
         const val SHARED_PREFS = "sharedPrefs"
@@ -168,7 +169,7 @@ class ConfiguracionActivity : AppCompatActivity() {
             Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
         }
         else{
-            UserDao.actualizarContrasena(Firebase.auth.currentUser?.email.toString(), contrasenaNueva.toString())
+            UserDao.actualizarContrasena(FirebaseDB.getInstanceFirebase().currentUser?.email.toString(), contrasenaNueva.toString())
             Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
         }
     }
@@ -221,7 +222,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     }
 
     fun volverModoJuego(view: View){
-        val user = Firebase.auth.currentUser
+        val user = FirebaseDB.getInstanceFirebase().currentUser
         user?.let {
             val name = it.displayName
             val email = it.email
@@ -252,7 +253,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private fun eliminarMiCuenta() {
         mediaPlayer.start()
         //UserDao.eliminarUsuario(auth.currentUser?.email.toString())
-        val user = Firebase.auth.currentUser!!
+        val user = FirebaseDB.getInstanceFirebase().currentUser!!
 
         user.delete()
             .addOnCompleteListener { task ->
