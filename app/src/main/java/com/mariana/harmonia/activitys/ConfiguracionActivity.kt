@@ -45,13 +45,14 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var contrasenaAnterior: EditText
     private lateinit var contrasenaNueva: EditText
-    private lateinit var correoAnterior: EditText
-    private lateinit var correoNuevo: EditText
     private lateinit var buttonCambiarContra: Button
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchMusica: Switch
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchOtraOpcion: Switch
     private lateinit var textViewEliminarCuenta: TextView
     private lateinit var sharedPreferences: SharedPreferences
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchSonidos: Switch
     private var sonidosActivados: Boolean = false
     val auth: FirebaseAuth = FirebaseDB.getInstanceFirebase()
@@ -141,6 +142,14 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    fun irPerfilUsuario(view: View){
+        mediaPlayer.start()
+        val intent = Intent(this, PerfilUsuarioActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
+    }
+
     private fun vibrarDispositivo() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
@@ -151,16 +160,17 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    private fun guardarEstadoSwitch(key: String, value: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(key, value)
-        editor.apply()
-    }
+    fun volverModoJuego(view: View){
+        val user = FirebaseDB.getInstanceFirebase().currentUser
+        user?.let {
+            val name = it.displayName
+            val email = it.email
+            val photoUrl = it.photoUrl
 
-    private fun guardarEstadoSonidosSwitch(value: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean("sonidosSwitchState", value)
-        editor.apply()
+            println("$name - $email")
+        }
+        mediaPlayer.start()
+        onBackPressed()
     }
 
     fun actualizarContrasena(){
@@ -174,32 +184,16 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    fun actualizarCorreo(view: View) {
-        mediaPlayer.start()
-
-        if (correoAnterior.text.toString() == correoNuevo.text.toString()) {
-            Toast.makeText(this, "Los correos introducidos son iguales", Toast.LENGTH_SHORT).show()
-        } else {
-            Utils.setCorreo(correoNuevo.text.toString())
-            Toast.makeText(this, "El correo se ha actualizado con éxito", Toast.LENGTH_SHORT).show()
-        }
+    private fun guardarEstadoSwitch(key: String, value: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(key, value)
+        editor.apply()
     }
 
-    private fun mostrarDialogoConfirmacion() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Eliminar Cuenta")
-        builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás todos los progresos")
-        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-            mediaPlayer.start()
-            eliminarMiCuenta()
-        }
-        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
-            mediaPlayer.start()
-            dialog.dismiss()
-        }
-
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+    private fun guardarEstadoSonidosSwitch(value: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("sonidosSwitchState", value)
+        editor.apply()
     }
 
     private fun configurarSwitchColor(switch: Switch) {
@@ -221,27 +215,6 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    fun volverModoJuego(view: View){
-        val user = FirebaseDB.getInstanceFirebase().currentUser
-        user?.let {
-            val name = it.displayName
-            val email = it.email
-            val photoUrl = it.photoUrl
-
-            println(name + " - " + email)
-        }
-        mediaPlayer.start()
-        onBackPressed()
-    }
-
-    fun irPerfilUsuario(view: View){
-        mediaPlayer.start()
-        val intent = Intent(this, PerfilUsuarioActivity::class.java)
-        startActivity(intent)
-        finish()
-        overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
-    }
-
     fun cerrarSesionConfig(view: View){
         mediaPlayer.start()
         auth.signOut()
@@ -252,7 +225,6 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     private fun eliminarMiCuenta() {
         mediaPlayer.start()
-        //UserDao.eliminarUsuario(auth.currentUser?.email.toString())
         val user = FirebaseDB.getInstanceFirebase().currentUser!!
 
         user.delete()
@@ -268,4 +240,22 @@ class ConfiguracionActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun mostrarDialogoConfirmacion() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Eliminar Cuenta")
+        builder.setMessage("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás todos los progresos")
+        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
+            mediaPlayer.start()
+            eliminarMiCuenta()
+        }
+        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
+            mediaPlayer.start()
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
 }
