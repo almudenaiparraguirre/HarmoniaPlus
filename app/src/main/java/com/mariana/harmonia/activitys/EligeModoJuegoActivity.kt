@@ -42,7 +42,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         Utils.isExternalStorageReadable()
 
         val imageView: ImageView = findViewById(R.id.fondoImageView)
-        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_principal)
         imageView.startAnimation(anim)
 
         nombreTextView = findViewById(R.id.nombreModoDeJuego)

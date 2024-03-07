@@ -5,6 +5,8 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
@@ -85,7 +87,9 @@ class derrota_activity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)
         mediaPlayer.setVolume(0.5f, 0.5f);
         mediaPlayer.start()
-
+        val imageView: ImageView = findViewById(R.id.fondoImageView)
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_pantallas_fin)
+        imageView.startAnimation(anim)
 
     }
 

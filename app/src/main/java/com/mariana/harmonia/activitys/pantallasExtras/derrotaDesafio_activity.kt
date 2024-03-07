@@ -6,6 +6,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
@@ -13,7 +15,6 @@ import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.utils.Utils
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 class derrotaDesafio_activity : AppCompatActivity() {
@@ -57,6 +58,11 @@ class derrotaDesafio_activity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.desafio_finish_sound)
         mediaPlayer.setVolume(0.5f,0.5f);
         mediaPlayer.start()
+
+        val imageView: ImageView = findViewById(R.id.fondoImageView)
+        val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_pantallas_fin)
+        imageView.startAnimation(anim)
+
         actualizarDatosInterfaz()
     }
 
