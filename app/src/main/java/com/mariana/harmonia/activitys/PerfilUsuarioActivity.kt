@@ -40,6 +40,7 @@ import java.io.InputStream
 import android.util.Base64
 import androidx.core.view.marginBottom
 import androidx.core.view.marginTop
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.google.android.gms.fido.fido2.api.common.RequestOptions
@@ -53,6 +54,7 @@ import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.utils.Utils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -66,7 +68,9 @@ import kotlin.random.Random
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private lateinit var nombreUsuarioTextView: TextView
+        @SuppressLint("StaticFieldLeak")
         private lateinit var gmailUsuarioTextView: TextView
         private const val REQUEST_CAMERA = 123
     }
@@ -109,43 +113,46 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "bendicion", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
     // FUN --> OnCreate
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "CutPasteId")
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.perfil_usuario_activity)
         binding = PerfilUsuarioActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        cardViewPerfil = findViewById(R.id.cardview_perfil)
-        imagen = findViewById(R.id.roundedImageView)
-        lapiz = findViewById(R.id.lapiz_editar)
-        nivelRango = findViewById(R.id.nivelHabilidad)
+        binding.apply {
+            cardViewPerfil = findViewById(R.id.cardview_perfil)
+            imagen = findViewById(R.id.roundedImageView)
+            lapiz = findViewById(R.id.lapiz_editar)
+            nivelRango = findViewById(R.id.nivelHabilidad)
+            editText = findViewById(R.id.nombre_usuario)
+            nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
+            gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
+            originalText = editText.text
+
+            // Porcentaje barra Experiencia
+            progressBar1 = findViewById(R.id.progressBarLogro1)
+            porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
+            progressBar2 = findViewById(R.id.progressBarLogro2)
+            porcentajeTextView2 = findViewById(R.id.TextViewLogro2)
+            progressBar3 = findViewById(R.id.progressBarLogro3)
+            porcentajeTextView3 = findViewById(R.id.TextViewLogro3)
+            progressBar4 = findViewById(R.id.progressBarLogro4)
+            porcentajeTextView4 = findViewById(R.id.TextViewLogro4)
+            progressBar5 = findViewById(R.id.progressBarLogro5)
+            porcentajeTextView5 = findViewById(R.id.TextViewLogro5)
+            progressBar6 = findViewById(R.id.progressBarLogro6)
+            porcentajeTextView6 = findViewById(R.id.TextViewLogro6)
+            progressBar7 = findViewById(R.id.progressBarLogro7)
+            porcentajeTextView7 = findViewById(R.id.TextViewLogro7)
+            progressBar8 = findViewById(R.id.progressBarLogro8)
+            porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
+        }
+
         fechaRegistro = findViewById(R.id.fechaRegistro)
-        editText = findViewById(R.id.nombre_usuario)
-        nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
-        gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
         nivelTextView = findViewById(R.id.nivelTextView)
         precisionTextView = findViewById(R.id.precisionTextView)
         experienciaTextView = findViewById(R.id.experienciaTextView)
         centerCircle = findViewById(R.id.centerCircle)
-        originalText = editText.text
-
-        // Porcentaje barra Experiencia
-        progressBar1 = findViewById(R.id.progressBarLogro1)
-        porcentajeTextView1 = findViewById(R.id.TextViewLogro1)
-        progressBar2 = findViewById(R.id.progressBarLogro2)
-        porcentajeTextView2 = findViewById(R.id.TextViewLogro2)
-        progressBar3 = findViewById(R.id.progressBarLogro3)
-        porcentajeTextView3 = findViewById(R.id.TextViewLogro3)
-        progressBar4 = findViewById(R.id.progressBarLogro4)
-        porcentajeTextView4 = findViewById(R.id.TextViewLogro4)
-        progressBar5 = findViewById(R.id.progressBarLogro5)
-        porcentajeTextView5 = findViewById(R.id.TextViewLogro5)
-        progressBar6 = findViewById(R.id.progressBarLogro6)
-        porcentajeTextView6 = findViewById(R.id.TextViewLogro6)
-        progressBar7 = findViewById(R.id.progressBarLogro7)
-        porcentajeTextView7 = findViewById(R.id.TextViewLogro7)
-        progressBar8 = findViewById(R.id.progressBarLogro8)
-        porcentajeTextView8 = findViewById(R.id.TextViewLogro8)
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         val storageRef: StorageReference = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
@@ -160,12 +167,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         crearMenuSuperior()
         setPorcentajesLogros()
 
-        runBlocking {
+        lifecycleScope.launch {
             downloadImage()
             downloadImage2()
         }
     }
 
+    // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {
         val storageRef = storage.reference
         val etapa = obtenerNombreEtapa()
@@ -196,10 +204,18 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    // Guarda la imagen de perfil del usuario en Firebase
     private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
         withContext(Dispatchers.IO) {
             val userId = FirebaseAuth.getInstance().currentUser?.uid
-            val newImageName = "nuevo_nombre.jpg"
+
+            // Delete the old image from Firebase Storage
+            val oldImageRef = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
+            try {
+                Tasks.await(oldImageRef.delete())
+            } catch (exception: Exception) {
+                println("Error deleting old image: ${exception.message}")
+            }
 
             // Descarga la imagen en un Bitmap
             val bitmap = Glide.with(this@PerfilUsuarioActivity)
@@ -208,28 +224,25 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 .submit()
                 .get()
 
-            // Guarda la imagen en un archivo temporal con el nuevo nombre
-            val newImageFile = File.createTempFile("temp", ".jpg", cacheDir)
-            val outputStream = FileOutputStream(newImageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            outputStream.flush()
-            outputStream.close()
-
-            // Sube la nueva imagen a Firebase Storage con el nuevo nombre
-            val newImageRef = storage.reference.child("imagenesPerfilGente").child("$userId/$newImageName")
-            val newImageUri = Uri.fromFile(newImageFile)
-
+            // Sube la nueva imagen a Firebase Storage con el nombre del usuario
+            val newImageRef = storage.reference.child("imagenesPerfilGente").child("$userId.jpg")
             try {
-                Tasks.await(newImageRef.putFile(newImageUri))
+                // Save the new image to Firebase Storage
+                val baos = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                val data = baos.toByteArray()
+
+                Tasks.await(newImageRef.putBytes(data))
 
                 // Now you can use newImageRef to show the image in your app if needed
             } catch (exception: Exception) {
-                println("Error al subir la nueva imagen: ${exception.message}")
+                println("Error uploading new image: ${exception.message}")
             }
         }
     }
 
 
+    //Descarga de Firebase la imagen de perfil correspondiente al usuario
     private fun downloadImage2() {
         val storageRef = storage.reference
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -249,6 +262,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    // Obtiene el nombre de etapa según el nivel del usuario
     private suspend fun obtenerNombreEtapa(): String {
         val etapa: String? = when (Utils.getNivelActual()) {
             in 1..10 -> mutableList[0]
@@ -272,6 +286,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         precisionTextView.text =Utils.getMediaPrecisiones().toString()+"%"
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setPorcentajesLogros() {
         val porcentaje1 = 10
         progressBar1.progress = porcentaje1
@@ -306,6 +321,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView8.text = "$porcentaje8/100"
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun crearMenuSuperior() {
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
@@ -319,8 +335,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
             false
         }
-
-
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -388,22 +402,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
-    }
-
-    private fun obtenerUltimoNivelCompletado(nivelesJson: JSONObject?): Int? {
-        val nivelesArray = nivelesJson?.getJSONArray("niveles")
-
-        if (nivelesArray != null) {
-            for (i in nivelesArray.length() - 1 downTo 0) {
-                val nivel = nivelesArray.getJSONObject(i)
-                val completado = nivel.getBoolean("completado")
-
-                if (completado) {
-                    return nivel.getInt("id")
-                }
-            }
-        }
-        return null
     }
 
     // FUN --> Mostrar la imagen del perfil en grande
@@ -481,41 +479,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    private fun descargarYGuardarImagen(imageUri: Uri?) {
-        if (imageUri != null) {
-            val inputStream: InputStream? = contentResolver.openInputStream(imageUri)
-
-            // Convertir la imagen a una cadena Base64
-            val base64String = inputStream?.readBytes()?.toString(Charsets.ISO_8859_1)
-
-            // Crear o recuperar el archivo "imagenes.txt" en el directorio de almacenamiento externo
-            val file = File(getExternalFilesDir(null), "imagenes.txt")
-
-            try {
-                // Crear un flujo de salida para escribir en el archivo
-                val fileOutputStream = FileOutputStream(file)
-
-                // Escribir la cadena Base64 en el archivo
-                fileOutputStream.write(base64String?.toByteArray(Charsets.ISO_8859_1))
-
-                // Cerrar los flujos de entrada y salida
-                inputStream?.close()
-                fileOutputStream.close()
-
-                // Mostrar un mensaje de éxito
-                Toast.makeText(
-                    this,
-                    "Imagen descargada y guardada correctamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } catch (e: IOException) {
-                e.printStackTrace()
-                Toast.makeText(this, "Error al descargar y guardar la imagen", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        }
-    }
-
     fun volverModoJuego(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -580,13 +543,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         } else {
             println("El ID del usuario es nulo.")
         }
-    }
-
-    private fun encodeBitmapToBase64(bitmap: Bitmap?): String {
-        val baos = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.PNG, 100, baos)
-        val b: ByteArray = baos.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
