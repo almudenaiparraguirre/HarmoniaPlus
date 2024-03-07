@@ -11,12 +11,10 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
@@ -24,7 +22,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
-import kotlinx.coroutines.runBlocking
+import com.mariana.harmonia.utils.Utils
 import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
@@ -36,8 +34,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
-        Utilidades.degradadoTexto(this, R.id.VolverInicioSesion,R.color.rosa,R.color.morado)
-        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.VolverInicioSesion,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         firebaseAuth = FirebaseDB.getInstanceFirebase()
         val db = Firebase.firestore
@@ -55,7 +53,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

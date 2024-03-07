@@ -1,10 +1,13 @@
 package com.mariana.harmonia.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Build
@@ -32,334 +35,7 @@ import java.util.Locale
 
 class Utils {
     companion object {
-        var firebaseAuth = FirebaseDB.getInstanceFirebase()
-        var db =  FirebaseDB.getInstanceFirestore()
-        var currentUser = firebaseAuth.currentUser
-        var email = currentUser?.email?.lowercase()
 
-        var usersCollection = db.collection("usuarios")
-
-        var emailEncriptado = HashUtils.sha256(email!!)
-
-
-        suspend fun getCorreo(): String? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val nivelActual = document.data?.get("correo")
-                    println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-        suspend fun getNombre(): String? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val nivelActual = document.data?.get("name")
-                    println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-
-        suspend fun getExperiencia(): Int? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val experiencia = document.data?.get("experiencia") as? Long
-                    experiencia?.toInt()
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-
-        suspend fun getNivelActual(): Int? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val nivelActual = document.data?.get("nivelActual")
-                    println("Nivel actual: $nivelActual")
-                    (nivelActual as? Long)?.toInt() // Convertir a Int
-                } else {
-                    println("No existe el documento")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error al obtener documentos: $exception")
-                null
-            }
-        }
-
-        suspend fun getVidas(): String? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val nivelActual = document.data?.get("vidas")
-                    println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-        suspend fun getPrecisiones(): List<Int>? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val precisionesList = document.data?.get("precisiones") as? List<Int>
-                    println("precisiones: $precisionesList")
-                    precisionesList
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-        suspend fun getPuntuacionDesafio(): Pair<Int, Int>? {
-            val docRef = db.collection("usuarios").document(emailEncriptado)
-
-            return try {
-                val document = docRef.get().await()
-                if (document.exists()) {
-                    val precisionesList = document.data?.get("precisiones") as? List<Int>
-                    println("precisiones: $precisionesList")
-
-                    if (precisionesList != null && precisionesList.size >= 2) {
-                        Pair(precisionesList[0], precisionesList[1])
-                    } else {
-                        null
-                    }
-                } else {
-                    println("No such document")
-                    null
-                }
-            } catch (exception: Exception) {
-                println("Error getting documents: $exception")
-                null
-            }
-        }
-
-
-        @SuppressLint("SimpleDateFormat")
-        fun obtenerFechaActualEnTexto(): String {
-            val fechaActual: String
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                // Para versiones de Android 8.0 y superiores
-                val currentDate = java.time.LocalDate.now()
-                val formatter = java.time.format.DateTimeFormatter.ofPattern(
-                    "MMMM 'de' yyyy",
-                    Locale.getDefault()
-                )
-                fechaActual = currentDate.format(formatter)
-            } else {
-                // Para versiones anteriores a Android 8.0
-                val currentDate = Calendar.getInstance().time
-                val formato = SimpleDateFormat("MMMM 'de' yyyy", Locale.getDefault())
-                fechaActual = formato.format(currentDate)
-            }
-
-            return fechaActual
-        }
-
-
-        fun setCorreo(correo: String) {
-            val data = hashMapOf(
-                "correo" to correo
-                // Agrega cualquier otro campo que necesites actualizar
-            )
-
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Correo actualizado para el usuario con email: $email")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(
-                        ContentValues.TAG,
-                        "Error al actualizar correo para el usuario con email: $email",
-                        e
-                    )
-                }
-        }
-
-        fun setExperiencia(nuevaExperiencia: Int) {
-            val data = hashMapOf(
-                "experiencia" to nuevaExperiencia
-                // Agrega cualquier otro campo que necesites actualizar
-            )
-
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(
-                        ContentValues.TAG,
-                        "Experiencia actualizada para el usuario con email: $email"
-                    )
-                }
-                .addOnFailureListener { e ->
-                    Log.w(
-                        ContentValues.TAG,
-                        "Error al actualizar experiencia para el usuario con email: $email",
-                        e
-                    )
-                }
-        }
-
-        fun setNivelActual(nuevoNivelActual: Int) {
-            val data = hashMapOf(
-                "nivelActual" to nuevoNivelActual
-                // Agrega cualquier otro campo que necesites actualizar
-            )
-
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(
-                        ContentValues.TAG,
-                        "NivelActual actualizada para el usuario con email: $email"
-                    )
-                }
-                .addOnFailureListener { e ->
-                    Log.w(
-                        ContentValues.TAG,
-                        "Error al actualizar NivelActual para el usuario con email: $email",
-                        e
-                    )
-                }
-        }
-
-        fun setVidas(nuevaVidas: Int) {
-            val data = hashMapOf(
-                "vidas" to nuevaVidas
-                // Agrega cualquier otro campo que necesites actualizar
-            )
-
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(
-                        ContentValues.TAG,
-                        "nuevaVidas actualizada para el usuario con email: $email"
-                    )
-                }
-                .addOnFailureListener { e ->
-                    Log.w(
-                        ContentValues.TAG,
-                        "Error al actualizar nuevaVidas para el usuario con email: $email",
-                        e
-                    )
-                }
-        }
-
-        fun setPrecisiones(precisiones: List<Int>) {
-            val data = hashMapOf(
-                "precisiones" to precisiones
-            )
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Precisión actualizada correctamente")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la precisión", e)
-                }
-        }
-
-        fun setPuntuacionDesafio(puntuacion: Pair<Int, Int>) {
-            val data = hashMapOf(
-                "puntuacionDesafio" to puntuacion
-            )
-            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
-                }
-        }
-
-        @RequiresApi(Build.VERSION_CODES.O)
-        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int, Int>) {
-            val desafioCollection = db.collection("desafio")
-            val currentDateTime = java.time.LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm-ss")
-            val fechaActual = currentDateTime.format(formatter) + " User=" + currentUser?.email
-
-            println(fechaActual)
-
-            val data = hashMapOf(
-                fechaActual to puntuacion
-            )
-            desafioCollection.document("puntuaciones").update(data as Map<String, Any>)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
-                }
-        }
-
-
-        suspend fun getMediaPrecisiones(): Int {
-            val precisionesList = Utils.getPrecisiones() ?: return 0
-
-            if (precisionesList.isNotEmpty()) {
-                var suma = 0
-                var contador = 0
-
-                for (precision in precisionesList) {
-                    if (precision != 0) {
-                        suma += precision
-                        contador++
-                    }
-                }
-
-                return if (contador > 0) {
-                    suma / contador
-                } else {
-                    0
-                }
-            }
-
-            return 0
-        }
 
         fun readJsonFromRaw(resourceId: Int, context: Context): String {
             val inputStream: InputStream = context.resources.openRawResource(resourceId)
@@ -461,6 +137,28 @@ class Utils {
             return result.toString()
 
         }
+        fun salirAplicacion(activity: Activity){
+            activity.finishAffinity()
+        }
+
+        fun degradadoTexto(contexto: Context, id: Int, colorRosa: Int, colorMorado: Int) {
+            val titleTextView = (contexto as Activity).findViewById<TextView>(id)
+            val paint = titleTextView.paint
+            val width = paint.measureText(titleTextView.text.toString())
+
+            titleTextView.paint.shader = LinearGradient(
+                0f, 0f, width, titleTextView.textSize,
+                intArrayOf(
+                    contexto.resources.getColor(colorRosa),
+                    contexto.resources.getColor(colorMorado)
+                ),
+                null,
+                Shader.TileMode.CLAMP
+            )
+        }
 
     }
+
+
 }
+

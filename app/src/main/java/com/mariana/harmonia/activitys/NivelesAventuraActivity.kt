@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.Utils
+import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.IOException
@@ -54,8 +55,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
     }
 
     private fun inicializarConBase()= runBlocking {
-        nivelActual = Utils.getNivelActual()!!
-        corazonesTextView.text = Utils.getVidas().toString()
+        nivelActual = UtilsDB.getNivelActual()!!
+        corazonesTextView.text = UtilsDB.getVidas().toString()
     }
 
 

@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.View
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.utils.Utils
 
 class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.contrasena_restablecida_correctamente_activity)
-        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
     }
 
     // FUN --> Iniciar sesión
@@ -25,6 +25,6 @@ class ContrasenaRestablecidaCorrectamenteActivity : AppCompatActivity(), Plantil
 
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 }

@@ -54,6 +54,7 @@ import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
+import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -265,7 +266,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     // Obtiene el nombre de etapa según el nivel del usuario
     private suspend fun obtenerNombreEtapa(): String {
-        val etapa: String? = when (Utils.getNivelActual()) {
+        val etapa: String? = when (UtilsDB.getNivelActual()) {
             in 1..10 -> mutableList[0]
             in 11..20 -> mutableList[1]
             in 21..30 -> mutableList[2]
@@ -279,12 +280,12 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun inicializarConBase() = runBlocking{
-        fechaRegistro.text = "Se unió en " + Utils.obtenerFechaActualEnTexto()
-        nombreUsuarioTextView.text = Utils.getNombre()
-        gmailUsuarioTextView.text = Utils.getCorreo()
-        experienciaTextView.text = Utils.getExperiencia().toString()
-        nivelTextView.text= Utils.getNivelActual().toString()
-        precisionTextView.text =Utils.getMediaPrecisiones().toString()+"%"
+        fechaRegistro.text = "Se unió en " + UtilsDB.obtenerFechaActualEnTexto()
+        nombreUsuarioTextView.text = UtilsDB.getNombre()
+        gmailUsuarioTextView.text = UtilsDB.getCorreo()
+        experienciaTextView.text = UtilsDB.getExperiencia().toString()
+        nivelTextView.text= UtilsDB.getNivelActual().toString()
+        precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
     }
 
     @SuppressLint("SetTextI18n")

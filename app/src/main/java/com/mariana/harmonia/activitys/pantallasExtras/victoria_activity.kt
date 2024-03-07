@@ -11,8 +11,8 @@ import android.widget.TextView
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.utils.Utils
+import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
 class victoria_activity : AppCompatActivity() {
@@ -88,7 +88,7 @@ class victoria_activity : AppCompatActivity() {
         emogiTextView = findViewById(R.id.emogiTextView)
         victoriaTextView = findViewById(R.id.victoriaTextView)
         frasesTextView = findViewById(R.id.fraseTextView)
-        Utilidades.degradadoTexto(this, victoriaTextView.id, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, victoriaTextView.id, R.color.rosa, R.color.morado)
         emogiTextView.text = emojis.random().toString()
         frasesTextView.text = frases.random().toString()
 
@@ -105,11 +105,11 @@ class victoria_activity : AppCompatActivity() {
 
     private fun actualizarDatos() = runBlocking {
         try {
-            Utils.setNivelActual(nivel + 1)
-            Utils.setExperiencia((Utils.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
-            var precisionesList = Utils.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
+            UtilsDB.setNivelActual(nivel + 1)
+            UtilsDB.setExperiencia((UtilsDB.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
+            var precisionesList = UtilsDB.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
             precisionesList[nivel - 1] = precision
-            Utils.setPrecisiones(precisionesList)
+            UtilsDB.setPrecisiones(precisionesList)
         } catch (e: IndexOutOfBoundsException) {
             // Manejar la excepción aquí
             println("Índice fuera de los límites: ${e.message}")

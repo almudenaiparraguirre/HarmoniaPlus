@@ -11,7 +11,8 @@ import android.widget.TextView
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades.Companion.degradadoTexto
+import com.mariana.harmonia.utils.Utils
+
 
 class derrota_activity : AppCompatActivity() {
 
@@ -81,7 +82,7 @@ class derrota_activity : AppCompatActivity() {
         emogiTextView = findViewById(R.id.emogiTextView)
         derrotaTextView = findViewById(R.id.derrotaTextView)
         frasesTextView = findViewById(R.id.fraseTextView)
-        degradadoTexto(this, derrotaTextView.id, R.color.rojo, R.color.negro)
+        Utils.degradadoTexto(this, derrotaTextView.id, R.color.rojo, R.color.negro)
         emogiTextView.text = emojis.random().toString()
         frasesTextView.text = frases.random().toString()
         mediaPlayer = MediaPlayer.create(this, R.raw.lose_sound)

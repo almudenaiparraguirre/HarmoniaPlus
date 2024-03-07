@@ -12,8 +12,8 @@ import android.view.View
 import android.widget.TextView
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.utils.Utils
 
 class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -26,7 +26,7 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.envio_codigo_activity)
 
-        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         textoNoRecibido = findViewById(R.id.textoNoRecibido)
         textoNoRecibido.isEnabled = false
@@ -95,6 +95,6 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
     fun irSalir(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 }

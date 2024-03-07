@@ -11,8 +11,8 @@ import android.widget.Button
 import android.widget.EditText
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
+import com.mariana.harmonia.utils.Utils
 
 class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -95,6 +95,6 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     fun irSalir(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 }

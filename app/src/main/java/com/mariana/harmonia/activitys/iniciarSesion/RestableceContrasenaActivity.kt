@@ -13,9 +13,9 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
+import com.mariana.harmonia.utils.Utils
 
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -36,7 +36,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
-        Utilidades.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         // Inicializa FirebaseAuth
         auth = FirebaseDB.getInstanceFirebase()
@@ -95,6 +95,6 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Salir de la aplicación
     fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 }

@@ -13,8 +13,8 @@ import androidx.annotation.RequiresApi
 import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.Utilidades
 import com.mariana.harmonia.utils.Utils
+import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
 class derrotaDesafio_activity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
         emogiTextView.text = emojis.random().toString()
         textViewResultadoTotal.text = "Total: $notasHacertadas"
         textViewResultadoTiempo.text = "Tiempo: $tiempo s"
-        Utilidades.degradadoTexto(this, finTextView.id, R.color.morado, R.color.negro)
+        Utils.degradadoTexto(this, finTextView.id, R.color.morado, R.color.negro)
 
         //sonido
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
@@ -69,10 +69,10 @@ class derrotaDesafio_activity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
         val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
-        val puntuacionDB = Utils.getPuntuacionDesafio()
+        val puntuacionDB = UtilsDB.getPuntuacionDesafio()
         val mayorHaciertos = puntuacionDB?.first ?:0
-        Utils.setPuntuacionDesafio(puntuacion)
-        Utils.setPuntuacionDesafioGlobal(puntuacion)
+        UtilsDB.setPuntuacionDesafio(puntuacion)
+        UtilsDB.setPuntuacionDesafioGlobal(puntuacion)
     }
 
     fun irRepetir(view: View) {

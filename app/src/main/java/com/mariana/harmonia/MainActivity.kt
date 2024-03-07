@@ -20,12 +20,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
-import com.mariana.harmonia.activitys.Utilidades
-import com.mariana.harmonia.activitys.Utilidades.Companion.degradadoTexto
+
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.media.MediaPlayer
 import androidx.annotation.RequiresApi
@@ -49,9 +47,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
-        degradadoTexto(this, R.id.registrateTextView,R.color.rosa,R.color.morado)
-        degradadoTexto(this, R.id.recuerdasContrasena,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.registrateTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.recuerdasContrasena,R.color.rosa,R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
@@ -180,11 +178,11 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun irSalir(view: View) {
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
     }
 
     override fun onBackPressed() {
-        Utilidades.salirAplicacion(this)
+        Utils.salirAplicacion(this)
         super.onBackPressed()
     }
 
