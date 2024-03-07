@@ -132,7 +132,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
                     val encriptado = HashUtils.sha256(email!!.lowercase())
                     println(email+"/"+encriptado)
                     println("ENCRIPTADO: $encriptado")
-                    val user = User(email = emailEncriptado  , name = nombre,correo = email.lowercase(), 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                    val user = User(email = emailEncriptado  , name = nombre,correo = email.lowercase(), 0, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
                     UserDao.addUser(user)
                     establecerFotoPerfilPorDefecto(email)
