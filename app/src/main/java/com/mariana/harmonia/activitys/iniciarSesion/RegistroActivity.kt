@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mariana.harmonia.MainActivity
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {

@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:onClick="menu_perfil"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
             android:layout_weight="0.66">
@@ -60,7 +62,9 @@
                         android:layout_gravity="center"
                         android:clickable="true"
                         android:onClick="menu_perfil"
-                        android:src="@mipmap/img_perfil_luis_golden" />
+                        android:src="@mipmap/img_perfil_luis_golden"
+                        android:scaleType="centerCrop"
+                        />
                 </androidx.cardview.widget.CardView>
 
                 <TextView
