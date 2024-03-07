@@ -9,11 +9,15 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
@@ -25,12 +29,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var porcentajeTextView: TextView
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
-
-
-    companion object {
-        private const val PREFS_NAME = "MyPrefsFile"
-        private const val SESSION_KEY = "isSessionActive"
-    }
+    var storage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +51,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         inicilalizarVariablesThis()
         inicializarConBase()
+
+        lifecycleScope.launch {
+            downloadImage2()
+        }
     }
     fun inicializarConBase() = runBlocking {
         var nivel = Utils.getExperiencia()!!/100
@@ -68,6 +71,26 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         Utils.serializeImage(this,R.mipmap.img_gema)
         imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
+    }
+
+
+    private fun downloadImage2() {
+        val storageRef = storage.reference
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
+
+        imagesRef.downloadUrl.addOnSuccessListener { url ->
+            Glide.with(this)
+                .load(url)
+                .into(imageViewFotoPerfil)
+
+            // Call the function to change the name and upload the image
+            /*runBlocking {
+                changeAndUploadImage(url)
+            }*/
+        }.addOnFailureListener { exception ->
+            println("Error al cargar la imagen: ${exception.message}")
+        }
     }
 
     fun menu_perfil(view: View){
