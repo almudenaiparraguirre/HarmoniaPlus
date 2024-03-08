@@ -114,21 +114,22 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     private fun establecerFotoPerfilPorDefecto(userId: String) {
         val storageRef = storage.reference
+
+        // Seleccionar aleatoriamente una imagen de la lista
+        val imagenAleatoria = randomImagenInstrumentos.random()
+
         // Nombre de la imagen por defecto en Firebase Storage
-        val imagenPorDefecto = "fotoperfil_acordeon.jpg"
+        val imagenPorDefecto = "$imagenAleatoria.jpg"
         val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/$imagenPorDefecto")
         val userImageRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
 
         // Crear un archivo temporal para descargar la imagen por defecto
         val localFile = File.createTempFile("temp_image", "jpg")
 
-        // Descargar la imagen por defecto al archivo temporal
         defaultProfileImageRef.getFile(localFile)
             .addOnSuccessListener {
-                // Subir la imagen descargada al perfil del usuario con el nuevo nombre
                 userImageRef.putFile(Uri.fromFile(localFile))
                     .addOnSuccessListener {
-                        // Ahora, puedes guardar la URL de la nueva imagen del usuario en la base de datos si es necesario
                         guardarUrlImagenPorDefectoEnBaseDeDatos(userId)
                         Log.d(TAG, "Imagen de perfil predeterminada establecida para el usuario: $userId")
                     }
