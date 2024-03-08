@@ -360,10 +360,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     public fun cambiarTiempo(segundos: Int) {
         tiempoActual = segundos
-        if(segundos>1000){
+        if (segundos > 1000) {
             textViewTiempo.text = ""
-        }else{
-            textViewTiempo.text = segundos.toString() + "s"}
+        } else {
+            textViewTiempo.text = segundos.toString() + "s"
+        }
     }
 
 
@@ -487,7 +488,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private fun ganado() {
         val intent = Intent(this, victoria_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
-        intent.putExtra("precision",getAccuracy() ) // Aquí pasas la segunda variable
+        intent.putExtra("precision", getAccuracy()) // Aquí pasas la segunda variable
         ganado = true
 
         pararConadores()
@@ -552,7 +553,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private fun playSound(soundFile: String) {
 
 
-        val mediaPlayer = MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
+        val mediaPlayer =
+            MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
         val volume = 1f
         mediaPlayer.setVolume(volume, volume)
         mediaPlayer.start()
@@ -777,7 +779,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         builder.setTitle("Salir del nivel")
         builder.setMessage("¿Estás seguro de querer salir del nivel? Perderás todos los progresos")
         builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-            perdido=true
+            perdido = true
 
 
             finish()
@@ -838,8 +840,21 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     //metodos desafio:
-    fun getArrayAleatorio(cantidad: Int): Array<String?> {
-        val notas = arrayOf(
+
+
+    fun getNotasAleatorias(cantidad: Int, dificultad: Int): Array<String?> {
+        val notasFacil = arrayOf(
+            "4c",
+            "4d",
+            "4e",
+            "4f",
+            "4g",
+            "4a",
+            "4b",
+            "5c",
+        )
+
+        val notasMedio = arrayOf(
             "3g",
             "3a",
             "3b",
@@ -860,20 +875,65 @@ class JuegoMusicalActivity : AppCompatActivity() {
             "6c",
             "6d"
         )
+
+        val notasDificil = arrayOf(
+            "3gb",
+            "3g",
+            "3ab",
+            "3a",
+            "3bb",
+            "3b",
+            "4c",
+            "4db",
+            "4d",
+            "4eb",
+            "4e",
+            "4f",
+            "4gb",
+            "4g",
+            "4ab",
+            "4a",
+            "4bb",
+            "4b",
+            "5c",
+            "5db",
+            "5d",
+            "5eb",
+            "5e",
+            "5f",
+            "5gb",
+            "5g",
+            "5ab",
+            "5a",
+            "5bb",
+            "5b",
+            "6c",
+            "6db",
+            "6d"
+        )
+
+        val notasSeleccionadas = when (dificultad) {
+            0 -> notasFacil
+            1 -> notasMedio
+            2 -> notasDificil
+            else -> throw IllegalArgumentException("Nivel de dificultad inválido")
+        }
+
         val arrayAleatorio = arrayOfNulls<String>(cantidad)
 
         for (i in 0 until cantidad) {
-            val notaAleatoria = notas.random()
+            val notaAleatoria = notasSeleccionadas.random()
             arrayAleatorio[i] = notaAleatoria
         }
 
         return arrayAleatorio
     }
 
+
     fun cargarDatosDesafio() {
         tiempo = 60.0
         vidas = 1
-        notasArray = getArrayAleatorio(1000)
+        notasArray = getNotasAleatorias(1000,0)
 
     }
 
