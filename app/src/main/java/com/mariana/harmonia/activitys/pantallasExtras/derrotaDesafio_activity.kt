@@ -74,6 +74,8 @@ class derrotaDesafio_activity : AppCompatActivity() {
         listaPuntuaciones?.add(nuevoElemento)
         UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
         UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
+
+
     }
 
     fun irRepetir(view: View) {

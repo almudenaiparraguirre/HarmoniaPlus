@@ -383,6 +383,25 @@ class UtilsDB {
                 }
         }
 
+        fun obtenerMapaConNotasMasAlto(lista: List<Map<String, Number>>): Map<String, Number> {
+            if (lista.isEmpty()) {
+                return mapOf("notas" to 0, "tiempo" to 0)
+            }
+
+            var notasMasAlto = 0
+            var mapaConNotasMasAlto: Map<String, Number> = mapOf()
+
+            for (mapa in lista) {
+                var notas = mapa.get("notas")!!.toInt()
+                if(notas > notasMasAlto){
+
+                    notasMasAlto = notas
+                    mapaConNotasMasAlto =mapa
+                }
+            }
+
+            return mapaConNotasMasAlto
+        }
 
         suspend fun getMediaPrecisiones(): Int {
             actualizarVariables()
