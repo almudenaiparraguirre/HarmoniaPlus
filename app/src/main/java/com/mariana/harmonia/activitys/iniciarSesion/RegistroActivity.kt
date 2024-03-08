@@ -29,6 +29,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var storage: FirebaseStorage
     private lateinit var firebaseAuth: FirebaseAuth
+    var randomImagenInstrumentos: MutableList<String> = mutableListOf("fotoperfil_acordeon", "fotoperfil_bateria",
+        "fotoperfil_guitarra", "fotoperfil_harpa", "fotoperfil_maraca", "fotoperfil_piano", "fotoperfil_saxofon",
+        "fotoperfil_tambor", "fotoperfil_trompeta", "fotoperfil_tronbon")
 
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +41,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
 
         firebaseAuth = FirebaseDB.getInstanceFirebase()
-        val db = Firebase.firestore
         storage = FirebaseDB.getInstanceStorage()
-
-
     }
 
     // FUN --> Volver al inicio de sesión
@@ -101,24 +101,33 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         return regex.matches(contraseña)
     }
 
-    private fun establecerFotoPerfilPorDefecto(email: String) {
-        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
+    private fun establecerFotoPerfilPorDefecto(userId: String) {
         val storageRef = storage.reference
-        val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/pablo.png")
+        val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/XWY3x0O9oXYCJwjLVLZeSzeU1e12.jpg")
         val userImageRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
 
-        defaultProfileImageRef.getBytes(Long.MAX_VALUE).addOnSuccessListener { bytes ->
-            userImageRef.putBytes(bytes).addOnSuccessListener { _ ->
-            }.addOnFailureListener { exception ->
-                Log.e(TAG, "Error al establecer la foto de perfil por defecto: ${exception.message}")
-            }
+        defaultProfileImageRef.downloadUrl.addOnSuccessListener { uri ->
+            // Set the default image URL directly for the user
+            userImageRef.putFile(uri)
+                .addOnSuccessListener {
+                    // Now, you can save the user's default image URL in the database if needed
+                    guardarUrlImagenPorDefectoEnBaseDeDatos(userId, uri.toString())
+                    Log.d(TAG, "Default profile image set for user: $userId")
+                }
+                .addOnFailureListener { exception ->
+                    Log.e(TAG, "Error setting default profile image: ${exception.message}")
+                }
         }.addOnFailureListener { exception ->
-            Log.e(TAG, "Error al descargar la foto de perfil por defecto: ${exception.message}")
+            Log.e(TAG, "Error getting default profile image URL: ${exception.message}")
         }
     }
 
+    private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String, url: String) {
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
-     fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
+    fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         val emailEncriptado = HashUtils.sha256(email.lowercase())
         val fechaRegistro = LocalDate.now()
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
@@ -127,13 +136,13 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val userId = task.result?.user?.uid ?: ""
                     val encriptado = HashUtils.sha256(email!!.lowercase())
-                    println(email+"/"+encriptado)
-                    println("ENCRIPTADO: $encriptado")
-                    val user = User(email = emailEncriptado  , name = nombre,correo = email.lowercase(), 0, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                    println("$email/$encriptado")
+                    val user = User(email = emailEncriptado, name = nombre, correo = email.lowercase(), 0, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
                     UserDao.addUser(user)
-                    establecerFotoPerfilPorDefecto(email)
+                    establecerFotoPerfilPorDefecto(userId)
                     finish()
                 } else {
                     Toast.makeText(

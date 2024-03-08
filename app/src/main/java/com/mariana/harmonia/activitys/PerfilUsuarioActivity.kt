@@ -9,7 +9,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -30,42 +29,21 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
-import org.json.JSONObject
 import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
-import android.util.Base64
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.ImageViewTarget
-import com.google.android.gms.fido.fido2.api.common.RequestOptions
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.storage
-import com.google.firebase.storage.storageMetadata
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
-import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
-import javax.crypto.Cipher
-import javax.crypto.spec.IvParameterSpec
-import javax.crypto.spec.SecretKeySpec
-import kotlin.math.min
-import kotlin.random.Random
 
 class PerfilUsuarioActivity : AppCompatActivity() {
 
@@ -107,11 +85,16 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private lateinit var centerCircle: ImageView
     private lateinit var binding: PerfilUsuarioActivityBinding
     private lateinit var originalText: Editable
+    private lateinit var instancia: FirebaseAuth
 
     var mutableList: MutableList<String> = mutableListOf(
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
     )
+    var randomImagenInstrumentos: MutableList<String> = mutableListOf("fotoperfil_acordeon", "fotoperfil_bateria",
+        "fotoperfil_guitarra", "fotoperfil_harpa", "fotoperfil_maraca", "fotoperfil_piano", "fotoperfil_saxofon",
+        "fotoperfil_tambor", "fotoperfil_trompeta", "fotoperfil_tronbon")
+
     var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "bendicion", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
     // FUN --> OnCreate
@@ -130,6 +113,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             nombreUsuarioTextView = findViewById(R.id.nombre_usuario)
             gmailUsuarioTextView = findViewById(R.id.gmail_usuario)
             originalText = editText.text
+            instancia = FirebaseDB.getInstanceFirebase()
 
             // Porcentaje barra Experiencia
             progressBar1 = findViewById(R.id.progressBarLogro1)
@@ -173,9 +157,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             downloadImage()
             downloadImage2()
         }
-
     }
-
 
     // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {
@@ -215,14 +197,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         withContext(Dispatchers.IO) {
             val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
 
-            // Delete the old image from Firebase Storage
-            val oldImageRef = FirebaseDB.getInstanceStorage().reference.child("imagenesPerfilGente").child("$userId.jpg")
-            try {
-                Tasks.await(oldImageRef.delete())
-            } catch (exception: Exception) {
-                println("Error deleting old image: ${exception.message}")
-            }
-
             // Descarga la imagen en un Bitmap
             val bitmap = Glide.with(this@PerfilUsuarioActivity)
                 .asBitmap()
@@ -247,11 +221,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-
     //Descarga de Firebase la imagen de perfil correspondiente al usuario
     private fun downloadImage2() {
         val storageRef = FirebaseDB.getInstanceStorage().reference
-        val userId =FirebaseDB.getInstanceFirebase().currentUser?.uid
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
         val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
         imagesRef.downloadUrl.addOnSuccessListener { url ->
@@ -266,6 +239,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }.addOnFailureListener { exception ->
             println("Error al cargar la imagen: ${exception.message}")
 
+            imagen.setImageResource(R.mipmap.fotoperfil_guitarra)
         }
     }
 
@@ -379,7 +353,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun mostrarImagenGrande() {
-       cardViewPerfil.setOnClickListener {
+        cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
 
@@ -520,7 +494,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 // Permiso ya concedido, abrir la cámara
                 abrirCamara()
             }
-
             else -> {
                 // Solicitar permiso para la cámara
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)

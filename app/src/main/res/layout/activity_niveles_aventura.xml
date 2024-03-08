@@ -34,7 +34,8 @@
                 android:clickable="true"
                 android:onClick="verPerfilUsuario"
                 android:src="@mipmap/img_perfil_luis_golden"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:scaleType="centerCrop"/>
         </androidx.cardview.widget.CardView>
 
         <LinearLayout

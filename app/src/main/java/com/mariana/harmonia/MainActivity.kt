@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
 
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {
-        val firebaseUser = firebaseAuth.currentUser
+        val firebaseUser = FirebaseDB.getInstanceFirebase().currentUser
 
         if (firebaseUser == null && this !is MainActivity) {
 
@@ -340,5 +340,4 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
      }
 */
-
 

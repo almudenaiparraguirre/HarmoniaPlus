@@ -10,11 +10,16 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.R
+import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
@@ -35,6 +40,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var corazonesTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
+    private lateinit var imagenPerfil: ImageView
+    var storage = FirebaseDB.getInstanceStorage()
 
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
@@ -47,16 +54,31 @@ class NivelesAventuraActivity : AppCompatActivity() {
         textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
         corazonesTextView = findViewById(R.id.numeroCorazones)
+        imagenPerfil = findViewById(R.id.imagenPerfil)
         inicializarConBase()
         crearCirculos()
-
         colocarTextViewNivel()
-
+        downloadImage2()
     }
 
     private fun inicializarConBase()= runBlocking {
         nivelActual = UtilsDB.getNivelActual()!!
         corazonesTextView.text = UtilsDB.getVidas().toString()
+    }
+
+    private fun downloadImage2() {
+        val storageRef = storage.reference
+        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
+        val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
+
+        imagesRef.downloadUrl.addOnSuccessListener { url ->
+            Glide.with(this)
+                .load(url)
+                .into(imagenPerfil)
+
+        }.addOnFailureListener { exception ->
+            println("Error al cargar la imagen: ${exception.message}")
+        }
     }
 
 
