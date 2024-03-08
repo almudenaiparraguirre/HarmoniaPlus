@@ -151,7 +151,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         inicializarConBase()
         mostrarImagenGrande()
         crearMenuSuperior()
-        setPorcentajesLogros()
+
         setTextoLogro1(30)
         setTextoLogro2(5)
         setTextoLogro3(3)
@@ -160,10 +160,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         setTextoLogro6(20)
         setTextoLogro7(99)
         setTextoLogro8(99)
+
         setlogro1(30)
         setlogro2(5)
         setlogro3(3)
-        setlogro6(3)
+        setlogro6(20)
 
         lifecycleScope.launch {
             downloadImage()
@@ -171,80 +172,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    private fun setTextoLogro1(cantidad: Int) {
-        var tituloLogro1 = findViewById<TextView>(R.id.tituloLogro1)
-        tituloLogro1.text = "MAESTRO DEL DESAFÍO I"
-        var fraseLogro1 = findViewById<TextView>(R.id.fraseLogro1)
-        fraseLogro1.text = "Juega un total de $cantidad minutos"
-    }
-    private fun setTextoLogro2(cantidad: Int) {
-        var tituloLogro2 = findViewById<TextView>(R.id.tituloLogro2)
-        tituloLogro2.text = "CARRERA MUSICAL I"
-        var fraseLogro2 = findViewById<TextView>(R.id.fraseLogro2)
-        fraseLogro2.text = "Completa los primeros $cantidad niveles"
-    }
-    private fun setTextoLogro3(cantidad: Int) {
-        var tituloLogro3 = findViewById<TextView>(R.id.tituloLogro3)
-        tituloLogro3.text = "VIRTUOSO I"
-        var fraseLogro3 = findViewById<TextView>(R.id.fraseLogro3)
-        fraseLogro3.text = "Pasate $cantidad niveles musicales sin fallar"
-    }
-    private fun setTextoLogro4(cantidad: Int) {
-        var tituloLogro4 = findViewById<TextView>(R.id.tituloLogro4)
-        tituloLogro4.text = "OIDO DE ÁGUILA(en desarrollo)"
-        var fraseLogro4 = findViewById<TextView>(R.id.fraseLogro4)
-        fraseLogro4.text = "Pasate $cantidad niveles de oido sin fallar"
-    }
-    private fun setTextoLogro5(cantidad: Int) {
-        var tituloLogro5 = findViewById<TextView>(R.id.tituloLogro5)
-        tituloLogro5.text = "RITMO INVENCIBLE I(en desarrollo)"
-        var fraseLogro5 = findViewById<TextView>(R.id.fraseLogro5)
-        fraseLogro5.text = "Pasate $cantidad niveles de ritmo sin fallar"
-    }
-    private fun setTextoLogro6(cantidad: Int) {
-        var tituloLogro6 = findViewById<TextView>(R.id.tituloLogro6)
-        tituloLogro6.text = "HARMONIA CELESTIAL I"
-        var fraseLogro6 = findViewById<TextView>(R.id.fraseLogro6)
-        fraseLogro6.text = "Consigue una racha de $cantidad notas seguidas en el modo desafío Melódico"
-    }
-    private fun setTextoLogro7(cantidad: Int) {
-        var tituloLogro7 = findViewById<TextView>(R.id.tituloLogro7)
-        tituloLogro7.text = "OÍDO ABSOLUTO I(en desarrollo)"
-        var fraseLogro7 = findViewById<TextView>(R.id.fraseLogro7)
-        fraseLogro7.text = "Consigue una racha de $cantidad seguidas en el modo desafío Ritmico"
-    }
-    private fun setTextoLogro8(cantidad: Int) {
-        var tituloLogro8 = findViewById<TextView>(R.id.tituloLogro8)
-        tituloLogro8.text = "METRONOMO I(en desarrollo)"
-        var fraseLogro8 = findViewById<TextView>(R.id.fraseLogro8)
-        fraseLogro8.text = "Consigue una racha de $cantidad seguidas en el modo desafío Auditivo"
-    }
-
-
-
-
-    private fun setlogro1(cantidad: Int)= runBlocking{
-        val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
-        progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
-        porcentajeTextView1.text = "$porcentaje1/$cantidad"
-
-    }
-    private fun setlogro2(cantidad: Int)= runBlocking {
-        val porcentaje2 = UtilsDB.getNivelActual()
-        progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
-        porcentajeTextView2.text = "$porcentaje2/$cantidad"
-    }
-    private fun setlogro3(cantidad: Int)= runBlocking {
-        val porcentaje3 = UtilsDB.getCantidadPerfectos()
-        progressBar3.progress = (porcentaje3!!.times(100).div(cantidad))
-        porcentajeTextView3.text = "$porcentaje3/$cantidad"
-    }
-
-    private fun setlogro6(cantidad: Int)= runBlocking {
-        val porcentaje6 = 5
-        progressBar6.progress = (porcentaje6!!.times(100).div(cantidad))
-        porcentajeTextView6.text = "$porcentaje6/$cantidad"
-    }
 
     // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {
@@ -354,40 +281,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setPorcentajesLogros() {
-     //   val porcentaje1 = 10
-     //   progressBar1.progress = porcentaje1
-      //  porcentajeTextView1.text = "$porcentaje1/100"
-
-       // val porcentaje2 = 20
-       // progressBar2.progress = porcentaje2
-       // porcentajeTextView2.text = "$porcentaje2/100"
-
-      ///  val porcentaje3 = 30
-       // progressBar3.progress = porcentaje3
-      //  porcentajeTextView3.text = "$porcentaje3/100"
-
-        val porcentaje4 = 40
-        progressBar4.progress = porcentaje4
-        porcentajeTextView4.text = "$porcentaje4/100"
-
-        val porcentaje5 = 50
-        progressBar5.progress = porcentaje5
-        porcentajeTextView5.text = "$porcentaje5/100"
-
-        val porcentaje6 = 60
-        progressBar6.progress = porcentaje6
-        porcentajeTextView6.text = "$porcentaje6/100"
-
-        val porcentaje7 = 70
-        progressBar7.progress = porcentaje7
-        porcentajeTextView7.text = "$porcentaje7/100"
-
-        val porcentaje8 = 80
-        progressBar8.progress = porcentaje8
-        porcentajeTextView8.text = "$porcentaje8/100"
-    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun crearMenuSuperior() {
@@ -640,4 +533,80 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
     }
+
+    private fun setTextoLogro1(cantidad: Int) {
+        var tituloLogro1 = findViewById<TextView>(R.id.tituloLogro1)
+        tituloLogro1.text = "MAESTRO DEL DESAFÍO I"
+        var fraseLogro1 = findViewById<TextView>(R.id.fraseLogro1)
+        fraseLogro1.text = "Juega un total de $cantidad minutos"
+    }
+    private fun setTextoLogro2(cantidad: Int) {
+        var tituloLogro2 = findViewById<TextView>(R.id.tituloLogro2)
+        tituloLogro2.text = "CARRERA MUSICAL I"
+        var fraseLogro2 = findViewById<TextView>(R.id.fraseLogro2)
+        fraseLogro2.text = "Completa los primeros $cantidad niveles"
+    }
+    private fun setTextoLogro3(cantidad: Int) {
+        var tituloLogro3 = findViewById<TextView>(R.id.tituloLogro3)
+        tituloLogro3.text = "VIRTUOSO I"
+        var fraseLogro3 = findViewById<TextView>(R.id.fraseLogro3)
+        fraseLogro3.text = "Pasate $cantidad niveles musicales sin fallar"
+    }
+    private fun setTextoLogro4(cantidad: Int) {
+        var tituloLogro4 = findViewById<TextView>(R.id.tituloLogro4)
+        tituloLogro4.text = "OIDO DE ÁGUILA(en desarrollo)"
+        var fraseLogro4 = findViewById<TextView>(R.id.fraseLogro4)
+        fraseLogro4.text = "Pasate $cantidad niveles de oido sin fallar"
+    }
+    private fun setTextoLogro5(cantidad: Int) {
+        var tituloLogro5 = findViewById<TextView>(R.id.tituloLogro5)
+        tituloLogro5.text = "RITMO INVENCIBLE I(en desarrollo)"
+        var fraseLogro5 = findViewById<TextView>(R.id.fraseLogro5)
+        fraseLogro5.text = "Pasate $cantidad niveles de ritmo sin fallar"
+    }
+    private fun setTextoLogro6(cantidad: Int) {
+        var tituloLogro6 = findViewById<TextView>(R.id.tituloLogro6)
+        tituloLogro6.text = "HARMONIA CELESTIAL I"
+        var fraseLogro6 = findViewById<TextView>(R.id.fraseLogro6)
+        fraseLogro6.text = "Consigue una racha de $cantidad notas seguidas en el modo desafío Melódico"
+    }
+    private fun setTextoLogro7(cantidad: Int) {
+        var tituloLogro7 = findViewById<TextView>(R.id.tituloLogro7)
+        tituloLogro7.text = "OÍDO ABSOLUTO I(en desarrollo)"
+        var fraseLogro7 = findViewById<TextView>(R.id.fraseLogro7)
+        fraseLogro7.text = "Consigue una racha de $cantidad seguidas en el modo desafío Ritmico"
+    }
+    private fun setTextoLogro8(cantidad: Int) {
+        var tituloLogro8 = findViewById<TextView>(R.id.tituloLogro8)
+        tituloLogro8.text = "METRONOMO I(en desarrollo)"
+        var fraseLogro8 = findViewById<TextView>(R.id.fraseLogro8)
+        fraseLogro8.text = "Consigue una racha de $cantidad seguidas en el modo desafío Auditivo"
+    }
+
+
+
+
+    private fun setlogro1(cantidad: Int)= runBlocking{
+        val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
+        progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
+        porcentajeTextView1.text = "$porcentaje1/$cantidad"
+
+    }
+    private fun setlogro2(cantidad: Int)= runBlocking {
+        val porcentaje2 = UtilsDB.getNivelActual()
+        progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
+        porcentajeTextView2.text = "$porcentaje2/$cantidad"
+    }
+    private fun setlogro3(cantidad: Int)= runBlocking {
+        val porcentaje3 = UtilsDB.getCantidadPerfectos()
+        progressBar3.progress = (porcentaje3!!.times(100).div(cantidad))
+        porcentajeTextView3.text = "$porcentaje3/$cantidad"
+    }
+
+    private fun setlogro6(cantidad: Int)= runBlocking {
+        val porcentaje6 = 5
+        progressBar6.progress = (porcentaje6!!.times(100).div(cantidad))
+        porcentajeTextView6.text = "$porcentaje6/$cantidad"
+    }
+
 }
