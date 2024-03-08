@@ -40,7 +40,7 @@ class ServicioTiempo : Service() {
                 // Incrementa los segundos transcurridos cada vez que se llama a onTick
 
                 segundosTranscurridos++
-                println(segundosTranscurridos)
+
                 subirSegundoBD()
             }
 
