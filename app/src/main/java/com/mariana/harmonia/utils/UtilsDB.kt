@@ -365,22 +365,21 @@ class UtilsDB {
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int, Int>) {
+        fun setPuntuacionDesafioGlobal(puntuacion: Map<String, Number>) {
             actualizarVariables()
             val desafioCollection = db.collection("desafio")
             val currentDateTime = java.time.LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm-ss")
-            val fechaActual = currentDateTime.format(formatter) + " User=" + currentUser?.email
-            println(fechaActual)
-            val data = hashMapOf(
-                fechaActual to puntuacion
+            val userMasFecha = currentDateTime.format(formatter) + " User=" + currentUser?.email
+            val data: MutableMap<String, Any> = hashMapOf(
+                "puntuacionDesafio" to puntuacion
             )
-            desafioCollection.document("puntuaciones").update(data as Map<String, Any>)
+            desafioCollection.document(userMasFecha).set(data)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
+                    Log.d(ContentValues.TAG, "Puntuaciones desafío actualizadas correctamente")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
+                    Log.w(ContentValues.TAG, "Error al actualizar las Puntuaciones desafío", e)
                 }
         }
 

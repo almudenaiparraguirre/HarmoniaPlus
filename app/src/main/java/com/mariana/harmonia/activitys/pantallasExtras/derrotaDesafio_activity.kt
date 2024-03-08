@@ -73,11 +73,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
         val nuevoElemento = mapOf("notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
         listaPuntuaciones?.add(nuevoElemento)
         UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
-
-
-
-        //UtilsDB.setPuntuacionDesafio(listaHarciertos!!)
-       // UtilsDB.setPuntuacionDesafioGlobal(puntuacion)
+        UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
     }
 
     fun irRepetir(view: View) {
