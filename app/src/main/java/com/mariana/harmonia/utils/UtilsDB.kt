@@ -154,21 +154,16 @@ class UtilsDB {
             }
         }
 
-        suspend fun getPuntuacionDesafio(): Pair<Int, Int>? {
+        suspend fun getPuntuacionDesafio(): List<Map<String, Number>>? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
                 if (document.exists()) {
-                    val precisionesList = document.data?.get("precisiones") as? List<Int>
-                    println("precisiones: $precisionesList")
-
-                    if (precisionesList != null && precisionesList.size >= 2) {
-                        Pair(precisionesList[0], precisionesList[1])
-                    } else {
-                        null
-                    }
+                    val precisionesMap = document.data?.get("puntuacionDesafio") as? List<Map<String, Number>>?
+                    println("precisiones: $precisionesMap")
+                    precisionesMap
                 } else {
                     println("No such document")
                     null
@@ -178,6 +173,7 @@ class UtilsDB {
                 null
             }
         }
+
         suspend fun getTiempoJugado(): Int? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
@@ -354,40 +350,58 @@ class UtilsDB {
                 }
         }
 
-        fun setPuntuacionDesafio(puntuacion: Pair<Int, Int>) {
+        fun setPuntuacionDesafio(puntuaciones: List<Map<String, Number>>) {
             actualizarVariables()
             val data = hashMapOf(
-                "puntuacionDesafio" to puntuacion
+                "puntuacionDesafio" to puntuaciones
             )
             usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
+                    Log.d(ContentValues.TAG, "Puntuaciones desafío actualizadas correctamente")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
+                    Log.w(ContentValues.TAG, "Error al actualizar las Puntuaciones desafío", e)
                 }
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setPuntuacionDesafioGlobal(puntuacion: Pair<Int, Int>) {
+        fun setPuntuacionDesafioGlobal(puntuacion: Map<String, Number>) {
             actualizarVariables()
             val desafioCollection = db.collection("desafio")
             val currentDateTime = java.time.LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH-mm-ss")
-            val fechaActual = currentDateTime.format(formatter) + " User=" + currentUser?.email
-            println(fechaActual)
-            val data = hashMapOf(
-                fechaActual to puntuacion
+            val userMasFecha = currentDateTime.format(formatter) + " User=" + currentUser?.email
+            val data: MutableMap<String, Any> = hashMapOf(
+                "puntuacionDesafio" to puntuacion
             )
-            desafioCollection.document("puntuaciones").update(data as Map<String, Any>)
+            desafioCollection.document(userMasFecha).set(data)
                 .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "PuntuacionDesafio actualizada correctamente")
+                    Log.d(ContentValues.TAG, "Puntuaciones desafío actualizadas correctamente")
                 }
                 .addOnFailureListener { e ->
-                    Log.w(ContentValues.TAG, "Error al actualizar la PuntuacionDesafio", e)
+                    Log.w(ContentValues.TAG, "Error al actualizar las Puntuaciones desafío", e)
                 }
         }
 
+        fun getMayorPuntuacionDesafio(lista: List<Map<String, Number>>): Map<String, Number> {
+            if (lista.isEmpty()) {
+                return mapOf("notas" to 0, "tiempo" to 0)
+            }
+
+            var notasMasAlto = 0
+            var mapaConNotasMasAlto: Map<String, Number> = mapOf()
+
+            for (mapa in lista) {
+                var notas = mapa.get("notas")!!.toInt()
+                if(notas > notasMasAlto){
+
+                    notasMasAlto = notas
+                    mapaConNotasMasAlto =mapa
+                }
+            }
+
+            return mapaConNotasMasAlto
+        }
 
         suspend fun getMediaPrecisiones(): Int {
             actualizarVariables()

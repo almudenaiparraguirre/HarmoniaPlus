@@ -69,10 +69,13 @@ class derrotaDesafio_activity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
         val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
-        val puntuacionDB = UtilsDB.getPuntuacionDesafio()
-        val mayorHaciertos = puntuacionDB?.first ?:0
-        UtilsDB.setPuntuacionDesafio(puntuacion)
-        UtilsDB.setPuntuacionDesafioGlobal(puntuacion)
+        val listaPuntuaciones = UtilsDB.getPuntuacionDesafio()?.toMutableList() ?: mutableListOf()
+        val nuevoElemento = mapOf("notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
+        listaPuntuaciones?.add(nuevoElemento)
+        UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
+        UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
+
+
     }
 
     fun irRepetir(view: View) {
