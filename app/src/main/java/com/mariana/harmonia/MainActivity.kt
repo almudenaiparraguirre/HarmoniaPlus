@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
-        Utils.degradadoTexto(this, R.id.registrateTextView,R.color.rosa,R.color.morado)
-        Utils.degradadoTexto(this, R.id.recuerdasContrasena,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.registrateTextView, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.recuerdasContrasena, R.color.rosa, R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
@@ -161,7 +161,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         usersRef.whereEqualTo("email", emailEncriptado).get()
             .addOnSuccessListener { documents ->
                 if (!documents.isEmpty) {
-                    FirebaseDB.getInstanceFirebase().signInWithEmailAndPassword(emailText, contrasenaText)
+                    FirebaseDB.getInstanceFirebase()
+                        .signInWithEmailAndPassword(emailText, contrasenaText)
                         .addOnCompleteListener(this) { task ->
                             Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
                                 .show()
@@ -173,7 +174,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                         }
 
                     mediaPlayer.start()
-                }else {  Toast.makeText(baseContext, " No se pudo iniciar sesión", Toast.LENGTH_SHORT)}
+                } else {
+                    Toast.makeText(baseContext, " No se pudo iniciar sesión", Toast.LENGTH_SHORT)
+                }
             }
     }
 
@@ -242,7 +245,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-        try {
+
             // Obtener credenciales de autenticación de Google
             val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
             // Autenticar con Firebase usando las credenciales de Google
@@ -250,53 +253,54 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Obtener la cuenta de usuario de Firebase
-                        val firebaseUser =  FirebaseDB.getInstanceFirebase().currentUser
-                        // Obtener el nombre y el correo electrónico del usuario de la cuenta de Google
                         val googleName = account?.displayName
                         val googleEmail = account?.email
-                        Log.d(TAG, "Nombre de Google: $googleName")
-                        Log.d(TAG, "Correo electrónico de Google: $googleEmail")
-                        val fechaRegistro = LocalDate.now()
-
                         val emailEncriptado = googleEmail?.let { HashUtils.sha256(it.lowercase()) }
-                        val user = User(email = emailEncriptado  , name = googleName,correo = googleEmail?.lowercase(), 355, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
 
-                        UserDao.addUser(user)
+                        val usersRef = FirebaseDB.getInstanceFirestore().collection("usuarios")
 
-                        // Autenticación exitosa, redirigir a la siguiente actividad
-                        Log.d(
-                            TAG,
-                            "Inicio de sesión con credenciales de Google exitoso"
-                        )
-                        val intent = Intent(this, EligeModoJuegoActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        // Manejar el fallo en la autenticación con Firebase
-                        Log.w(
-                            TAG,
-                            "Fallo en la autenticación con Firebase",
-                            task.exception
-                        )
-                        Toast.makeText(
-                            this,
-                            "Autenticación fallida.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+// Verificar si el correo electrónico está presente en la colección de usuarios
+                        usersRef.whereEqualTo("email", emailEncriptado).get()
+                            .addOnSuccessListener { documents ->
+                                if (!documents.isEmpty) {
+
+                                    val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+
+
+
+                                    mediaPlayer.start()
+                                } else {
+
+                                    Log.d(TAG, "Nombre de Google: $googleName")
+                                    Log.d(TAG, "Correo electrónico de Google: $googleEmail")
+                                    val fechaRegistro = LocalDate.now()
+
+
+                                    val user = User(
+                                        email = emailEncriptado,
+                                        name = googleName,
+                                        correo = googleEmail?.lowercase(),
+                                        355,
+                                        1,
+                                        mesRegistro = fechaRegistro.month,
+                                        anioRegistro = fechaRegistro.year
+                                    )
+
+                                    UserDao.addUser(user)
+                                    val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+
+
                     }
-                }
-        } catch (e: Exception) {
-            // Manejar errores durante la autenticación con Google
-            Log.e(TAG, "Error durante la autenticación con Google", e)
-            e.printStackTrace()
-            Toast.makeText(
-                this,
-                "Error durante la autenticación con Google",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 
+                }
+
+    }
 }
 
 /* private fun showNotification() {
