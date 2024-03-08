@@ -10,7 +10,9 @@ class User(
     var experiencia: Int? = 0,
     var nivelActual: Int? = 1,
     var vidas: Int? = 5,
-    val puntuacionDesafio: Pair<Int, Int> = Pair(0,0),
+    val puntuacionDesafio: List<Map<String, Number>> = listOf(
+        mapOf("notas" to 0, "tiempo" to 0),
+    ),
     var imagen: String? = null,
     var mesRegistro: Month,
     var anioRegistro: Int
