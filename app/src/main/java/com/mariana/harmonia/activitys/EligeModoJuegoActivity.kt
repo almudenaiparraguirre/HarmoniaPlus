@@ -23,6 +23,7 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
+import com.mariana.harmonia.utils.ServicioTiempo
 import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
@@ -68,13 +69,16 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATION)
         }
+        val serviceIntent = Intent(this, ServicioTiempo::class.java)
+        startService(serviceIntent)
+        println("SERVICIO CONTADOR COMENZO")
     }
     fun inicializarConBase() = runBlocking {
         var nivel = UtilsDB.getExperiencia()!!/100
         var experienciaSobrante = UtilsDB.getExperiencia()!!%100
 
         nombreTextView.text = UtilsDB.getNombre()
-        porcentajeTextView.text = nivel.toString()
+        porcentajeTextView.text = "NV. "+nivel.toString()
         progressBar.progress = experienciaSobrante
     }
 
@@ -115,15 +119,18 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
+        val serviceIntent = Intent(this, ServicioTiempo::class.java)
+        stopService(serviceIntent)
+        println("SERVICIO CONTADOR CERRADO")
         FirebaseDB.getInstanceFirebase().signOut()
         UtilsDB.currentUser?.reload()
-
-
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        this.getApplicationContext().getCacheDir().delete();
+
+
         finish()
         finishAffinity() // Cierra todas las actividades anteriores
+
     }
 
     fun clickOpciones(view: View){

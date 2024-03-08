@@ -22,12 +22,16 @@ class UtilsDB {
         var emailEncriptado = HashUtils.sha256(email!!)
 
         fun actualizarVariables() {
-            firebaseAuth = FirebaseDB.getInstanceFirebase()
-            db = FirebaseDB.getInstanceFirestore()
-            currentUser = firebaseAuth.currentUser
-            email = currentUser?.email?.lowercase()
-            usersCollection = db.collection("usuarios")
-            emailEncriptado = HashUtils.sha256(email!!)
+            try {
+                firebaseAuth = FirebaseDB.getInstanceFirebase()
+                db = FirebaseDB.getInstanceFirestore()
+                currentUser = firebaseAuth.currentUser
+                email = currentUser?.email?.lowercase()
+                usersCollection = db.collection("usuarios")
+                emailEncriptado = HashUtils.sha256(email!!)
+            } catch (e: NullPointerException) {
+                Log.e(ContentValues.TAG, "Error de NullPointerException al actualizar variables: $e")
+            }
         }
 
         suspend fun getCorreo(): String? {
@@ -174,6 +178,26 @@ class UtilsDB {
                 null
             }
         }
+        suspend fun getTiempoJugado(): Int? {
+            actualizarVariables()
+            val docRef = db.collection("usuarios").document(emailEncriptado)
+
+            return try {
+                val document = docRef.get().await()
+                if (document.exists()) {
+                    val tiempo = document.data?.get("tiempoJugado")
+                    println("Nivel actual: $tiempo")
+                    (tiempo as? Long)?.toInt() // Convertir a Int
+                } else {
+                    println("No existe el documento")
+                    null
+                }
+            } catch (exception: Exception) {
+                println("Error al obtener documentos: $exception")
+                null
+            }
+        }
+
 
 
         @SuppressLint("SimpleDateFormat")
@@ -287,6 +311,33 @@ class UtilsDB {
                         e
                     )
                 }
+        }
+        fun setTiempoJugado(tiempo: Int) {
+            actualizarVariables()
+
+            if (emailEncriptado != null) {
+                val data = hashMapOf(
+                    "tiempoJugado" to tiempo
+                    // Agrega cualquier otro campo que necesites actualizar
+                )
+
+                usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
+                    .addOnSuccessListener {
+                        Log.d(
+                            ContentValues.TAG,
+                            "nuevaVidas actualizada para el usuario con email: $email"
+                        )
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(
+                            ContentValues.TAG,
+                            "Error al actualizar nuevaVidas para el usuario con email: $email",
+                            e
+                        )
+                    }
+            } else {
+                Log.w(ContentValues.TAG, "Email encriptado es nulo, no se puede actualizar el tiempo jugado.")
+            }
         }
 
         fun setPrecisiones(precisiones: List<Int>) {

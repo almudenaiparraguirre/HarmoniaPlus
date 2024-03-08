@@ -8,6 +8,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.auth.FirebaseAuth
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.utils.ServicioTiempo
+
 class SplashScreenActivity : AppCompatActivity() {
 
 
@@ -15,6 +17,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition{
             true
+
         }
         setContentView(R.layout.splash_screen_activity)
         Handler().postDelayed({
@@ -22,6 +25,10 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 1500)
+
+
+
+
     }
 
 }

@@ -173,7 +173,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             downloadImage()
             downloadImage2()
         }
+
     }
+
 
     // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {

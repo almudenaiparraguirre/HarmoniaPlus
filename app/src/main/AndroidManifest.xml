@@ -28,6 +28,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
+        <service android:name=".utils.ServicioTiempo"/>
         <activity
             android:name=".activitys.pantallasExtras.derrotaDesafio_activity"
             android:exported="false"
