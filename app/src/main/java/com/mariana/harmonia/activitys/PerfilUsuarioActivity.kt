@@ -164,7 +164,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         setlogro1(30)
         setlogro2(5)
         setlogro3(3)
-        setlogro6(20)
+        //setlogro6(20)
 
         lifecycleScope.launch {
             downloadImage()
@@ -603,10 +603,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView3.text = "$porcentaje3/$cantidad"
     }
 
-    private fun setlogro6(cantidad: Int)= runBlocking {
+    /*private fun setlogro6(cantidad: Int)= runBlocking {
         val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafio()!!).get("notas")!!.toInt()
         progressBar6.progress = (porcentaje6.times(100).div(cantidad))
         porcentajeTextView6.text = "$porcentaje6/$cantidad"
-    }
+    }*/
 
 }
