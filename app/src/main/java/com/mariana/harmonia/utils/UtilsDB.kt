@@ -413,5 +413,18 @@ class UtilsDB {
 
             return 0
         }
+        suspend fun getCantidadPerfectos(): Int {
+            actualizarVariables()
+            val precisionesList = getPrecisiones() ?: return 0
+            var cantidadNiveles = 0
+
+            for (precision in precisionesList) {
+                if (precision == 100) {
+                    cantidadNiveles++
+                }
+            }
+
+            return cantidadNiveles
+        }
     }
 }

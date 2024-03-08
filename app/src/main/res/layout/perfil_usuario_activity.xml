@@ -477,6 +477,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro1"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -517,6 +518,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro1"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -561,6 +563,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro2"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -601,6 +604,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro2"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -645,6 +649,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro3"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -685,6 +690,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro3"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -729,6 +735,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro4"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -769,6 +776,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro4"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -813,6 +821,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro5"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -853,6 +862,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro5"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -897,6 +907,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro6"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -937,6 +948,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro6"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -981,6 +993,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro7"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1021,6 +1034,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro7"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1066,6 +1080,7 @@
 
                     <!-- Título -->
                     <TextView
+                        android:id="@+id/tituloLogro8"
                         style="@style/Fuente_kameron"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1106,6 +1121,7 @@
 
 
                             <TextView
+                                android:id="@+id/fraseLogro8"
                                 style="@style/Fuente_kameron"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
