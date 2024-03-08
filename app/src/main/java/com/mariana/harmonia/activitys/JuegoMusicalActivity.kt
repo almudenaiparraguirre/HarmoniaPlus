@@ -53,6 +53,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var aciertos: Int? = 0
     private var tiempo: Double? = 60.0
     private var tiempoActual: Int? = 0
+    private var dificultad: Int? = 0
 
     private var notasTotales: Int? = 0
     private var vidas: Int? = 0
@@ -69,6 +70,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         setContentView(R.layout.juego_musical_activity)
 
         desafio = intent.getBooleanExtra("desafio", false)
+        dificultad = intent.getIntExtra("dificultad", 0)
 
 
         // Click notas negras
@@ -933,7 +935,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     fun cargarDatosDesafio() {
         tiempo = 60.0
         vidas = 1
-        notasArray = getNotasAleatorias(1000,0)
+        notasArray = getNotasAleatorias(1000,dificultad!!)
 
     }
 

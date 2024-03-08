@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/blancoMedioTransparente">
+
+<TextView
+    android:id="@+id/tituloDificultad"
+    style="@style/Fuente_kameron"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="DIFICULTAD"
+    android:textSize="60dp"
+    android:textStyle="bold"
+    android:textColor="@color/rosa"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/botonFacil"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/style_button_degradado"
+        android:onClick="irDesafioFacil"
+        android:padding="16dp"
+        android:text="FACIL"
+        android:textColor="@color/blanco"
+        android:textSize="30sp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/botonMedio"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/style_button_degradado"
+        android:onClick="irDesafioMedio"
+        android:padding="16dp"
+        android:text="MEDIO"
+        android:textColor="@color/blanco"
+        android:textSize="30sp"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/botonFificil"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/style_button_degradado"
+        android:onClick="irDesafioDificil"
+        android:padding="16dp"
+        android:text="DIFICIL"
+        android:textColor="@color/blanco"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:id="@+id/textViewVolver"
+        style="@style/Fuente_kameron"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="irVolver"
+        android:text="Volver"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/rosa"/>
+
+
+</LinearLayout>

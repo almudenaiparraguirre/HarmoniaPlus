@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
+import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.ServicioTiempo
@@ -39,6 +40,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var porcentajeTextView: TextView
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
+    private lateinit var botonAventura: androidx.appcompat.widget.AppCompatButton
+    private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
+    private lateinit var botonOpciones: androidx.appcompat.widget.AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +61,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         porcentajeTextView = findViewById(R.id.porcentajeTextView)
         progressBar = findViewById(R.id.progressBarCarga)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil) // Inicializar imageViewFotoPerfil
+        botonAventura = findViewById(R.id.botonAventura)
+        botonDesafio = findViewById(R.id.botonChallenge)
+        botonOpciones = findViewById(R.id.botonOpciones)
+
 
         inicilalizarVariablesThis()
         inicializarConBase()
@@ -137,22 +145,48 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
+
     }
 
     fun irModoAventura(view: View){
         mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
-    fun irDesafio(view: View){
+    fun irDesafio(view: View) {
         mediaPlayer.start()
-        val intent = Intent(this, JuegoMusicalActivity::class.java)
-        intent.putExtra("desafio", true)
-        startActivity(intent)
+
+        // Crea una instancia del fragmento que deseas mostrar
+        val fragment = FragmentoDificultadDesafio()
+
+        // Obtén el administrador de fragmentos y comienza una transacción
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        // Reemplaza el contenido del contenedor de fragmentos con el fragmento que deseas mostrar
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+
+        // Agrega la transacción al historial de retroceso (opcional)
+        fragmentTransaction.addToBackStack(null)
+
+        // Realiza la transacción
+        fragmentTransaction.commit()
+
+        // Oculta los botones de la actividad principal
+        botonAventura.visibility = View.GONE
+        botonDesafio.visibility = View.GONE
+        botonOpciones.visibility = View.GONE
+        // Puedes hacer lo mismo para otros botones de la actividad si es necesario
     }
 
-
+    override fun onBackPressed() {
+        botonAventura.visibility = View.VISIBLE
+        botonDesafio.visibility = View.VISIBLE
+        botonOpciones.visibility = View.VISIBLE
+        super.onBackPressed()
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
