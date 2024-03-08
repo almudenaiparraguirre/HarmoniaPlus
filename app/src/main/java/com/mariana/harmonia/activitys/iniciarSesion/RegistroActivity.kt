@@ -3,6 +3,7 @@ package com.mariana.harmonia.activitys.iniciarSesion
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,22 +24,32 @@ import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
 import com.mariana.harmonia.utils.Utils
+import java.io.File
 import java.time.LocalDate
 
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var storage: FirebaseStorage
     private lateinit var firebaseAuth: FirebaseAuth
-    var randomImagenInstrumentos: MutableList<String> = mutableListOf("fotoperfil_acordeon", "fotoperfil_bateria",
-        "fotoperfil_guitarra", "fotoperfil_harpa", "fotoperfil_maraca", "fotoperfil_piano", "fotoperfil_saxofon",
-        "fotoperfil_tambor", "fotoperfil_trompeta", "fotoperfil_tronbon")
+    var randomImagenInstrumentos: MutableList<String> = mutableListOf(
+        "fotoperfil_acordeon",
+        "fotoperfil_bateria",
+        "fotoperfil_guitarra",
+        "fotoperfil_harpa",
+        "fotoperfil_maraca",
+        "fotoperfil_piano",
+        "fotoperfil_saxofon",
+        "fotoperfil_tambor",
+        "fotoperfil_trompeta",
+        "fotoperfil_tronbon"
+    )
 
     // FUN --> OnCreate
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
-        Utils.degradadoTexto(this, R.id.VolverInicioSesion,R.color.rosa,R.color.morado)
-        Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.VolverInicioSesion, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.titleTextView, R.color.rosa, R.color.morado)
 
         firebaseAuth = FirebaseDB.getInstanceFirebase()
         storage = FirebaseDB.getInstanceStorage()
@@ -68,7 +79,6 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         val nombreTextView = findViewById<TextView>(R.id.editText2)
         val nombre = nombreTextView.text.toString()
 
-
         // 2. Validar los campos
         if (email.isEmpty() || contraseña.isEmpty()) {
             Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
@@ -77,7 +87,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
         // 3. Validar el formato de correo electrónico
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Formato de correo electrónico incorrecto", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Formato de correo electrónico incorrecto", Toast.LENGTH_SHORT)
+                .show()
             return
         }
 
@@ -103,27 +114,48 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     private fun establecerFotoPerfilPorDefecto(userId: String) {
         val storageRef = storage.reference
-        val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/XWY3x0O9oXYCJwjLVLZeSzeU1e12.jpg")
+        // Nombre de la imagen por defecto en Firebase Storage
+        val imagenPorDefecto = "fotoperfil_acordeon.jpg"
+        val defaultProfileImageRef = storageRef.child("imagenesPerfilGente/$imagenPorDefecto")
         val userImageRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
 
-        defaultProfileImageRef.downloadUrl.addOnSuccessListener { uri ->
-            // Set the default image URL directly for the user
-            userImageRef.putFile(uri)
-                .addOnSuccessListener {
-                    // Now, you can save the user's default image URL in the database if needed
-                    guardarUrlImagenPorDefectoEnBaseDeDatos(userId, uri.toString())
-                    Log.d(TAG, "Default profile image set for user: $userId")
-                }
-                .addOnFailureListener { exception ->
-                    Log.e(TAG, "Error setting default profile image: ${exception.message}")
-                }
-        }.addOnFailureListener { exception ->
-            Log.e(TAG, "Error getting default profile image URL: ${exception.message}")
-        }
+        // Crear un archivo temporal para descargar la imagen por defecto
+        val localFile = File.createTempFile("temp_image", "jpg")
+
+        // Descargar la imagen por defecto al archivo temporal
+        defaultProfileImageRef.getFile(localFile)
+            .addOnSuccessListener {
+                // Subir la imagen descargada al perfil del usuario con el nuevo nombre
+                userImageRef.putFile(Uri.fromFile(localFile))
+                    .addOnSuccessListener {
+                        // Ahora, puedes guardar la URL de la nueva imagen del usuario en la base de datos si es necesario
+                        guardarUrlImagenPorDefectoEnBaseDeDatos(userId)
+                        Log.d(TAG, "Imagen de perfil predeterminada establecida para el usuario: $userId")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e(
+                            TAG,
+                            "Error al establecer la imagen de perfil predeterminada: ${exception.message}"
+                        )
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error al descargar la imagen por defecto: ${exception.message}")
+            }
     }
 
-    private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String, url: String) {
+    private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
+        var file = Uri.fromFile(File("res/mipmap/fotoperfil_acordeon.png"))
+        val nuevoNombre = "pruebaSubida"
+        val riversRef = storage.reference.child("imagenesPerfilGente/${nuevoNombre}")
+        var uploadTask = riversRef.putFile(file)
 
+        uploadTask.addOnFailureListener {
+            println("ERROR - Fallo al subir la imagen en el registro")
+        }.addOnSuccessListener { taskSnapshot ->
+            println("ÉXITO al subir la imagen en el registro")
+        }
+        Log.d(TAG, "URL de imagen predeterminada guardada en la base de datos para el usuario: $userId")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -139,7 +171,15 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
                     val userId = task.result?.user?.uid ?: ""
                     val encriptado = HashUtils.sha256(email!!.lowercase())
                     println("$email/$encriptado")
-                    val user = User(email = emailEncriptado, name = nombre, correo = email.lowercase(), 0, 1, mesRegistro = fechaRegistro.month, anioRegistro = fechaRegistro.year)
+                    val user = User(
+                        email = emailEncriptado,
+                        name = nombre,
+                        correo = email.lowercase(),
+                        0,
+                        1,
+                        mesRegistro = fechaRegistro.month,
+                        anioRegistro = fechaRegistro.year
+                    )
 
                     UserDao.addUser(user)
                     establecerFotoPerfilPorDefecto(userId)
