@@ -215,7 +215,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Registrarse con Google"
+                    android:text="Iniciar sesion con Google"
                     android:textColor="@color/negro"
 
                     android:textSize="20dp" />
