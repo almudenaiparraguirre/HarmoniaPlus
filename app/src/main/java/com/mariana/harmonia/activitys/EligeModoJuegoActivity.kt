@@ -152,7 +152,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
-        finish()
+
     }
 
     fun irDesafio(view: View) {
