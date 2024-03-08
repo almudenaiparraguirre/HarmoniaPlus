@@ -10,7 +10,7 @@ import kotlinx.coroutines.delay
 
 class ServicioTiempo : Service() {
 
-    lateinit var countDownTimer: CountDownTimer
+    var countDownTimer: CountDownTimer? = null
     var segundosTranscurridos: Long = 0
 
     override fun onBind(intent: Intent?): IBinder? {
@@ -50,12 +50,12 @@ class ServicioTiempo : Service() {
             }
         }
 
-        countDownTimer.start()
+        countDownTimer?.start()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        countDownTimer.cancel() // Detener el temporizador cuando el servicio se destruye
+        countDownTimer?.cancel() // Detener el temporizador cuando el servicio se destruye
         // Subir el tiempo total a la base de datos cuando el servicio se destruye
         println("destruido" + segundosTranscurridos)
 
