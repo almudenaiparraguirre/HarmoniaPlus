@@ -152,11 +152,27 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         mostrarImagenGrande()
         crearMenuSuperior()
         setPorcentajesLogros()
+        setlogroTiempo(30)
+        setlogroNiveles(5)
 
         lifecycleScope.launch {
             downloadImage()
             downloadImage2()
         }
+    }
+
+
+
+    private fun setlogroTiempo(cantidad: Int)= runBlocking{
+        val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
+        progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
+        porcentajeTextView1.text = "$porcentaje1/$cantidad"
+
+    }
+    private fun setlogroNiveles(cantidad: Int)= runBlocking {
+        val porcentaje2 = UtilsDB.getNivelActual()
+        progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
+        porcentajeTextView2.text = "$porcentaje2/$cantidad"
     }
 
     // Descarga la imagen correspondiente a la etapa del usuario
@@ -269,13 +285,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun setPorcentajesLogros() {
-        val porcentaje1 = 10
-        progressBar1.progress = porcentaje1
-        porcentajeTextView1.text = "$porcentaje1/100"
+     //   val porcentaje1 = 10
+     //   progressBar1.progress = porcentaje1
+      //  porcentajeTextView1.text = "$porcentaje1/100"
 
-        val porcentaje2 = 20
-        progressBar2.progress = porcentaje2
-        porcentajeTextView2.text = "$porcentaje2/100"
+       // val porcentaje2 = 20
+       // progressBar2.progress = porcentaje2
+       // porcentajeTextView2.text = "$porcentaje2/100"
 
         val porcentaje3 = 30
         progressBar3.progress = porcentaje3
