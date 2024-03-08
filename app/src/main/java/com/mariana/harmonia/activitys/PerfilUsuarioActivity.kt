@@ -604,8 +604,8 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     }
 
     private fun setlogro6(cantidad: Int)= runBlocking {
-        val porcentaje6 = 5
-        progressBar6.progress = (porcentaje6!!.times(100).div(cantidad))
+        val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafio()!!).get("notas")!!.toInt()
+        progressBar6.progress = (porcentaje6.times(100).div(cantidad))
         porcentajeTextView6.text = "$porcentaje6/$cantidad"
     }
 

@@ -383,7 +383,7 @@ class UtilsDB {
                 }
         }
 
-        fun obtenerMapaConNotasMasAlto(lista: List<Map<String, Number>>): Map<String, Number> {
+        fun getMayorPuntuacionDesafio(lista: List<Map<String, Number>>): Map<String, Number> {
             if (lista.isEmpty()) {
                 return mapOf("notas" to 0, "tiempo" to 0)
             }
