@@ -86,16 +86,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     fun crearFragmentoCarga(){
         val fragment = CargaFragment()
 
-
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-
         fragmentTransaction.replace(R.id.fragment_container_carga, fragment)
 
-
         fragmentTransaction.addToBackStack(null)
-
 
         fragmentTransaction.commit()
         ocultarFragmento()
@@ -160,18 +156,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         finish()
         finishAffinity()
-
     }
 
     fun clickOpciones(view: View){
         mediaPlayer.start()
-
-
-        //ir ajustes
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
-
-
     }
 
     fun irModoAventura(view: View){
@@ -180,12 +170,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
         mostrarFragmento()
-
-
     }
 
     fun irDesafio(view: View) {
-
         mediaPlayer.start()
 
         // Crea una instancia del fragmento que deseas mostrar
@@ -204,14 +191,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Realiza la transacción
         fragmentTransaction.commit()
 
-
         // Oculta los botones de la actividad principal
-
-
     }
 
     override fun onBackPressed() {
-
         super.onBackPressed()
     }
 
@@ -219,6 +202,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
         fragmento.visibility = View.GONE
     }
+
     fun mostrarFragmento(){
         var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
         fragmento.visibility = View.VISIBLE
@@ -235,5 +219,4 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
     }
-
 }
