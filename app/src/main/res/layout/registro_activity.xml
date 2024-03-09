@@ -8,11 +8,6 @@
     android:background="@drawable/style_fondo_degradado"
     tools:context=".activitys.iniciarSesion.RegistroActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
