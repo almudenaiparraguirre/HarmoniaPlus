@@ -4,7 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/style_fondo_degradado"
     tools:context=".activitys.ConfiguracionActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/img_fondo"
+        android:scaleType="centerCrop"
+        android:alpha="0.3"
+        />
 
     <LinearLayout
         android:id="@+id/menu_inferior"
@@ -95,7 +104,7 @@
                 style="@style/Fuente_kameron"
                 android:textSize="22dp"
                 android:textStyle="bold"
-                android:textColor="@color/rosa"
+                android:textColor="@color/negro"
                 app:layout_constraintTop_toBottomOf="@+id/configuracionTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="20dp"
@@ -175,7 +184,7 @@
                 style="@style/Fuente_kameron"
                 android:textSize="22dp"
                 android:textStyle="bold"
-                android:textColor="@color/rosa"
+                android:textColor="@color/negro"
                 app:layout_constraintTop_toBottomOf="@+id/buttonCambiarContrasena"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginHorizontal="20dp"
@@ -265,7 +274,6 @@
                 android:clickable="true"
                 android:text="ELIMINAR MI CUENTA"
                 style="@style/Fuente_kameron"
-                android:textColor="@color/rojo"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginVertical="30dp"/>

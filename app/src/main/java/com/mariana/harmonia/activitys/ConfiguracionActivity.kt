@@ -54,6 +54,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchSonidos: Switch
+    private lateinit var configuracionTextView: TextView
     private var sonidosActivados: Boolean = false
     val auth: FirebaseAuth = FirebaseDB.getInstanceFirebase()
     private var isMusicPlaying: Boolean = false
@@ -81,6 +82,11 @@ class ConfiguracionActivity : AppCompatActivity() {
 
         configurarSwitchColor(switchMusica)
         configurarSwitchColor(switchOtraOpcion)
+
+        Utils.degradadoTexto(this, R.id.configuracionTextView, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.contrasenaTituloTextView, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.efectosYMusica, R.color.rosa, R.color.morado)
+        Utils.degradadoTexto(this, R.id.textViewEliminarCuenta, R.color.rosa, R.color.morado)
 
         switchSonidos.setOnCheckedChangeListener { _, isChecked ->
             sonidosActivados = isChecked

@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         notificationManager.notify(0, builder.build())
     }
 
-
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {
         val firebaseUser = FirebaseDB.getInstanceFirebase().currentUser
 
