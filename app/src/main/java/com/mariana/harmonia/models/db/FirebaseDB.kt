@@ -32,7 +32,6 @@ class FirebaseDB {
             }
         }
 
-
         fun getInstanceStorage(): FirebaseStorage {
             synchronized(this) {
                 if (INSTANCESTORAGE == null)
@@ -40,15 +39,5 @@ class FirebaseDB {
                 return INSTANCESTORAGE as FirebaseStorage
             }
         }
-
-        fun getInstanceAnalytics(context: Context): FirebaseAnalytics {
-            synchronized(this) {
-                if (INSTANCEANALYTICS == null) {
-                    INSTANCEANALYTICS = FirebaseAnalytics.getInstance(context)
-                }
-                return INSTANCEANALYTICS as FirebaseAnalytics
-            }
-        }
-
     }
 }

@@ -267,7 +267,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
                         val usersRef = FirebaseDB.getInstanceFirestore().collection("usuarios")
 
-// Verificar si el correo electrónico está presente en la colección de usuarios
+        // Verificar si el correo electrónico está presente en la colección de usuarios
                         usersRef.whereEqualTo("email", emailEncriptado).get()
                             .addOnSuccessListener { documents ->
                                 if (!documents.isEmpty) {

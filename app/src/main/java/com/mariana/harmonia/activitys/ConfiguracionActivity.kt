@@ -56,6 +56,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var switchSonidos: Switch
     private var sonidosActivados: Boolean = false
     val auth: FirebaseAuth = FirebaseDB.getInstanceFirebase()
+    private var isMusicPlaying: Boolean = false
 
     companion object {
         const val SHARED_PREFS = "sharedPrefs"
@@ -109,6 +110,22 @@ class ConfiguracionActivity : AppCompatActivity() {
             mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
             mediaPlayer.start()
             vibrarDispositivo()
+            if (contrasenaAnterior == contrasenaNueva){
+                Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                val user = FirebaseDB.getInstanceFirebase().currentUser
+                val newPassword = contrasenaNueva.text.toString()
+
+                user!!.updatePassword(newPassword)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "User password updated.")
+                            Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+            }
         }
 
         textViewEliminarCuenta.setOnClickListener {
@@ -122,7 +139,7 @@ class ConfiguracionActivity : AppCompatActivity() {
                 val thumbColor = ContextCompat.getColor(this, R.color.rosa)
                 val trackColor = ContextCompat.getColor(this, R.color.rosa)
 
-                mediaPlayer = MediaPlayer.create(this, R.raw.waitingtime)
+                mediaPlayer = MediaPlayer.create(this, R.raw.cancion_fondo)
                 mediaPlayer.start()
 
                 switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
@@ -141,6 +158,49 @@ class ConfiguracionActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onStop() {
+        super.onStop()
+        detenerReproduccionMusica()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (switchMusica.isChecked) {
+            configurarReproduccionMusica()
+        }
+    }
+
+    private fun configurarReproduccionMusica() {
+        if (!isMusicPlaying) {
+            val thumbColor = ContextCompat.getColor(this, R.color.rosa)
+            val trackColor = ContextCompat.getColor(this, R.color.rosa)
+
+            mediaPlayer = MediaPlayer.create(this, R.raw.cancion_fondo)
+            mediaPlayer.start()
+
+            switchMusica.thumbTintList = ColorStateList.valueOf(thumbColor)
+            switchMusica.trackTintList = ColorStateList.valueOf(trackColor)
+            isMusicPlaying = true
+        }
+    }
+
+    private fun detenerReproduccionMusica() {
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.pause()
+            mediaPlayer.seekTo(0)
+            isMusicPlaying = false
+        }
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        detenerReproduccionMusica()
+        guardarEstadoSwitch(MUSIC_SWITCH_STATE, switchMusica.isChecked)
+    }
+
+
 
     fun irPerfilUsuario(view: View){
         mediaPlayer.start()
@@ -179,7 +239,16 @@ class ConfiguracionActivity : AppCompatActivity() {
             Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
         }
         else{
-            UserDao.actualizarContrasena(FirebaseDB.getInstanceFirebase().currentUser?.email.toString(), contrasenaNueva.toString())
+            val user = FirebaseDB.getInstanceFirebase().currentUser
+            val newPassword = contrasenaNueva.toString()
+
+            user!!.updatePassword(newPassword)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "User password updated.")
+                        Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+                    }
+                }
             Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
         }
     }
@@ -257,5 +326,4 @@ class ConfiguracionActivity : AppCompatActivity() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
-
 }
