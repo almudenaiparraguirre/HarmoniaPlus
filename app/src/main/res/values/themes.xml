@@ -6,4 +6,9 @@
     </style>
 
     <style name="Theme.Harmonia" parent="Base.Theme.Harmonia" />
+
+    <style name="ThemeOverlay.Harmonia.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
 </resources>

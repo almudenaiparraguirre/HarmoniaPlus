@@ -12,16 +12,14 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
+import com.mariana.harmonia.activitys.fragments.CargaFragment
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.ServicioTiempo
@@ -45,9 +43,6 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var porcentajeTextView: TextView
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
-    private lateinit var botonAventura: androidx.appcompat.widget.AppCompatButton
-    private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
-    private lateinit var botonOpciones: androidx.appcompat.widget.AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +61,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         porcentajeTextView = findViewById(R.id.porcentajeTextView)
         progressBar = findViewById(R.id.progressBarCarga)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil) // Inicializar imageViewFotoPerfil
-        botonAventura = findViewById(R.id.botonAventura)
-        botonDesafio = findViewById(R.id.botonChallenge)
-        botonOpciones = findViewById(R.id.botonOpciones)
+
 
 
         inicilalizarVariablesThis()
@@ -149,8 +142,23 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     fun clickOpciones(view: View){
         mediaPlayer.start()
 
-        val intent = Intent(this, ConfiguracionActivity::class.java)
-        startActivity(intent)
+
+        val fragment = CargaFragment()
+
+        // Obtén el administrador de fragmentos y comienza una transacción
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        // Reemplaza el contenido del contenedor de fragmentos con el fragmento que deseas mostrar
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+
+        // Agrega la transacción al historial de retroceso (opcional)
+        fragmentTransaction.addToBackStack(null)
+
+        // Realiza la transacción
+        fragmentTransaction.commit()
+       // val intent = Intent(this, ConfiguracionActivity::class.java)
+       // startActivity(intent)
 
 
     }
@@ -183,16 +191,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         fragmentTransaction.commit()
 
         // Oculta los botones de la actividad principal
-        botonAventura.visibility = View.GONE
-        botonDesafio.visibility = View.GONE
-        botonOpciones.visibility = View.GONE
+
 
     }
 
     override fun onBackPressed() {
-        botonAventura.visibility = View.VISIBLE
-        botonDesafio.visibility = View.VISIBLE
-        botonOpciones.visibility = View.VISIBLE
+
         super.onBackPressed()
     }
 

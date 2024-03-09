@@ -16,9 +16,6 @@ import com.mariana.harmonia.utils.Utils
 class FragmentoDificultadDesafio : Fragment() {
 
 
-    private lateinit var botonAventura: androidx.appcompat.widget.AppCompatButton
-    private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
-    private lateinit var botonOpciones: androidx.appcompat.widget.AppCompatButton
 
     private lateinit var botonFacil: androidx.appcompat.widget.AppCompatButton
     private lateinit var botonMedio: androidx.appcompat.widget.AppCompatButton
@@ -37,9 +34,6 @@ class FragmentoDificultadDesafio : Fragment() {
         // Infla el diseño del fragmento que contiene los botones
         val view = inflater.inflate(R.layout.fragment_dificultad_desafio, container, false)
 
-        botonAventura = requireActivity().findViewById(R.id.botonAventura)
-        botonDesafio = requireActivity().findViewById(R.id.botonChallenge)
-        botonOpciones = requireActivity().findViewById(R.id.botonOpciones)
 
         // Encuentra los botones en el diseño
         botonFacil = view.findViewById(R.id.botonFacil)
@@ -54,7 +48,6 @@ class FragmentoDificultadDesafio : Fragment() {
             intent.putExtra("desafio", true)
             intent.putExtra("dificultad", 0)
             requireActivity().startActivity(intent)
-            encenderBotonesDetras()
 
             // Cierra el fragmento actual
             requireActivity().supportFragmentManager.popBackStack()
@@ -65,7 +58,6 @@ class FragmentoDificultadDesafio : Fragment() {
             intent.putExtra("desafio", true)
             intent.putExtra("dificultad", 1)
             requireActivity().startActivity(intent)
-            encenderBotonesDetras()
 
             // Cierra el fragmento actual
             requireActivity().supportFragmentManager.popBackStack()
@@ -76,7 +68,7 @@ class FragmentoDificultadDesafio : Fragment() {
             intent.putExtra("desafio", true)
             intent.putExtra("dificultad", 2)
             requireActivity().startActivity(intent)
-            encenderBotonesDetras()
+
 
             // Cierra el fragmento actual
             requireActivity().supportFragmentManager.popBackStack()
@@ -85,22 +77,12 @@ class FragmentoDificultadDesafio : Fragment() {
 
         textViewVolver.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
-            var botonAventura =
-                requireActivity().findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.botonAventura)
-            var botonDesafio =
-                requireActivity().findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.botonChallenge)
-            var botonOpciones =
-                requireActivity().findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.botonOpciones)
-            encenderBotonesDetras()
+
         }
 
 
         return view
     }
-    fun encenderBotonesDetras(){
-        botonAventura.visibility = View.VISIBLE
-        botonDesafio.visibility = View.VISIBLE
-        botonOpciones.visibility = View.VISIBLE
-    }
+
 
 }
