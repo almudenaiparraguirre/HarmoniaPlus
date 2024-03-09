@@ -57,6 +57,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Volver al inicio de sesión
     fun irIniciarSesion(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

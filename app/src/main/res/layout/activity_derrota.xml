@@ -24,11 +24,12 @@
 
     <TextView
         android:id="@+id/derrotaTextView"
+        style="@style/Fuente_kameron"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DERROTA"
         android:textAlignment="center"
-        android:textSize="85dp"
+        android:textSize="80dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/emogiTextView"
         app:layout_constraintStart_toStartOf="parent"

@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     fun irIniciarSesion(view: View) {
 
+        mediaPlayer.start()
         val Email: TextView = findViewById(R.id.editText1)
         val contrasena: TextView = findViewById(R.id.editText2)
 

@@ -62,8 +62,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         porcentajeTextView = findViewById(R.id.porcentajeTextView)
         progressBar = findViewById(R.id.progressBarCarga)
-        imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil) // Inicializar imageViewFotoPerfil
-
+        imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
 
 
         inicilalizarVariablesThis()
@@ -109,6 +108,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private fun inicilalizarVariablesThis() {
         Utils.degradadoTexto(this, R.id.cerrarSesion,R.color.rosa,R.color.morado)
         Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
+        Utils.degradadoTexto(this, R.id.eligeModo,R.color.rosa,R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         //Utils.serializeImage(this,R.mipmap.img_gema)
         //imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
@@ -160,6 +160,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun clickOpciones(view: View){
         mediaPlayer.start()
+        mostrarFragmento()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }
