@@ -33,6 +33,11 @@ import kotlinx.coroutines.runBlocking
 
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
+
+    companion object{
+        // Se usa para poder llamarla desde otras activitis
+        lateinit var instance: EligeModoJuegoActivity
+    }
     private   var RC_NOTIFICATION = 99
 
     private lateinit var mediaPlayer: MediaPlayer
@@ -56,7 +61,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_principal)
         imageView.startAnimation(anim)
-
+        instance = this
         nombreTextView = findViewById(R.id.nombreModoDeJuego)
         porcentajeTextView = findViewById(R.id.porcentajeTextView)
         progressBar = findViewById(R.id.progressBarCarga)
@@ -122,6 +127,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
+        inicializarConBase()
     }
 
     fun cerrarSesion(view: View) {
@@ -136,7 +142,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
 
         finish()
-        finishAffinity() // Cierra todas las actividades anteriores
+        finishAffinity()
 
     }
 
@@ -146,12 +152,14 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
 
+
     }
 
     fun irModoAventura(view: View){
         mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         startActivity(intent)
+
 
     }
 
@@ -178,7 +186,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         botonAventura.visibility = View.GONE
         botonDesafio.visibility = View.GONE
         botonOpciones.visibility = View.GONE
-        // Puedes hacer lo mismo para otros botones de la actividad si es necesario
+
     }
 
     override fun onBackPressed() {

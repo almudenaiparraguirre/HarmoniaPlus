@@ -315,4 +315,11 @@ class NivelesAventuraActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+
+    override fun onBackPressed() {
+        EligeModoJuegoActivity.instance.inicializarConBase()
+        super.onBackPressed()
+    }
+
 }
