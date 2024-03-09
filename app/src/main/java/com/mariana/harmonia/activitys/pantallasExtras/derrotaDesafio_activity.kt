@@ -21,6 +21,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
     private var nivel: Int = 0
     private var notasHacertadas: Int = 0
     private var tiempoDurado: Int = 0
+    private var dificultad: Int = 0
     private lateinit var textViewResultadoTotal: TextView
     private lateinit var textViewResultadoTiempo: TextView
     private lateinit var mediaPlayer: MediaPlayer
@@ -35,6 +36,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
         nivel = intent.getIntExtra("numeroNivel", 999)
         notasHacertadas = intent.getIntExtra("notasHacertadas", 0)
         tiempoDurado = intent.getIntExtra("tiempoDurado", 0)
+        dificultad = intent.getIntExtra("dificultad", 0)
 
         val emojis = arrayOf("😄", "😃", "😁", "😊", "😆")
 
@@ -70,7 +72,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
     private fun actualizarDatosInterfaz() = runBlocking {
         val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
         val listaPuntuaciones = UtilsDB.getPuntuacionDesafio()?.toMutableList() ?: mutableListOf()
-        val nuevoElemento = mapOf("notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
+        val nuevoElemento = mapOf("dificultad" to dificultad, "notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
         listaPuntuaciones?.add(nuevoElemento)
         UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
         UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
@@ -87,8 +89,8 @@ class derrotaDesafio_activity : AppCompatActivity() {
     }
     fun irMenu(view: View) {
         mediaPlayer.start()
-        val intent = Intent(this, NivelesAventuraActivity::class.java)
+
         finish()
-        startActivity(intent)
+
     }
 }

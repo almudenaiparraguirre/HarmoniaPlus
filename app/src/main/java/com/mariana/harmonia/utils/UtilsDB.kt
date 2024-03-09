@@ -174,6 +174,38 @@ class UtilsDB {
             }
         }
 
+        suspend fun getPuntuacionDesafioPorDificultad(dificultad: Int): List<Map<String, Number>>? {
+            actualizarVariables()
+            val docRef = db.collection("usuarios").document(emailEncriptado)
+
+            return try {
+                val document = docRef.get().await()
+                if (document.exists()) {
+                    val precisionesMap = document.data?.get("puntuacionDesafio") as? List<Map<String, Number>>?
+                    println("precisiones: $precisionesMap")
+
+                    // Lista para almacenar las precisiones filtradas
+                    val precisionesFiltradas = mutableListOf<Map<String, Number>>()
+
+                    // Iterar sobre los elementos de la lista
+                    precisionesMap?.forEach { mapa ->
+                        // Verificar si el valor de la clave "dificultad" es igual al valor especificado
+                        if (mapa.get("dificultad")?.toInt() == dificultad) {
+                            precisionesFiltradas.add(mapa)
+                        }
+                    }
+
+                    println("precisiones filtradas: $precisionesFiltradas")
+                    precisionesFiltradas
+                } else {
+                    println("No such document")
+                    null
+                }
+            } catch (exception: Exception) {
+                println("Error getting documents: $exception")
+                null
+            }
+        }
         suspend fun getTiempoJugado(): Int? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)

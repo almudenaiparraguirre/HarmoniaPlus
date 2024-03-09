@@ -473,6 +473,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         intent.putExtra("numeroNivel", nivel)
         intent.putExtra("notasHacertadas", aciertos)
         intent.putExtra("tiempoDurado", tiempoActual)
+        intent.putExtra("dificultad", dificultad)
         perdido = true;
         finish()
         startActivity(intent)
