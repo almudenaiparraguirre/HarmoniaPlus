@@ -59,6 +59,10 @@ class NivelesAventuraActivity : AppCompatActivity() {
         crearCirculos()
         colocarTextViewNivel()
         downloadImage2()
+
+
+        //oculta la barra de carga
+        EligeModoJuegoActivity.instance.ocultarFragmento()
     }
 
     private fun inicializarConBase()= runBlocking {

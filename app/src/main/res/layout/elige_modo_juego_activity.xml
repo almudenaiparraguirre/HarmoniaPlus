@@ -248,7 +248,12 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fragment_container_desafio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <FrameLayout
+        android:id="@+id/fragment_container_carga"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

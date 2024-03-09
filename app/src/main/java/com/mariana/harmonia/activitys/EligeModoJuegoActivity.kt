@@ -4,10 +4,12 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -18,8 +20,8 @@ import com.bumptech.glide.Glide
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
 import com.mariana.harmonia.activitys.fragments.CargaFragment
+import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.ServicioTiempo
@@ -77,6 +79,27 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val serviceIntent = Intent(this, ServicioTiempo::class.java)
         startService(serviceIntent)
         println("SERVICIO CONTADOR COMENZO")
+        crearFragmentoCarga()
+
+    }
+
+    fun crearFragmentoCarga(){
+        val fragment = CargaFragment()
+
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+
+        fragmentTransaction.replace(R.id.fragment_container_carga, fragment)
+
+
+        fragmentTransaction.addToBackStack(null)
+
+
+        fragmentTransaction.commit()
+        ocultarFragmento()
+
     }
     fun inicializarConBase() = runBlocking {
         var nivel = UtilsDB.getExperiencia()!!/100
@@ -118,6 +141,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     fun menu_perfil(view: View){
         mediaPlayer.start()
+        mostrarFragmento()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         inicializarConBase()
@@ -143,35 +167,25 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer.start()
 
 
-        val fragment = CargaFragment()
-
-        // Obtén el administrador de fragmentos y comienza una transacción
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-
-        // Reemplaza el contenido del contenedor de fragmentos con el fragmento que deseas mostrar
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-
-        // Agrega la transacción al historial de retroceso (opcional)
-        fragmentTransaction.addToBackStack(null)
-
-        // Realiza la transacción
-        fragmentTransaction.commit()
-       // val intent = Intent(this, ConfiguracionActivity::class.java)
-       // startActivity(intent)
-
-
-    }
-
-    fun irModoAventura(view: View){
-        mediaPlayer.start()
-        val intent = Intent(this, NivelesAventuraActivity::class.java)
+        //ir ajustes
+        val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
 
 
     }
 
+    fun irModoAventura(view: View){
+        mostrarFragmento()
+        mediaPlayer.start()
+        val intent = Intent(this, NivelesAventuraActivity::class.java)
+        startActivity(intent)
+        mostrarFragmento()
+
+
+    }
+
     fun irDesafio(view: View) {
+
         mediaPlayer.start()
 
         // Crea una instancia del fragmento que deseas mostrar
@@ -182,13 +196,14 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         // Reemplaza el contenido del contenedor de fragmentos con el fragmento que deseas mostrar
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.replace(R.id.fragment_container_desafio, fragment)
 
         // Agrega la transacción al historial de retroceso (opcional)
         fragmentTransaction.addToBackStack(null)
 
         // Realiza la transacción
         fragmentTransaction.commit()
+
 
         // Oculta los botones de la actividad principal
 
@@ -198,6 +213,15 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     override fun onBackPressed() {
 
         super.onBackPressed()
+    }
+
+    fun ocultarFragmento(){
+        var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
+        fragmento.visibility = View.GONE
+    }
+    fun mostrarFragmento(){
+        var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
+        fragmento.visibility = View.VISIBLE
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

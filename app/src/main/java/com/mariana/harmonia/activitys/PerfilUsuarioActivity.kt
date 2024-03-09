@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
+import com.mariana.harmonia.activitys.fragments.CargaFragment
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.UtilsDB
@@ -170,7 +171,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             downloadImage()
             downloadImage2()
         }
+
+//oculta la barra de carga
+        EligeModoJuegoActivity.instance.ocultarFragmento()
+
     }
+
+
 
 
     // Descarga la imagen correspondiente a la etapa del usuario
