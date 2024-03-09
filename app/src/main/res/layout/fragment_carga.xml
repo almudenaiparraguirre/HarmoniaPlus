@@ -7,13 +7,15 @@
     android:background="@color/blancoMedioTransparente">
 
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
+    <ImageView
+        android:id="@+id/animated_vector_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:scaleX="3"
-        android:scaleY="3"
-        android:visibility="visible" />
+        android:scaleType="centerInside"
+        android:visibility="visible"
+        android:src="@drawable/avd_anim_carga" />
+
+
 
 </FrameLayout>
