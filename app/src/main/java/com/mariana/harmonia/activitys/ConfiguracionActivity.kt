@@ -30,6 +30,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.Firebase
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.auth.userProfileChangeRequest
@@ -54,7 +55,6 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switchSonidos: Switch
-    private lateinit var configuracionTextView: TextView
     private var sonidosActivados: Boolean = false
     val auth: FirebaseAuth = FirebaseDB.getInstanceFirebase()
     private var isMusicPlaying: Boolean = false
@@ -116,23 +116,48 @@ class ConfiguracionActivity : AppCompatActivity() {
             mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
             mediaPlayer.start()
             vibrarDispositivo()
-            if (contrasenaAnterior == contrasenaNueva){
-                Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                val user = FirebaseDB.getInstanceFirebase().currentUser
-                val newPassword = contrasenaNueva.text.toString()
 
-                user!!.updatePassword(newPassword)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Log.d(TAG, "User password updated.")
-                            Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+            val contrasenaAnteriorText = contrasenaAnterior.text.toString()
+            val contrasenaNuevaText = contrasenaNueva.text.toString()
+
+            val user = FirebaseDB.getInstanceFirebase().currentUser
+
+            // Verificar que la contraseña antigua es correcta
+            val credential = EmailAuthProvider.getCredential(user!!.email!!, contrasenaAnteriorText)
+            user.reauthenticate(credential)
+                .addOnCompleteListener { authTask ->
+                    if (authTask.isSuccessful) {
+                        // La autenticación es exitosa, ahora verifica las reglas para la nueva contraseña
+                        if (contrasenaAnteriorText == contrasenaNuevaText) {
+                            Toast.makeText(this, "Las contraseñas introducidas son iguales", Toast.LENGTH_SHORT).show()
+                        } else if (contrasenaNuevaText.length < 8 || !contrasenaNuevaText.any { it.isDigit() } ||
+                            !contrasenaNuevaText.any { it.isUpperCase() } || !contrasenaNuevaText.any { it.isLowerCase() }
+                        ) {
+                            Toast.makeText(
+                                this,
+                                "La nueva contraseña debe tener al menos 8 caracteres, incluir al menos 1 mayúscula, 1 minúscula y 1 número",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            // Aplicar la actualización de contraseña si cumple con todas las reglas
+                            user.updatePassword(contrasenaNuevaText)
+                                .addOnCompleteListener { updateTask ->
+                                    if (updateTask.isSuccessful) {
+                                        Log.d(TAG, "User password updated.")
+                                        Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Log.e(TAG, "Error updating password", updateTask.exception)
+                                        Toast.makeText(this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
                         }
+                    } else {
+                        // La autenticación falló, muestra un mensaje de error
+                        Toast.makeText(this, "Error de autenticación: La contraseña antigua es incorrecta", Toast.LENGTH_SHORT).show()
                     }
-                Toast.makeText(this, "Contraseña actualizada con éxito", Toast.LENGTH_SHORT).show()
-            }
+                }
         }
+
 
         textViewEliminarCuenta.setOnClickListener {
             mostrarDialogoConfirmacion()
@@ -191,6 +216,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    //Detiene la música
     private fun detenerReproduccionMusica() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
@@ -199,15 +225,14 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-
+    //Musica parada
     override fun onPause() {
         super.onPause()
         detenerReproduccionMusica()
         guardarEstadoSwitch(MUSIC_SWITCH_STATE, switchMusica.isChecked)
     }
 
-
-
+    //Va al perfil del usuario
     fun irPerfilUsuario(view: View){
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
@@ -216,6 +241,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
     }
 
+    //Vibra el dispositivo al clickar sobre el botón
     private fun vibrarDispositivo() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
@@ -239,6 +265,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         onBackPressed()
     }
 
+    //Actualiza la contraseña
     fun actualizarContrasena(){
         mediaPlayer.start()
         if (contrasenaAnterior == contrasenaNueva){
@@ -290,6 +317,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    //Cierra sesión
     fun cerrarSesionConfig(view: View){
         mediaPlayer.start()
         auth.signOut()
@@ -298,6 +326,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
+    //Elimina la cuenta
     private fun eliminarMiCuenta() {
         mediaPlayer.start()
         val user = FirebaseDB.getInstanceFirebase().currentUser!!
@@ -316,6 +345,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
+    //Confirmación de eliminación de cuenta
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Cuenta")

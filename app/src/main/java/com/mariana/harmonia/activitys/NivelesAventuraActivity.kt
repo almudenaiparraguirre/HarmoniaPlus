@@ -70,6 +70,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         corazonesTextView.text = UtilsDB.getVidas().toString()
     }
 
+    // Descarga la imagen de perfil del usuario del storage
     private fun downloadImage2() {
         val storageRef = storage.reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -85,7 +86,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
     }
 
-
+    // Crear forma botones
     private fun crearCirculos() {
 
         val lp = LinearLayout.LayoutParams(
@@ -163,15 +164,15 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
     }
 
+    //Click a un nivel
     private fun clickBotonNivel(numeroNivel: Int) {
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", numeroNivel)
         startActivity(intent)
         finish()
-
-
     }
 
+    // Crear botones bloqueados
     private fun createLockedButton(): Button {
         //mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
@@ -206,6 +207,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return lockedButton
     }
 
+    //Crear botones niveles desbloqueados
     private fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
         button.textSize = 20f
@@ -238,8 +240,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         )
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
-
-
 
     private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
@@ -299,6 +299,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return Color.rgb(r, g, b)
     }
 
+    //Volver al modo de juego
     fun clickAtras(view: View){
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
@@ -306,6 +307,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
+    //Volver al modo de juego
     fun volverModoJuego(view: View){
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
@@ -313,6 +315,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
+    // Ir al perfil del usuario
     fun verPerfilUsuario(view: View){
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
@@ -320,7 +323,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-
+    //Vuelve a la pestaña anterior
     override fun onBackPressed() {
         EligeModoJuegoActivity.instance.inicializarConBase()
         super.onBackPressed()

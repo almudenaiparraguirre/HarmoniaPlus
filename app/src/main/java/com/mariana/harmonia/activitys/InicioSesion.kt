@@ -22,6 +22,7 @@ class InicioSesion : AppCompatActivity() {
         firebaseAuth = FirebaseDB.getInstanceFirebase()
     }
 
+    // Inicio de sesión
     private fun signIn(email: String, contrasena: String) {
         firebaseAuth.signInWithEmailAndPassword(email.lowercase(), contrasena)
             .addOnCompleteListener(this) { task ->
@@ -43,6 +44,7 @@ class InicioSesion : AppCompatActivity() {
             }
     }
 
+
     fun btnIngresar(view: View) {
         val emailTextView: TextView = findViewById(R.id.edtEmail)
         val contrasenaTextView: TextView = findViewById(R.id.edtContrasena)
@@ -50,8 +52,7 @@ class InicioSesion : AppCompatActivity() {
         val email = emailTextView.text.toString()
         val emailEncriptado = HashUtils.sha256(email!!)
         val contrasena = contrasenaTextView.text.toString()
-        println(email+"/"+emailEncriptado)
-
+        println("$email/$emailEncriptado")
         signIn(emailEncriptado, contrasena)
     }
 }

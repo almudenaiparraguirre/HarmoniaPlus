@@ -252,7 +252,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-
             // Obtener credenciales de autenticación de Google
             val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
             // Autenticar con Firebase usando las credenciales de Google

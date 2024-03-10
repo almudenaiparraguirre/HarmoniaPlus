@@ -64,7 +64,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
 
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.juego_musical_activity)
@@ -122,7 +122,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
         }
 
-
         //Admin del tiempo
         fun iniciarCuentaRegresiva() {
 
@@ -159,9 +158,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }, intervalo)
 
         }
-
-
-
 
         if (!desafio) {
             nivel = intent.getIntExtra("numeroNivel", 1)
@@ -254,8 +250,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }
             true
         }
-
-
 
         notaDo.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
@@ -382,7 +376,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-    // NO TOCARRRRR Funciona bien :)
+    // NO TOCARRRRR Funciona bien :) -- Comprueba la jugada
     private fun comprobarJugada(nombreNota: String) {
         // Sumamos una a intentos
         intentos = intentos?.plus(1)
@@ -487,7 +481,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-
     private fun ganado() {
         val intent = Intent(this, victoria_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
@@ -499,14 +492,12 @@ class JuegoMusicalActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
     private fun pararConadores() {
         detenerContador()
         detenerCuentaRegresiva()
         ganado = true
 
     }
-
 
     private fun cambiarTexto(texto: String) {
         textViewNota.text = traducirNota(texto)
@@ -572,7 +563,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-
     fun actualizarFondoBlancas(imageViewId: Int, nuevaImagenId: Int, actividad: AppCompatActivity) {
         // Buscar el ImageView por su ID
         val imageView = actividad.findViewById<ImageView>(imageViewId)
@@ -581,7 +571,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     fun traducirNota(nota: String): String {
-
         return when (nota) {
             "c" -> "DO"
             "d" -> "RE"
@@ -599,7 +588,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-
+    //Click en notas
     private fun clickDo() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Do")
 
@@ -702,8 +691,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         comprobarJugada("b")
     }
 
-    //Soltar
-
+    //Soltar notas
     private fun soltarDo() {
         Log.d("pruebasActivity", "Se ha soltado la nota Do")
         actualizarFondoBlancas(R.id.notaDo, R.drawable.svg_tecla_do, this)
@@ -774,9 +762,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         mostrarDialogoConfirmacion()
-
     }
 
+    //Confirmación al usuario de querer salir del nivel
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Salir del nivel")
@@ -843,8 +831,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     //metodos desafio:
-
-
     fun getNotasAleatorias(cantidad: Int, dificultad: Int): Array<String?> {
         val notasFacil = arrayOf(
             "4c",
@@ -932,12 +918,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
         return arrayAleatorio
     }
 
-
     fun cargarDatosDesafio() {
         tiempo = 60.0
         vidas = 1
         notasArray = getNotasAleatorias(1000,dificultad!!)
-
     }
 
     private fun actualizarDatosInterfazDesafio() {
@@ -948,7 +932,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
         contadorVidas.text = "1"
     }
 
-
     fun detenerContador() {
         countDownTimer?.cancel()
     }
@@ -957,5 +940,4 @@ class JuegoMusicalActivity : AppCompatActivity() {
         handler.removeCallbacksAndMessages(null)
 
     }
-
 }

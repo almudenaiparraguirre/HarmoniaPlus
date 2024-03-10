@@ -16,6 +16,7 @@ class FirebaseDB {
         private var INSTANCESTORAGE: FirebaseStorage? = null
         private var INSTANCEANALYTICS: FirebaseAnalytics? = null
 
+        // Coge instancia de la firestore
         fun getInstanceFirestore(): FirebaseFirestore {
             synchronized(this) {
                 if (INSTANCESTORE == null)
@@ -24,6 +25,7 @@ class FirebaseDB {
             }
         }
 
+        // Coge instancia de firebase
         fun getInstanceFirebase(): FirebaseAuth {
             synchronized(this) {
                 if (INSTANCEAUTH == null)
@@ -32,6 +34,7 @@ class FirebaseDB {
             }
         }
 
+        // Coge instancia del storage
         fun getInstanceStorage(): FirebaseStorage {
             synchronized(this) {
                 if (INSTANCESTORAGE == null)

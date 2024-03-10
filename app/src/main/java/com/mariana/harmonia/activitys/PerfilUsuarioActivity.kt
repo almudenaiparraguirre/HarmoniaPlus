@@ -92,9 +92,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         "Novato", "Principiante", "Amateur",
         "Intermedio", "Avanzado", "Experto", "Maestro", "Leyenda", "Virtuoso", "Genio"
     )
-    var randomImagenInstrumentos: MutableList<String> = mutableListOf("fotoperfil_acordeon", "fotoperfil_bateria",
-        "fotoperfil_guitarra", "fotoperfil_harpa", "fotoperfil_maraca", "fotoperfil_piano", "fotoperfil_saxofon",
-        "fotoperfil_tambor", "fotoperfil_trompeta", "fotoperfil_tronbon")
 
     var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "bendicion", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
@@ -178,9 +175,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         EligeModoJuegoActivity.instance.ocultarFragmento()
 
     }
-
-
-
 
     // Descarga la imagen correspondiente a la etapa del usuario
     private suspend fun downloadImage() {
@@ -280,6 +274,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         return etapa.toString()
     }
 
+    //Inicializa los datos del usuario en el perfil
     @SuppressLint("SetTextI18n")
     private fun inicializarConBase() = runBlocking{
         fechaRegistro.text = "Se unió en " + UtilsDB.obtenerFechaActualEnTexto()
@@ -289,7 +284,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nivelTextView.text= UtilsDB.getNivelActual().toString()
         precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
     }
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun crearMenuSuperior() {
@@ -351,6 +345,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    //Mostrar elección de cámara o galería
     private fun mostrarDialogoElegirOrigen() {
         val opciones = arrayOf("Tomar foto", "Elegir de la galería")
 
@@ -403,6 +398,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    //Abre
     private fun abrirGaleria() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
@@ -428,6 +424,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             editor.apply()
         }
 
+    //Guarda la imagen seleccionada de la galería
     private fun guardarImagenEnFirebase(imageUri: Uri?) {
         if (imageUri != null) {
             val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -474,6 +471,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             }
         }
 
+    /// Permiso de la cámara
     private fun requestCameraPermission() {
         when {
             ContextCompat.checkSelfPermission(
@@ -490,6 +488,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    // Sube la imagen en firebase
     private fun guardarImagen(bitmap: Bitmap?) {
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
 
@@ -514,6 +513,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    // Coge la foto de la cámara y la pone en firebase
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -538,11 +538,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
+    // Función abrir cámara para sacar foto
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
     }
 
+    // Texto logros
     private fun setTextoLogro1(cantidad: Int) {
         var tituloLogro1 = findViewById<TextView>(R.id.tituloLogro1)
         tituloLogro1.text = "MAESTRO DEL DESAFÍO I"
@@ -592,9 +594,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro8.text = "Llega a  $cantidad notas en el modo dificil de desafio"
     }
 
-
-
-
+    // LOGROS
     private fun setlogro1(cantidad: Int)= runBlocking{
         val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
         progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))

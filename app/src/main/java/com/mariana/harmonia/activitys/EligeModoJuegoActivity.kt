@@ -96,6 +96,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         ocultarFragmento()
 
     }
+
+
     fun inicializarConBase() = runBlocking {
         var nivel = UtilsDB.getExperiencia()!!/100
         var experienciaSobrante = UtilsDB.getExperiencia()!!%100
@@ -104,6 +106,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         porcentajeTextView.text = "NV. "+nivel.toString()
         progressBar.progress = experienciaSobrante
     }
+
 
     private fun inicilalizarVariablesThis() {
         Utils.degradadoTexto(this, R.id.cerrarSesion,R.color.rosa,R.color.morado)
@@ -114,7 +117,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         //imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
     }
 
-
+    //Descargar imagen
     private fun downloadImage2() {
         val storageRef = FirebaseDB.getInstanceStorage().reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -143,6 +146,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         inicializarConBase()
     }
 
+    //Cerrar sesión
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
         val serviceIntent = Intent(this, ServicioTiempo::class.java)
@@ -152,15 +156,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         UtilsDB.currentUser?.reload()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-
-
         finish()
         finishAffinity()
     }
 
     fun clickOpciones(view: View){
         mediaPlayer.start()
-        mostrarFragmento()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }
@@ -172,6 +173,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         startActivity(intent)
         mostrarFragmento()
     }
+
 
     fun irDesafio(view: View) {
         mediaPlayer.start()
@@ -195,6 +197,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Oculta los botones de la actividad principal
     }
 
+    //Volver a la pestaña anterior
     override fun onBackPressed() {
         super.onBackPressed()
     }
@@ -209,6 +212,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         fragmento.visibility = View.VISIBLE
     }
 
+    ///Permisos de notificación
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
