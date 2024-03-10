@@ -1,5 +1,7 @@
 package com.mariana.harmonia.activitys
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -21,7 +23,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
@@ -43,11 +44,14 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private lateinit var textViewAccuracy: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
-    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
 
+    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
+    var animacionTexto: AnimatorSet? = null
     private var perdido: Boolean = false
     private var ganado: Boolean = false
     private var desafio: Boolean = false
+    private var entradoCuentaAtras: Boolean = false
+
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
@@ -64,7 +68,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
 
 
-    @SuppressLint("MissingInflatedId", "ClickableViewAccessibility")
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.juego_musical_activity)
@@ -100,6 +104,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         textViewTiempo = findViewById(R.id.textViewTiempoContador)
         textViewAccuracy = findViewById(R.id.textViewAccuracy)
 
+
         fun iniciarContador() {
 
 
@@ -110,6 +115,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 override fun onTick(millisUntilFinished: Long) {
                     val secondsLeft = millisUntilFinished / 1000
                     cambiarTiempo(secondsLeft.toInt())
+
+                    if(secondsLeft<=4 && !entradoCuentaAtras ){
+                        animacionCuentaRegresiva()
+                        entradoCuentaAtras = true
+                    }
                 }
 
                 override fun onFinish() {
@@ -121,6 +131,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
             countDownTimer.start()
 
         }
+
 
         //Admin del tiempo
         fun iniciarCuentaRegresiva() {
@@ -158,6 +169,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }, intervalo)
 
         }
+
+
+
 
         if (!desafio) {
             nivel = intent.getIntExtra("numeroNivel", 1)
@@ -250,6 +264,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }
             true
         }
+
+
 
         notaDo.setOnTouchListener { view, motionEvent ->
             when (motionEvent.action) {
@@ -353,6 +369,19 @@ class JuegoMusicalActivity : AppCompatActivity() {
 //on create
     }
 
+    private fun animacionCuentaRegresiva() {
+       var mediaPlayer = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
+        mediaPlayer.start()
+        var imageViewRojo: ImageView = findViewById<ImageView>(R.id.imageViewProgressBarRoja)
+        val latidoAnimation = AnimatorInflater.loadAnimator(this, R.animator.cuenta_regresiva_animation) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation.setTarget(imageViewRojo)
+
+        // Iniciar la animación
+        latidoAnimation.start()
+    }
+
 
     public fun cambiarTiempo(segundos: Int) {
         tiempoActual = segundos
@@ -376,7 +405,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-    // NO TOCARRRRR Funciona bien :) -- Comprueba la jugada
+    // NO TOCARRRRR Funciona bien :)
     private fun comprobarJugada(nombreNota: String) {
         // Sumamos una a intentos
         intentos = intentos?.plus(1)
@@ -390,6 +419,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 aciertos = aciertos?.plus(1)
 
 
+
                 // Comprobar si aciertos sigue siendo menor que la longitud de notasArray
                 if (aciertos!! < notasArray.size) {
                     cambiarImagen(notasArray[aciertos!!].toString())
@@ -400,11 +430,17 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 } else {
                     actualizarDatosInterfazDesafio()
                 }
-                animacionAcierto()
-                isGanado()
+                    animacionAcierto()
+                    isGanado()
+
             } else {
-                animacionFallo()
-                quitarVida()
+                //si es la ultima vida no hace animacion
+                var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+                if(vidasTotales >0) {
+                    animacionFallo()
+                    animacionPerdidaCorazon()
+                    quitarVida()
+                }
             }
             ponerAccuracy()
         }
@@ -481,6 +517,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
+
     private fun ganado() {
         val intent = Intent(this, victoria_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
@@ -492,6 +529,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
     private fun pararConadores() {
         detenerContador()
         detenerCuentaRegresiva()
@@ -499,7 +537,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     }
 
+
     private fun cambiarTexto(texto: String) {
+
         textViewNota.text = traducirNota(texto)
     }
 
@@ -514,17 +554,22 @@ class JuegoMusicalActivity : AppCompatActivity() {
         // Cambiar color a verde instantáneamente
         playSound("correcto")
         textViewNota.setTextColor(Color.GREEN)
-
         // Animación para volver al color original con desvanecido
         val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.GREEN, Color.BLACK)
         animacion.duration = 1000
         animacion.start()
+        val AnimacionZoom = AnimatorInflater.loadAnimator(this, R.animator.acierto_nota_color) as AnimatorSet
+        // Establecer el objetivo de la animación (ImageView)
+        AnimacionZoom.setTarget(textViewNota)
+        // Iniciar la animación
+        AnimacionZoom.start()
 
 
-        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
-        Handler().postDelayed({
+        handler.removeCallbacksAndMessages(null) // Eliminar cualquier llamada pendiente
+        handler.postDelayed({
             cambiarTexto("...")
-        }, 1000) // 1000 milisegundos = 1 segundo
+        }, 1000)
+
     }
 
     fun animacionFallo() {
@@ -537,10 +582,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
         animacion.duration = 1000
         animacion.start()
 
-        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
-        Handler().postDelayed({
-            cambiarTexto("...")
-        }, 1000) // 1000 milisegundos = 1 segundo
+
+
+
     }
 
 
@@ -563,6 +607,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
+
     fun actualizarFondoBlancas(imageViewId: Int, nuevaImagenId: Int, actividad: AppCompatActivity) {
         // Buscar el ImageView por su ID
         val imageView = actividad.findViewById<ImageView>(imageViewId)
@@ -571,6 +616,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     fun traducirNota(nota: String): String {
+
         return when (nota) {
             "c" -> "DO"
             "d" -> "RE"
@@ -588,7 +634,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
-    //Click en notas
+
     private fun clickDo() {
         Log.d("pruebasActivity", "Se ha hecho clic en la nota Do")
 
@@ -691,7 +737,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         comprobarJugada("b")
     }
 
-    //Soltar notas
+    //Soltar
+
     private fun soltarDo() {
         Log.d("pruebasActivity", "Se ha soltado la nota Do")
         actualizarFondoBlancas(R.id.notaDo, R.drawable.svg_tecla_do, this)
@@ -762,9 +809,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         mostrarDialogoConfirmacion()
+
     }
 
-    //Confirmación al usuario de querer salir del nivel
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Salir del nivel")
@@ -831,6 +878,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
     }
 
     //metodos desafio:
+
+
     fun getNotasAleatorias(cantidad: Int, dificultad: Int): Array<String?> {
         val notasFacil = arrayOf(
             "4c",
@@ -918,10 +967,12 @@ class JuegoMusicalActivity : AppCompatActivity() {
         return arrayAleatorio
     }
 
+
     fun cargarDatosDesafio() {
         tiempo = 60.0
         vidas = 1
         notasArray = getNotasAleatorias(1000,dificultad!!)
+
     }
 
     private fun actualizarDatosInterfazDesafio() {
@@ -932,6 +983,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         contadorVidas.text = "1"
     }
 
+
     fun detenerContador() {
         countDownTimer?.cancel()
     }
@@ -940,4 +992,25 @@ class JuegoMusicalActivity : AppCompatActivity() {
         handler.removeCallbacksAndMessages(null)
 
     }
+    private fun animacionPerdidaCorazon() {
+        // Cargar la animación desde el recurso XML
+        var corazonRojo: ImageView = findViewById<ImageView>(R.id.imageViewCorazon)
+        var corazonNegro: ImageView = findViewById<ImageView>(R.id.imageViewCorazonNegro)
+        val latidoAnimation = AnimatorInflater.loadAnimator(this, R.animator.latido_animation) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation.setTarget(corazonRojo)
+
+        // Iniciar la animación
+        latidoAnimation.start()
+
+        val latidoAnimation2 = AnimatorInflater.loadAnimator(this, R.animator.latido_animation_negro) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation2.setTarget(corazonNegro)
+
+        // Iniciar la animación
+        latidoAnimation2.start()
+    }
+
 }
