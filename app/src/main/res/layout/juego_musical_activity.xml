@@ -133,12 +133,36 @@
                     android:gravity="bottom"
                     android:text="X3"
                     android:textColor="@color/negro"
-                    android:textSize="40dp" />
+                    android:textSize="40dp"
+                    android:layout_marginBottom="2.5dp"
+                  />
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/svg_corazon" />
+                <RelativeLayout
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                  >
+
+                    <ImageView
+                        android:id="@+id/imageViewCorazon"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/svg_corazon"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerInside"
+
+                       />
+                    <ImageView
+                        android:id="@+id/imageViewCorazonNegro"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/svg_corazon_negro"
+                        android:layout_centerInParent="true"
+                        android:scaleType="centerInside"
+                        android:alpha="0"/>
+
+
+
+                </RelativeLayout>
             </LinearLayout>
 
 

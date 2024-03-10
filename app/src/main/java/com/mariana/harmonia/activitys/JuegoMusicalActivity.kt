@@ -1,5 +1,7 @@
 package com.mariana.harmonia.activitys
 
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -21,7 +23,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
@@ -43,8 +44,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private lateinit var textViewAccuracy: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
-    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
 
+    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
+    var animacionTexto: AnimatorSet? = null
     private var perdido: Boolean = false
     private var ganado: Boolean = false
     private var desafio: Boolean = false
@@ -99,6 +101,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         imagenProgressBar = findViewById(R.id.imageMarker)
         textViewTiempo = findViewById(R.id.textViewTiempoContador)
         textViewAccuracy = findViewById(R.id.textViewAccuracy)
+
 
         fun iniciarContador() {
 
@@ -396,6 +399,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 aciertos = aciertos?.plus(1)
 
 
+
                 // Comprobar si aciertos sigue siendo menor que la longitud de notasArray
                 if (aciertos!! < notasArray.size) {
                     cambiarImagen(notasArray[aciertos!!].toString())
@@ -406,11 +410,17 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 } else {
                     actualizarDatosInterfazDesafio()
                 }
-                animacionAcierto()
-                isGanado()
+                    animacionAcierto()
+                    isGanado()
+
             } else {
-                animacionFallo()
-                quitarVida()
+                //si es la ultima vida no hace animacion
+                var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
+                if(vidasTotales >0) {
+                    animacionFallo()
+                    animacionPerdidaCorazon()
+                    quitarVida()
+                }
             }
             ponerAccuracy()
         }
@@ -509,6 +519,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
     private fun cambiarTexto(texto: String) {
+
         textViewNota.text = traducirNota(texto)
     }
 
@@ -523,17 +534,22 @@ class JuegoMusicalActivity : AppCompatActivity() {
         // Cambiar color a verde instantáneamente
         playSound("correcto")
         textViewNota.setTextColor(Color.GREEN)
-
         // Animación para volver al color original con desvanecido
         val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.GREEN, Color.BLACK)
         animacion.duration = 1000
         animacion.start()
+        val AnimacionZoom = AnimatorInflater.loadAnimator(this, R.animator.acierto_nota_color) as AnimatorSet
+        // Establecer el objetivo de la animación (ImageView)
+        AnimacionZoom.setTarget(textViewNota)
+        // Iniciar la animación
+        AnimacionZoom.start()
 
 
-        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
-        Handler().postDelayed({
+        handler.removeCallbacksAndMessages(null) // Eliminar cualquier llamada pendiente
+        handler.postDelayed({
             cambiarTexto("...")
-        }, 1000) // 1000 milisegundos = 1 segundo
+        }, 1000)
+
     }
 
     fun animacionFallo() {
@@ -546,10 +562,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
         animacion.duration = 1000
         animacion.start()
 
-        // Usar un Handler para llamar a cambiarTexto después de 1 segundo
-        Handler().postDelayed({
-            cambiarTexto("...")
-        }, 1000) // 1000 milisegundos = 1 segundo
+
+
+
     }
 
 
@@ -956,6 +971,26 @@ class JuegoMusicalActivity : AppCompatActivity() {
     fun detenerCuentaRegresiva() {
         handler.removeCallbacksAndMessages(null)
 
+    }
+    private fun animacionPerdidaCorazon() {
+        // Cargar la animación desde el recurso XML
+        var corazonRojo: ImageView = findViewById<ImageView>(R.id.imageViewCorazon)
+        var corazonNegro: ImageView = findViewById<ImageView>(R.id.imageViewCorazonNegro)
+        val latidoAnimation = AnimatorInflater.loadAnimator(this, R.animator.latido_animation) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation.setTarget(corazonRojo)
+
+        // Iniciar la animación
+        latidoAnimation.start()
+
+        val latidoAnimation2 = AnimatorInflater.loadAnimator(this, R.animator.latido_animation_negro) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation2.setTarget(corazonNegro)
+
+        // Iniciar la animación
+        latidoAnimation2.start()
     }
 
 }
