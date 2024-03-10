@@ -50,6 +50,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var perdido: Boolean = false
     private var ganado: Boolean = false
     private var desafio: Boolean = false
+    private var entradoCuentaAtras: Boolean = false
+
     private var nivel: Int? = 1
     private var intentos: Int? = 0
     private var aciertos: Int? = 0
@@ -113,6 +115,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 override fun onTick(millisUntilFinished: Long) {
                     val secondsLeft = millisUntilFinished / 1000
                     cambiarTiempo(secondsLeft.toInt())
+
+                    if(secondsLeft<=4 && !entradoCuentaAtras ){
+                        animacionCuentaRegresiva()
+                        entradoCuentaAtras = true
+                    }
                 }
 
                 override fun onFinish() {
@@ -360,6 +367,19 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
 //on create
+    }
+
+    private fun animacionCuentaRegresiva() {
+       var mediaPlayer = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
+        mediaPlayer.start()
+        var imageViewRojo: ImageView = findViewById<ImageView>(R.id.imageViewProgressBarRoja)
+        val latidoAnimation = AnimatorInflater.loadAnimator(this, R.animator.cuenta_regresiva_animation) as AnimatorSet
+
+        // Establecer el objetivo de la animación (ImageView)
+        latidoAnimation.setTarget(imageViewRojo)
+
+        // Iniciar la animación
+        latidoAnimation.start()
     }
 
 

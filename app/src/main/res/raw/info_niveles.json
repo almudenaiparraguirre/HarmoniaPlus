@@ -43,7 +43,7 @@
     {
       "id": 6,
       "completado": true,
-      "tiempo": 60,
+      "tiempo": 7,
       "notas":["5c", "4a", "4b", "4g", "4a", "4f", "4g", "4e", "4f", "4d", "4e", "4c"],
       "vidas": 3,
       "etapa": 1
