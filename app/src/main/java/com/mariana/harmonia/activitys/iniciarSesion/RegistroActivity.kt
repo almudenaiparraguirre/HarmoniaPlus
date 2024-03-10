@@ -147,6 +147,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             }
     }
 
+    ///Guarda la imagen por defecto en firebase
     private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
         var file = Uri.fromFile(File("res/mipmap/fotoperfil_acordeon.png"))
         val nuevoNombre = "pruebaSubida"
