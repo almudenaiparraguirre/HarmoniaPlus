@@ -281,7 +281,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreUsuarioTextView.text = UtilsDB.getNombre()
         gmailUsuarioTextView.text = UtilsDB.getCorreo()
         experienciaTextView.text = UtilsDB.getExperiencia().toString()
-        nivelTextView.text= UtilsDB.getNivelActual().toString()
+        nivelTextView.text= UtilsDB.getNivelActual()?.minus(1).toString()
         precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
     }
 
@@ -602,7 +602,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     }
     private fun setlogro2(cantidad: Int)= runBlocking {
-        val porcentaje2 = UtilsDB.getNivelActual()
+        val porcentaje2 = UtilsDB.getNivelActual()?.minus(1)
         progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
         porcentajeTextView2.text = "$porcentaje2/$cantidad"
     }
