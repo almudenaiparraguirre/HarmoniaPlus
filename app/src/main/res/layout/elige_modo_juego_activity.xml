@@ -252,14 +252,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/botonChallenge" />
 
-        <FrameLayout
-            android:id="@+id/fragment_container_carga"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteY="1dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <FrameLayout
+        android:id="@+id/fragment_container_carga"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="1dp" />
     <FrameLayout
         android:id="@+id/fragment_container_desafio"
         android:layout_width="match_parent"
