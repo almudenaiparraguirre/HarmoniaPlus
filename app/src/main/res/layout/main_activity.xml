@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/fondoImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/img_fondo"
@@ -120,6 +121,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido"
+            android:alpha="0"
             tools:ignore="UnknownId" />
 
         <!-- EditText 1 -->
@@ -174,6 +176,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
+            android:alpha="0"
             app:layout_constraintTop_toBottomOf="@+id/editTextContraseña" />
 
         <androidx.cardview.widget.CardView
@@ -257,6 +260,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
+            android:alpha="0"
             tools:ignore="UnknownId">
 
             <TextView
@@ -294,6 +298,7 @@
             android:text="@string/salirSubrrayado"
             android:textColor="@color/negro"
             android:textSize="14dp"
+            android:alpha="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registrate" />

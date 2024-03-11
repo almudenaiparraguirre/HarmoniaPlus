@@ -31,10 +31,13 @@ import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import android.media.MediaPlayer
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
@@ -114,7 +117,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
 
     fun animacionInicio() {
+
         // Obtén las referencias a tus elementos
+        val fondo = findViewById<ImageView>(R.id.fondoImageView)
         val tituloLogo = findViewById<LinearLayout>(R.id.TituloLogo)
         val bienvenido = findViewById<LinearLayout>(R.id.bienvenido)
         val introduce = findViewById<TextView>(R.id.introduce)
@@ -122,127 +127,31 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
         val recuerdasContrasena = findViewById<TextView>(R.id.recuerdasContrasena)
         val signGoogle = findViewById<CardView>(R.id.signGoogle)
-        val textViewGoogle = findViewById<TextView>(R.id.textViewGoogle)
         val botonIniciarSesion = findViewById<AppCompatButton>(R.id.botonIniciarSesion)
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
-        // Apaga elementos al principio
-        introduce.alpha = 0f
-        recuerdasContrasena.alpha = 0f
-        registrate.alpha = 0f
-        salirTextView.alpha = 0f
 
 
-        //Principales
-        val conjuntoAnimacionesPrincipal = AnimatorSet()
+        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
+        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
+        YoYo.with(Techniques.FadeInLeft).duration(3000).playOn(editTextEmail)
+        YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContraseña)
+        YoYo.with(Techniques.FadeInDown).duration(3000).playOn(signGoogle)
+        YoYo.with(Techniques.FadeInDown).duration(3000).playOn(botonIniciarSesion)
 
-        // Escalado
-        val (animacionEscalaTituloLogoX, animacionEscalaTituloLogoY) = crearAnimacionEscala(
-            tituloLogo
-        )
-        val (animacionEscalaBienvenidoX, animacionEscalaBienvenidoY) = crearAnimacionEscala(
-            bienvenido
-        )
-        val (animacionEscalaEmailX, animacionEscalaEmailY) = crearAnimacionEscala(editTextEmail)
-        val (animacionEscalaContrasenaX, animacionEscalaContrasenaY) = crearAnimacionEscala(
-            editTextContraseña
-        )
-        val (animacionEscalaSignGoogleX, animacionEscalaSignGoogleY) = crearAnimacionEscala(
-            signGoogle
-        )
-        val (animacionEscalaBotonIniciarSesionX, animacionEscalaBotonIniciarSesionY) = crearAnimacionEscala(
-            botonIniciarSesion
-        )
+        YoYo.with(Techniques.FadeOut).duration(1).playOn(introduce)
+        YoYo.with(Techniques.FadeOut).duration(1).playOn(recuerdasContrasena)
+        YoYo.with(Techniques.FadeOut).duration(1).playOn(registrate)
+        YoYo.with(Techniques.FadeOut).duration(1).playOn(salirTextView)
 
-        // Transparencia
-        val animacionOpacidadTituloLogo = ObjectAnimator.ofFloat(tituloLogo, "alpha", 0f, 1f)
-        val animacionOpacidadBienvenido = ObjectAnimator.ofFloat(bienvenido, "alpha", 0f, 1f)
-        val animacionOpacidadEmail = ObjectAnimator.ofFloat(editTextEmail, "alpha", 0f, 1f)
-        val animacionOpacidadContrasena =
-            ObjectAnimator.ofFloat(editTextContraseña, "alpha", 0f, 1f)
-        val animacionOpacidadSingGoogle = ObjectAnimator.ofFloat(signGoogle, "alpha", 0f, 1f)
-        val animacionOpacidadBotonIniciarSesion =
-            ObjectAnimator.ofFloat(botonIniciarSesion, "alpha", 0f, 1f)
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(introduce)
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(recuerdasContrasena)
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(registrate)
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)
 
-        conjuntoAnimacionesPrincipal.duration = 5000
-        conjuntoAnimacionesPrincipal.interpolator =
-            android.view.animation.AccelerateDecelerateInterpolator()
-
-        //escalado Agregado
-        conjuntoAnimacionesPrincipal.playTogether(
-            animacionEscalaTituloLogoX,
-            animacionEscalaTituloLogoY,
-            animacionEscalaBienvenidoX,
-            animacionEscalaBienvenidoY,
-            animacionEscalaEmailX,
-            animacionEscalaEmailY,
-            animacionEscalaContrasenaX,
-            animacionEscalaContrasenaY,
-            animacionEscalaSignGoogleX,
-            animacionEscalaSignGoogleY,
-            animacionEscalaBotonIniciarSesionX,
-            animacionEscalaBotonIniciarSesionY
-        )
-
-        //Transparencia Agregado
-        conjuntoAnimacionesPrincipal.playTogether(
-            animacionOpacidadTituloLogo,
-            animacionOpacidadBienvenido,
-            animacionOpacidadEmail,
-            animacionOpacidadContrasena,
-            animacionOpacidadSingGoogle,
-            animacionOpacidadBotonIniciarSesion
-        )
-
-        // Start
-        conjuntoAnimacionesPrincipal.start()
-
-
-        val conjuntoAnimacionesSecundario = AnimatorSet()
-
-        conjuntoAnimacionesSecundario.startDelay = 5000 // Ajusta según sea necesario
-
-// Transparencia
-        val animacionOpacidadIntroduce = ObjectAnimator.ofFloat(introduce, "alpha", 0f, 1f)
-        val animacionOpacidadContraseña =
-            ObjectAnimator.ofFloat(recuerdasContrasena, "alpha", 0f, 1f)
-        val animacionOpacidadRegistrate = ObjectAnimator.ofFloat(registrate, "alpha", 0f, 1f)
-        val animacionOpacidadSalirTextView = ObjectAnimator.ofFloat(salirTextView, "alpha", 0f, 1f)
-
-       // YoYo.with(Techniques.RubberBand).duration(1000).repeat(1).playOn(textViewGoogle)
-        val duracionAnimacionesSecundarias = 5000
-
-        val interpolacionAnimacionesSecundarias =
-            android.view.animation.AccelerateDecelerateInterpolator()
-
-// Transparencia
-        conjuntoAnimacionesSecundario.playTogether(
-            animacionOpacidadIntroduce,
-            animacionOpacidadContraseña,
-            animacionOpacidadRegistrate,
-            animacionOpacidadSalirTextView
-        )
-
-// Cambio de texto
-
-
-        conjuntoAnimacionesSecundario.duration = duracionAnimacionesSecundarias.toLong()
-        conjuntoAnimacionesSecundario.interpolator = interpolacionAnimacionesSecundarias
-
-// Inicia las animaciones secundarias
-        conjuntoAnimacionesSecundario.start()
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
-    fun crearAnimacionEscala(elemento: Any): Pair<ObjectAnimator, ObjectAnimator> {
-        var escalaDoble = 2f
-        val animacionEscalaX = ObjectAnimator.ofFloat(elemento, "scaleX", escalaDoble, 1f)
-        val animacionEscalaY = ObjectAnimator.ofFloat(elemento, "scaleY", escalaDoble, 1f)
-        animacionEscalaX.duration = 3000
-        animacionEscalaY.duration = 3000
-        return Pair(animacionEscalaX, animacionEscalaY)
-    }
 
 
     fun clickNoRecuerdasLaContraseña(view: View) {
@@ -456,8 +365,13 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
     }
+
     class TextoEvaluator : TypeEvaluator<CharSequence> {
-        override fun evaluate(fraction: Float, startValue: CharSequence?, endValue: CharSequence?): CharSequence {
+        override fun evaluate(
+            fraction: Float,
+            startValue: CharSequence?,
+            endValue: CharSequence?
+        ): CharSequence {
             // Aquí puedes personalizar cómo se interpola el texto durante la animación
             return if (fraction <= 0.5) {
                 startValue ?: ""
