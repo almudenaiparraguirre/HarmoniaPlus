@@ -65,6 +65,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     //manejadores contadores
     private val handler = Handler(Looper.getMainLooper())
+    private val handler2 = Handler(Looper.getMainLooper())
     private var countDownTimer: CountDownTimer? = null
 
 
@@ -137,31 +138,27 @@ class JuegoMusicalActivity : AppCompatActivity() {
         fun iniciarCuentaRegresiva() {
 
             val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
-            val duracionTotal =
-                tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
-            val decrementoPorIntervalo =
-                1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
+            val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+            val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
 
             handler.postDelayed(object : Runnable {
+
                 override fun run() {
-                    if (!desafio) {
-                        isPerdido()
-                    } else {
-                        isPerdidoDesafio()
-                    }
-
-
-                    // Decrementar el tiempo
                     tiempo = tiempo!! - decrementoPorIntervalo
 
                     // Calcular el progreso actual de la barra con números decimales
                     val progresoActual =
                         ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
-
-                    // Actualizar la barra de progreso
                     tiempoProgressBar.progress = progresoActual
+                    println(progresoActual)
 
-                    // Volver a programar la ejecución después del intervalo de actualización
+                    if (!desafio) {
+                        isPerdido()
+                    } else {
+                        isPerdidoDesafio()
+                    }
+                    // Decrementar el tiempo
+
                     if (tiempo!! > 0) {
                         handler.postDelayed(this, intervalo)
                     }
@@ -435,12 +432,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
             } else {
                 //si es la ultima vida no hace animacion
-                var vidasTotales = vidas!! - (intentos!! - aciertos!!)!!
-                if(vidasTotales >0) {
+
                     animacionFallo()
                     animacionPerdidaCorazon()
                     quitarVida()
-                }
+
             }
             ponerAccuracy()
         }
@@ -565,8 +561,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         AnimacionZoom.start()
 
 
-        handler.removeCallbacksAndMessages(null) // Eliminar cualquier llamada pendiente
-        handler.postDelayed({
+        handler2.removeCallbacksAndMessages(null) // Eliminar cualquier llamada pendiente
+        handler2.postDelayed({
             cambiarTexto("...")
         }, 1000)
 
