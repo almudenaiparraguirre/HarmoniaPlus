@@ -29,7 +29,7 @@
       "completado": true,
       "tiempo": 60,
       "notas":["4c", "4d", "4e", "4f", "4g", "4a", "4b", "5c"],
-      "vidas": 3,
+      "vidas": 300,
       "etapa": 1
     },
     {

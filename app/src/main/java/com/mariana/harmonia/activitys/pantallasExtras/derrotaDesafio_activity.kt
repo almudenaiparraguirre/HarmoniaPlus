@@ -84,6 +84,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
         mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("desafio", true)
+        intent.putExtra("dificultad", dificultad)
         finish()
         startActivity(intent)
     }
