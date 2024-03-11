@@ -70,7 +70,6 @@ class derrotaDesafio_activity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
-        val puntuacion = Pair(notasHacertadas, (60 - tiempoDurado))
         val listaPuntuaciones = UtilsDB.getPuntuacionDesafio()?.toMutableList() ?: mutableListOf()
         val nuevoElemento = mapOf("dificultad" to dificultad, "notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
         listaPuntuaciones?.add(nuevoElemento)

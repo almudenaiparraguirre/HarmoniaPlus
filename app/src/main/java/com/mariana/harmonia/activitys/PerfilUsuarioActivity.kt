@@ -612,23 +612,45 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         porcentajeTextView3.text = "$porcentaje3/$cantidad"
     }
 
-    private fun setlogro6(cantidad: Int)= runBlocking {
-        val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(0)!!).get("notas")!!.toInt()
-        println("logro6:" +porcentaje6)
-        progressBar6.progress = (porcentaje6.times(100).div(cantidad))
-        porcentajeTextView6.text = "$porcentaje6/$cantidad"
+    private fun setlogro6(cantidad: Int) = runBlocking {
+        try {
+            val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(0)!!).get("notas")!!.toInt()
+            println("logro6:" + porcentaje6)
+            progressBar6.progress = (porcentaje6.times(100).div(cantidad))
+            porcentajeTextView6.text = "$porcentaje6/$cantidad"
+        } catch (e: NullPointerException) {
+            println("Error en logro6: ${e.message}")
+            // Manejar el error según tus necesidades, por ejemplo, asignar 0 a porcentaje6
+            progressBar6.progress = 0
+            porcentajeTextView6.text = "0/$cantidad"
+        }
     }
-    private fun setlogro7(cantidad: Int)= runBlocking {
-        val porcentaje7 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(1)!!).get("notas")!!.toInt()
-        println("logro7:" +porcentaje7)
-        progressBar7.progress = (porcentaje7.times(100).div(cantidad))
-        porcentajeTextView7.text = "$porcentaje7/$cantidad"
+
+    private fun setlogro7(cantidad: Int) = runBlocking {
+        try {
+            val porcentaje7 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(1)!!).get("notas")!!.toInt()
+            println("logro7:" + porcentaje7)
+            progressBar7.progress = (porcentaje7.times(100).div(cantidad))
+            porcentajeTextView7.text = "$porcentaje7/$cantidad"
+        } catch (e: NullPointerException) {
+            println("Error en logro7: ${e.message}")
+            progressBar7.progress = 0
+            porcentajeTextView7.text = "0/$cantidad"
+        }
     }
-    private fun setlogro8(cantidad: Int)= runBlocking {
-        val porcentaje8 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(2)!!).get("notas")!!.toInt()
-        println("logro8:" +porcentaje8)
-        progressBar8.progress = (porcentaje8.times(100).div(cantidad))
-        porcentajeTextView8.text = "$porcentaje8/$cantidad"
+
+    private fun setlogro8(cantidad: Int) = runBlocking {
+        try {
+            val porcentaje8 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(2)!!).get("notas")!!.toInt()
+            println("logro8:" + porcentaje8)
+            progressBar8.progress = (porcentaje8.times(100).div(cantidad))
+            porcentajeTextView8.text = "$porcentaje8/$cantidad"
+        } catch (e: NullPointerException) {
+            println("Error en logro8: ${e.message}")
+            progressBar8.progress = 0
+            porcentajeTextView8.text = "0/$cantidad"
+        }
     }
+
 
 }
