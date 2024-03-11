@@ -135,37 +135,6 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 
         //Admin del tiempo
-        fun iniciarCuentaRegresiva() {
-
-            val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
-            val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
-            val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
-
-            handler.postDelayed(object : Runnable {
-
-                override fun run() {
-                    tiempo = tiempo!! - decrementoPorIntervalo
-
-                    // Calcular el progreso actual de la barra con números decimales
-                    val progresoActual =
-                        ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
-                    tiempoProgressBar.progress = progresoActual
-                    println(progresoActual)
-
-                    if (!desafio) {
-                        isPerdido()
-                    } else {
-                        isPerdidoDesafio()
-                    }
-                    // Decrementar el tiempo
-
-                    if (tiempo!! > 0) {
-                        handler.postDelayed(this, intervalo)
-                    }
-                }
-            }, intervalo)
-
-        }
 
 
 
@@ -365,6 +334,39 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
 //on create
     }
+
+    fun iniciarCuentaRegresiva() {
+
+        val intervalo = 10L // Intervalo de actualización en milisegundos (10ms)
+        val duracionTotal = tiempo!! * 1000L // Duración total en milisegundos (1000ms = 1 segundo)
+        val decrementoPorIntervalo = 1.0 * intervalo / 1000.0 // Cantidad de tiempo que se decrementa en cada intervalo
+
+        handler.postDelayed(object : Runnable {
+
+            override fun run() {
+                tiempo = tiempo!! - decrementoPorIntervalo
+
+                // Calcular el progreso actual de la barra con números decimales
+                val progresoActual =
+                    ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
+                tiempoProgressBar.progress = progresoActual
+                println(progresoActual)
+
+                if (!desafio) {
+                    isPerdido()
+                } else {
+                    isPerdidoDesafio()
+                }
+                // Decrementar el tiempo
+
+                if (tiempo!! > 0) {
+                    handler.postDelayed(this, intervalo)
+                }
+            }
+        }, intervalo)
+
+    }
+
 
     private fun animacionCuentaRegresiva() {
        var mediaPlayer = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
@@ -982,10 +984,12 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
     fun detenerContador() {
         countDownTimer?.cancel()
+
     }
 
     fun detenerCuentaRegresiva() {
         handler.removeCallbacksAndMessages(null)
+        handler2.removeCallbacksAndMessages(null)
 
     }
     private fun animacionPerdidaCorazon() {

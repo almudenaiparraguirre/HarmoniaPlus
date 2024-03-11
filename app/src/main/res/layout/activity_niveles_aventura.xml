@@ -34,7 +34,7 @@
                 android:layout_height="50dp"
                 android:clickable="true"
                 android:onClick="verPerfilUsuario"
-                android:src="@mipmap/img_perfil_luis_golden"
+                android:src="@mipmap/fotoperfil_acordeon"
 
                 android:scaleType="centerCrop"
                 android:clipToOutline="true"/>

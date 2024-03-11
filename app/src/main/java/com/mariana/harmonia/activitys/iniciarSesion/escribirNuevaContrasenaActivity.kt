@@ -22,8 +22,8 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.escribir_nueva_contrasena_activity)
 
 
-        val editText1: EditText = findViewById(R.id.editText1)
-        val editText2: EditText = findViewById(R.id.editText2)
+        val editText1: EditText = findViewById(R.id.editTextEmail)
+        val editText2: EditText = findViewById(R.id.editTextContraseña)
         val botonConfirmar: Button = findViewById(R.id.botonIniciarSesion)
 
         botonConfirmar.isEnabled = false
@@ -65,8 +65,8 @@ class escribirNuevaContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // FUN --> Verificar que las contraseñas cumplen los requisitos
     fun verificarCondiciones() {
-        val editText1: EditText = findViewById(R.id.editText1)
-        val editText2: EditText = findViewById(R.id.editText2)
+        val editText1: EditText = findViewById(R.id.editTextEmail)
+        val editText2: EditText = findViewById(R.id.editTextContraseña)
         val botonConfirmar: Button = findViewById(R.id.botonIniciarSesion)
 
         val contrasena1 = editText1.text.toString()

@@ -12,13 +12,11 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.firestore
 import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
@@ -74,11 +72,11 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         // 1. Obtener los valores ingresados en los campos de correo y contraseña
-        val emailTextView = findViewById<TextView>(R.id.editText1)
+        val emailTextView = findViewById<TextView>(R.id.editTextEmail)
         val contraseñaTextView = findViewById<TextView>(R.id.editText3)
         val email = emailTextView.text.toString().lowercase()
         val contraseña = contraseñaTextView.text.toString()
-        val nombreTextView = findViewById<TextView>(R.id.editText2)
+        val nombreTextView = findViewById<TextView>(R.id.editTextContraseña)
         val nombre = nombreTextView.text.toString()
 
         // 2. Validar los campos

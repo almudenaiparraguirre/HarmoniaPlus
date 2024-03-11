@@ -32,7 +32,7 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         setContentView(R.layout.restablece_contrasena_activity)
 
         boton = findViewById(R.id.botonEmail)
-        email = findViewById(R.id.editText1)
+        email = findViewById(R.id.editTextEmail)
         textoAdvertencia = findViewById(R.id.textoAdvertencia)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 

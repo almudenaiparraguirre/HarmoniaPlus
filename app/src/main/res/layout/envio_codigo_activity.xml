@@ -115,7 +115,7 @@
 
         <!-- Input de código -->
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editTextEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -141,7 +141,7 @@
             android:layout_marginLeft="20dp"
             android:text="¿No has recibido el codigo?"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/editText1"
+            app:layout_constraintTop_toBottomOf="@id/editTextEmail"
             tools:layout_editor_absoluteX="20dp"/>
 
         <!-- Botón confirmación de código -->

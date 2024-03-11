@@ -124,7 +124,7 @@
 
         <!-- EditText 1 -->
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editTextEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -142,7 +142,7 @@
         <!-- EditText 2 -->
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editTextContraseña"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -156,7 +156,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText1" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
 
         <!-- Google Iniciar Sesión -->
 
@@ -174,7 +174,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextContraseña" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/signGoogle"
@@ -212,6 +212,7 @@
 
                 <!-- TextView a la derecha -->
                 <TextView
+                    android:id="@+id/textViewGoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
