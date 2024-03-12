@@ -40,16 +40,16 @@ import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-
+/**
+ * Actividad principal para elegir el modo de juego.
+ */
 class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
-
 
     companion object{
         // Se usa para poder llamarla desde otras activitis
         lateinit var instance: EligeModoJuegoActivity
     }
     private   var RC_NOTIFICATION = 99
-
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var nombreTextView: TextView
     private lateinit var porcentajeTextView: TextView
@@ -60,6 +60,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
     private lateinit var botonAjustes: androidx.appcompat.widget.AppCompatButton
 
+    /**
+     * Función llamada al crear la actividad.
+     */
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -131,7 +134,6 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
 
-
         botones.forEachIndexed { index, boton ->
             boton.setOnTouchListener { view, motionEvent ->
                 when (motionEvent.action) {
@@ -154,6 +156,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     }
 
+    /**
+     * Función para crear y mostrar el fragmento de carga.
+     */
     fun crearFragmentoCarga(){
         val fragment = CargaFragment()
 
@@ -166,10 +171,11 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         fragmentTransaction.commit()
         ocultarFragmento()
-
     }
 
-
+    /**
+     * Función para inicializar datos de la interfaz basándose en la base de datos.
+     */
     fun inicializarConBase() = runBlocking {
         var nivel = UtilsDB.getExperiencia()!!/100
         var experienciaSobrante = UtilsDB.getExperiencia()!!%100
@@ -179,7 +185,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         progressBar.progress = experienciaSobrante
     }
 
-
+    /**
+     * Función para inicializar variables específicas de esta actividad.
+     */
     private fun inicilalizarVariablesThis() {
         Utils.degradadoTexto(this, R.id.cerrarSesion,R.color.rosa,R.color.morado)
         Utils.degradadoTexto(this, R.id.titleTextView,R.color.rosa,R.color.morado)
@@ -189,7 +197,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         //imageViewFotoPerfil.setImageBitmap(Utils.deserializeImage(this,"/storage/emulated/0/Download/imagenSerializada.json"))
     }
 
-    //Descargar imagen
+    /**
+     * Función para descargar la imagen de perfil del usuario desde Firebase Storage.
+     */
     private fun downloadImage2() {
         val storageRef = FirebaseDB.getInstanceStorage().reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -210,6 +220,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
+    /**
+     * Función para abrir la actividad del perfil del usuario.
+     */
     fun menu_perfil(view: View){
         mediaPlayer.start()
         mostrarFragmento()
@@ -218,7 +231,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         inicializarConBase()
     }
 
-    //Cerrar sesión
+    /**
+     * Función para cerrar la sesión del usuario.
+     */
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
         val serviceIntent = Intent(this, ServicioTiempo::class.java)
@@ -232,6 +247,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         finishAffinity()
     }
 
+    /**
+     * Función para abrir la actividad de configuración.
+     */
     fun clickOpciones(view: View){
         //animacion
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonOpciones))
@@ -240,6 +258,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         startActivity(intent)
     }
 
+    /**
+     * Función para abrir la actividad de niveles de aventura.
+     */
     fun irModoAventura(view: View){
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonAventura))
         mostrarFragmento()
@@ -249,7 +270,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mostrarFragmento()
     }
 
-
+    /**
+     * Función para abrir la actividad de desafío.
+     */
     fun irDesafio(view: View) {
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonDesafio))
         mediaPlayer.start()
@@ -273,22 +296,32 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Oculta los botones de la actividad principal
     }
 
-    //Volver a la pestaña anterior
+    /**
+     * Función para manejar el botón de retroceso.
+     */
     override fun onBackPressed() {
         super.onBackPressed()
     }
 
+    /**
+     * Función para ocultar el fragmento de carga.
+     */
     fun ocultarFragmento(){
         var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
         fragmento.visibility = View.GONE
     }
 
+    /**
+     * Función para mostrar el fragmento de carga.
+     */
     fun mostrarFragmento(){
         var fragmento =  findViewById<FrameLayout>(R.id.fragment_container_carga)
         fragmento.visibility = View.VISIBLE
     }
 
-    ///Permisos de notificación
+    /**
+     * Función para manejar los resultados de la solicitud de permisos.
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 

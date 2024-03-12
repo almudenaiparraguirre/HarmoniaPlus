@@ -17,6 +17,10 @@ import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 
+/**
+ * RestableceContrasenaActivity es una actividad que permite a los usuarios restablecer su contraseña.
+ * Se utiliza Firebase para enviar un correo electrónico de restablecimiento de contraseña.
+ */
 class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
 
     // Declaración de variables
@@ -26,7 +30,11 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var auth: FirebaseAuth
     private lateinit var mediaPlayer: MediaPlayer
 
-    // FUN --> OnCreate
+    /**
+     * Método llamado cuando la actividad se está creando. Se encarga de inicializar la interfaz de usuario
+     * y otros componentes necesarios.
+     * @param savedInstanceState Si no es nulo, esta actividad está siendo reconstituida a partir de un estado guardado previamente.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.restablece_contrasena_activity)
@@ -63,7 +71,9 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
-    // FUN --> Intento de enviar email
+    /**
+     * Método llamado al hacer clic en el botón para enviar el correo electrónico.
+     */
     fun enviarEmail(view: View) {
         val emailText = email.text.toString().trim()
 
@@ -80,20 +90,30 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
-    // FUN --> Comprueba que el email introducido es válido
+    /**
+     * Método para comprobar que el email introducido es válido.
+     * @param email Valida el email
+     * @return true si el email es válido, false de lo contrario.
+     */
     private fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         return email.matches(emailPattern.toRegex())
     }
 
-    // FUN --> Vuelve al inicio de sesión
+    /**
+     * Método llamado al hacer clic en el botón para volver al inicio de sesión.
+     * @param view Es la vista
+     */
     fun irIniciarSesion(view: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    // FUN --> Salir de la aplicación
+    /**
+     * Método para comprobar que el email introducido es válido.
+     * @param view Es la vista
+     */
     fun irSalir(view: View) {
         Utils.salirAplicacion(this)
     }

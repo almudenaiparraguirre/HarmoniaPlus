@@ -17,6 +17,19 @@ import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
+/**
+ * Actividad que se muestra al jugador al perder en un desafío del juego.
+ *
+ * @property nivel Número del nivel en el que se perdió el desafío.
+ * @property notasHacertadas Número de notas musicales acertadas en el desafío.
+ * @property tiempoDurado Tiempo total transcurrido en el desafío.
+ * @property dificultad Nivel de dificultad del desafío.
+ * @property textViewResultadoTotal TextView que muestra el resultado total de notas acertadas.
+ * @property textViewResultadoTiempo TextView que muestra el resultado del tiempo transcurrido.
+ * @property mediaPlayer Reproductor de audio para los sonidos de la actividad.
+ * @property finTextView TextView que muestra el mensaje de fin del desafío.
+ * @property emogiTextView TextView que muestra un emoji aleatorio.
+ */
 class derrotaDesafio_activity : AppCompatActivity() {
     private var nivel: Int = 0
     private var notasHacertadas: Int = 0
@@ -27,9 +40,13 @@ class derrotaDesafio_activity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var finTextView: TextView
     private lateinit var emogiTextView: TextView
+
+    /**
+     * Método llamado al crear la actividad. Se encarga de inicializar la interfaz de usuario,
+     * procesar variables de la intención y reproducir sonidos específicos de la derrota en desafío.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_derrota_desafio)
         //variablesIntent
@@ -68,6 +85,9 @@ class derrotaDesafio_activity : AppCompatActivity() {
         actualizarDatosInterfaz()
     }
 
+    /**
+     * Método llamado para actualizar la interfaz
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
         val listaPuntuaciones = UtilsDB.getPuntuacionDesafio()?.toMutableList() ?: mutableListOf()
@@ -75,10 +95,14 @@ class derrotaDesafio_activity : AppCompatActivity() {
         listaPuntuaciones?.add(nuevoElemento)
         UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
         UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
-
-
     }
 
+    /**
+     * Método llamado al presionar el botón para repetir el desafío.
+     * Reproduce un sonido y redirige al juego musical con el mismo desafío y dificultad.
+     *
+     * @param view Vista del botón que activa la función.
+     */
     fun irRepetir(view: View) {
         mediaPlayer.start()
         val intent = Intent(this, JuegoMusicalActivity::class.java)
@@ -87,10 +111,15 @@ class derrotaDesafio_activity : AppCompatActivity() {
         finish()
         startActivity(intent)
     }
+
+    /**
+     * Método llamado al presionar el botón para regresar al menú principal.
+     * Reproduce un sonido y finaliza la actividad.
+     *
+     * @param view Vista del botón que activa la función.
+     */
     fun irMenu(view: View) {
         mediaPlayer.start()
-
         finish()
-
     }
 }

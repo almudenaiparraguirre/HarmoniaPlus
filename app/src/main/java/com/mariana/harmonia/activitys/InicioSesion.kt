@@ -12,17 +12,27 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.HashUtils
 
+/**
+ * Actividad para el inicio de sesión.
+ */
 class InicioSesion : AppCompatActivity() {
 
     private lateinit var firebaseAuth: FirebaseAuth
 
+    /**
+     * Función llamada al crear la actividad.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.inicio_sesion_activity)
         firebaseAuth = FirebaseDB.getInstanceFirebase()
     }
 
-    // Inicio de sesión
+    /**
+     * Función para realizar el inicio de sesión.
+     * @param email Dirección de correo electrónico del usuario.
+     * @param contrasena Contraseña del usuario.
+     */
     private fun signIn(email: String, contrasena: String) {
         firebaseAuth.signInWithEmailAndPassword(email.lowercase(), contrasena)
             .addOnCompleteListener(this) { task ->
@@ -44,7 +54,9 @@ class InicioSesion : AppCompatActivity() {
             }
     }
 
-
+    /**
+     * Función llamada al hacer clic en el botón de ingresar.
+     */
     fun btnIngresar(view: View) {
         val emailTextView: TextView = findViewById(R.id.edtEmail)
         val contrasenaTextView: TextView = findViewById(R.id.edtContrasena)

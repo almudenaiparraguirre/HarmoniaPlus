@@ -41,6 +41,10 @@ import com.mariana.harmonia.databinding.InicioSesionActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 
+/**
+ * Actividad que maneja la configuración del perfil del usuario.
+ * Permite cambiar la contraseña, activar o desactivar la música, y realizar otras configuraciones.
+ */
 class ConfiguracionActivity : AppCompatActivity() {
 
     private lateinit var mediaPlayer: MediaPlayer
@@ -64,6 +68,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         const val MUSIC_SWITCH_STATE = "musicSwitchState"
     }
 
+    /**
+     * Método llamado al crear la actividad. Inicializa las vistas y configura los listeners.
+     */
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -189,11 +196,18 @@ class ConfiguracionActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * Detiene la reproducción de la música al poner la actividad en segundo plano.
+     */
     override fun onStop() {
         super.onStop()
         detenerReproduccionMusica()
     }
 
+    /**
+     * Configura la reproducción de la música al reanudar la actividad.
+     */
     override fun onResume() {
         super.onResume()
 
@@ -202,6 +216,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Configura la reproducción de la música y actualiza los colores de los switches.
+     */
     private fun configurarReproduccionMusica() {
         if (!isMusicPlaying) {
             val thumbColor = ContextCompat.getColor(this, R.color.rosa)
@@ -216,7 +233,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    //Detiene la música
+    /**
+     * Detiene la reproducción de la música y guarda el estado del switch en las preferencias compartidas.
+     */
     private fun detenerReproduccionMusica() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
@@ -225,14 +244,19 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    //Musica parada
+    /**
+     * Pausa la música y guarda el estado del switch al poner la actividad en segundo plano.
+     */
     override fun onPause() {
         super.onPause()
         detenerReproduccionMusica()
         guardarEstadoSwitch(MUSIC_SWITCH_STATE, switchMusica.isChecked)
     }
 
-    //Va al perfil del usuario
+    /**
+     * Navega a la actividad del perfil del usuario.
+     * @param view
+     */
     fun irPerfilUsuario(view: View){
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
@@ -241,7 +265,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
     }
 
-    //Vibra el dispositivo al clickar sobre el botón
+    /**
+     * Vibra el dispositivo cuando se hace clic en un botón.
+     */
     private fun vibrarDispositivo() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
@@ -252,6 +278,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Regresa a la actividad anterior.
+     */
     fun volverModoJuego(view: View){
         val user = FirebaseDB.getInstanceFirebase().currentUser
         user?.let {
@@ -265,7 +294,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         onBackPressed()
     }
 
-    //Actualiza la contraseña
+    /**
+     * Actualiza la contraseña del usuario.
+     */
     fun actualizarContrasena(){
         mediaPlayer.start()
         if (contrasenaAnterior == contrasenaNueva){
@@ -286,18 +317,27 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Guarda el estado del switch en las preferencias compartidas.
+     */
     private fun guardarEstadoSwitch(key: String, value: Boolean) {
         val editor = sharedPreferences.edit()
         editor.putBoolean(key, value)
         editor.apply()
     }
 
+    /**
+     * Guarda el estado del switch de sonidos en las preferencias compartidas.
+     */
     private fun guardarEstadoSonidosSwitch(value: Boolean) {
         val editor = sharedPreferences.edit()
         editor.putBoolean("sonidosSwitchState", value)
         editor.apply()
     }
 
+    /**
+     * Configura los colores del switch.
+     */
     private fun configurarSwitchColor(switch: Switch) {
         switch.setOnCheckedChangeListener { _, isChecked ->
             val thumbColor = if (isChecked) {
@@ -317,7 +357,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         }
     }
 
-    //Cierra sesión
+    /**
+     * Cierra la sesión del usuario y navega a la actividad principal.
+     */
     fun cerrarSesionConfig(view: View){
         mediaPlayer.start()
         auth.signOut()
@@ -326,7 +368,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
-    //Elimina la cuenta
+    /**
+     * Elimina la cuenta del usuario y navega a la actividad principal.
+     */
     private fun eliminarMiCuenta() {
         mediaPlayer.start()
         val user = FirebaseDB.getInstanceFirebase().currentUser!!
@@ -345,7 +389,9 @@ class ConfiguracionActivity : AppCompatActivity() {
         finish()
     }
 
-    //Confirmación de eliminación de cuenta
+    /**
+     * Muestra un cuadro de diálogo de confirmación antes de eliminar la cuenta del usuario.
+     */
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Eliminar Cuenta")

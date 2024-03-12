@@ -25,6 +25,11 @@ import com.mariana.harmonia.utils.Utils
 import java.io.File
 import java.time.LocalDate
 
+/**
+ * La actividad RegistroActivity permite a los usuarios crear una cuenta en la aplicación.
+ * Se encarga de validar los datos ingresados, registrar al usuario en Firebase y establecer
+ * una foto de perfil por defecto.
+ */
 class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     private lateinit var storage: FirebaseStorage
@@ -42,7 +47,11 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         "fotoperfil_tronbon"
     )
 
-    // FUN --> OnCreate
+    /**
+     * Método llamado cuando la actividad se está creando. Se encarga de inicializar la interfaz de usuario
+     * y otros componentes necesarios.
+     * @param savedInstanceState Si no es nulo, esta actividad está siendo reconstituida a partir de un estado guardado previamente.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
@@ -53,7 +62,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         storage = FirebaseDB.getInstanceStorage()
     }
 
-    // FUN --> Volver al inicio de sesión
+    /**
+     * Método llamado al hacer clic en el botón para volver al inicio de sesión.
+     */
     fun irIniciarSesion(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -62,11 +73,17 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         finish()
     }
 
-    // FUN --> Salir de la aplicación
+    /**
+     * Método llamado al hacer clic en el botón para salir de la aplicación.
+     */
     fun irSalir(view: View) {
         Utils.salirAplicacion(this)
     }
 
+    /**
+     * Método llamado al hacer clic en el botón para crear una nueva cuenta.
+     * Realiza validaciones, registra al usuario en Firebase y establece la foto de perfil por defecto.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     fun botonCrearCuenta(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
@@ -106,12 +123,20 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         registrarUsuarioEnFirebase(email.lowercase(), contraseña, nombre)
     }
 
-    // FUN --> Validar la contraseña
+    /**
+     * Método para validar la contraseña según un patrón específico.
+     * @param contraseña La contraseña a validar.
+     * @return true si la contraseña cumple con el patrón, false en caso contrario.
+     */
     private fun validarContraseña(contraseña: String): Boolean {
         val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")
         return regex.matches(contraseña)
     }
 
+    /**
+     * Método para establecer la foto de perfil por defecto para el usuario recién registrado.
+     * @param userId El ID del usuario recién registrado.
+     */
     private fun establecerFotoPerfilPorDefecto(userId: String) {
         val storageRef = storage.reference
 
@@ -145,7 +170,10 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             }
     }
 
-    ///Guarda la imagen por defecto en firebase
+    /**
+     * Método para guardar la URL de la imagen por defecto en la base de datos para el usuario recién registrado.
+     * @param userId El ID del usuario recién registrado.
+     */
     private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
         var file = Uri.fromFile(File("res/mipmap/fotoperfil_acordeon.png"))
         val nuevoNombre = "pruebaSubida"
@@ -160,6 +188,12 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Log.d(TAG, "URL de imagen predeterminada guardada en la base de datos para el usuario: $userId")
     }
 
+    /**
+     * Método para registrar al usuario en Firebase Auth y Firestore.
+     * @param email Coge el email del usuario
+     * @param contraseña Coge la contraseña del usuario
+     * @param nombre Coge el nombre del usuario
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     fun registrarUsuarioEnFirebase(email: String, contraseña: String, nombre: String) {
         val emailEncriptado = HashUtils.sha256(email.lowercase())

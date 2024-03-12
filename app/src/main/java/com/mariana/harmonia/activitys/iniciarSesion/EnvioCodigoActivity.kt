@@ -15,13 +15,21 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.utils.Utils
 
+/**
+ * EnvioCodigoActivity es una actividad que gestiona el envío de un código y la cuenta regresiva
+ * para volver a enviarlo en caso de no ser recibido.
+ */
 class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
 
     //Declaración de variables
     private lateinit var textoNoRecibido: TextView
     private lateinit var cuentaRegresiva: CountDownTimer
 
-    // FUN --> On create
+    /**
+     * Método llamado cuando la actividad se está creando. Se encarga de inicializar la interfaz
+     * de usuario y otros componentes necesarios.
+     * @param savedInstanceState Si no es nulo, esta actividad está siendo reconstituida a partir de un estado guardado previamente.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.envio_codigo_activity)
@@ -46,7 +54,10 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         cuentaRegresiva.start()
     }
 
-    // FUN --> Destrucción cuenta regresiva código
+    /**
+     * Método llamado cuando la actividad está a punto de ser destruida. Se encarga de cancelar
+     * la cuenta regresiva para liberar recursos.
+     */
     override fun onDestroy() {
         if (::cuentaRegresiva.isInitialized) {
             cuentaRegresiva.cancel()
@@ -55,7 +66,9 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         super.onDestroy()
     }
 
-    // FUN --> Añadir label volver a enviar
+    /**
+     * Método privado para agregar un enlace "Volver a enviar" al texto cuando el código no es recibido.
+     */
     private fun agregarEnlaceVolverAEnviar() {
         val textoCompleto = "¿No has recibido el código? Volver a enviar"
         val spannableStringBuilder = SpannableStringBuilder(textoCompleto)
@@ -74,7 +87,10 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         textoNoRecibido.text = spannableStringBuilder
     }
 
-    // FUN --> Click botón confirmar código
+    /**
+     * Método llamado al hacer clic en el botón para confirmar el código. Inicia la actividad
+     * para escribir una nueva contraseña.
+     */
     fun clickConfirmarCodigo(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -82,7 +98,9 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         startActivity(intent)
     }
 
-    // FUN --> Volver al inicio de sesión (pantalla principal)
+    /**
+     * Método llamado al hacer clic en el botón para volver al inicio de sesión (pantalla principal).
+     */
     fun irIniciarSesion(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -91,7 +109,9 @@ class EnvioCodigoActivity : AppCompatActivity(), PlantillaActivity {
         finish()
     }
 
-    // FUN --> Salir de la aplicación
+    /**
+     * Método llamado al hacer clic en el botón para salir de la aplicación.
+     */
     fun irSalir(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()

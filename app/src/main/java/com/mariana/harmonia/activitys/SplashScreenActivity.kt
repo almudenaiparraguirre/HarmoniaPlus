@@ -10,9 +10,16 @@ import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.ServicioTiempo
 
+/**
+ * Actividad de pantalla de inicio que se muestra al iniciar la aplicación.
+ */
 class SplashScreenActivity : AppCompatActivity() {
 
-
+    /**
+     * Se llama cuando se crea la actividad.
+     *
+     * @param savedInstanceState Estado de la instancia guardada.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen().setKeepOnScreenCondition{
@@ -25,10 +32,5 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 1500)
-
-
-
-
     }
-
 }

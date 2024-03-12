@@ -57,14 +57,11 @@ class ServicioTiempo : Service() {
         super.onDestroy()
         countDownTimer?.cancel() // Detener el temporizador cuando el servicio se destruye
         // Subir el tiempo total a la base de datos cuando el servicio se destruye
-        println("destruido" + segundosTranscurridos)
+        println("destruido$segundosTranscurridos")
 
         UtilsDB.setTiempoJugado(segundosTranscurridos.toInt())
     }
 
 
     // Método para subir el tiempo total a la base de datos
-
-
-
 }

@@ -13,7 +13,15 @@ import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.Utils
 
-
+/**
+ * Actividad que se muestra al jugador al perder en un nivel del juego.
+ *
+ * @property nivel Número del nivel en el que se perdió.
+ * @property mediaPlayer Reproductor de audio para los sonidos de la actividad.
+ * @property derrotaTextView TextView que muestra el mensaje de derrota.
+ * @property emogiTextView TextView que muestra un emoji aleatorio.
+ * @property frasesTextView TextView que muestra un mensaje de ánimo aleatorio.
+ */
 class derrota_activity : AppCompatActivity() {
 
     private var nivel: Int = 0
@@ -22,6 +30,10 @@ class derrota_activity : AppCompatActivity() {
     private lateinit var emogiTextView: TextView
     private lateinit var frasesTextView: TextView
 
+    /**
+     * Método llamado al crear la actividad. Se encarga de inicializar la interfaz de usuario
+     * y reproducir sonidos de derrota.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         nivel = intent.getIntExtra("numeroNivel", 1)
         super.onCreate(savedInstanceState)
@@ -91,9 +103,14 @@ class derrota_activity : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_pantallas_fin)
         imageView.startAnimation(anim)
-
     }
 
+    /**
+     * Método invocado al presionar el botón para repetir el nivel.
+     * Reproduce un sonido y redirige a la pantalla del juego con el mismo nivel.
+     *
+     * @param view Vista del botón que activa la función.
+     */
     fun irRepetir(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -103,6 +120,12 @@ class derrota_activity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    /**
+     * Método invocado al presionar el botón para regresar al menú principal.
+     * Reproduce un sonido y redirige al menú de niveles.
+     *
+     * @param view Vista del botón que activa la función.
+     */
     fun irMenu(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()

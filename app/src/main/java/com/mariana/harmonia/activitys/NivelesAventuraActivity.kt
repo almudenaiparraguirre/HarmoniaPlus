@@ -29,6 +29,9 @@ import java.io.InputStream
 
 import kotlin.random.Random
 
+/**
+ * Actividad que representa el perfil del usuario.
+ */
 class NivelesAventuraActivity : AppCompatActivity() {
 
     private val numCantNiveles = 100
@@ -43,6 +46,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var imagenPerfil: ImageView
     var storage = FirebaseDB.getInstanceStorage()
 
+    /**
+     * Inicialización de la actividad.
+     */
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
@@ -59,18 +65,21 @@ class NivelesAventuraActivity : AppCompatActivity() {
         crearCirculos()
         colocarTextViewNivel()
         downloadImage2()
-
-
         //oculta la barra de carga
         EligeModoJuegoActivity.instance.ocultarFragmento()
     }
 
+    /**
+     * Inicializa datos básicos.
+     */
     private fun inicializarConBase()= runBlocking {
         nivelActual = UtilsDB.getNivelActual()!!
         corazonesTextView.text = UtilsDB.getVidas().toString()
     }
 
-    // Descarga la imagen de perfil del usuario del storage
+    /**
+     * Descarga la imagen de perfil del usuario desde el storage.
+     */
     private fun downloadImage2() {
         val storageRef = storage.reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -86,7 +95,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
     }
 
-    // Crear forma botones
+    /**
+     * Crea los círculos de los botones de nivel.
+     */
     private fun crearCirculos() {
 
         val lp = LinearLayout.LayoutParams(
@@ -164,7 +175,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         }
     }
 
-    //Click a un nivel
+    /**
+     * Click a un nivel
+     */
     private fun clickBotonNivel(numeroNivel: Int) {
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", numeroNivel)
@@ -172,7 +185,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-    // Crear botones bloqueados
+    /**
+     * Crea los niveles bloqueados
+     */
     private fun createLockedButton(): Button {
         //mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
@@ -207,7 +222,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return lockedButton
     }
 
-    //Crear botones niveles desbloqueados
+    /**
+     * Crea los niveles desbloqueados
+     */
     private fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
         button.textSize = 20f
@@ -228,12 +245,19 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return button
     }
 
+    /**
+     *  Pone el estilo de desbloqueado
+     */
     private fun getRandomButtonDrawable(): Int {
         val buttonDrawables = listOf(
             R.drawable.style_round_button
         )
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
+
+    /**
+     * Pone el estilo de bloqueado
+     */
     private fun getRandomUnlockedButtonDrawable(): Int {
         val buttonDrawables = listOf(
             R.drawable.style_round_button_blue
@@ -241,6 +265,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
+    /**
+     * Obtiene el archivo JSON de los niveles.
+     */
     private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {
@@ -257,12 +284,17 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return nivelesJson
     }
 
+    /**
+     * Coloca el texto del nivel en el TextView correspondiente.
+     */
     private fun colocarTextViewNivel(){
         var nivel  = nivelActual.toString()
         textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
 
-    // Función para interpolar colores
+    /**
+     * Interpola colores.
+     */
     private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
         val colors = intArrayOf(
             Color.parseColor("#FFDEF7"), // Rosa claro y suave
@@ -299,7 +331,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return Color.rgb(r, g, b)
     }
 
-    //Volver al modo de juego
+    /**
+     * Volver al modo de juego
+     */
     fun clickAtras(view: View){
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
@@ -307,7 +341,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-    //Volver al modo de juego
+    /**
+     * Volver al modo de juego
+     */
     fun volverModoJuego(view: View){
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
@@ -315,7 +351,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-    // Ir al perfil del usuario
+    /**
+     * Ir al perfil del usuario
+     */
     fun verPerfilUsuario(view: View){
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
@@ -323,7 +361,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-    //Vuelve a la pestaña anterior
+    /**
+     * Maneja el evento de clic en el botón de retroceso.
+     */
     override fun onBackPressed() {
         EligeModoJuegoActivity.instance.inicializarConBase()
         super.onBackPressed()

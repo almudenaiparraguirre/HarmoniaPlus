@@ -1,8 +1,6 @@
 package com.mariana.harmonia
 
 import UserDao
-import android.R.attr.duration
-import android.animation.TypeEvaluator
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -15,7 +13,6 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -45,7 +42,9 @@ import com.mariana.harmonia.utils.HashUtils
 import com.mariana.harmonia.utils.Utils
 import java.time.LocalDate
 
-
+/**
+ * Actividad principal que representa la pantalla de inicio de la aplicación.
+ */
 class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     private val TAG = "MainActivity"
@@ -55,7 +54,11 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     val CHANNEL_ID = "mi_canal_de_notificacion"
 
-
+    /**
+     * Se llama cuando se crea la actividad.
+     *
+     * @param savedInstanceState Estado de la instancia guardada.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -98,11 +101,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
             notificationManager.createNotificationChannel(channel)
         }
 
-
         // Mostrar la notificación
         notificationManager.notify(0, builder.build())
         animacionInicio()
-
 
         val interpolator = AccelerateDecelerateInterpolator()
 
@@ -110,9 +111,13 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val generator = RandomTransitionGenerator(9000L, interpolator)
         kbv.setTransitionGenerator(generator)
         kbv.restart()
-
     }
 
+    /**
+     * Función que comprueba el estado de la sesión.
+     *
+     * @param firebaseAuth Instancia de FirebaseAuth.
+     */
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {
         val firebaseUser = FirebaseDB.getInstanceFirebase().currentUser
 
@@ -127,9 +132,10 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
-
+    /**
+     * Función que realiza la animación de inicio de la pantalla principal.
+     */
     fun animacionInicio() {
-
         // Obtén las referencias a tus elementos
         val fondo = findViewById<KenBurnsView>(R.id.fondoImageView)
         val tituloLogo = findViewById<LinearLayout>(R.id.TituloLogo)
@@ -142,8 +148,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val botonIniciarSesion = findViewById<AppCompatButton>(R.id.botonIniciarSesion)
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
-
-
 
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
@@ -161,23 +165,35 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(registrate)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)
-
     }
 
-
-
+    /**
+     * Función que se llama al hacer clic en el botón "No recuerdas la contraseña".
+     *
+     * @param view Vista del botón.
+     */
     fun clickNoRecuerdasLaContraseña(view: View) {
         val intent = Intent(this, RestableceContrasenaActivity::class.java)
         startActivity(intent)
         mediaPlayer.start()
     }
 
+    /**
+     * Función que redirige a la pantalla de registro al hacer clic en el botón "Regístrate".
+     *
+     * @param view Vista del botón.
+     */
     fun irRegistrate(view: View?) {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
         mediaPlayer.start()
     }
 
+    /**
+     * Función que inicia sesión con el correo electrónico y la contraseña proporcionados.
+     *
+     * @param view Vista del botón.
+     */
     fun irIniciarSesion(view: View) {
 
         mediaPlayer.start()
@@ -264,15 +280,28 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     }
 
+    /**
+     * Función que sale de la aplicación
+     *
+     * @param view Vista del botón.
+     */
     fun irSalir(view: View) {
         Utils.salirAplicacion(this)
     }
 
+    /**
+     * Función que retrocede a la ventana anterior
+     */
     override fun onBackPressed() {
         Utils.salirAplicacion(this)
         super.onBackPressed()
     }
 
+    /**
+     * Función que realiza el proceso de inicio de sesión con Google.
+     *
+     * @param view Vista del botón.
+     */
     fun iniciarSesionGoogle(view: View?) {
         try {
             signInWithGoogle()
@@ -287,6 +316,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
+    /**
+     * Función que inicia el proceso de inicio de sesión con Google.
+     */
     private fun signInWithGoogle() {
         // Configuración de inicio de sesión con Google
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -298,6 +330,13 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+    /**
+     * Sobrescribe el método onActivityResult para manejar el resultado de la actividad de inicio de sesión con Google.
+     *
+     * @param requestCode Código de solicitud pasado a startActivityForResult.
+     * @param resultCode  Resultado de la actividad que indica si la operación fue exitosa.
+     * @param data        Datos asociados con el resultado de la actividad.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -309,6 +348,17 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
+    /**
+     * Maneja el resultado de la tarea de inicio de sesión con Google.
+     *
+     * @param task Tarea que contiene el resultado de la autenticación con Google.
+     * Se intenta obtener la cuenta de Google desde el resultado de la tarea y autenticar
+     * con Firebase utilizando las credenciales de Google. En caso de un error (por ejemplo,
+     * ApiException), se registra un mensaje de error y se muestra un Toast informando
+     * al usuario sobre el fallo en el inicio de sesión con Google.
+     *
+     * @see ApiException
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun handleGoogleSignInResult(task: Task<GoogleSignInAccount>) {
         try {
@@ -327,6 +377,11 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         }
     }
 
+    /**
+     * Autentica al usuario con Firebase utilizando las credenciales de Google.
+     *
+     * @param account Cuenta de Google utilizada para la autenticación.
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         // Obtener credenciales de autenticación de Google
@@ -376,20 +431,5 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                         }
                 }
             }
-    }
-
-    class TextoEvaluator : TypeEvaluator<CharSequence> {
-        override fun evaluate(
-            fraction: Float,
-            startValue: CharSequence?,
-            endValue: CharSequence?
-        ): CharSequence {
-            // Aquí puedes personalizar cómo se interpola el texto durante la animación
-            return if (fraction <= 0.5) {
-                startValue ?: ""
-            } else {
-                endValue ?: ""
-            }
-        }
     }
 }
