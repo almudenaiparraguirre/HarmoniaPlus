@@ -1,15 +1,19 @@
 package com.mariana.harmonia.activitys
 
 import android.Manifest
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -18,6 +22,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.mariana.harmonia.MainActivity
@@ -49,6 +55,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var botonAventura: androidx.appcompat.widget.AppCompatButton
+    private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
+    private lateinit var botonAjustes: androidx.appcompat.widget.AppCompatButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,6 +76,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         porcentajeTextView = findViewById(R.id.porcentajeTextView)
         progressBar = findViewById(R.id.progressBarCarga)
         imageViewFotoPerfil = findViewById(R.id.imageViewFotoPerfil)
+
+        botonAventura = findViewById(R.id.botonAventura)
+        botonDesafio = findViewById(R.id.botonDesafio)
+        botonAjustes = findViewById(R.id.botonOpciones)
 
 
         inicilalizarVariablesThis()
@@ -89,6 +103,53 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         val generator = RandomTransitionGenerator(9000L, interpolator)
         kbv.setTransitionGenerator(generator)
         kbv.restart()
+
+        //animacion Botones
+
+
+        val botones = listOf(botonAventura, botonDesafio, botonAjustes)
+
+        // Define la animación de escala para cada botón
+        val animacionAgrandar = botones.map {
+            val scaleX = ObjectAnimator.ofFloat(it, "scaleX", 1.2f)
+            val scaleY = ObjectAnimator.ofFloat(it, "scaleY", 1.2f)
+            AnimatorSet().apply {
+                play(scaleX).with(scaleY)
+                duration = 300 // Duración de la animación en milisegundos
+            }
+        }
+
+        // Define la animación de escala para restaurar el tamaño original del botón
+        val animacionReducir = botones.map {
+            val scaleX = ObjectAnimator.ofFloat(it, "scaleX", 1.0f)
+            val scaleY = ObjectAnimator.ofFloat(it, "scaleY", 1.0f)
+            AnimatorSet().apply {
+                play(scaleX).with(scaleY)
+                duration = 300 // Duración de la animación en milisegundos
+            }
+        }
+
+
+        botones.forEachIndexed { index, boton ->
+            boton.setOnTouchListener { view, motionEvent ->
+                when (motionEvent.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Inicia la animación de agrandar cuando se mantiene pulsado
+                        animacionAgrandar[index].start()
+                        true
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // Inicia la animación de reducir cuando se levanta el dedo o se cancela el evento
+                        animacionAgrandar[index].cancel() // Cancela la animación de agrandar si aún está en curso
+                        animacionReducir[index].start()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }
+
     }
 
     fun crearFragmentoCarga(){
@@ -170,12 +231,15 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     fun clickOpciones(view: View){
+        //animacion
+        YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonOpciones))
         mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }
 
     fun irModoAventura(view: View){
+        YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonAventura))
         mostrarFragmento()
         mediaPlayer.start()
         val intent = Intent(this, NivelesAventuraActivity::class.java)
@@ -185,6 +249,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
 
     fun irDesafio(view: View) {
+        YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonDesafio))
         mediaPlayer.start()
 
         // Crea una instancia del fragmento que deseas mostrar
