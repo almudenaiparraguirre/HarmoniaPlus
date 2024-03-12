@@ -17,7 +17,7 @@ import com.mariana.harmonia.utils.HashUtils
  */
 class InicioSesion : AppCompatActivity() {
 
-    private lateinit var firebaseAuth: FirebaseAuth
+    lateinit var firebaseAuth: FirebaseAuth
 
     /**
      * Función llamada al crear la actividad.
@@ -33,7 +33,7 @@ class InicioSesion : AppCompatActivity() {
      * @param email Dirección de correo electrónico del usuario.
      * @param contrasena Contraseña del usuario.
      */
-    private fun signIn(email: String, contrasena: String) {
+    fun signIn(email: String, contrasena: String) {
         firebaseAuth.signInWithEmailAndPassword(email.lowercase(), contrasena)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

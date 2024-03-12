@@ -50,6 +50,7 @@ android {
 dependencies {
     //Splash
     implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.test:core-ktx:1.5.0")
 
     //DOKKA
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
@@ -96,4 +97,9 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("com.google.truth:truth:1.4.2")
+    testImplementation("org.mockito:mockito-core:3.12.4")
+
 }
