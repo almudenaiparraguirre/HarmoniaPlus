@@ -3,6 +3,7 @@ package com.mariana.harmonia.activitys
 import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
@@ -59,6 +60,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
     private lateinit var botonAjustes: androidx.appcompat.widget.AppCompatButton
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

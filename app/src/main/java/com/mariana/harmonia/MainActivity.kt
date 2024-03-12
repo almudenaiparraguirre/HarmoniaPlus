@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
         val interpolator = AccelerateDecelerateInterpolator()
 
-        val kbv = findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.fondoImageView) as KenBurnsView
+        val kbv = findViewById<KenBurnsView>(R.id.fondoImageView) as KenBurnsView
         val generator = RandomTransitionGenerator(9000L, interpolator)
         kbv.setTransitionGenerator(generator)
         kbv.restart()
@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     fun animacionInicio() {
 
         // Obtén las referencias a tus elementos
-        val fondo = findViewById<ImageView>(R.id.fondoImageView)
+        val fondo = findViewById<KenBurnsView>(R.id.fondoImageView)
         val tituloLogo = findViewById<LinearLayout>(R.id.TituloLogo)
         val bienvenido = findViewById<LinearLayout>(R.id.bienvenido)
         val introduce = findViewById<TextView>(R.id.introduce)
