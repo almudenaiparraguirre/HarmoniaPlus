@@ -112,6 +112,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         //animacion Botones
 
 
+        //animacion Botones
+
+
         val botones = listOf(botonAventura, botonDesafio, botonAjustes)
 
         // Define la animación de escala para cada botón
@@ -134,26 +137,34 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
 
-        botones.forEachIndexed { index, boton ->
-            boton.setOnTouchListener { view, motionEvent ->
-                when (motionEvent.action) {
+        botones.forEachIndexed { index, button ->
+            button.setOnTouchListener { _, event ->
+                when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        // Inicia la animación de agrandar cuando se mantiene pulsado
+                        // Inicia la animación de agrandar cuando se toca el botón
                         animacionAgrandar[index].start()
                         true
                     }
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                        // Inicia la animación de reducir cuando se levanta el dedo o se cancela el evento
-                        animacionAgrandar[index].cancel() // Cancela la animación de agrandar si aún está en curso
+
+                    MotionEvent.ACTION_UP -> {
+                        // Detiene la animación de agrandar y inicia la animación de reducir cuando se suelta el botón
+                        animacionAgrandar[index].cancel()
                         animacionReducir[index].start()
+
+                        // Ejecuta la acción correspondiente al botón
+                        when (button.id) {
+                            R.id.botonAventura -> irModoAventura()
+                            R.id.botonDesafio -> irDesafio()
+                            R.id.botonOpciones -> clickOpciones()
+                        }
+
                         true
                     }
+
                     else -> false
                 }
             }
-
         }
-
     }
 
     /**
@@ -250,18 +261,18 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     /**
      * Función para abrir la actividad de configuración.
      */
-    fun clickOpciones(view: View){
-        //animacion
+    fun clickOpciones() {
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonOpciones))
         mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
         startActivity(intent)
     }
 
+
     /**
      * Función para abrir la actividad de niveles de aventura.
      */
-    fun irModoAventura(view: View){
+    fun irModoAventura() {
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonAventura))
         mostrarFragmento()
         mediaPlayer.start()
@@ -273,7 +284,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     /**
      * Función para abrir la actividad de desafío.
      */
-    fun irDesafio(view: View) {
+    fun irDesafio() {
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonDesafio))
         mediaPlayer.start()
 
@@ -292,8 +303,6 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         // Realiza la transacción
         fragmentTransaction.commit()
-
-        // Oculta los botones de la actividad principal
     }
 
     /**
