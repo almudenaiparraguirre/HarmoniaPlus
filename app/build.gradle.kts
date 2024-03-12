@@ -63,6 +63,9 @@ dependencies {
     //TextAnim
     implementation("com.daimajia.androidanimations:library:2.4@aar")
 
+    //KenBurnsView
+    implementation("com.flaviofaria:kenburnsview:1.0.7")
+
     //Default
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

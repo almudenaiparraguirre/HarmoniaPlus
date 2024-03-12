@@ -1,22 +1,33 @@
 package com.mariana.harmonia
 
+import UserDao
+import android.R.attr.duration
 import android.animation.TypeEvaluator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatButton
+import androidx.cardview.widget.CardView
 import androidx.core.app.NotificationCompat
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -27,22 +38,13 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
-
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import android.media.MediaPlayer
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
-import androidx.appcompat.widget.AppCompatButton
-import androidx.cardview.widget.CardView
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
 import com.mariana.harmonia.utils.Utils
 import java.time.LocalDate
+
 
 class MainActivity : AppCompatActivity(), PlantillaActivity {
 
@@ -96,9 +98,19 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
             notificationManager.createNotificationChannel(channel)
         }
 
+
         // Mostrar la notificación
         notificationManager.notify(0, builder.build())
         animacionInicio()
+
+
+        val interpolator = AccelerateDecelerateInterpolator()
+
+        val kbv = findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.fondoImageView) as KenBurnsView
+        val generator = RandomTransitionGenerator(9000L, interpolator)
+        kbv.setTransitionGenerator(generator)
+        kbv.restart()
+
     }
 
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {

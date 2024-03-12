@@ -8,6 +8,7 @@ import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -17,6 +18,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
@@ -80,6 +83,12 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         println("SERVICIO CONTADOR COMENZO")
         crearFragmentoCarga()
 
+        //iniciarFondo
+        val interpolator = AccelerateDecelerateInterpolator()
+        val kbv = findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.fondoImageView) as KenBurnsView
+        val generator = RandomTransitionGenerator(9000L, interpolator)
+        kbv.setTransitionGenerator(generator)
+        kbv.restart()
     }
 
     fun crearFragmentoCarga(){

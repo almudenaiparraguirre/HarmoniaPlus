@@ -8,14 +8,13 @@
     android:background="@drawable/style_fondo_degradado"
     tools:context=".MainActivity">
 
-    <ImageView
+    <com.flaviofaria.kenburnsview.KenBurnsView
         android:id="@+id/fondoImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/img_fondo"
+        android:src="@mipmap/img_fondo_2x2"
         android:scaleType="centerCrop"
-        android:alpha="0.5"
-        />
+        android:alpha="0.5"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
