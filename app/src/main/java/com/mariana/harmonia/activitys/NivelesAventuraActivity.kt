@@ -1,5 +1,7 @@
 package com.mariana.harmonia.activitys
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -8,6 +10,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -99,13 +102,11 @@ class NivelesAventuraActivity : AppCompatActivity() {
      * Crea los círculos de los botones de nivel.
      */
     private fun crearCirculos() {
-
         val lp = LinearLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.button_width),
             resources.getDimensionPixelSize(R.dimen.button_height)
         )
 
-        // Margen entre botones y margen superior
         lp.setMargins(
             0,
             resources.getDimensionPixelSize(R.dimen.button_margin_top),
@@ -114,22 +115,18 @@ class NivelesAventuraActivity : AppCompatActivity() {
         )
 
         for (i in 1 until numCantNiveles) {
-
             val button: View = if (i > nivelActual) {
                 createLockedButton()
             } else {
                 createUnlockedButton(i)
             }
 
-            // Crear un nuevo conjunto de parámetros de diseño para cada botón
             val lp = LinearLayout.LayoutParams(
                 resources.getDimensionPixelSize(R.dimen.button_width),
                 resources.getDimensionPixelSize(R.dimen.button_height)
             )
 
-            // Configurar el margen aleatorio
-            val randomMargin =
-                Random.nextInt(0, resources.getDimensionPixelSize(R.dimen.max_margin))
+            val randomMargin = Random.nextInt(0, resources.getDimensionPixelSize(R.dimen.max_margin))
             lp.setMargins(
                 if (i % 2 == 0) randomMargin else 0,
                 resources.getDimensionPixelSize(R.dimen.button_margin_top),
@@ -137,43 +134,56 @@ class NivelesAventuraActivity : AppCompatActivity() {
                 lp.bottomMargin
             )
 
-            if(i > nivelActual){
+            if (i > nivelActual) {
                 button.isEnabled = false
                 button.setBackgroundResource(getRandomUnlockedButtonDrawable())
-            }
-            else {
-
+            } else {
                 button.setBackgroundResource(getRandomButtonDrawable())
+                button.setOnTouchListener { view, motionEvent ->
+                    when (motionEvent.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.2f)
+                            val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.2f)
+                            AnimatorSet().apply {
+                                play(scaleX).with(scaleY)
+                                duration = 300
+                                start()
+                            }
+                            false
+                        }
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                            val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f)
+                            val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f)
+                            AnimatorSet().apply {
+                                play(scaleX).with(scaleY)
+                                duration = 300
+                                start()
+                            }
+                            false
+                        }
+                        else -> false
+                    }
+                }
                 button.setOnClickListener {
                     mediaPlayer.start()
                     val numeroNivel = button.id
                     clickBotonNivel(numeroNivel)
-
                 }
             }
 
-            // Configurar la gravedad
             lp.gravity = Gravity.CENTER
-
             button.layoutParams = lp
-
-            //button.setOnClickListener(buttonClickListener(i))
             llBotonera.addView(button)
         }
 
-
-        // Agregar un listener al ScrollView para detectar el desplazamiento
         scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             val maxScroll = scrollView.getChildAt(0).height - scrollView.height
             val ratio = scrollY.toFloat() / maxScroll.toFloat()
-
-            // Calcula el color interpolado entre blanco y morado
             val color = interpolateColor(Color.WHITE, Color.MAGENTA, ratio)
-
-            // Establece el color de fondo del ScrollView
             scrollView.setBackgroundColor(color)
         }
     }
+
 
     /**
      * Click a un nivel

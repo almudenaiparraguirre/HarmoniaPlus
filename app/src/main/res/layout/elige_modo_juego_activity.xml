@@ -32,7 +32,7 @@
 
                 <LinearLayout
                     android:background="@drawable/perfil_menu_redondeado"
-                    android:layout_width="150dp"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
