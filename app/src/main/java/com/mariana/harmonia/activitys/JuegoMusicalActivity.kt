@@ -22,6 +22,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mariana.harmonia.R
@@ -77,6 +78,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private lateinit var textViewAccuracy: TextView
     private lateinit var tiempoProgressBar: ProgressBar
     private lateinit var imagenProgressBar: ImageView
+    private lateinit var fondo: ImageView
+    private lateinit var pentagrama: RelativeLayout
+
 
     private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
     var animacionTexto: AnimatorSet? = null
@@ -141,6 +145,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
         imagenProgressBar = findViewById(R.id.imageMarker)
         textViewTiempo = findViewById(R.id.textViewTiempoContador)
         textViewAccuracy = findViewById(R.id.textViewAccuracy)
+        fondo = findViewById(R.id.fondoFlash)
+        pentagrama = findViewById(R.id.layoutPentagrama)
 
         //Admin del tiempo
 
@@ -400,7 +406,46 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }, intervalo)
 
     }
+    fun flashAcierto() {
 
+
+        // Animación del fondo de blanco a verde en 0.1 segundos
+        val colorAnimator = ObjectAnimator.ofArgb(pentagrama, "backgroundColor", Color.WHITE, Color.GREEN)
+        colorAnimator.duration = 100 // Duración de 0.1 segundos (en milisegundos)
+
+        // Animación del alpha del pentagrama
+        val alphaAnimator = ObjectAnimator.ofFloat(fondo, "alpha", 0f, 1f)
+        alphaAnimator.duration = 100 // Duración de 0.1 segundos (en milisegundos)
+
+        // Animación del desplazamiento hacia abajo del fondo en 0.4 segundos
+        val translateYAnimator = ObjectAnimator.ofFloat(fondo, "translationY", 0f, 200f)
+        translateYAnimator.duration = 400 // Duración de 0.4 segundos (en milisegundos)
+
+        // Combinar las animaciones
+        colorAnimator.start()
+        alphaAnimator.start()
+        translateYAnimator.start()
+
+        // Espera 0.1 segundos antes de revertir las animaciones
+        fondo.postDelayed({
+            // Animación del fondo de verde a blanco en 0.3 segundos
+            val colorAnimatorReverse = ObjectAnimator.ofArgb(pentagrama, "backgroundColor", Color.GREEN, Color.WHITE)
+            colorAnimatorReverse.duration = 300 // Duración de 0.3 segundos (en milisegundos)
+
+            // Animación del alpha del pentagrama (volver a 0)
+            val alphaAnimatorReverse = ObjectAnimator.ofFloat(fondo, "alpha", 1f, 0f)
+            alphaAnimatorReverse.duration = 300 // Duración de 0.3 segundos (en milisegundos)
+
+            // Animación para que el fondo regrese a su posición inicial de manera instantánea
+            val translateBackAnimator = ObjectAnimator.ofFloat(fondo, "translationY", 100f, 0f)
+            translateBackAnimator.duration = 0 // Instantáneo
+
+            // Combinar las animaciones de reversión
+            colorAnimatorReverse.start()
+            alphaAnimatorReverse.start()
+            translateBackAnimator.start()
+        }, 100)
+    }
     /**
      * Método para realizar la animación de la cuenta regresiva.
      */
@@ -640,6 +685,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     fun animacionAcierto() {
         // Cambiar color a verde instantáneamente
         playSound("correcto")
+        flashAcierto()
         textViewNota.setTextColor(Color.GREEN)
         // Animación para volver al color original con desvanecido
         val animacion = ObjectAnimator.ofArgb(textViewNota, "textColor", Color.GREEN, Color.BLACK)
