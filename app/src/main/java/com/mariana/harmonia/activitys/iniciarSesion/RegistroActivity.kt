@@ -1,23 +1,24 @@
 package com.mariana.harmonia.activitys.iniciarSesion
 
+import UserDao
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.interfaces.PlantillaActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
 import com.mariana.harmonia.utils.HashUtils
@@ -52,7 +53,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
      * y otros componentes necesarios.
      * @param savedInstanceState Si no es nulo, esta actividad está siendo reconstituida a partir de un estado guardado previamente.
      */
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.registro_activity)
         Utils.degradadoTexto(this, R.id.VolverInicioSesion, R.color.rosa, R.color.morado)
@@ -128,7 +129,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
      * @param contraseña La contraseña a validar.
      * @return true si la contraseña cumple con el patrón, false en caso contrario.
      */
-    private fun validarContraseña(contraseña: String): Boolean {
+    fun validarContraseña(contraseña: String): Boolean {
         val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")
         return regex.matches(contraseña)
     }

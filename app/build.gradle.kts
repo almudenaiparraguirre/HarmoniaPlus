@@ -51,6 +51,7 @@ dependencies {
     //Splash
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.test:core-ktx:1.5.0")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
 
     //DOKKA
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")
@@ -78,9 +79,6 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-storage:7.2.0")
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Firebase Google
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
@@ -92,14 +90,14 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-firestore")
 
-    implementation("com.google.android.gms:play-services-auth:20.7.0")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation("androidx.palette:palette:1.0.0")
 
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     testImplementation("junit:junit:4.13.2")
-    testImplementation("com.google.truth:truth:1.4.2")
-    testImplementation("org.mockito:mockito-core:3.12.4")
-
+    testImplementation("com.google.truth:truth:0.40")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

@@ -432,4 +432,29 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
     }
+    object Registro {
+        private val usuariosExistentes = listOf("Alberto","David")
+        /**
+
+        El input no es válido si...
+        ...el username está vacío
+        ...el username existe previamente
+        ...la confirmedPassword no es igual que la password
+        ...la password es menor de 2 dígitos
+         */
+        fun validarInputRegistro(
+            username: String,
+            password: String,
+            confirmedPassword: String):Boolean{
+            if (username.isEmpty() || password.isEmpty()){
+                return false}
+            if(username in usuariosExistentes){
+                return false}
+            if(password != confirmedPassword){
+                return false}
+            if(password.count {it.isDigit()} < 2){
+                return false}
+            return true}
+
+    }
 }
