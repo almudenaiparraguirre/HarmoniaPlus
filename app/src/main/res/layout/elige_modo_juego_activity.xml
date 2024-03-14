@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/style_fondo_degradado"
-    tools:context=".activitys.EligeModoJuegoActivity">
+    tools:context=".activitys.EligeModoJuegoActivity"
+    android:id="@+id/eligeModoJuegoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

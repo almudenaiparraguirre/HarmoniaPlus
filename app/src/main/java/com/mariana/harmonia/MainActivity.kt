@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -53,8 +54,14 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     private val RC_SIGN_IN = 9001
 
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var botonPruebas: Button
 
     val CHANNEL_ID = "mi_canal_de_notificacion"
+
+    fun viajarActivityModoJuego(view: View){
+        val intent = Intent(this, RegistroActivity::class.java)
+        startActivity(intent)
+    }
 
     /**
      * Se llama cuando se crea la actividad.
@@ -68,6 +75,12 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         Utils.degradadoTexto(this, R.id.registrateTextView, R.color.rosa, R.color.morado)
         Utils.degradadoTexto(this, R.id.recuerdasContrasena, R.color.rosa, R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        botonPruebas = findViewById(R.id.pruebaTests)
+
+        botonPruebas.setOnClickListener {
+            val intent = Intent(this, RegistroActivity::class.java)
+            startActivity(intent)
+        }
 
         //Inicializar firebase
 
@@ -151,7 +164,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
-        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
+       /* YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
         YoYo.with(Techniques.FadeInLeft).duration(3000).playOn(editTextEmail)
         YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContraseña)
@@ -166,7 +179,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(introduce)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(registrate)
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)*/
     }
 
     /**
@@ -200,7 +213,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
         mediaPlayer.start()
         val Email: TextView = findViewById(R.id.editTextEmail)
-        val contrasena: TextView = findViewById(R.id.editTextContraseña)
+        val contrasena: TextView = findViewById(R.id.editTextContrasena)
 
         // Validación de campos
         val emailText = Email.text.toString().lowercase()

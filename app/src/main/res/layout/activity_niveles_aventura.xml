@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFDEF7"
-    tools:context=".activitys.NivelesAventuraActivity">
+    tools:context=".activitys.NivelesAventuraActivity"
+    android:id="@+id/nivelesAventuraActivity">
 
     <!-- Menú Superior -->
     <LinearLayout

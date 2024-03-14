@@ -18,8 +18,8 @@ class UtilsDB {
         var db = FirebaseDB.getInstanceFirestore()
         var currentUser = firebaseAuth.currentUser
         var email = currentUser?.email?.lowercase()
-        var usersCollection = db.collection("usuarios")
-        var emailEncriptado = HashUtils.sha256(email!!)
+        private var usersCollection = db.collection("usuarios")
+        private var emailEncriptado = HashUtils.sha256(email!!)
 
         fun actualizarVariables() {
             try {
