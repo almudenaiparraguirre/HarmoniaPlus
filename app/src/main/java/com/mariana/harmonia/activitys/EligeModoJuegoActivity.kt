@@ -51,8 +51,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     }
     private   var RC_NOTIFICATION = 99
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var nombreTextView: TextView
-    private lateinit var porcentajeTextView: TextView
+    lateinit var nombreTextView: TextView
+    lateinit var porcentajeTextView: TextView
     private lateinit var imageViewFotoPerfil: ImageView
     private lateinit var progressBar: ProgressBar
 

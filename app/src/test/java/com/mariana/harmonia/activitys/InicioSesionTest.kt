@@ -6,18 +6,7 @@ import com.mariana.harmonia.activitys.InicioSesion
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
-import org.mockito.MockitoAnnotations
-
 class InicioSesionTest {
-
-    @Mock
-    private lateinit var firebaseAuth: FirebaseAuth
-
-    private lateinit var inicioSesion: InicioSesion
 
     /* @Before
     fun setUp() {

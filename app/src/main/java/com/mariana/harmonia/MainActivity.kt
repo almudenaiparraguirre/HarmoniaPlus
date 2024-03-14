@@ -20,7 +20,9 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.flaviofaria.kenburnsview.KenBurnsView
@@ -456,5 +458,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 return false}
             return true}
 
+        fun validarContraseña(contraseña: String): Boolean {
+            val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")
+            return regex.matches(contraseña)
+        }
     }
 }

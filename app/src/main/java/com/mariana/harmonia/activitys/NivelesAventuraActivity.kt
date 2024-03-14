@@ -2,6 +2,7 @@ package com.mariana.harmonia.activitys
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -52,7 +53,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     /**
      * Inicialización de la actividad.
      */
-    override fun onCreate(savedInstanceState: Bundle?)  {
+    public override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
 
@@ -101,6 +102,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     /**
      * Crea los círculos de los botones de nivel.
      */
+    @SuppressLint("ClickableViewAccessibility")
     private fun crearCirculos() {
         val lp = LinearLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.button_width),
@@ -198,7 +200,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     /**
      * Crea los niveles bloqueados
      */
-    private fun createLockedButton(): Button {
+    fun createLockedButton(): Button {
         //mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
         lockedButton.textSize = 20f
@@ -235,7 +237,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
     /**
      * Crea los niveles desbloqueados
      */
-    private fun createUnlockedButton(levelNumber: Int): Button {
+    fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
         button.textSize = 20f
         button.gravity = Gravity.CENTER
@@ -378,5 +380,4 @@ class NivelesAventuraActivity : AppCompatActivity() {
         EligeModoJuegoActivity.instance.inicializarConBase()
         super.onBackPressed()
     }
-
 }
