@@ -54,14 +54,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     private val RC_SIGN_IN = 9001
 
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var botonPruebas: Button
 
     val CHANNEL_ID = "mi_canal_de_notificacion"
-
-    fun viajarActivityModoJuego(view: View){
-        val intent = Intent(this, RegistroActivity::class.java)
-        startActivity(intent)
-    }
 
     /**
      * Se llama cuando se crea la actividad.
@@ -75,12 +69,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         Utils.degradadoTexto(this, R.id.registrateTextView, R.color.rosa, R.color.morado)
         Utils.degradadoTexto(this, R.id.recuerdasContrasena, R.color.rosa, R.color.morado)
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
-        botonPruebas = findViewById(R.id.pruebaTests)
-
-        botonPruebas.setOnClickListener {
-            val intent = Intent(this, RegistroActivity::class.java)
-            startActivity(intent)
-        }
 
         //Inicializar firebase
 
@@ -152,7 +140,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
      */
     fun animacionInicio() {
         // Obtén las referencias a tus elementos
-        val fondo = findViewById<KenBurnsView>(R.id.fondoImageView)
         val tituloLogo = findViewById<LinearLayout>(R.id.TituloLogo)
         val bienvenido = findViewById<LinearLayout>(R.id.bienvenido)
         val introduce = findViewById<TextView>(R.id.introduce)
@@ -164,7 +151,17 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
-       /* YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
+        // Verificar si alguna de las vistas es nula
+        if (tituloLogo == null || bienvenido == null || introduce == null ||
+            editTextEmail == null || editTextContraseña == null ||
+            recuerdasContrasena == null || signGoogle == null ||
+            botonIniciarSesion == null || registrate == null || salirTextView == null) {
+            Log.e(TAG, "Una o más vistas no se han inicializado correctamente")
+            return
+        }
+
+        // Aplicar animaciones a las vistas
+        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
         YoYo.with(Techniques.FadeInLeft).duration(3000).playOn(editTextEmail)
         YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContraseña)
@@ -179,8 +176,12 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(introduce)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(registrate)
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)*/
+        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)
+
+        registrate.visibility = View.VISIBLE
+        salirTextView.visibility = View.VISIBLE
     }
+
 
     /**
      * Función que se llama al hacer clic en el botón "No recuerdas la contraseña".

@@ -6,12 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/style_fondo_degradado"
-    tools:context=".MainActivity"
-    android:id="@+id/mainActivity">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    tools:context=".MainActivity">
 
     <com.flaviofaria.kenburnsview.KenBurnsView
         android:id="@+id/fondoImageView"
@@ -259,7 +254,6 @@
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_gravity="bottom|center"
-            android:clickable="true"
             android:layout_marginTop="30dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -307,16 +301,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registrate" />
-
-        <Button
-            android:id="@+id/pruebaTests"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prueba"
-            android:onClick="viajarActivityModoJuego"
-            app:layout_constraintTop_toBottomOf="@+id/botonIniciarSesion"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
