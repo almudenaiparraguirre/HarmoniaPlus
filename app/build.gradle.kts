@@ -5,8 +5,12 @@ plugins {
     id("com.google.gms.google-services")
     id("org.jetbrains.dokka") version "1.9.10"
 }
+
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "com.android.application")
+    apply(plugin = "com.google.gms.google-services")
+
 }
 
 android {
@@ -53,6 +57,9 @@ dependencies {
     implementation("androidx.test:core-ktx:1.5.0")
     implementation("androidx.test.ext:junit-ktx:1.1.5")
     implementation("androidx.test.uiautomator:uiautomator:2.3.0")
+
+    // add the Firebase SDK for Google Analytics
+    implementation ("com.google.firebase:firebase-analytics:17.4.1")
 
     //DOKKA
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")

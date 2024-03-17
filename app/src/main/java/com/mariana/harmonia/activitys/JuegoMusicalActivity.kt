@@ -99,7 +99,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var notasTotales: Int? = 0
     private var vidas: Int? = 0
     private lateinit var notasArray: Array<String?>
-
+    private lateinit var sonidoCuentaAtras: MediaPlayer
     //manejadores contadores
     private val handler = Handler(Looper.getMainLooper())
     private val handler2 = Handler(Looper.getMainLooper())
@@ -147,6 +147,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         textViewAccuracy = findViewById(R.id.textViewAccuracy)
         fondo = findViewById(R.id.fondoFlash)
         pentagrama = findViewById(R.id.layoutPentagrama)
+        sonidoCuentaAtras = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
 
         //Admin del tiempo
 
@@ -450,8 +451,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
      * Método para realizar la animación de la cuenta regresiva.
      */
     private fun animacionCuentaRegresiva() {
-        var mediaPlayer = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
-        mediaPlayer.start()
+
+        sonidoCuentaAtras.start()
         var imageViewRojo: ImageView = findViewById<ImageView>(R.id.imageViewProgressBarRoja)
         val latidoAnimation = AnimatorInflater.loadAnimator(
             this,
@@ -595,6 +596,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         val intent = Intent(this, derrota_activity::class.java)
         intent.putExtra("numeroNivel", nivel)
         perdido = true;
+        pararProcesos()
         finish()
         startActivity(intent)
     }
@@ -620,6 +622,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         intent.putExtra("tiempoDurado", tiempoActual)
         intent.putExtra("dificultad", dificultad)
         perdido = true;
+        pararProcesos()
         finish()
         startActivity(intent)
     }
@@ -642,7 +645,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         intent.putExtra("precision", getAccuracy()) // Aquí pasas la segunda variable
         ganado = true
 
-        pararConadores()
+        pararProcesos()
         finish()
         startActivity(intent)
     }
@@ -650,10 +653,11 @@ class JuegoMusicalActivity : AppCompatActivity() {
     /**
      * Detiene los contadores y la cuenta regresiva cuando se alcanza la victoria.
      */
-    private fun pararConadores() {
+    private fun pararProcesos() {
+        sonidoCuentaAtras.stop()
         detenerContador()
         detenerCuentaRegresiva()
-        ganado = true
+
     }
 
     /**
@@ -1209,6 +1213,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
      */
     fun detenerContador() {
         countDownTimer?.cancel()
+
     }
 
     /**
