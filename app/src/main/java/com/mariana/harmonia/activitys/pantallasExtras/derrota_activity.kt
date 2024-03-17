@@ -1,5 +1,6 @@
 package com.mariana.harmonia.activitys.pantallasExtras
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,8 @@ import com.mariana.harmonia.activitys.JuegoMusicalActivity
 import com.mariana.harmonia.activitys.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.Utils
+import com.mariana.harmonia.utils.UtilsDB
+import kotlinx.coroutines.runBlocking
 
 /**
  * Actividad que se muestra al jugador al perder en un nivel del juego.
@@ -25,10 +28,12 @@ import com.mariana.harmonia.utils.Utils
 class derrota_activity : AppCompatActivity() {
 
     private var nivel: Int = 0
+    private var vidas: Int = 0
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var derrotaTextView: TextView
     private lateinit var emogiTextView: TextView
     private lateinit var frasesTextView: TextView
+
 
     /**
      * Método llamado al crear la actividad. Se encarga de inicializar la interfaz de usuario
@@ -103,6 +108,16 @@ class derrota_activity : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.fondoImageView)
         val anim = AnimationUtils.loadAnimation(applicationContext, R.anim.animacion_pantallas_fin)
         imageView.startAnimation(anim)
+        cargarBaseDatos()
+
+
+
+    }
+
+    private fun cargarBaseDatos()= runBlocking {
+        vidas = UtilsDB.getVidas()!!.toInt()
+        UtilsDB.setVidas(vidas -1)
+
     }
 
     /**
@@ -114,10 +129,14 @@ class derrota_activity : AppCompatActivity() {
     fun irRepetir(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
+        if(vidas <= 0){
+            noVidas()
+        }
+        else{
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", nivel)
         finish()
-        startActivity(intent)
+        startActivity(intent)}
     }
 
     /**
@@ -132,5 +151,17 @@ class derrota_activity : AppCompatActivity() {
         val intent = Intent(this, NivelesAventuraActivity::class.java)
         finish()
         startActivity(intent)
+    }
+
+    private fun noVidas() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("No tienes vidas suficientes para jugar")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                // Aquí puedes realizar alguna acción adicional si es necesario
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
     }
 }

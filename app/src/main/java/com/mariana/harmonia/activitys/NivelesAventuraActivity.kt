@@ -3,6 +3,7 @@ package com.mariana.harmonia.activitys
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
@@ -38,7 +39,8 @@ import kotlin.random.Random
  */
 class NivelesAventuraActivity : AppCompatActivity() {
 
-    private val numCantNiveles = 100
+    private var numCantNiveles = 100
+    private var vidas = 0
     private lateinit var llBotonera: LinearLayout
     private var botonCorrecto: Int = 0
     private var nivelActual: Int = 0
@@ -71,6 +73,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         downloadImage2()
         //oculta la barra de carga
         EligeModoJuegoActivity.instance.ocultarFragmento()
+        corazonesTextView.text = vidas.toString()
     }
 
     /**
@@ -78,7 +81,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
      */
     private fun inicializarConBase()= runBlocking {
         nivelActual = UtilsDB.getNivelActual()!!
-        corazonesTextView.text = UtilsDB.getVidas().toString()
+        vidas =UtilsDB.getVidas()!!.toInt()
+
     }
 
     /**
@@ -167,9 +171,13 @@ class NivelesAventuraActivity : AppCompatActivity() {
                     }
                 }
                 button.setOnClickListener {
-                    mediaPlayer.start()
-                    val numeroNivel = button.id
-                    clickBotonNivel(numeroNivel)
+                    if (vidas <= 0) {
+                        noVidas()
+                    } else {
+                        mediaPlayer.start()
+                        val numeroNivel = button.id
+                        clickBotonNivel(numeroNivel)
+                    }
                 }
             }
 
@@ -185,6 +193,19 @@ class NivelesAventuraActivity : AppCompatActivity() {
             scrollView.setBackgroundColor(color)
         }
     }
+
+    private fun noVidas() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("No tienes vidas suficientes para jugar")
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                // Aquí puedes realizar alguna acción adicional si es necesario
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
+    }
+
 
 
     /**

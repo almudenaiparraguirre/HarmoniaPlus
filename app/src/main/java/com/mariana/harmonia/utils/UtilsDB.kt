@@ -114,16 +114,15 @@ class UtilsDB {
             }
         }
 
-        suspend fun getVidas(): String? {
+        suspend fun getVidas(): Int? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
             return try {
                 val document = docRef.get().await()
                 if (document.exists()) {
-                    val nivelActual = document.data?.get("vidas")
-                    println("Nivel actual: $nivelActual")
-                    nivelActual?.toString()
+                    val experiencia = document.data?.get("vidas") as? Long
+                    experiencia?.toInt()
                 } else {
                     println("No such document")
                     null
