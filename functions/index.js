@@ -5,7 +5,8 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
-exports.updateLifeValues = functions.pubsub.schedule("every 5 minutes").onRun(async (context) => {
+exports.updateLifeValues =
+functions.pubsub.schedule("every 5 minutes").onRun(async (context) => {
   try {
     const usersRef = db.collection("usuarios");
     const usersSnapshot = await usersRef.get();
@@ -16,8 +17,9 @@ exports.updateLifeValues = functions.pubsub.schedule("every 5 minutes").onRun(as
       const user = doc.data();
       // Comprueba si el valor de vida es menor a 20 antes de incrementarlo
       if (user.vidas < 20) {
-        const updatedLifeValue = user.vidas + 1; // Incrementa el valor de vida en 1
-        batch.update(doc.ref, { vidas: updatedLifeValue });
+        const updatedLifeValue =
+        user.vidas + 1; // Incrementa el valor de vida en 1
+        batch.update(doc.ref, {vidas: updatedLifeValue});
       }
     });
 
