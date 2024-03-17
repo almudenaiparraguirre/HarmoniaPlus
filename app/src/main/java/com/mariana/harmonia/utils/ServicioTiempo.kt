@@ -31,6 +31,7 @@ class ServicioTiempo : Service() {
         }
     fun subirSegundoBD()= runBlocking {
       UtilsDB.setTiempoJugado(segundosTranscurridos.toInt())
+        UtilsDB.setUltimoTiempo()
     }
 
 

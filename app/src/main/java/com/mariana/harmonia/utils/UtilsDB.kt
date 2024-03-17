@@ -7,9 +7,11 @@ import android.icu.util.Calendar
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.google.firebase.Timestamp
 import com.mariana.harmonia.models.db.FirebaseDB
 import kotlinx.coroutines.tasks.await
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 class UtilsDB {
@@ -149,6 +151,26 @@ class UtilsDB {
                 }
             } catch (exception: Exception) {
                 println("Error getting documents: $exception")
+                null
+            }
+        }
+
+        suspend fun getUltimoTiempo(): Timestamp? {
+            actualizarVariables()
+            val docRef = db.collection("usuarios").document(emailEncriptado)
+
+            return try {
+                val document = docRef.get().await()
+                if (document.exists()) {
+                    val ultimoTiempo = document.data?.get("ultimoTiempo")
+                    println("Ultimo tiempo: $ultimoTiempo")
+                    ultimoTiempo as? Timestamp
+                } else {
+                    println("No existe el documento")
+                    null
+                }
+            } catch (exception: Exception) {
+                println("Error al obtener el ultimo tiempo: $exception")
                 null
             }
         }
@@ -335,6 +357,30 @@ class UtilsDB {
                     Log.w(
                         ContentValues.TAG,
                         "Error al actualizar nuevaVidas para el usuario con email: $email",
+                        e
+                    )
+                }
+        }
+
+        fun setUltimoTiempo() {
+            val currentTime = Timestamp(Date())
+
+            val data = hashMapOf(
+                "ultimoTiempo" to currentTime
+                // Puedes agregar cualquier otro campo que necesites actualizar
+            )
+
+            usersCollection.document(emailEncriptado).update(data as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d(
+                        ContentValues.TAG,
+                        "Último tiempo actualizado para el usuario con email: $email"
+                    )
+                }
+                .addOnFailureListener { e ->
+                    Log.w(
+                        ContentValues.TAG,
+                        "Error al actualizar último tiempo para el usuario con email: $email",
                         e
                     )
                 }

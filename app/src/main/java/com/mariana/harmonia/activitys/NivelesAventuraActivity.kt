@@ -80,8 +80,14 @@ class NivelesAventuraActivity : AppCompatActivity() {
      * Inicializa datos básicos.
      */
     private fun inicializarConBase()= runBlocking {
+        setVidas()
         nivelActual = UtilsDB.getNivelActual()!!
         vidas =UtilsDB.getVidas()!!.toInt()
+
+    }
+
+    private fun setVidas() = runBlocking{
+        var ultimoTiempo = UtilsDB.getUltimoTiempo()
 
     }
 
