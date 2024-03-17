@@ -103,10 +103,10 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
             )
             notificationManager.createNotificationChannel(channel)
         }
-
+        animacionInicio()
         // Mostrar la notificación
         notificationManager.notify(0, builder.build())
-        animacionInicio()
+
 
         val interpolator = AccelerateDecelerateInterpolator()
 
@@ -144,27 +144,20 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val bienvenido = findViewById<LinearLayout>(R.id.bienvenido)
         val introduce = findViewById<TextView>(R.id.introduce)
         val editTextEmail = findViewById<EditText>(R.id.editTextEmail)
-        val editTextContraseña = findViewById<EditText>(R.id.editTextContraseña)
+        val editTextContrasena = findViewById<EditText>(R.id.editTextContrasena)
         val recuerdasContrasena = findViewById<TextView>(R.id.recuerdasContrasena)
         val signGoogle = findViewById<CardView>(R.id.signGoogle)
         val botonIniciarSesion = findViewById<AppCompatButton>(R.id.botonIniciarSesion)
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
-        // Verificar si alguna de las vistas es nula
-        if (tituloLogo == null || bienvenido == null || introduce == null ||
-            editTextEmail == null || editTextContraseña == null ||
-            recuerdasContrasena == null || signGoogle == null ||
-            botonIniciarSesion == null || registrate == null || salirTextView == null) {
-            Log.e(TAG, "Una o más vistas no se han inicializado correctamente")
-            return
-        }
+
 
         // Aplicar animaciones a las vistas
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
         YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
         YoYo.with(Techniques.FadeInLeft).duration(3000).playOn(editTextEmail)
-        YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContraseña)
+        YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContrasena)
         YoYo.with(Techniques.FadeInDown).duration(3000).playOn(signGoogle)
         YoYo.with(Techniques.FadeInDown).duration(3000).playOn(botonIniciarSesion)
 
