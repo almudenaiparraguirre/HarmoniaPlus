@@ -7,14 +7,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -34,7 +32,7 @@ import com.mariana.harmonia.activitys.fragments.CargaFragment
 import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
-import com.mariana.harmonia.utils.ServicioTiempo
+import com.mariana.harmonia.utils.ServicioActualizacion
 import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
@@ -97,7 +95,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), RC_NOTIFICATION)
         }
-        val serviceIntent = Intent(this, ServicioTiempo::class.java)
+        val serviceIntent = Intent(this, ServicioActualizacion::class.java)
         startService(serviceIntent)
         println("SERVICIO CONTADOR COMENZO")
         crearFragmentoCarga()
@@ -247,7 +245,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
      */
     fun cerrarSesion(view: View) {
         mediaPlayer.start()
-        val serviceIntent = Intent(this, ServicioTiempo::class.java)
+        val serviceIntent = Intent(this, ServicioActualizacion::class.java)
         stopService(serviceIntent)
         println("SERVICIO CONTADOR CERRADO")
         FirebaseDB.getInstanceFirebase().signOut()

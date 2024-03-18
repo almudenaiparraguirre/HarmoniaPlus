@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
+
     <application
 
         android:allowBackup="true"
@@ -28,7 +30,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
-        <service android:name=".utils.ServicioTiempo"/>
+        <service android:name=".utils.ServicioActualizacion"/>
         <activity
             android:name=".activitys.pantallasExtras.derrotaDesafio_activity"
             android:exported="false"

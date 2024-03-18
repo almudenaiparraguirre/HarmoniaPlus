@@ -1,17 +1,20 @@
 package com.mariana.harmonia.utils
 
+import android.app.AlertDialog
 import android.app.Service
 import android.content.Intent
 import android.os.CountDownTimer
 import android.os.IBinder
 import kotlinx.coroutines.runBlocking
-import  android.app.Application
-import kotlinx.coroutines.delay
+import android.content.Context
+import android.net.ConnectivityManager
+import com.mariana.harmonia.activitys.EligeModoJuegoActivity
 
-class ServicioTiempo : Service() {
+class ServicioActualizacion : Service() {
 
     var countDownTimer: CountDownTimer? = null
     var segundosTranscurridos: Long = 0
+    var mostrandoMenu: Boolean = false
 
     override fun onBind(intent: Intent?): IBinder? {
         // No necesitas este método si no planeas interactuar con el servicio a través de unión
@@ -43,6 +46,7 @@ class ServicioTiempo : Service() {
                 segundosTranscurridos++
 
                 subirSegundoBD()
+                verificarConexionInternet(EligeModoJuegoActivity.instance)
             }
 
             override fun onFinish() {
@@ -63,6 +67,41 @@ class ServicioTiempo : Service() {
         UtilsDB.setTiempoJugado(segundosTranscurridos.toInt())
     }
 
+    private fun verificarConexionInternet(context: Context) {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+
+        // Si no hay conexión a internet, muestra el diálogo
+        if (networkInfo == null || !networkInfo.isConnected) {
+            mostrarDialogoSinConexion(context)
+        }
+    }
+
+    private fun mostrarDialogoSinConexion(context: Context) {
+        if (!mostrandoMenu) {
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle("No hay conexión a internet")
+            builder.setMessage("Por favor, revisa tu conexión e intenta nuevamente.")
+
+            // Botón de reintentar
+            builder.setPositiveButton("Reintentar") { dialog, _ ->
+                dialog.dismiss()
+                verificarConexionInternet(context)
+                mostrandoMenu = false
+            }
+
+            // Botón de salir
+            builder.setNegativeButton("Salir") { dialog, _ ->
+                dialog.dismiss()
+                EligeModoJuegoActivity.instance.finish()
+                mostrandoMenu = false
+            }
+
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+        mostrandoMenu = true
+    }
 
     // Método para subir el tiempo total a la base de datos
 }
