@@ -89,9 +89,12 @@ dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
 
+
     //Firebase Google
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
+
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
 

@@ -25,6 +25,8 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
@@ -87,6 +89,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         inicilalizarVariablesThis()
         inicializarConBase()
+        incializarConexionNotificaciones()
 
         lifecycleScope.launch {
             downloadImage2()
@@ -163,6 +166,11 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
         }
+    }
+
+    private fun incializarConexionNotificaciones() {
+        var firebaseMessagin:FirebaseMessaging = FirebaseMessaging.getInstance()
+        firebaseMessagin.subscribeToTopic("new_user_forums")
     }
 
     /**
