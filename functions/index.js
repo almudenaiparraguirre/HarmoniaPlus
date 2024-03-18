@@ -13,12 +13,27 @@ functions.pubsub.schedule("every 5 minutes").onRun(async (context) => {
 
     const batch = db.batch();
 
-    usersSnapshot.forEach((doc) => {
+    usersSnapshot.forEach(async (doc) => {
       const user = doc.data();
-      // Comprueba si el valor de vida es menor a 20 antes de incrementarlo
-      if (user.vidas < 20) {
-        const updatedLifeValue =
-        user.vidas + 1; // Incrementa el valor de vida en 1
+      const currentLives = user.vidas;
+      const updatedLifeValue = currentLives + 1;
+
+      // Verifica si el usuario ha alcanzado las 20 vidas por primera vez
+      if (currentLives < 20 && updatedLifeValue >= 20) {
+        // Envía una notificación push al dispositivo del usuario
+        const message = {
+          notification: {
+            title: "Recarga de vidas",
+            body: "¡Felicidades! Tus vidas se han recargado a 20.",
+          },
+          token: user.token, // Token de registro del dispositivo del usuario
+        };
+
+        await admin.messaging().send(message);
+      }
+
+      // Actualiza las vidas del usuario solo si es menor a 20
+      if (currentLives < 20) {
         batch.update(doc.ref, {vidas: updatedLifeValue});
       }
     });
