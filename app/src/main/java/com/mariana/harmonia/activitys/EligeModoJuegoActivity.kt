@@ -27,6 +27,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView
 import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
+
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
@@ -47,7 +48,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     companion object{
         // Se usa para poder llamarla desde otras activitis
-        lateinit var instance: EligeModoJuegoActivity
+    lateinit var instance: EligeModoJuegoActivity
     }
     private   var RC_NOTIFICATION = 99
     private lateinit var mediaPlayer: MediaPlayer
@@ -66,6 +67,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var firebaseMessagin:FirebaseMessaging = FirebaseMessaging.getInstance()
+        firebaseMessagin.subscribeToTopic("new_user_forums")
 
         setContentView(R.layout.elige_modo_juego_activity) // Inflar el layout primero
 
@@ -89,7 +92,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         inicilalizarVariablesThis()
         inicializarConBase()
-        incializarConexionNotificaciones()
+
 
         lifecycleScope.launch {
             downloadImage2()
@@ -103,12 +106,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         println("SERVICIO CONTADOR COMENZO")
         crearFragmentoCarga()
 
-        //iniciarFondo
-        val interpolator = AccelerateDecelerateInterpolator()
-        val kbv = findViewById<com.flaviofaria.kenburnsview.KenBurnsView>(R.id.fondoImageView) as KenBurnsView
-        val generator = RandomTransitionGenerator(9000L, interpolator)
-        kbv.setTransitionGenerator(generator)
-        kbv.restart()
+
 
         //animacion Botones
 

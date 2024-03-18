@@ -1,6 +1,8 @@
 package com.mariana.harmonia.activitys
 
+import android.animation.Animator
 import android.animation.AnimatorInflater
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
@@ -20,11 +22,14 @@ import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.flaviofaria.kenburnsview.KenBurnsView
+import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
 import com.mariana.harmonia.activitys.pantallasExtras.derrota_activity
@@ -149,6 +154,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
         pentagrama = findViewById(R.id.layoutPentagrama)
         sonidoCuentaAtras = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
 
+
+
+     animacionFondo()
+
         //Admin del tiempo
 
         if (!desafio) {
@@ -169,6 +178,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
             iniciarCuentaRegresiva()
             iniciarContador()
         }
+
+
+
+
 
         //Activamos los listeners
 
@@ -343,6 +356,31 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
     }
 
+    private fun animacionFondo() {
+        val imageView = findViewById<ImageView>(R.id.fondoFlash)
+
+        // Crear la animación de bajada (translationY: 0 -> 200)
+        val animDown = ObjectAnimator.ofFloat(imageView, "translationY", -250f, 828f).apply {
+            duration = 5000 // Duración de la animación en milisegundos
+        }
+
+        // Crear la animación de subida (translationY: 200 -> 0)
+        val animUp = ObjectAnimator.ofFloat(imageView, "translationY", 828f, -250f).apply {
+            duration = 1 // Duración de la animación en milisegundos
+        }
+
+        val animatorSet = AnimatorSet().apply {
+            playSequentially(animDown, animUp)
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    start()
+                }
+            })
+        }
+        animatorSet.start()
+    }
+
+
     /**
      * Método para iniciar el contador de tiempo con cuenta regresiva.
      */
@@ -434,7 +472,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
             colorAnimatorReverse.duration = 300 // Duración de 0.3 segundos (en milisegundos)
 
             // Animación del alpha del pentagrama (volver a 0)
-            val alphaAnimatorReverse = ObjectAnimator.ofFloat(fondo, "alpha", 1f, 0f)
+            val alphaAnimatorReverse = ObjectAnimator.ofFloat(fondo, "alpha", 1f, 0.2f)
             alphaAnimatorReverse.duration = 300 // Duración de 0.3 segundos (en milisegundos)
 
             // Animación para que el fondo regrese a su posición inicial de manera instantánea

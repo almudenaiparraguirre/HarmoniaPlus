@@ -166,10 +166,10 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         YoYo.with(Techniques.FadeOut).duration(1).playOn(registrate)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(salirTextView)
 
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(introduce)
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(recuerdasContrasena)
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(registrate)
-        YoYo.with(Techniques.FadeInLeft).delay(3000).duration(5000).playOn(salirTextView)
+        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(introduce)
+        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(recuerdasContrasena)
+        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(registrate)
+        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(salirTextView)
 
         registrate.visibility = View.VISIBLE
         salirTextView.visibility = View.VISIBLE

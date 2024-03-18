@@ -7,10 +7,10 @@
     <ImageView
         android:id="@+id/fondoFlash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:src="@mipmap/img_fondo"
-        android:alpha="0"/>
+        android:layout_height="600dp"
+        android:src="@mipmap/img_fondo_grande"
+        android:scaleType="centerCrop"
+        android:alpha="0.2"/>
     <LinearLayout
         android:id="@+id/layoutSuperior"
         android:layout_width="match_parent"
