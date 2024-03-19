@@ -120,8 +120,13 @@ class victoria_activity : AppCompatActivity() {
      */
     private fun actualizarDatos() = runBlocking {
         try {
-            UtilsDB.setNivelActual(nivel + 1)
-            UtilsDB.setExperiencia((UtilsDB.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
+
+            var nivelMaximo = UtilsDB.getNivelMaximo()
+            if(nivelMaximo!! == nivel) {
+                UtilsDB.setExperiencia((UtilsDB.getExperiencia() ?: 0) + (20 + (nivel * 10 + 10)))
+                UtilsDB.setNivelMaximo(UtilsDB.getNivelMaximo()!! + 1)
+            }
+
             var precisionesList = UtilsDB.getPrecisiones()?.toMutableList() ?: MutableList(100) { 0 }
             precisionesList[nivel - 1] = precision
             UtilsDB.setPrecisiones(precisionesList)

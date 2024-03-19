@@ -37,7 +37,6 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
-import com.mariana.harmonia.activitys.fragments.CargaFragment
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.UtilsDB
@@ -283,7 +282,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
      * @return Nombre de la etapa del usuario.
      */
     private suspend fun obtenerNombreEtapa(): String {
-        val etapa: String? = when (UtilsDB.getNivelActual()) {
+        val etapa: String? = when (UtilsDB.getNivelMaximo()) {
             in 1..10 -> mutableList[0]
             in 11..20 -> mutableList[1]
             in 21..30 -> mutableList[2]
@@ -305,7 +304,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         nombreUsuarioTextView.text = UtilsDB.getNombre()
         gmailUsuarioTextView.text = UtilsDB.getCorreo()
         experienciaTextView.text = UtilsDB.getExperiencia().toString()
-        nivelTextView.text= UtilsDB.getNivelActual()?.minus(1).toString()
+        nivelTextView.text= UtilsDB.getNivelMaximo()?.minus(1).toString()
         precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
     }
 
@@ -739,7 +738,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
      * @param cantidad Cantidad total requerida para el logro.
      */
     private fun setlogro2(cantidad: Int)= runBlocking {
-        val porcentaje2 = UtilsDB.getNivelActual()?.minus(1)
+        val porcentaje2 = UtilsDB.getNivelMaximo()?.minus(1)
         progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
         porcentajeTextView2.text = "$porcentaje2/$cantidad"
     }

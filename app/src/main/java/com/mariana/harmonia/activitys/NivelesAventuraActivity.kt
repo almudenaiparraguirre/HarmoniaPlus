@@ -21,11 +21,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.FirebaseStorage
 import com.mariana.harmonia.R
 import com.mariana.harmonia.models.db.FirebaseDB
-import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
@@ -81,7 +78,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
      */
     private fun inicializarConBase()= runBlocking {
         setVidas()
-        nivelActual = UtilsDB.getNivelActual()!!
+        nivelActual = UtilsDB.getNivelMaximo()!!
         vidas =UtilsDB.getVidas()!!.toInt()
 
     }

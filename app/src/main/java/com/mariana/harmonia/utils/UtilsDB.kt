@@ -96,7 +96,7 @@ class UtilsDB {
         }
 
 
-        suspend fun getNivelActual(): Int? {
+        suspend fun getNivelMaximo(): Int? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
@@ -316,7 +316,7 @@ class UtilsDB {
                 }
         }
 
-        fun setNivelActual(nuevoNivelActual: Int) {
+        fun setNivelMaximo(nuevoNivelActual: Int) {
             actualizarVariables()
             val data = hashMapOf(
                 "nivelActual" to nuevoNivelActual

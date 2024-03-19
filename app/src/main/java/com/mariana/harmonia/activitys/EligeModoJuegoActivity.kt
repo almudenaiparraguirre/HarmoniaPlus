@@ -40,6 +40,7 @@ import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlin.math.pow
 
 /**
  * Actividad principal para elegir el modo de juego.
@@ -192,7 +193,9 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
      * Función para inicializar datos de la interfaz basándose en la base de datos.
      */
     fun inicializarConBase() = runBlocking {
-        var nivel = UtilsDB.getExperiencia()!!/100
+        val experiencia = UtilsDB.getExperiencia()
+
+        val nivel = calcularNivel(experiencia!!)
         var experienciaSobrante = UtilsDB.getExperiencia()!!%100
 
         nombreTextView.text = UtilsDB.getNombre()
@@ -233,6 +236,16 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             println("Error al cargar la imagen: ${exception.message}")
             imageViewFotoPerfil.setImageResource(R.mipmap.fotoperfil_guitarra)
         }
+    }
+    fun calcularNivel(experiencia: Int): Int {
+        val N_max = 100  // Nivel máximo deseado
+        val c = 3     // Factor de ajuste
+        var nivel = experiencia.toDouble() / (c * N_max)
+        // Asegurarse de que el nivel no supere el nivel máximo deseado
+        nivel = nivel.coerceAtMost(N_max.toDouble())
+        // Redondear el nivel a un número entero si es necesario
+        nivel = nivel
+        return nivel.toInt()
     }
 
     /**
