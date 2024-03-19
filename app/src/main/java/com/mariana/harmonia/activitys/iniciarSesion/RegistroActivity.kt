@@ -205,22 +205,38 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val userId = task.result?.user?.uid ?: ""
-                    val encriptado = HashUtils.sha256(email!!.lowercase())
-                    println("$email/$encriptado")
-                    val user = User(
-                        email = emailEncriptado,
-                        name = nombre,
-                        correo = email.lowercase(),
-                        0,
-                        1,
-                        mesRegistro = fechaRegistro.month,
-                        anioRegistro = fechaRegistro.year
-                    )
+                    val user = task.result?.user
+                    user?.sendEmailVerification()
+                        ?.addOnCompleteListener { verificationTask ->
+                            if (verificationTask.isSuccessful) {
+                                Toast.makeText(
+                                    this,
+                                    "Se ha enviado un correo electrónico de verificación. Por favor, verifica tu correo antes de iniciar sesión.",
+                                    Toast.LENGTH_LONG
+                                ).show()
 
-                    UserDao.addUser(user)
-                    establecerFotoPerfilPorDefecto(userId)
-                    finish()
+                                // Agregamos el usuario a la base de datos solo si la verificación del correo electrónico fue exitosa
+                                val userId = user.uid
+                                val encriptado = HashUtils.sha256(email!!.lowercase())
+                                println("$email/$encriptado")
+                                val userEntity = User(
+                                    email = emailEncriptado,
+                                    name = nombre,
+                                    correo = email.lowercase(),
+                                    0,
+                                    1,
+                                    mesRegistro = fechaRegistro.month,
+                                    anioRegistro = fechaRegistro.year
+                                )
+
+                                UserDao.addUser(userEntity)
+                                establecerFotoPerfilPorDefecto(userId)
+                                finish()
+                            } else {
+                                Log.e(TAG, "Error al enviar correo de verificación: ${verificationTask.exception?.message}")
+                            }
+                        }
+
                 } else {
                     Toast.makeText(
                         this,
@@ -230,4 +246,5 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
     }
+
 }

@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Se llama cuando se crea la actividad.
-     *
      * @param savedInstanceState Estado de la instancia guardada.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -151,25 +150,23 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val registrate = findViewById<LinearLayout>(R.id.registrate)
         val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
-
-
         // Aplicar animaciones a las vistas
-        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(tituloLogo)
-        YoYo.with(Techniques.FadeInUp).duration(3000).playOn(bienvenido)
-        YoYo.with(Techniques.FadeInLeft).duration(3000).playOn(editTextEmail)
-        YoYo.with(Techniques.FadeInRight).duration(3000).playOn(editTextContrasena)
-        YoYo.with(Techniques.FadeInDown).duration(3000).playOn(signGoogle)
-        YoYo.with(Techniques.FadeInDown).duration(3000).playOn(botonIniciarSesion)
+        YoYo.with(Techniques.FadeInUp).duration(1000).playOn(tituloLogo)
+        YoYo.with(Techniques.FadeInUp).duration(1000).playOn(bienvenido)
+        YoYo.with(Techniques.FadeInLeft).duration(1000).playOn(editTextEmail)
+        YoYo.with(Techniques.FadeInRight).duration(1000).playOn(editTextContrasena)
+        YoYo.with(Techniques.FadeInDown).duration(1000).playOn(signGoogle)
+        YoYo.with(Techniques.FadeInDown).duration(1000).playOn(botonIniciarSesion)
 
         YoYo.with(Techniques.FadeOut).duration(1).playOn(introduce)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(registrate)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(salirTextView)
 
-        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(introduce)
-        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(recuerdasContrasena)
-        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(registrate)
-        YoYo.with(Techniques.FadeInLeft).delay(1500).duration(3000).playOn(salirTextView)
+        YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(introduce)
+        YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(recuerdasContrasena)
+        YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(registrate)
+        YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(salirTextView)
 
         registrate.visibility = View.VISIBLE
         salirTextView.visibility = View.VISIBLE
@@ -204,7 +201,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
      * @param view Vista del botón.
      */
     fun irIniciarSesion(view: View) {
-
         mediaPlayer.start()
         val Email: TextView = findViewById(R.id.editTextEmail)
         val contrasena: TextView = findViewById(R.id.editTextContrasena)
@@ -214,28 +210,19 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val contrasenaText = contrasena.text.toString()
 
         if (emailText.isEmpty() || contrasenaText.isEmpty()) {
-            Toast.makeText(baseContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(baseContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Validación del formato de correo electrónico
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            Toast.makeText(
-                baseContext,
-                "Formato de correo electrónico no válido",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(baseContext, "Formato de correo electrónico no válido", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Validación de la longitud de la contraseña
         if (contrasenaText.length < 6) {
-            Toast.makeText(
-                baseContext,
-                "La contraseña debe tener al menos 6 caracteres,asegurese de su contraseña",
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(baseContext, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -244,7 +231,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
 
         val usersRef = FirebaseDB.getInstanceFirestore().collection("usuarios")
 
-// Verificar si el correo electrónico está presente en la colección de usuarios
         // Verificar si el correo electrónico está presente en la colección de usuarios
         usersRef.whereEqualTo("email", emailEncriptado).get()
             .addOnSuccessListener { documents ->
@@ -252,42 +238,36 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                     // El correo electrónico está presente, intentar iniciar sesión
                     FirebaseDB.getInstanceFirebase()
                         .signInWithEmailAndPassword(emailText, contrasenaText)
-                        .addOnSuccessListener {
+                        .addOnSuccessListener { authResult ->
                             // Autenticación exitosa
-                            Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT)
-                                .show()
-                            val intent = Intent(this, EligeModoJuegoActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                            mediaPlayer.start()
+                            val user = authResult.user
+                            if (user!!.isEmailVerified) {
+                                // El correo electrónico está verificado, permitir iniciar sesión
+                                Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, EligeModoJuegoActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                                mediaPlayer.start()
+                            } else {
+                                // El correo electrónico no está verificado, mostrar mensaje de error
+                                Toast.makeText(baseContext, "Por favor, verifica tu correo electrónico para iniciar sesión", Toast.LENGTH_SHORT).show()
+                            }
                         }
                         .addOnFailureListener { exception ->
                             // Manejar el fallo en el inicio de sesión con Firebase
-                            Toast.makeText(
-                                baseContext,
-                                "Error al iniciar sesión: ${exception.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(baseContext, "Error al iniciar sesión: ${exception.message}", Toast.LENGTH_SHORT).show()
                         }
                 } else {
                     // El correo electrónico no está presente en la colección de usuarios
-                    Toast.makeText(
-                        baseContext,
-                        "Email o contraseña incorrectos",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(baseContext, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
                 }
             }
             .addOnFailureListener { exception ->
                 // Manejar el fallo en la consulta a la colección de usuarios
-                Toast.makeText(
-                    baseContext,
-                    "Error al verificar el correo electrónico: ${exception.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(baseContext, "Error al verificar el correo electrónico: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
-
     }
+
 
     /**
      * Función que sale de la aplicación
