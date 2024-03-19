@@ -4,6 +4,7 @@
       "id": 1,
       "completado": true,
       "tiempo": 1000000,
+      "nombre":"",
       "notas": ["4c", "4d", "4e", "4f", "4g"],
       "vidas":1000000,
       "etapa": 1
@@ -12,6 +13,7 @@
       "id": 2,
       "completado": true,
       "tiempo": 1000000,
+      "nombre":"",
       "notas": ["4c", "4e", "4d", "4f", "4e", "4g"],
       "vidas": 5,
       "etapa": 1
@@ -20,7 +22,8 @@
       "id": 3,
       "completado": true,
       "tiempo": 1000000,
-      "notas":["4c", "4e", "4d", "4f", "4e", "4g", "4e", "4f", "4d", "4e", "4c"],
+      "nombre":"himno Alegria",
+      "notas":["4e", "4e", "4f", "4g", "4g", "4f", "4e", "4d", "4c", "4c", "4d", "4e", "4e", "4d", "4d", "4e", "4e", "4f", "4g", "4g", "4f", "4e", "4d", "4c", "4c", "4d", "4e", "4d", "4c", "4c"],
       "vidas": 5,
       "etapa": 1
     },
@@ -28,6 +31,7 @@
       "id": 4,
       "completado": true,
       "tiempo": 60,
+      "nombre":"",
       "notas":["4c", "4d", "4e", "4f", "4g", "4a", "4b", "5c"],
       "vidas": 300,
       "etapa": 1
@@ -36,6 +40,7 @@
       "id": 5,
       "completado": true,
       "tiempo": 60,
+      "nombre":"",
       "notas":["4c", "4d", "4e", "4f", "4g", "4a", "4b", "5c"],
       "vidas": 3,
       "etapa": 1
@@ -44,6 +49,7 @@
       "id": 6,
       "completado": true,
       "tiempo": 7,
+      "nombre":"",
       "notas":["5c", "4a", "4b", "4g", "4a", "4f", "4g", "4e", "4f", "4d", "4e", "4c"],
       "vidas": 3,
       "etapa": 1
@@ -52,6 +58,7 @@
       "id": 7,
       "completado": true,
       "tiempo": 60,
+      "nombre":"",
       "notas":["4g", "5c", "4f", "4a", "4d", "4e", "5c", "4b", "4c", "4d", "4g", "4f", "4g", "4b", "4d", "4f", "4e", "4b", "5c", "4g", "4d", "4f", "4g", "4a", "4b", "4c"],
       "vidas": 3,
       "etapa": 1
@@ -60,6 +67,7 @@
       "id": 8,
       "completado": false,
       "tiempo": 60,
+      "nombre":"",
       "notas":["3gb","3g","3ab","3a","3bb","3b","4c","4db","4d","4eb","4e","4f","4gb","4g","4ab","4a","4bb","4b","5c","5db","5d","5eb","5e","5f","5gb","5g","5ab","5a","5bb","5b","6c","6db","6d"],
       "vidas": 3,
       "etapa": 1

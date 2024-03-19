@@ -14,6 +14,7 @@ import android.graphics.Color
 
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -770,12 +771,18 @@ class JuegoMusicalActivity : AppCompatActivity() {
      * @param soundFile Nombre del archivo de sonido.
      */
     private fun playSound(soundFile: String) {
-        val mediaPlayer =
-            MediaPlayer.create(this, resources.getIdentifier(soundFile, "raw", packageName))
-        val volume = 1f
-        mediaPlayer.setVolume(volume, volume)
-        mediaPlayer.start()
-        mediaPlayer.setOnCompletionListener { mediaPlayer.release() }
+        val mediaPlayer = MediaPlayer().apply {
+            setDataSource(
+                this@JuegoMusicalActivity,
+                Uri.parse("android.resource://${packageName}/raw/${soundFile}")
+            )
+            prepare()
+            setVolume(2f, 2f)
+            start()
+            setOnCompletionListener {
+                release()
+            }
+        }
     }
 
     /**
