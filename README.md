@@ -27,3 +27,36 @@ Harmonía Plus es una aplicación de música diseñada para ayudar a los usuario
 
 
 **¡Gracias por usar Harmonía Plus! Disfruta aprendiendo y mejorando tus habilidades musicales.**
+
+
+**********************************************************************************************************************************************************
+
+#HarmoniaPlus-
+
+Harmonía Plus is a music application designed to help users learn solfeggio notes by playing the piano. The app offers a variety of levels to suit all skill levels, from beginner to advanced.
+
+**Characteristics**
+- Intuitive User Interface: Designed to be easy to use for all age groups.
+- Progressive Levels: More than 100 levels that increase in difficulty.
+- Practice and Challenge Modes: Practice at your own pace or compete against the clock.
+- Instant Feedback: Get real-time feedback on your performance.
+- Charts and Statistics: Track your progress and continually improve.
+
+**Use**
+- **Login/Register:** Create an account or log in with your credentials.
+- **Select Level:** Choose a level appropriate to your ability.
+- **Start Practicing:** Follow the on-screen instructions and play the correct notes on the virtual piano.
+- **Review Feedback:** Observe instant feedback and adjust your practice accordingly.
+- **Level Up:** Advance to more difficult levels as you improve.
+
+**Issues and Support**
+- If you encounter any problems or have any questions, please open an "Issue" on GitHub and we will reply as soon as possible.
+
+**License**
+- This project is licensed under the MIT License. See the LICENSE file for more details.
+
+**Contact**
+- For more information or questions, please contact tu-email@example.com.
+
+
+**Thank you for using Harmonía Plus! Enjoy learning and improving your musical skills.**
