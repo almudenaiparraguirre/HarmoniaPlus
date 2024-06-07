@@ -1,4 +1,4 @@
-# Harmonia-
+# Harmonia+
 
 Harmonía Plus es una aplicación de música diseñada para ayudar a los usuarios a aprender las notas de solfeo tocando el piano. La aplicación ofrece una variedad de niveles para adaptarse a todos los niveles de habilidad, desde principiantes hasta avanzados.
 
@@ -23,7 +23,7 @@ Harmonía Plus es una aplicación de música diseñada para ayudar a los usuario
 - Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
 
 **Contacto**
-- Para más información o preguntas, por favor contacta a tu-email@example.com.
+- Para más información o preguntas, por favor contacta a harmonia1@gmail.com.
 
 
 **¡Gracias por usar Harmonía Plus! Disfruta aprendiendo y mejorando tus habilidades musicales.**
