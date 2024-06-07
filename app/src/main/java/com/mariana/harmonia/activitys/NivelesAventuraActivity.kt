@@ -83,6 +83,9 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Inicializa datos básicos.
+     */
     private fun setVidas() = runBlocking{
         var ultimoTiempo = UtilsDB.getUltimoTiempo()
     }

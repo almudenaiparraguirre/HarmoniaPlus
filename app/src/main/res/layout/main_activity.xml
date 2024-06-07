@@ -21,7 +21,6 @@
         android:layout_height="match_parent">
 
         <!-- Logo -->
-
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -141,7 +140,6 @@
             tools:ignore="UnknownId" />
 
         <!-- EditText 2 -->
-
         <EditText
             android:id="@+id/editTextContrasena"
             android:layout_width="0dp"
@@ -195,7 +193,7 @@
             <!-- Boton Google -->
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/style_button_google"
                 android:clickable="true"
                 android:gravity="center_vertical"
@@ -207,8 +205,8 @@
 
                 <!-- Imagen a la izquierda -->
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:contentDescription="Descripción de la imagen"
                     android:src="@mipmap/img_ico_google" />
 
@@ -217,19 +215,17 @@
                     android:id="@+id/textViewGoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/kameronregular"
                     android:layout_gravity="center_vertical"
-                    android:text="Iniciar sesion con Google"
+                    android:text="Inicia sesión con Google"
+                    android:layout_marginRight="20dp"
                     android:textColor="@color/negro"
-
                     android:textSize="20dp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
         <!-- Botón Iniciar Sesión -->
-
-        <!-- Salir -->
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/botonIniciarSesion"
             android:layout_width="200dp"

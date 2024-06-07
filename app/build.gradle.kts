@@ -10,8 +10,6 @@ subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "com.android.application")
     apply(plugin = "com.google.gms.google-services")
-
-
 }
 
 android {

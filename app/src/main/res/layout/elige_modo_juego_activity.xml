@@ -29,8 +29,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
-
                 <LinearLayout
                     android:background="@drawable/perfil_menu_redondeado"
                     android:layout_width="300dp"
@@ -46,9 +44,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                       >
-                        <!--redondeador-->
+                        android:orientation="horizontal">
+
+                        <!--Redondeador-->
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

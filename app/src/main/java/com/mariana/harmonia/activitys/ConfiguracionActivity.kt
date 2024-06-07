@@ -37,7 +37,6 @@ import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.auth.User
 import com.mariana.harmonia.MainActivity
 import com.mariana.harmonia.R
-import com.mariana.harmonia.databinding.InicioSesionActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.Utils
 
