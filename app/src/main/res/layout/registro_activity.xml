@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/style_fondo_degradado"
-    tools:context=".activitys.iniciarSesion.RegistroActivity"
+    tools:context=".activities.iniciarSesion.RegistroActivity"
     android:id="@+id/registroActivity">
 
     <ImageView

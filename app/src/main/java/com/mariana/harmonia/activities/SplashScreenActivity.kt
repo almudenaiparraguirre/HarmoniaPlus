@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys
+package com.mariana.harmonia.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

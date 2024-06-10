@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys.fragments
+package com.mariana.harmonia.activities.fragments
 
 import android.content.Intent
 import android.graphics.drawable.Animatable2

@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys
+package com.mariana.harmonia.activities
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
@@ -23,18 +23,15 @@ import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.flaviofaria.kenburnsview.KenBurnsView
-import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.pantallasExtras.derrotaDesafio_activity
-import com.mariana.harmonia.activitys.pantallasExtras.derrota_activity
-import com.mariana.harmonia.activitys.pantallasExtras.victoria_activity
+import com.mariana.harmonia.activities.pantallasExtras.derrotaDesafio_activity
+import com.mariana.harmonia.activities.pantallasExtras.derrota_activity
+import com.mariana.harmonia.activities.pantallasExtras.victoria_activity
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream

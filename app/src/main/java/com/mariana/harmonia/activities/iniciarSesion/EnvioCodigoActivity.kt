@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys.iniciarSesion
+package com.mariana.harmonia.activities.iniciarSesion
 
 import android.content.Intent
 import android.media.MediaPlayer

@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys
+package com.mariana.harmonia.activities
 
 import android.Manifest
 import android.animation.AnimatorSet
@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -23,16 +22,13 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.flaviofaria.kenburnsview.KenBurnsView
-import com.flaviofaria.kenburnsview.RandomTransitionGenerator
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.FirebaseMessagingService
 
 import com.mariana.harmonia.MainActivity
 
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.fragments.CargaFragment
-import com.mariana.harmonia.activitys.fragments.FragmentoDificultadDesafio
+import com.mariana.harmonia.activities.fragments.CargaFragment
+import com.mariana.harmonia.activities.fragments.FragmentoDificultadDesafio
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.ServicioActualizacion
@@ -40,7 +36,6 @@ import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlin.math.pow
 
 /**
  * Actividad principal para elegir el modo de juego.
@@ -49,7 +44,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
     companion object{
         // Se usa para poder llamarla desde otras activitis
-    lateinit var instance: EligeModoJuegoActivity
+        lateinit var instance: EligeModoJuegoActivity
     }
     private   var RC_NOTIFICATION = 99
     private lateinit var mediaPlayer: MediaPlayer

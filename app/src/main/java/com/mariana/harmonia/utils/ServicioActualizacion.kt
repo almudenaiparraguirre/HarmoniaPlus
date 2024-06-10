@@ -8,7 +8,7 @@ import android.os.IBinder
 import kotlinx.coroutines.runBlocking
 import android.content.Context
 import android.net.ConnectivityManager
-import com.mariana.harmonia.activitys.EligeModoJuegoActivity
+import com.mariana.harmonia.activities.EligeModoJuegoActivity
 
 class ServicioActualizacion : Service() {
 

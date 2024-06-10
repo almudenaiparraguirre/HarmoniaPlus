@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys.fragments
+package com.mariana.harmonia.activities.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.mariana.harmonia.R
-import com.mariana.harmonia.activitys.JuegoMusicalActivity
+import com.mariana.harmonia.activities.JuegoMusicalActivity
 
 /**
  * FragmentoDificultadDesafio es un Fragment que permite al usuario seleccionar la dificultad

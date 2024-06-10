@@ -8,17 +8,18 @@
     android:background="@drawable/style_fondo_degradado"
     tools:context=".MainActivity">
 
-    <com.flaviofaria.kenburnsview.KenBurnsView
-        android:id="@+id/fondoImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/img_fondo_2x2"
-        android:scaleType="centerCrop"
-        android:alpha="0.5"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <!-- Fondo imágenes notas -->
+        <com.flaviofaria.kenburnsview.KenBurnsView
+            android:id="@+id/fondoImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/img_fondo_2x2"
+            android:scaleType="centerCrop"
+            android:alpha="0.5"/>
 
         <!-- Logo -->
         <LinearLayout
@@ -40,7 +41,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <!-- ImageView a la izquierda -->
+                <!-- ImageView Logo -->
                 <ImageView
                     android:id="@+id/logoImageView"
                     android:layout_width="80dp"
@@ -48,7 +49,7 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/img_ico_aplicacion" />
 
-                <!-- TextView a la derecha -->
+                <!-- TextView título Harmonía+-->
                 <TextView
                     android:id="@+id/titleTextView"
                     style="@style/Fuente_TimesNewRoman"
@@ -59,24 +60,22 @@
                     android:textColor="@color/rosa"
                     android:textSize="45dp"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
-            <!-- TextView adicional debajo y centrado -->
+            <!-- TextView eslogan aplicación -->
             <TextView
-
                 android:id="@+id/subTitleTextView"
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|center"
-                android:text="Tu viaje musical comienza aquí"
+                android:text="@string/tu_viaje_musical_comienza_aqui"
                 android:textColor="@color/morado"
                 android:textSize="16sp" />
         </LinearLayout>
 
-
         <LinearLayout
-
             android:id="@+id/bienvenido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,22 +85,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/TituloLogo"
-
             tools:ignore="MissingConstraints">
 
             <TextView
                 style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¡BIENVENIDO!"
+                android:text="@string/bienvenido"
                 android:textColor="@color/rosa"
-                android:textSize="40dp" />
+                android:textSize="40sp" />
 
             <ImageView
                 android:layout_width="56dp"
                 android:layout_height="49dp"
                 android:layout_marginStart="8dp"
-                android:contentDescription="Descripción de la imagen"
+                android:contentDescription="@string/descripcion_de_la_imagen"
                 android:src="@mipmap/img_ico_mano" />
         </LinearLayout>
 
@@ -113,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:text="Introduce el email y la contraseña para iniciar sesión"
+            android:text="@string/introduce_el_email_y_la_contrase_a_para_iniciar_sesi_n"
             android:textColor="@color/negro"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -129,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/style_edittextstyle"
-            android:hint="E-mail"
+            android:hint="@string/e_mail"
             android:padding="16dp"
             android:textColor="@color/gris"
             android:textColorHint="@color/grisClaro"
@@ -147,7 +145,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/style_edittextstyle"
-            android:hint="Contraseña"
+            android:hint="@string/contrase_a"
             android:inputType="textPassword"
             android:padding="16dp"
             android:textColor="@color/gris"
@@ -155,10 +153,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextEmail" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
+            android:autofillHints="" />
 
         <!-- Google Iniciar Sesión -->
-
         <TextView
             android:id="@+id/recuerdasContrasena"
             style="@style/Fuente_kameron"
@@ -169,12 +167,14 @@
             android:onClick="clickNoRecuerdasLaContraseña"
             android:padding="10dp"
             android:text="@string/NoRecuerdasLaContraseñaSubrayado"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.082"
             app:layout_constraintStart_toStartOf="parent"
             android:alpha="0"
-            app:layout_constraintTop_toBottomOf="@+id/editTextContrasena" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextContrasena"
+            android:focusable="true"
+            tools:ignore="RtlHardcoded" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/signGoogle"
@@ -201,7 +201,8 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena">
+                app:layout_constraintTop_toBottomOf="@+id/recuerdasContrasena"
+                android:focusable="true">
 
                 <!-- Imagen a la izquierda -->
                 <ImageView
@@ -222,7 +223,6 @@
                     android:textColor="@color/negro"
                     android:textSize="20dp" />
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
 
         <!-- Botón Iniciar Sesión -->
@@ -238,7 +238,7 @@
             android:soundEffectsEnabled="true"
             android:text="INICIAR SESIÓN"
             android:textColor="@color/blanco"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -280,24 +280,5 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/salirTextView"
-            style="@style/Fuente_kameron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|bottom"
-            android:clickable="true"
-            android:onClick="irSalir"
-            android:padding="8dp"
-            android:text="@string/salirSubrrayado"
-            android:textColor="@color/negro"
-            android:textSize="14dp"
-            android:alpha="0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registrate" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

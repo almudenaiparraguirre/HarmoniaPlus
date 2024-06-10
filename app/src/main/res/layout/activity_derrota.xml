@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/style_degradado_fondo_derrota"
-    tools:context=".activitys.pantallasExtras.derrota_activity">
+    tools:context=".activities.pantallasExtras.derrota_activity">
 
     <ImageView
         android:id="@+id/fondoImageView"

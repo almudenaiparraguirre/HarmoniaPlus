@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -21,9 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.cardview.widget.CardView
-import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.flaviofaria.kenburnsview.KenBurnsView
@@ -35,9 +32,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.mariana.harmonia.activitys.EligeModoJuegoActivity
-import com.mariana.harmonia.activitys.iniciarSesion.RegistroActivity
-import com.mariana.harmonia.activitys.iniciarSesion.RestableceContrasenaActivity
+import com.mariana.harmonia.activities.EligeModoJuegoActivity
+import com.mariana.harmonia.activities.iniciarSesion.RegistroActivity
+import com.mariana.harmonia.activities.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.models.entity.User
@@ -58,6 +55,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     val CHANNEL_ID = "mi_canal_de_notificacion"
 
     /**
+     * @author Todos
      * Se llama cuando se crea la actividad.
      * @param savedInstanceState Estado de la instancia guardada.
      */
@@ -70,7 +68,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
 
         //Inicializar firebase
-
         comprobarSesion(FirebaseDB.getInstanceFirebase())
 
         // Crear y mostrar la notificación
@@ -105,8 +102,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         animacionInicio()
         // Mostrar la notificación
         notificationManager.notify(0, builder.build())
-
-
         val interpolator = AccelerateDecelerateInterpolator()
 
         val kbv = findViewById<KenBurnsView>(R.id.fondoImageView) as KenBurnsView
@@ -116,8 +111,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Almudena Iparraguirre
      * Función que comprueba el estado de la sesión.
-     *
      * @param firebaseAuth Instancia de FirebaseAuth.
      */
     fun comprobarSesion(firebaseAuth: FirebaseAuth) {
@@ -135,6 +130,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Aitor Zubillaga
      * Función que realiza la animación de inicio de la pantalla principal.
      */
     fun animacionInicio() {
@@ -148,7 +144,6 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val signGoogle = findViewById<CardView>(R.id.signGoogle)
         val botonIniciarSesion = findViewById<AppCompatButton>(R.id.botonIniciarSesion)
         val registrate = findViewById<LinearLayout>(R.id.registrate)
-        val salirTextView = findViewById<TextView>(R.id.salirTextView)
 
         // Aplicar animaciones a las vistas
         YoYo.with(Techniques.FadeInUp).duration(1000).playOn(tituloLogo)
@@ -161,21 +156,17 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         YoYo.with(Techniques.FadeOut).duration(1).playOn(introduce)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeOut).duration(1).playOn(registrate)
-        YoYo.with(Techniques.FadeOut).duration(1).playOn(salirTextView)
 
         YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(introduce)
         YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(recuerdasContrasena)
         YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(registrate)
-        YoYo.with(Techniques.FadeInLeft).delay(500).duration(1000).playOn(salirTextView)
 
         registrate.visibility = View.VISIBLE
-        salirTextView.visibility = View.VISIBLE
     }
 
-
     /**
+     * @author Almudena Iparraguirre
      * Función que se llama al hacer clic en el botón "No recuerdas la contraseña".
-     *
      * @param view Vista del botón.
      */
     fun clickNoRecuerdasLaContraseña(view: View) {
@@ -185,19 +176,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
-     * Función que redirige a la pantalla de registro al hacer clic en el botón "Regístrate".
-     *
-     * @param view Vista del botón.
-     */
-    fun irRegistrate(view: View?) {
-        val intent = Intent(this, RegistroActivity::class.java)
-        startActivity(intent)
-        mediaPlayer.start()
-    }
-
-    /**
+     * @author Almudena Iparraguirre
      * Función que inicia sesión con el correo electrónico y la contraseña proporcionados.
-     *
      * @param view Vista del botón.
      */
     fun irIniciarSesion(view: View) {
@@ -268,27 +248,9 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
             }
     }
 
-
     /**
-     * Función que sale de la aplicación
-     *
-     * @param view Vista del botón.
-     */
-    fun irSalir(view: View) {
-        Utils.salirAplicacion(this)
-    }
-
-    /**
-     * Función que retrocede a la ventana anterior
-     */
-    override fun onBackPressed() {
-        Utils.salirAplicacion(this)
-        super.onBackPressed()
-    }
-
-    /**
+     * @author Aitor Zubillaga
      * Función que realiza el proceso de inicio de sesión con Google.
-     *
      * @param view Vista del botón.
      */
     fun iniciarSesionGoogle(view: View?) {
@@ -306,6 +268,7 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Ammine Ezzaidi
      * Función que inicia el proceso de inicio de sesión con Google.
      */
     private fun signInWithGoogle() {
@@ -320,8 +283,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Ammine Ezzaidi
      * Sobrescribe el método onActivityResult para manejar el resultado de la actividad de inicio de sesión con Google.
-     *
      * @param requestCode Código de solicitud pasado a startActivityForResult.
      * @param resultCode  Resultado de la actividad que indica si la operación fue exitosa.
      * @param data        Datos asociados con el resultado de la actividad.
@@ -338,14 +301,13 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Ammine Ezzaidi
      * Maneja el resultado de la tarea de inicio de sesión con Google.
-     *
      * @param task Tarea que contiene el resultado de la autenticación con Google.
      * Se intenta obtener la cuenta de Google desde el resultado de la tarea y autenticar
      * con Firebase utilizando las credenciales de Google. En caso de un error (por ejemplo,
      * ApiException), se registra un mensaje de error y se muestra un Toast informando
      * al usuario sobre el fallo en el inicio de sesión con Google.
-     *
      * @see ApiException
      */
     @RequiresApi(Build.VERSION_CODES.O)
@@ -367,8 +329,8 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     }
 
     /**
+     * @author Aitor Zubillaga
      * Autentica al usuario con Firebase utilizando las credenciales de Google.
-     *
      * @param account Cuenta de Google utilizada para la autenticación.
      */
     @RequiresApi(Build.VERSION_CODES.O)
@@ -421,15 +383,43 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 }
             }
     }
+
+    /**
+     * @author Aitor Zubillaga
+     * Función que redirige a la pantalla de registro al hacer clic en el botón "Regístrate".
+     * @param view Vista del botón.
+     */
+    fun irRegistrate(view: View?) {
+        val intent = Intent(this, RegistroActivity::class.java)
+        startActivity(intent)
+        mediaPlayer.start()
+    }
+
+    /**
+     * @author Aitor Zubillaga
+     * Función que retrocede a la ventana anterior
+     */
+    override fun onBackPressed() {
+        Utils.salirAplicacion(this)
+        super.onBackPressed()
+    }
+
+    /**
+     * @author Almudena Iparraguirre */
     object Registro {
         private val usuariosExistentes = listOf("Alberto","David")
-        /**
 
+        /**
+         * @author Almudena Iparraguirre
         El input no es válido si...
         ...el username está vacío
         ...el username existe previamente
         ...la confirmedPassword no es igual que la password
         ...la password es menor de 2 dígitos
+         * @param username
+         * @param password
+         * @param confirmedPassword
+         * @return Boolean
          */
         fun validarInputRegistro(
             username: String,
@@ -445,6 +435,12 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                 return false}
             return true}
 
+        /**
+         * @author Almudena Iparraguirre
+         * Función que valida que el formato de la contraseña
+         * cumple con los requisitos establecidos
+         * @param contraseña
+         * @return boolean */
         fun validarContraseña(contraseña: String): Boolean {
             val regex = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")
             return regex.matches(contraseña)

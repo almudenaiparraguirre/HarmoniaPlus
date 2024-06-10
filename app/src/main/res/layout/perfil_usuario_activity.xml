@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activitys.PerfilUsuarioActivity">
+    tools:context=".activities.PerfilUsuarioActivity">
 
 <LinearLayout
     android:id="@+id/menu_inferior"
@@ -67,7 +67,7 @@
             android:id="@+id/constraintLayoutID"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            tools:context=".activitys.PerfilUsuarioActivity">
+            tools:context=".activities.PerfilUsuarioActivity">
 
             <!-- Fondo general -->
             <ImageView

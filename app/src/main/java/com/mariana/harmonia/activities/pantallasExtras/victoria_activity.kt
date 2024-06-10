@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys.pantallasExtras
+package com.mariana.harmonia.activities.pantallasExtras
 
 import android.content.Intent
 import android.media.MediaPlayer
@@ -8,8 +8,8 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import com.mariana.harmonia.activitys.JuegoMusicalActivity
-import com.mariana.harmonia.activitys.NivelesAventuraActivity
+import com.mariana.harmonia.activities.JuegoMusicalActivity
+import com.mariana.harmonia.activities.NivelesAventuraActivity
 import com.mariana.harmonia.R
 import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB

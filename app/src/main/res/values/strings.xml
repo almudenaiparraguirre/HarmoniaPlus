@@ -24,4 +24,10 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descripcion_de_la_imagen">Descripción de la imagen</string>
+    <string name="bienvenido">¡BIENVENIDO!</string>
+    <string name="tu_viaje_musical_comienza_aqui">Tu viaje musical comienza aquí</string>
+    <string name="introduce_el_email_y_la_contrase_a_para_iniciar_sesi_n">Introduce el email y la contraseña para iniciar sesión</string>
+    <string name="e_mail">E-mail</string>
+    <string name="contrase_a">Contraseña</string>
 </resources>

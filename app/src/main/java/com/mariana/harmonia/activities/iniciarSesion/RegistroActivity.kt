@@ -1,4 +1,4 @@
-package com.mariana.harmonia.activitys.iniciarSesion
+package com.mariana.harmonia.activities.iniciarSesion
 
 import UserDao
 import android.content.ContentValues.TAG
