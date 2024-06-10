@@ -51,6 +51,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     /**
      * Método llamado cuando la actividad se está creando. Se encarga de inicializar la interfaz de usuario
      * y otros componentes necesarios.
+     * @author Almudena Iparraguirre, Aitor Zubillaga
      * @param savedInstanceState Si no es nulo, esta actividad está siendo reconstituida a partir de un estado guardado previamente.
      */
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,9 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método llamado al hacer clic en el botón para volver al inicio de sesión.
+     * @author Almudena Iparraguirre, Aitor Zubillaga
+     * @param view El componente de la interfaz de usuario que fue clickeado. Este parámetro permite a la función identificar
+     * el origen del evento de clic y reaccionar en consecuencia.
      */
     fun irIniciarSesion(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
@@ -76,6 +80,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método llamado al hacer clic en el botón para salir de la aplicación.
+     * @author Aitor Zubillaga
+     * @param view
      */
     fun irSalir(view: View) {
         Utils.salirAplicacion(this)
@@ -84,6 +90,8 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     /**
      * Método llamado al hacer clic en el botón para crear una nueva cuenta.
      * Realiza validaciones, registra al usuario en Firebase y establece la foto de perfil por defecto.
+     * @author Aitor Zubillaga
+     * @param view
      */
     @RequiresApi(Build.VERSION_CODES.O)
     fun botonCrearCuenta(view: View) {
@@ -136,9 +144,10 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método para establecer la foto de perfil por defecto para el usuario recién registrado.
+     * @author Almudena Iparraguirre
      * @param userId El ID del usuario recién registrado.
      */
-    private fun establecerFotoPerfilPorDefecto(userId: String) {
+    fun establecerFotoPerfilPorDefecto(userId: String) {
         val storageRef = storage.reference
 
         // Seleccionar aleatoriamente una imagen de la lista
@@ -175,7 +184,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
      * Método para guardar la URL de la imagen por defecto en la base de datos para el usuario recién registrado.
      * @param userId El ID del usuario recién registrado.
      */
-    private fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
+    fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
         var file = Uri.fromFile(File("res/mipmap/fotoperfil_acordeon.png"))
         val nuevoNombre = "pruebaSubida"
         val riversRef = storage.reference.child("imagenesPerfilGente/${nuevoNombre}")
@@ -187,6 +196,18 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
             println("ÉXITO al subir la imagen en el registro")
         }
         Log.d(TAG, "URL de imagen predeterminada guardada en la base de datos para el usuario: $userId")
+    }
+
+    fun isUsernameTaken(nombre: String, onResult: (Boolean) -> Unit) {
+        val db = FirebaseDB.getInstanceFirestore()
+        val usersRef = db.collection("usuarios")
+        usersRef.whereEqualTo("name", nombre).limit(1).get()
+            .addOnSuccessListener { documents ->
+                onResult(!documents.isEmpty)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
     }
 
     /**
@@ -201,50 +222,58 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         val fechaRegistro = LocalDate.now()
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mFirebaseAnalytics.setUserId(LocalDate.now().toString())
+        isUsernameTaken(nombre) { isTaken ->
+            if (!isTaken) {
+                firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val user = task.result?.user
+                            user?.sendEmailVerification()
+                                ?.addOnCompleteListener { verificationTask ->
+                                    if (verificationTask.isSuccessful) {
+                                        Toast.makeText(
+                                            this,
+                                            "Se ha enviado un correo electrónico de verificación. Por favor, verifica tu correo antes de iniciar sesión.",
+                                            Toast.LENGTH_LONG
+                                        ).show()
 
-        firebaseAuth.createUserWithEmailAndPassword(email, contraseña)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val user = task.result?.user
-                    user?.sendEmailVerification()
-                        ?.addOnCompleteListener { verificationTask ->
-                            if (verificationTask.isSuccessful) {
-                                Toast.makeText(
-                                    this,
-                                    "Se ha enviado un correo electrónico de verificación. Por favor, verifica tu correo antes de iniciar sesión.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                        // Agregamos el usuario a la base de datos solo si la verificación del correo electrónico fue exitosa
+                                        val userId = user.uid
+                                        val encriptado = HashUtils.sha256(email!!.lowercase())
+                                        println("$email/$encriptado")
+                                        val userEntity = User(
+                                            email = emailEncriptado,
+                                            name = nombre,
+                                            correo = email.lowercase(),
+                                            0,
+                                            1,
+                                            mesRegistro = fechaRegistro.month,
+                                            anioRegistro = fechaRegistro.year
+                                        )
 
-                                // Agregamos el usuario a la base de datos solo si la verificación del correo electrónico fue exitosa
-                                val userId = user.uid
-                                val encriptado = HashUtils.sha256(email!!.lowercase())
-                                println("$email/$encriptado")
-                                val userEntity = User(
-                                    email = emailEncriptado,
-                                    name = nombre,
-                                    correo = email.lowercase(),
-                                    0,
-                                    1,
-                                    mesRegistro = fechaRegistro.month,
-                                    anioRegistro = fechaRegistro.year
-                                )
+                                        UserDao.addUser(userEntity)
+                                        establecerFotoPerfilPorDefecto(userId)
+                                        finish()
+                                    } else {
+                                        Log.e(
+                                            TAG,
+                                            "Error al enviar correo de verificación: ${verificationTask.exception?.message}"
+                                        )
+                                    }
+                                }
 
-                                UserDao.addUser(userEntity)
-                                establecerFotoPerfilPorDefecto(userId)
-                                finish()
-                            } else {
-                                Log.e(TAG, "Error al enviar correo de verificación: ${verificationTask.exception?.message}")
-                            }
+                        } else {
+                            Toast.makeText(
+                                this,
+                                "Error al registrar usuario: ${task.exception?.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-
-                } else {
-                    Toast.makeText(
-                        this,
-                        "Error al registrar usuario: ${task.exception?.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                    }
             }
+            else{
+                Toast.makeText(this, "Nombre de usuario ya existente. Por favor, escoja un nombre distinto", Toast.LENGTH_SHORT)
+            }
+        }
     }
-
 }

@@ -14,15 +14,13 @@
         android:layout_height="match_parent"
         android:src="@mipmap/img_fondo"
         android:scaleType="centerCrop"
-        android:alpha="0.5"
-        />
+        android:alpha="0.5" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- Logo -->
-
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -240,5 +238,4 @@
             app:layout_constraintVertical_bias="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>
