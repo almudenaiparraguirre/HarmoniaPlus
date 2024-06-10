@@ -153,7 +153,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         fondo = findViewById(R.id.fondoFlash)
         pentagrama = findViewById(R.id.layoutPentagrama)
         sonidoCuentaAtras = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
-
+        notasArray = arrayOfNulls(10)
 
 
      animacionFondo()
