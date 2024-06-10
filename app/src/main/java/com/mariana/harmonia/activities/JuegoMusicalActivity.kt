@@ -85,7 +85,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private lateinit var pentagrama: RelativeLayout
 
 
-    private lateinit var timer: CountDownTimer // Timer para contar hacia atrás
+
     var animacionTexto: AnimatorSet? = null
     private var perdido: Boolean = false
     private var ganado: Boolean = false
@@ -107,6 +107,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val handler2 = Handler(Looper.getMainLooper())
     private var countDownTimer: CountDownTimer? = null
+
+
 
     /**
      * Método que se llama al crear la actividad.
@@ -384,12 +386,13 @@ class JuegoMusicalActivity : AppCompatActivity() {
      */
     fun iniciarContador() {
 
-        val countDownTimer = object : CountDownTimer(
+         countDownTimer = object : CountDownTimer(
             (tiempo!! * 1000 + 1000).toLong(),
             1000
         ) { // Conteo desde 100 hasta 0 en intervalos de 1 segundo
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / 1000
+                println("Segundos:"+secondsLeft)
                 cambiarTiempo(secondsLeft.toInt())
 
                 if (secondsLeft <= 4 && !entradoCuentaAtras) {
@@ -404,7 +407,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         }
 
         // Inicia el contador
-        countDownTimer.start()
+        countDownTimer?.start()
 
     }
 
@@ -427,7 +430,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 val progresoActual =
                     ((tiempo!! * 1000).toFloat() / duracionTotal.toFloat() * 1000).toInt()
                 tiempoProgressBar.progress = progresoActual
-                println(progresoActual)
+
 
                 if (!desafio) {
                     isPerdido()
@@ -693,6 +696,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         sonidoCuentaAtras.stop()
         detenerContador()
         detenerCuentaRegresiva()
+        detenerProcesos()
 
     }
 
@@ -1056,6 +1060,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
         mostrarDialogoConfirmacion()
+
     }
 
     /**
@@ -1068,8 +1073,9 @@ class JuegoMusicalActivity : AppCompatActivity() {
         builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
             perdido = true
 
-
             finish()
+            pararProcesos()
+
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
@@ -1290,5 +1296,20 @@ class JuegoMusicalActivity : AppCompatActivity() {
 
         // Iniciar la animación
         latidoAnimation2.start()
+    }
+
+    private fun detenerProcesos() {
+
+        countDownTimer?.cancel()
+
+        // Detener los Handlers
+        handler.removeCallbacksAndMessages(null)
+        handler2.removeCallbacksAndMessages(null)
+
+        // Parar y liberar el MediaPlayer
+        if (sonidoCuentaAtras.isPlaying) {
+            sonidoCuentaAtras.stop()
+        }
+        sonidoCuentaAtras.release()
     }
 }
