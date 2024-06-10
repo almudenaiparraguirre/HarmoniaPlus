@@ -11,6 +11,7 @@ Harmonía Plus es una aplicación de música diseñada para ayudar a los usuario
 
 **Uso**
 - **Iniciar Sesión/Registrarse:** Crea una cuenta o inicia sesión con tus credenciales.
+- **Elige un modo de juego:** Elige si enfrentarte al modo aventura o al modo desafío
 - **Seleccionar Nivel:** Elige un nivel adecuado a tu habilidad.
 - **Comenzar a Practicar:** Sigue las instrucciones en pantalla y toca las notas correctas en el piano virtual.
 - **Revisar Retroalimentación:** Observa los comentarios instantáneos y ajusta tu práctica en consecuencia.
@@ -25,13 +26,11 @@ Harmonía Plus es una aplicación de música diseñada para ayudar a los usuario
 **Contacto**
 - Para más información o preguntas, por favor contacta a harmonia1@gmail.com.
 
-
-**¡Gracias por usar Harmonía Plus! Disfruta aprendiendo y mejorando tus habilidades musicales.**
-
+**¡Gracias por usar Harmonía Plus! Disfruta aprendiendo y mejorando tus habilidades musicales.🎵**
 
 **********************************************************************************************************************************************************
 
-#HarmoniaPlus-
+# Harmonia+
 
 Harmonía Plus is a music application designed to help users learn solfeggio notes by playing the piano. The app offers a variety of levels to suit all skill levels, from beginner to advanced.
 
@@ -44,6 +43,7 @@ Harmonía Plus is a music application designed to help users learn solfeggio not
 
 **Use**
 - **Login/Register:** Create an account or log in with your credentials.
+- **Choose a game mode:** Choose whether to take on adventure mode or challenge mode
 - **Select Level:** Choose a level appropriate to your ability.
 - **Start Practicing:** Follow the on-screen instructions and play the correct notes on the virtual piano.
 - **Review Feedback:** Observe instant feedback and adjust your practice accordingly.
@@ -56,7 +56,6 @@ Harmonía Plus is a music application designed to help users learn solfeggio not
 - This project is licensed under the MIT License. See the LICENSE file for more details.
 
 **Contact**
-- For more information or questions, please contact tu-email@example.com.
+- For more information or questions, please contact harmonia1@gmail.com.
 
-
-**Thank you for using Harmonía Plus! Enjoy learning and improving your musical skills.**
+**Thank you for using Harmonía Plus! Enjoy learning and improving your musical skills.🎵**
