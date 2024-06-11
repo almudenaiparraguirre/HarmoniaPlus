@@ -5,9 +5,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFDEF7"
     tools:context=".activities.NivelesAventuraActivity"
     android:id="@+id/nivelesAventuraActivity">
+
+    <!-- Image Views for Backgrounds -->
+    <ImageView
+        android:id="@+id/imageViewFondo0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo1"
+        android:visibility="visible"
+        android:alpha="1.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo1"
+        android:visibility="visible"
+        android:alpha="1.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo2"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo3"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo4"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo5"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo6"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo7"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageViewFondo8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/fondo8"
+        android:visibility="visible"
+        android:alpha="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Menú Superior -->
     <LinearLayout
@@ -36,10 +153,10 @@
                 android:clickable="true"
                 android:onClick="verPerfilUsuario"
                 android:src="@mipmap/fotoperfil_acordeon"
-
                 android:scaleType="centerCrop"
                 android:clipToOutline="true"/>
         </androidx.cardview.widget.CardView>
+
         <LinearLayout
             android:id="@+id/nivelTextViewLayout"
             android:layout_width="0dp"
@@ -108,9 +225,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/llBotonera">
-
-            <!-- Aquí puedes agregar más elementos según sea necesario -->
-
         </LinearLayout>
     </ScrollView>
 
@@ -136,7 +250,5 @@
             android:textColor="@color/negro"
             android:layout_toEndOf="@id/nivelTextViewLayout"
             android:layout_marginStart="4dp"/>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

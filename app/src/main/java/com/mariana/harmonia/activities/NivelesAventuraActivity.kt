@@ -28,12 +28,8 @@ import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
-
 import kotlin.random.Random
 
-/**
- * Actividad que representa el perfil del usuario.
- */
 class NivelesAventuraActivity : AppCompatActivity() {
 
     private var numCantNiveles = 100
@@ -47,12 +43,18 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
     private lateinit var imagenPerfil: ImageView
+    private lateinit var imageViewFondo1: ImageView
+    private lateinit var imageViewFondo2: ImageView
+    private lateinit var imageViewFondo3: ImageView
+    private lateinit var imageViewFondo4: ImageView
+    private lateinit var imageViewFondo5: ImageView
+    private lateinit var imageViewFondo6: ImageView
+    private lateinit var imageViewFondo7: ImageView
+    private lateinit var imageViewFondo8: ImageView
+
     var storage = FirebaseDB.getInstanceStorage()
 
-    /**
-     * Inicialización de la actividad.
-     */
-    public override fun onCreate(savedInstanceState: Bundle?)  {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_niveles_aventura)
 
@@ -64,35 +66,38 @@ class NivelesAventuraActivity : AppCompatActivity() {
         scrollView = findViewById(R.id.scrollView)
         corazonesTextView = findViewById(R.id.numeroCorazones)
         imagenPerfil = findViewById(R.id.imagenPerfil)
+        imageViewFondo1 = findViewById(R.id.imageViewFondo1)
+        imageViewFondo2 = findViewById(R.id.imageViewFondo2)
+        imageViewFondo3 = findViewById(R.id.imageViewFondo3)
+        imageViewFondo4 = findViewById(R.id.imageViewFondo4)
+        imageViewFondo5 = findViewById(R.id.imageViewFondo5)
+        imageViewFondo6 = findViewById(R.id.imageViewFondo6)
+        imageViewFondo7 = findViewById(R.id.imageViewFondo7)
+        imageViewFondo8 = findViewById(R.id.imageViewFondo8)
+
         inicializarConBase()
         crearCirculos()
         colocarTextViewNivel()
         downloadImage2()
-        //oculta la barra de carga
         EligeModoJuegoActivity.instance.ocultarFragmento()
         corazonesTextView.text = vidas.toString()
+
+        // Configurar el listener de desplazamiento del ScrollView
+        scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            handleScrollChange(scrollY)
+        }
     }
 
-    /**
-     * Inicializa datos básicos.
-     */
-    private fun inicializarConBase()= runBlocking {
+    private fun inicializarConBase() = runBlocking {
         setVidas()
         nivelActual = UtilsDB.getNivelMaximo()!!
-        vidas =UtilsDB.getVidas()!!.toInt()
-
+        vidas = UtilsDB.getVidas()!!.toInt()
     }
 
-    /**
-     * Inicializa datos básicos.
-     */
-    private fun setVidas() = runBlocking{
+    private fun setVidas() = runBlocking {
         var ultimoTiempo = UtilsDB.getUltimoTiempo()
     }
 
-    /**
-     * Descarga la imagen de perfil del usuario desde el storage.
-     */
     private fun downloadImage2() {
         val storageRef = storage.reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -102,15 +107,11 @@ class NivelesAventuraActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(url)
                 .into(imagenPerfil)
-
         }.addOnFailureListener { exception ->
             println("Error al cargar la imagen: ${exception.message}")
         }
     }
 
-    /**
-     * Crea los círculos de los botones de nivel.
-     */
     @SuppressLint("ClickableViewAccessibility")
     private fun crearCirculos() {
         val lp = LinearLayout.LayoutParams(
@@ -190,20 +191,12 @@ class NivelesAventuraActivity : AppCompatActivity() {
             button.layoutParams = lp
             llBotonera.addView(button)
         }
-
-        scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            val maxScroll = scrollView.getChildAt(0).height - scrollView.height
-            val ratio = scrollY.toFloat() / maxScroll.toFloat()
-            val color = interpolateColor(Color.WHITE, Color.MAGENTA, ratio)
-            scrollView.setBackgroundColor(color)
-        }
     }
 
     private fun noVidas() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage("No tienes vidas suficientes para jugar")
             .setPositiveButton("Aceptar") { dialog, _ ->
-                // Aquí puedes realizar alguna acción adicional si es necesario
                 dialog.dismiss()
             }
             .setCancelable(false)
@@ -211,11 +204,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
             .show()
     }
 
-
-
-    /**
-     * Click a un nivel
-     */
     private fun clickBotonNivel(numeroNivel: Int) {
         val intent = Intent(this, JuegoMusicalActivity::class.java)
         intent.putExtra("numeroNivel", numeroNivel)
@@ -223,11 +211,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         finish()
     }
 
-    /**
-     * Crea los niveles bloqueados
-     */
     fun createLockedButton(): Button {
-        //mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         val lockedButton = Button(this)
         lockedButton.textSize = 20f
         lockedButton.gravity = Gravity.CENTER
@@ -236,7 +220,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
         lockedButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
 
-        // Establecer el margen del texto para centrar horizontalmente el icono
         val textMargin = resources.getDimensionPixelSize(R.dimen.text_margin)
         lockedButton.setPadding(0, 0, textMargin, 0)
 
@@ -248,21 +231,15 @@ class NivelesAventuraActivity : AppCompatActivity() {
             (lockedButton.background as GradientDrawable).setStroke(strokeWidth, strokeColor)
         }
 
-        val drawableLock = ContextCompat.getDrawable(this, R.drawable.lock) // Reemplaza R.drawable.lock con tu propio recurso de icono de candado
-
-        // Ajustar la posición del icono de candado en el botón para centrarlo horizontalmente
+        val drawableLock = ContextCompat.getDrawable(this, R.drawable.lock)
         drawableLock?.setBounds(0, 0, drawableLock.intrinsicWidth, drawableLock.intrinsicHeight)
         lockedButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawableLock, null)
 
-        // Establecer el fondo y el borde del botón bloqueado
         lockedButton.background = shapeDrawable
 
         return lockedButton
     }
 
-    /**
-     * Crea los niveles desbloqueados
-     */
     fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
         button.textSize = 20f
@@ -283,9 +260,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return button
     }
 
-    /**
-     *  Pone el estilo de desbloqueado
-     */
     private fun getRandomButtonDrawable(): Int {
         val buttonDrawables = listOf(
             R.drawable.style_round_button
@@ -293,9 +267,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    /**
-     * Pone el estilo de bloqueado
-     */
     private fun getRandomUnlockedButtonDrawable(): Int {
         val buttonDrawables = listOf(
             R.drawable.style_round_button_blue
@@ -303,9 +274,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return buttonDrawables[Random.nextInt(buttonDrawables.size)]
     }
 
-    /**
-     * Obtiene el archivo JSON de los niveles.
-     */
     private fun obtenerNivelesJSON(): JSONObject? {
         var nivelesJson: JSONObject? = null
         try {
@@ -322,86 +290,55 @@ class NivelesAventuraActivity : AppCompatActivity() {
         return nivelesJson
     }
 
-    /**
-     * Coloca el texto del nivel en el TextView correspondiente.
-     */
     private fun colocarTextViewNivel(){
-        var nivel  = nivelActual.toString()
+        var nivel = nivelActual.toString()
         textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
 
-    /**
-     * Interpola colores.
-     */
-    private fun interpolateColor(colorStart: Int, colorEnd: Int, ratio: Float): Int {
-        val colors = intArrayOf(
-            Color.parseColor("#FFDEF7"), // Rosa claro y suave
-            Color.parseColor("#ffc5f1"), // Rosa claro y suave
-            Color.parseColor("#ffc5e3"), // Rosa claro y suave
-            Color.parseColor("#ffc5d4"), // Rosa claro y suave
-            Color.parseColor("#ffc5c6"), // Rosa claro y suave
-            Color.parseColor("#ffd3c5"), // Rosa claro y suave
-            Color.parseColor("#ffe2c5"),
-            Color.parseColor("#fff1c5"),
-            Color.parseColor("#ffffc5"),
-            Color.parseColor("#f1ffc5"),
-            Color.parseColor("#e2ffc5"),
-            Color.parseColor("#d4ffc5"),
-            Color.parseColor("#c6ffc5"),
-            Color.parseColor("#c5ffd3"),
-            Color.parseColor("#c5ffe2"),
-            Color.parseColor("#c5fff0"),
-            Color.parseColor("#c5ffff"),
-        )
+    private fun handleScrollChange(scrollY: Int) {
+        val maxScroll = scrollView.getChildAt(0).height - scrollView.height
+        val ratio = scrollY.toFloat() / maxScroll.toFloat()
+        val segment = 1.0f / 7.0f // 7 transiciones para 8 imágenes
 
-        val startIndex = (ratio * (colors.size - 1)).toInt()
-        val endIndex = minOf(startIndex + 1, colors.size - 1)
-        val startColor = colors[startIndex]
-        val endColor = colors[endIndex]
-
-        val startRatio = 1 - (ratio * (colors.size - 1) - startIndex)
-        val endRatio = 1 - startRatio
-
-        val r = (Color.red(startColor) * startRatio + Color.red(endColor) * endRatio).toInt()
-        val g = (Color.green(startColor) * startRatio + Color.green(endColor) * endRatio).toInt()
-        val b = (Color.blue(startColor) * startRatio + Color.blue(endColor) * endRatio).toInt()
-
-        return Color.rgb(r, g, b)
+        imageViewFondo1.alpha = calculateAlpha(ratio, 0 * segment, 1 * segment)
+        imageViewFondo2.alpha = calculateAlpha(ratio, 1 * segment, 2 * segment)
+        imageViewFondo3.alpha = calculateAlpha(ratio, 2 * segment, 3 * segment)
+        imageViewFondo4.alpha = calculateAlpha(ratio, 3 * segment, 4 * segment)
+        imageViewFondo5.alpha = calculateAlpha(ratio, 4 * segment, 5 * segment)
+        imageViewFondo6.alpha = calculateAlpha(ratio, 5 * segment, 6 * segment)
+        imageViewFondo7.alpha = calculateAlpha(ratio, 6 * segment, 7 * segment)
+        imageViewFondo8.alpha = calculateAlpha(ratio, 7 * segment, 8 * segment)
     }
 
-    /**
-     * Volver al modo de juego
-     */
-    fun clickAtras(view: View){
+    private fun calculateAlpha(ratio: Float, start: Float, end: Float): Float {
+        return when {
+            ratio < start -> 0f
+            ratio > end -> 1f
+            else -> (ratio - start) / (end - start)
+        }
+    }
+
+    fun clickAtras(view: View) {
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    /**
-     * Volver al modo de juego
-     */
-    fun volverModoJuego(view: View){
+    fun volverModoJuego(view: View) {
         mediaPlayer.start()
         val intent = Intent(this, EligeModoJuegoActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    /**
-     * Ir al perfil del usuario
-     */
-    fun verPerfilUsuario(view: View){
+    fun verPerfilUsuario(view: View) {
         mediaPlayer.start()
         val intent = Intent(this, PerfilUsuarioActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    /**
-     * Maneja el evento de clic en el botón de retroceso.
-     */
     override fun onBackPressed() {
         EligeModoJuegoActivity.instance.inicializarConBase()
         super.onBackPressed()
