@@ -1,15 +1,14 @@
 package com.mariana.harmonia.activities
 
+import com.mariana.harmonia.R
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.media.MediaPlayer
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.view.MotionEvent
@@ -19,9 +18,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
-import com.mariana.harmonia.R
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
@@ -29,6 +28,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import kotlin.random.Random
+
 
 class NivelesAventuraActivity : AppCompatActivity() {
 
@@ -85,6 +85,24 @@ class NivelesAventuraActivity : AppCompatActivity() {
         // Configurar el listener de desplazamiento del ScrollView
         scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             handleScrollChange(scrollY)
+        }
+
+        val unlockedLevel: Int = nivelActual
+        scrollToUnlockedLevel(unlockedLevel)
+    }
+
+    fun scrollToUnlockedLevel(unlockedLevel: Int) {
+        scrollView.post {
+            val targetView = llBotonera.getChildAt(unlockedLevel)
+            if (targetView != null) {
+                val targetScrollY = targetView.top + targetView.height / 2 - scrollView.height / 2
+
+                // Usando ObjectAnimator para animar la propiedad scrollY
+                ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, targetScrollY).apply {
+                    duration = 1000 // Duración en milisegundos, ajusta a tu preferencia
+                    start()
+                }
+            }
         }
     }
 

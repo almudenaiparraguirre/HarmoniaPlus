@@ -141,7 +141,6 @@
                     android:background="@color/blanco"
                     android:scaleType="centerCrop"
                     app:cardCornerRadius="200dp" />
-
             </androidx.cardview.widget.CardView>
 
             <!--Nombre-->

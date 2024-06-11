@@ -16,10 +16,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
-
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -94,10 +91,6 @@
             android:icon="@mipmap/img_ico_aplicacion"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activitys.InicioSesion"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.iniciarSesion.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -107,7 +100,5 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
-
 </manifest>

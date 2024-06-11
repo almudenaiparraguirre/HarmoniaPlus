@@ -66,7 +66,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método llamado al hacer clic en el botón para volver al inicio de sesión.
-     * @author Almudena Iparraguirre, Aitor Zubillaga
+     * @author Almudena Iparraguirre
      * @param view El componente de la interfaz de usuario que fue clickeado. Este parámetro permite a la función identificar
      * el origen del evento de clic y reaccionar en consecuencia.
      */
@@ -90,7 +90,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
     /**
      * Método llamado al hacer clic en el botón para crear una nueva cuenta.
      * Realiza validaciones, registra al usuario en Firebase y establece la foto de perfil por defecto.
-     * @author Aitor Zubillaga
+     * @author Ammine Ezzaidi
      * @param view
      */
     @RequiresApi(Build.VERSION_CODES.O)
@@ -134,6 +134,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método para validar la contraseña según un patrón específico.
+     * @author Ammine Ezzaidi
      * @param contraseña La contraseña a validar.
      * @return true si la contraseña cumple con el patrón, false en caso contrario.
      */
@@ -182,6 +183,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método para guardar la URL de la imagen por defecto en la base de datos para el usuario recién registrado.
+     * @author Almudena Iparraguirre
      * @param userId El ID del usuario recién registrado.
      */
     fun guardarUrlImagenPorDefectoEnBaseDeDatos(userId: String) {
@@ -198,6 +200,12 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
         Log.d(TAG, "URL de imagen predeterminada guardada en la base de datos para el usuario: $userId")
     }
 
+    /**
+     * Función que verifica si el nombre de usuario introducido ya está ocupado
+     * por otro usuario en la base de datos de Firebase
+     * @author Almudena Iparraguirre
+     * @param nombre Nombre escogido en el registro
+     * @param onResult Arroja el resultado de la función */
     fun isUsernameTaken(nombre: String, onResult: (Boolean) -> Unit) {
         val db = FirebaseDB.getInstanceFirestore()
         val usersRef = db.collection("usuarios")
@@ -212,6 +220,7 @@ class RegistroActivity : AppCompatActivity(), PlantillaActivity {
 
     /**
      * Método para registrar al usuario en Firebase Auth y Firestore.
+     * @author Almudena Iparraguirre
      * @param email Coge el email del usuario
      * @param contraseña Coge la contraseña del usuario
      * @param nombre Coge el nombre del usuario
