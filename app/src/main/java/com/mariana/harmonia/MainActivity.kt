@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.mariana.harmonia.activities.EligeModoJuegoActivity
+
 import com.mariana.harmonia.activities.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activities.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -190,19 +191,19 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val contrasenaText = contrasena.text.toString()
 
         if (emailText.isEmpty() || contrasenaText.isEmpty()) {
-            Toast.makeText(baseContext, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+            showCustomDialog("Por favor, completa todos los campos")
             return
         }
 
         // Validación del formato de correo electrónico
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailText).matches()) {
-            Toast.makeText(baseContext, "Formato de correo electrónico no válido", Toast.LENGTH_SHORT).show()
+            showCustomDialog("Formato de correo electrónico no válido")
             return
         }
 
         // Validación de la longitud de la contraseña
         if (contrasenaText.length < 6) {
-            Toast.makeText(baseContext, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            showCustomDialog("La contraseña debe tener al menos 6 caracteres")
             return
         }
 
@@ -223,30 +224,37 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
                             val user = authResult.user
                             if (user!!.isEmailVerified) {
                                 // El correo electrónico está verificado, permitir iniciar sesión
-                                Toast.makeText(baseContext, "Autenticación exitosa", Toast.LENGTH_SHORT).show()
+                                showCustomDialog("Autenticación exitosa")
                                 val intent = Intent(this, EligeModoJuegoActivity::class.java)
                                 startActivity(intent)
                                 finish()
                                 mediaPlayer.start()
                             } else {
                                 // El correo electrónico no está verificado, mostrar mensaje de error
-                                Toast.makeText(baseContext, "Por favor, verifica tu correo electrónico para iniciar sesión", Toast.LENGTH_SHORT).show()
+                                showCustomDialog("Por favor, verifica tu correo electrónico para iniciar sesión")
                             }
                         }
                         .addOnFailureListener { exception ->
                             // Manejar el fallo en el inicio de sesión con Firebase
-                            Toast.makeText(baseContext, "Error al iniciar sesión: ${exception.message}", Toast.LENGTH_SHORT).show()
+                            showCustomDialog("Error al iniciar sesión: ${exception.message}")
                         }
                 } else {
                     // El correo electrónico no está presente en la colección de usuarios
-                    Toast.makeText(baseContext, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                    showCustomDialog("Email o contraseña incorrectos")
                 }
             }
             .addOnFailureListener { exception ->
                 // Manejar el fallo en la consulta a la colección de usuarios
-                Toast.makeText(baseContext, "Error al verificar el correo electrónico: ${exception.message}", Toast.LENGTH_SHORT).show()
+                showCustomDialog("Error al verificar el correo electrónico: ${exception.message}")
             }
     }
+
+    private fun showCustomDialog(message: String) {
+        val fragmentManager = supportFragmentManager
+        val newFragment = CustomDialogFragment.newInstance(message)
+        newFragment.show(fragmentManager, "FragmentoVerificar")
+    }
+
 
     /**
      * @author Aitor Zubillaga
