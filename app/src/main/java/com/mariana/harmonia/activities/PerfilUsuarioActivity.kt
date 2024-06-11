@@ -42,14 +42,8 @@ import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
-/**
- * Actividad que representa el perfil del usuario.
- * Permite la visualización y modificación de información personal, así como el manejo
- * de logros y estadísticas del usuario.
- */
 class PerfilUsuarioActivity : AppCompatActivity() {
 
     companion object {
@@ -99,18 +93,13 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     var listaImagenesStorage: MutableList<String> = mutableListOf("pablo", "david", "bendicion", "pedro", "luis", "png-transparent-deer-deer-animal-deer-clipart.png")
 
-    /**
-     * Método de inicio de la actividad. Se encarga de inicializar los elementos de la interfaz
-     * y cargar la información del usuario desde Firebase.
-     *
-     * @param savedInstanceState Estado guardado de la actividad.
-     */
     @SuppressLint("MissingInflatedId", "CutPasteId")
-    override fun onCreate(savedInstanceState: Bundle?)  {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.perfil_usuario_activity)
         binding = PerfilUsuarioActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Initialize UI elements
         binding.apply {
             cardViewPerfil = findViewById(R.id.cardview_perfil)
             imagen = findViewById(R.id.roundedImageView)
@@ -147,17 +136,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         experienciaTextView = findViewById(R.id.experienciaTextView)
         centerCircle = findViewById(R.id.centerCircle)
 
-        val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
-        val storageRef: StorageReference = FirebaseDB.getInstanceStorage().reference.child("imagenesPerfilGente").child("$userId.jpg")
-        val imagesRef = storageRef.child("imagenesPerfilGente/$userId.jpg")
-        println("Image URL: $imagesRef")
-        Glide.with(this)
-            .load(imagesRef)
-            .into(imagen)
-
         inicializarConBase()
-        mostrarImagenGrande()
         crearMenuSuperior()
+        mostrarImagenGrande()
 
         setTextoLogro1(30)
         setTextoLogro2(5)
@@ -176,52 +157,51 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         setlogro8(20)
 
         lifecycleScope.launch {
-            downloadImage()
-            downloadImage2()
+            withContext(Dispatchers.IO) {
+                downloadImage()
+                downloadImage2()
+            }
         }
 
         EligeModoJuegoActivity.instance.ocultarFragmento()
     }
 
-    /**
-     * Descarga la imagen correspondiente a la etapa del usuario desde Firebase Storage y la
-     * muestra en la interfaz de usuario.
-     */
     private suspend fun downloadImage() {
         val storageRef = FirebaseDB.getInstanceStorage().reference
         val etapa = obtenerNombreEtapa()
 
         if (listaImagenesStorage.isNotEmpty()) {
-
-            var nombreImagen = when (etapa) {
+            val nombreImagen = when (etapa) {
                 "Novato" -> listaImagenesStorage[0]
                 "Principiante" -> listaImagenesStorage[1]
                 "Amateur" -> listaImagenesStorage[2]
                 "Intermedio" -> listaImagenesStorage[3]
                 "Avanzado" -> listaImagenesStorage[4]
                 "Experto" -> listaImagenesStorage[5]
-                else -> {null}
+                else -> null
             }
 
             val imagesRef = storageRef.child("ImagenesEtapa/$nombreImagen.png")
 
-            imagesRef.downloadUrl.addOnSuccessListener { url ->
-                Glide.with(this)
-                    .load(url)
-                    .into(binding.centerCircle)
-            }.addOnFailureListener { exception ->
+            try {
+                val url = Tasks.await(imagesRef.downloadUrl)
+                withContext(Dispatchers.Main) {
+                    Glide.with(this@PerfilUsuarioActivity)
+                        .load(url)
+                        .into(binding.centerCircle)
+                }
+            } catch (exception: Exception) {
                 println("Error al cargar la imagen: ${exception.message}")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PerfilUsuarioActivity, "No hay imagen para esta etapa", Toast.LENGTH_SHORT).show()
+                }
             }
         } else {
             println("La lista de imágenes está vacía")
         }
     }
 
-    /**
-     * Cambia la imagen de perfil del usuario y la carga en Firebase Storage.
-     *
-     * @param oldImageUrl URI de la imagen anterior.
-     */
+
     private suspend fun changeAndUploadImage(oldImageUrl: Uri) {
         withContext(Dispatchers.IO) {
             val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -242,45 +222,35 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 val data = baos.toByteArray()
 
                 Tasks.await(newImageRef.putBytes(data))
-
-                // Now you can use newImageRef to show the image in your app if needed
             } catch (exception: Exception) {
                 println("Error uploading new image: ${exception.message}")
             }
         }
     }
 
-    /**
-     * Descarga la imagen de perfil del usuario desde Firebase Storage y la muestra en la interfaz
-     * de usuario. Luego, llama a la función para cambiar el nombre y cargar la imagen.
-     */
-    private fun downloadImage2() {
+    private suspend fun downloadImage2() {
         val storageRef = FirebaseDB.getInstanceStorage().reference
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
         val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
-        imagesRef.downloadUrl.addOnSuccessListener { url ->
-            Glide.with(this)
-                .load(url)
-                .into(imagen)
-
-            // Call the function to change the name and upload the image
-            runBlocking {
-                changeAndUploadImage(url)
+        try {
+            val url = Tasks.await(imagesRef.downloadUrl)
+            withContext(Dispatchers.Main) {
+                Glide.with(this@PerfilUsuarioActivity)
+                    .load(url)
+                    .into(imagen)
             }
-        }.addOnFailureListener { exception ->
+
+            changeAndUploadImage(url)
+        } catch (exception: Exception) {
             println("Error al cargar la imagen: ${exception.message}")
 
-            imagen.setImageResource(R.mipmap.fotoperfil_guitarra)
+            withContext(Dispatchers.Main) {
+                imagen.setImageResource(R.mipmap.fotoperfil_guitarra)
+            }
         }
     }
 
-    /**
-     * Obtiene el nombre de la etapa del usuario según su nivel actual y actualiza la interfaz de
-     * usuario con esta información.
-     *
-     * @return Nombre de la etapa del usuario.
-     */
     private suspend fun obtenerNombreEtapa(): String {
         val etapa: String? = when (UtilsDB.getNivelMaximo()) {
             in 1..10 -> mutableList[0]
@@ -290,61 +260,51 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             in 41..50 -> mutableList[4]
             else -> mutableList[5]
         }
-        nivelRango.text = etapa?.uppercase()
+        withContext(Dispatchers.Main) {
+            nivelRango.text = etapa?.uppercase()
+        }
         return etapa.toString()
     }
 
-    /**
-     * Inicializa los datos del usuario en la interfaz, mostrando información como la fecha de
-     * registro, nombre, correo, experiencia, nivel y precisión.
-     */
-    @SuppressLint("SetTextI18n")
-    private fun inicializarConBase() = runBlocking{
-        fechaRegistro.text = "Se unió en " + UtilsDB.obtenerFechaActualEnTexto()
-        nombreUsuarioTextView.text = UtilsDB.getNombre()
-        gmailUsuarioTextView.text = UtilsDB.getCorreo()
-        experienciaTextView.text = UtilsDB.getExperiencia().toString()
-        nivelTextView.text= UtilsDB.getNivelMaximo()?.minus(1).toString()
-        precisionTextView.text =UtilsDB.getMediaPrecisiones().toString()+"%"
+    private fun inicializarConBase() = lifecycleScope.launch(Dispatchers.IO) {
+        val fecha = UtilsDB.obtenerFechaActualEnTexto()
+        val nombre = UtilsDB.getNombre()
+        val correo = UtilsDB.getCorreo()
+        val experiencia = UtilsDB.getExperiencia().toString()
+        val nivel = UtilsDB.getNivelMaximo()?.minus(1).toString()
+        val precision = "${UtilsDB.getMediaPrecisiones()}%"
+
+        withContext(Dispatchers.Main) {
+            fechaRegistro.text = "Se unió en $fecha"
+            nombreUsuarioTextView.text = nombre
+            gmailUsuarioTextView.text = correo
+            experienciaTextView.text = experiencia
+            nivelTextView.text = nivel
+            precisionTextView.text = precision
+        }
     }
 
-    /**
-     * Crea un menú superior que permite ocultar el teclado y quitar el foco del EditText al tocar
-     * otras áreas de la interfaz.
-     */
     @SuppressLint("ClickableViewAccessibility")
     private fun crearMenuSuperior() {
         val constraintLayout: ConstraintLayout = findViewById(R.id.constraintLayoutID)
         constraintLayout.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
-                // Oculta el teclado
                 val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(editText.windowToken, 0)
-
-                // Quita el foco del EditText
                 editText.clearFocus()
             }
             false
         }
 
         editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // No es necesario implementar
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // No es necesario implementar
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-            override fun afterTextChanged(s: Editable?) {
-                // No es necesario implementar
-            }
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    /**
-     * Muestra un cuadro de diálogo de confirmación antes de cambiar el nombre de usuario.
-     */
     private fun mostrarDialogoConfirmacion() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cambiar nombre de usuario")
@@ -354,15 +314,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
         builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
             dialog.dismiss()
-
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
 
-    /**
-     * Cambia el nombre de usuario y muestra un mensaje de éxito.
-     */
     private fun cambiarNombreUsuario() {
         Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
@@ -377,10 +333,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Muestra un cuadro de diálogo que permite al usuario elegir entre tomar una foto con la cámara
-     * o seleccionar una imagen de la galería.
-     */
     private fun mostrarDialogoElegirOrigen() {
         val opciones = arrayOf("Tomar foto", "Elegir de la galería")
 
@@ -389,12 +341,9 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             .setItems(opciones) { _, which ->
                 when (which) {
                     0 -> {
-                        // Opción "Tomar foto" seleccionada
                         requestCameraPermission()
                     }
-
                     1 -> {
-                        // Opción "Elegir de la galería" seleccionada
                         abrirGaleria()
                     }
                 }
@@ -404,11 +353,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    /**
-     * Muestra la imagen de perfil en grande en un cuadro de diálogo al hacer clic en la imagen.
-     *
-     * @param imageView ImageView que se mostrará en el cuadro de diálogo.
-     */
     private fun mostrarDialogImagen(imageView: ImageView) {
         val dialog = Dialog(this)
         dialog.setContentView(R.layout.dialog_imagen)
@@ -416,20 +360,18 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val imagenAmpliada = dialog.findViewById<ImageView>(R.id.imagenAmpliada)
         imagenAmpliada.setImageDrawable(imageView.drawable)
 
-        // Animación de escala
         val escala = ScaleAnimation(
-            0.2f,  // Escala de inicio
-            1.0f,  // Escala de fin
-            0.2f,  // Punto focal de inicio (X)
-            0.2f,  // Punto focal  de inicio (Y)
-            Animation.RELATIVE_TO_SELF, 0.5f,  // Punto focal de fin (X)
-            Animation.RELATIVE_TO_SELF, 0.5f   // Punto focal de fin (Y)
+            0.2f,
+            1.0f,
+            0.2f,
+            0.2f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
         )
 
-        escala.duration = 200  // Duración de la animación en milisegundos
+        escala.duration = 200
         imagenAmpliada.startAnimation(escala)
 
-        // Cierra el dialog al hacer clic en la imagen
         imagenAmpliada.setOnClickListener {
             dialog.dismiss()
         }
@@ -437,22 +379,12 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    /**
-     * Abre la galería de imágenes para seleccionar una.
-     */
     private fun abrirGaleria() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startForActivityGallery.launch(intent)
     }
 
-    /**
-     * Callback que se ejecuta después de seleccionar una imagen desde la galería.
-     * Actualiza la URI de la imagen seleccionada, muestra la imagen en un ImageView,
-     * y realiza acciones como descargar la imagen y guardarla en Firebase.
-     *
-     * @see [startForActivityGallery]
-     */
     private var selectedImageUri: Uri? = null
     val startForActivityGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -461,8 +393,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 selectedImageUri = data
                 imagen.setImageURI(data)
 
-                // Descargar la imagen desde la URI y guardarla en un archivo
-                //descargarYGuardarImagen(selectedImageUri)
                 guardarImagenEnFirebase(selectedImageUri)
             }
 
@@ -472,11 +402,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             editor.apply()
         }
 
-    /**
-     * Guarda la imagen seleccionada de la galería en Firebase Storage.
-     *
-     * @param imageUri URI de la imagen seleccionada.
-     */
     private fun guardarImagenEnFirebase(imageUri: Uri?) {
         if (imageUri != null) {
             val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
@@ -484,7 +409,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                 val storageRef = FirebaseDB.getInstanceStorage().reference
                 val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
-                // Subir la imagen a Firebase Storage con el nuevo nombre
                 imagesRef.putFile(imageUri)
                     .addOnSuccessListener {
                         println("Éxito al subir la imagen con el nombre $userId")
@@ -498,22 +422,12 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Finaliza la actividad actual y reproduce un sonido al volver al modo de juego.
-     *
-     * @param view La vista que activó la función.
-     */
     fun volverModoJuego(view: View) {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         finish()
     }
 
-    /**
-     * Inicia la actividad de configuración, reproduce un sonido y realiza transiciones de animación.
-     *
-     * @param view La vista que activó la función.
-     */
     fun irConfiguracion(view: View) {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
@@ -523,45 +437,29 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
     }
 
-    /**
-     * Función que maneja el resultado de la solicitud de permisos para la cámara.
-     *
-     * @param isGranted Indica si el permiso fue concedido o no.
-     */
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                // Permiso concedido, abrir la cámara
                 abrirCamara()
             } else {
                 Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show()
             }
         }
 
-    /**
-     * Solicita permiso para acceder a la cámara y la abre si el permiso ya está concedido.
-     */
     private fun requestCameraPermission() {
         when {
             ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.CAMERA
             ) == PackageManager.PERMISSION_GRANTED -> {
-                // Permiso ya concedido, abrir la cámara
                 abrirCamara()
             }
             else -> {
-                // Solicitar permiso para la cámara
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
     }
 
-    /**
-     * Sube la imagen a Firebase Storage.
-     *
-     * @param bitmap Imagen en formato Bitmap que se va a subir.
-     */
     private fun guardarImagen(bitmap: Bitmap?) {
         val userId = FirebaseDB.getInstanceFirebase().currentUser?.uid
 
@@ -569,7 +467,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             val storageRef = FirebaseDB.getInstanceStorage().reference
             val imagesRef = storageRef.child("imagenesPerfilGente").child("$userId.jpg")
 
-            // Guardar la imagen en Firebase Storage
             val baos = ByteArrayOutputStream()
             bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
             val data = baos.toByteArray()
@@ -586,13 +483,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Maneja el resultado de la actividad de la cámara para obtener una foto.
-     *
-     * @param requestCode Código de solicitud.
-     * @param resultCode Código de resultado.
-     * @param data Datos de la actividad.
-     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -617,19 +507,11 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Abre la cámara para capturar una foto utilizando la intención [MediaStore.ACTION_IMAGE_CAPTURE].
-     */
     private fun abrirCamara() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(intent, REQUEST_CAMERA)
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 1 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de minutos jugados.
-     */
     private fun setTextoLogro1(cantidad: Int) {
         var tituloLogro1 = findViewById<TextView>(R.id.tituloLogro1)
         tituloLogro1.text = "MAESTRO DEL DESAFÍO I"
@@ -637,11 +519,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro1.text = "Juega un total de $cantidad minutos"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 2 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro2(cantidad: Int) {
         var tituloLogro2 = findViewById<TextView>(R.id.tituloLogro2)
         tituloLogro2.text = "CARRERA MUSICAL I"
@@ -649,11 +526,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro2.text = "Completa los primeros $cantidad niveles"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 3 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro3(cantidad: Int) {
         var tituloLogro3 = findViewById<TextView>(R.id.tituloLogro3)
         tituloLogro3.text = "VIRTUOSO I"
@@ -661,11 +533,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro3.text = "Pasate $cantidad niveles musicales sin fallar"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 4 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro4(cantidad: Int) {
         var tituloLogro4 = findViewById<TextView>(R.id.tituloLogro4)
         tituloLogro4.text = "OIDO DE ÁGUILA(en desarrollo)"
@@ -673,11 +540,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro4.text = "Pasate $cantidad niveles de oido sin fallar"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 5 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro5(cantidad: Int) {
         var tituloLogro5 = findViewById<TextView>(R.id.tituloLogro5)
         tituloLogro5.text = "RITMO INVENCIBLE I(en desarrollo)"
@@ -685,11 +547,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro5.text = "Pasate $cantidad niveles de ritmo sin fallar"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 6 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro6(cantidad: Int) {
         var tituloLogro6 = findViewById<TextView>(R.id.tituloLogro6)
         tituloLogro6.text = "HARMONIA CELESTIAL I"
@@ -697,11 +554,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro6.text = "Llega a  $cantidad notas en el modo facil de desafio"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 7 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro7(cantidad: Int) {
         var tituloLogro7 = findViewById<TextView>(R.id.tituloLogro7)
         tituloLogro7.text = "HARMONIA CELESTIAL II"
@@ -709,11 +561,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro7.text = "Llega a  $cantidad notas en el modo intermedio de desafio"
     }
 
-    /**
-     * Establece el texto y la descripción del Logro 8 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad de niveles completados.
-     */
     private fun setTextoLogro8(cantidad: Int) {
         var tituloLogro8 = findViewById<TextView>(R.id.tituloLogro8)
         tituloLogro8.text = "HARMONIA CELESTIAL III"
@@ -721,91 +568,75 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         fraseLogro8.text = "Llega a  $cantidad notas en el modo dificil de desafio"
     }
 
-    /**
-    * Establece el progreso y el texto de descripción para el Logro 1 en la interfaz de usuario.
-    *
-    * @param cantidad Cantidad total requerida para el logro.
-    */
-    private fun setlogro1(cantidad: Int)= runBlocking{
+    private fun setlogro1(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
-        progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
-        porcentajeTextView1.text = "$porcentaje1/$cantidad"
+        withContext(Dispatchers.Main) {
+            progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
+            porcentajeTextView1.text = "$porcentaje1/$cantidad"
+        }
     }
 
-    /**
-     * Establece el progreso y el texto de descripción para el Logro 2 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad total requerida para el logro.
-     */
-    private fun setlogro2(cantidad: Int)= runBlocking {
+    private fun setlogro2(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje2 = UtilsDB.getNivelMaximo()?.minus(1)
-        progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
-        porcentajeTextView2.text = "$porcentaje2/$cantidad"
+        withContext(Dispatchers.Main) {
+            progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
+            porcentajeTextView2.text = "$porcentaje2/$cantidad"
+        }
     }
 
-    /**
-     * Establece el progreso y el texto de descripción para el Logro 3 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad total requerida para el logro.
-     */
-    private fun setlogro3(cantidad: Int)= runBlocking {
+    private fun setlogro3(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje3 = UtilsDB.getCantidadPerfectos()
-        progressBar3.progress = (porcentaje3!!.times(100).div(cantidad))
-        porcentajeTextView3.text = "$porcentaje3/$cantidad"
+        withContext(Dispatchers.Main) {
+            progressBar3.progress = (porcentaje3!!.times(100).div(cantidad))
+            porcentajeTextView3.text = "$porcentaje3/$cantidad"
+        }
     }
 
-    /**
-     * Establece el progreso y el texto de descripción para el Logro 6 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad total requerida para el logro.
-     */
-    private fun setlogro6(cantidad: Int) = runBlocking {
+    private fun setlogro6(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(0)!!).get("notas")!!.toInt()
-            println("logro6:" + porcentaje6)
-            progressBar6.progress = (porcentaje6.times(100).div(cantidad))
-            porcentajeTextView6.text = "$porcentaje6/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar6.progress = (porcentaje6.times(100).div(cantidad))
+                porcentajeTextView6.text = "$porcentaje6/$cantidad"
+            }
         } catch (e: NullPointerException) {
             println("Error en logro6: ${e.message}")
-            // Manejar el error según tus necesidades, por ejemplo, asignar 0 a porcentaje6
-            progressBar6.progress = 0
-            porcentajeTextView6.text = "0/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar6.progress = 0
+                porcentajeTextView6.text = "0/$cantidad"
+            }
         }
     }
 
-    /**
-     * Establece el progreso y el texto de descripción para el Logro 7 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad total requerida para el logro.
-     */
-    private fun setlogro7(cantidad: Int) = runBlocking {
+    private fun setlogro7(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje7 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(1)!!).get("notas")!!.toInt()
-            println("logro7:" + porcentaje7)
-            progressBar7.progress = (porcentaje7.times(100).div(cantidad))
-            porcentajeTextView7.text = "$porcentaje7/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar7.progress = (porcentaje7.times(100).div(cantidad))
+                porcentajeTextView7.text = "$porcentaje7/$cantidad"
+            }
         } catch (e: NullPointerException) {
             println("Error en logro7: ${e.message}")
-            progressBar7.progress = 0
-            porcentajeTextView7.text = "0/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar7.progress = 0
+                porcentajeTextView7.text = "0/$cantidad"
+            }
         }
     }
 
-    /**
-     * Establece el progreso y el texto de descripción para el Logro 8 en la interfaz de usuario.
-     *
-     * @param cantidad Cantidad total requerida para el logro.
-     */
-    private fun setlogro8(cantidad: Int) = runBlocking {
+    private fun setlogro8(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje8 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(2)!!).get("notas")!!.toInt()
-            println("logro8:" + porcentaje8)
-            progressBar8.progress = (porcentaje8.times(100).div(cantidad))
-            porcentajeTextView8.text = "$porcentaje8/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar8.progress = (porcentaje8.times(100).div(cantidad))
+                porcentajeTextView8.text = "$porcentaje8/$cantidad"
+            }
         } catch (e: NullPointerException) {
             println("Error en logro8: ${e.message}")
-            progressBar8.progress = 0
-            porcentajeTextView8.text = "0/$cantidad"
+            withContext(Dispatchers.Main) {
+                progressBar8.progress = 0
+                porcentajeTextView8.text = "0/$cantidad"
+            }
         }
     }
 }
