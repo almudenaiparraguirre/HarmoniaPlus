@@ -11,9 +11,6 @@
         android:layout_height="match_parent">
 
         <!-- Logo -->
-
-        <!-- Bienvenido -->
-
         <LinearLayout
             android:id="@+id/TituloLogo"
             android:layout_width="match_parent"
@@ -104,8 +101,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bienvenido" />
 
-        .
-
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="0dp"
@@ -189,16 +184,5 @@
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp"
             android:inputType="textEmailAddress"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/img_fondo"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

@@ -8,6 +8,32 @@
     tools:context=".activities.NivelesAventuraActivity"
     android:id="@+id/nivelesAventuraActivity">
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerFondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Nivel de Aventura"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        tools:ignore="MissingConstraints" />
+
     <!-- Image Views for Backgrounds -->
     <ImageView
         android:id="@+id/imageViewFondo0"
@@ -228,7 +254,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <!-- <LinearLayout
         android:id="@+id/menu_inferior"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -249,5 +275,5 @@
             android:textColor="@color/blanco"
             android:layout_toEndOf="@id/nivelTextViewLayout"
             android:layout_marginStart="4dp"/>
-    </LinearLayout>
+    </LinearLayout> -->
 </androidx.constraintlayout.widget.ConstraintLayout>

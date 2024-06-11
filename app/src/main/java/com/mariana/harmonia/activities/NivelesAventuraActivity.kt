@@ -97,9 +97,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
             if (targetView != null) {
                 val targetScrollY = targetView.top + targetView.height / 2 - scrollView.height / 2
 
-                // Usando ObjectAnimator para animar la propiedad scrollY
                 ObjectAnimator.ofInt(scrollView, "scrollY", scrollView.scrollY, targetScrollY).apply {
-                    duration = 1000 // Duración en milisegundos, ajusta a tu preferencia
+                    duration = 1000
                     start()
                 }
             }

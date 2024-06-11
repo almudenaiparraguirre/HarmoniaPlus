@@ -30,4 +30,7 @@
     <string name="introduce_el_email_y_la_contrase_a_para_iniciar_sesi_n">Introduce el email y la contraseña para iniciar sesión</string>
     <string name="e_mail">E-mail</string>
     <string name="contrase_a">Contraseña</string>
+    <string name="profile">Perfil</string>
+    <string name="home">Modos</string>
+    <string name="settings">Configuración</string>
 </resources>

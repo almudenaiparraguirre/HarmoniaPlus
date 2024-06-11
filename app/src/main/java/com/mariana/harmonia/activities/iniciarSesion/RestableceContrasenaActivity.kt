@@ -109,12 +109,4 @@ class RestableceContrasenaActivity : AppCompatActivity(), PlantillaActivity {
         startActivity(intent)
         finish()
     }
-
-    /**
-     * Método para comprobar que el email introducido es válido.
-     * @param view Es la vista
-     */
-    fun irSalir(view: View) {
-        Utils.salirAplicacion(this)
-    }
 }
