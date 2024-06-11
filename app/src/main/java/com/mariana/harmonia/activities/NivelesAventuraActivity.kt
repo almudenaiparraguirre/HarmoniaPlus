@@ -38,8 +38,8 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private var botonCorrecto: Int = 0
     private var nivelActual: Int = 0
     private lateinit var menuSuperior: LinearLayout
-    private lateinit var textViewNivel: TextView
-    private lateinit var corazonesTextView: TextView
+    //private lateinit var textViewNivel: TextView
+    //private lateinit var corazonesTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
     private lateinit var imagenPerfil: ImageView
@@ -61,10 +61,10 @@ class NivelesAventuraActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
-        menuSuperior = findViewById(R.id.llTopBar)
-        textViewNivel = findViewById(R.id.textViewNivel)
+        //menuSuperior = findViewById(R.id.llTopBar)
+        //textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
-        corazonesTextView = findViewById(R.id.numeroCorazones)
+        //corazonesTextView = findViewById(R.id.numeroCorazones)
         imagenPerfil = findViewById(R.id.imagenPerfil)
         imageViewFondo1 = findViewById(R.id.imageViewFondo1)
         imageViewFondo2 = findViewById(R.id.imageViewFondo2)
@@ -80,7 +80,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         colocarTextViewNivel()
         downloadImage2()
         EligeModoJuegoActivity.instance.ocultarFragmento()
-        corazonesTextView.text = vidas.toString()
+        //corazonesTextView.text = vidas.toString()
 
         // Configurar el listener de desplazamiento del ScrollView
         scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -309,7 +309,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     private fun colocarTextViewNivel(){
         var nivel = nivelActual.toString()
-        textViewNivel.text = "Nv. $nivel-$numCantNiveles"
+        //textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
 
     private fun handleScrollChange(scrollY: Int) {
