@@ -570,34 +570,38 @@ class PerfilUsuarioActivity : AppCompatActivity() {
 
     private fun setlogro1(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje1 = UtilsDB.getTiempoJugado()?.div(60)
+        val progreso = minOf(porcentaje1 ?: 0, cantidad)
         withContext(Dispatchers.Main) {
-            progressBar1.progress = (porcentaje1!!.times(100).div(cantidad))
-            porcentajeTextView1.text = "$porcentaje1/$cantidad"
+            progressBar1.progress = (progreso.times(100).div(cantidad))
+            porcentajeTextView1.text = "$progreso/$cantidad"
         }
     }
 
     private fun setlogro2(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje2 = UtilsDB.getNivelMaximo()?.minus(1)
+        val progreso = minOf(porcentaje2 ?: 0, cantidad)
         withContext(Dispatchers.Main) {
-            progressBar2.progress = (porcentaje2!!.times(100).div(cantidad))
-            porcentajeTextView2.text = "$porcentaje2/$cantidad"
+            progressBar2.progress = (progreso.times(100).div(cantidad))
+            porcentajeTextView2.text = "$progreso/$cantidad"
         }
     }
 
     private fun setlogro3(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         val porcentaje3 = UtilsDB.getCantidadPerfectos()
+        val progreso = minOf(porcentaje3 ?: 0, cantidad)
         withContext(Dispatchers.Main) {
-            progressBar3.progress = (porcentaje3!!.times(100).div(cantidad))
-            porcentajeTextView3.text = "$porcentaje3/$cantidad"
+            progressBar3.progress = (progreso.times(100).div(cantidad))
+            porcentajeTextView3.text = "$progreso/$cantidad"
         }
     }
 
     private fun setlogro6(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje6 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(0)!!).get("notas")!!.toInt()
+            val progreso = minOf(porcentaje6, cantidad)
             withContext(Dispatchers.Main) {
-                progressBar6.progress = (porcentaje6.times(100).div(cantidad))
-                porcentajeTextView6.text = "$porcentaje6/$cantidad"
+                progressBar6.progress = (progreso.times(100).div(cantidad))
+                porcentajeTextView6.text = "$progreso/$cantidad"
             }
         } catch (e: NullPointerException) {
             println("Error en logro6: ${e.message}")
@@ -611,9 +615,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun setlogro7(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje7 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(1)!!).get("notas")!!.toInt()
+            val progreso = minOf(porcentaje7, cantidad)
             withContext(Dispatchers.Main) {
-                progressBar7.progress = (porcentaje7.times(100).div(cantidad))
-                porcentajeTextView7.text = "$porcentaje7/$cantidad"
+                progressBar7.progress = (progreso.times(100).div(cantidad))
+                porcentajeTextView7.text = "$progreso/$cantidad"
             }
         } catch (e: NullPointerException) {
             println("Error en logro7: ${e.message}")
@@ -627,9 +632,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
     private fun setlogro8(cantidad: Int) = lifecycleScope.launch(Dispatchers.IO) {
         try {
             val porcentaje8 = UtilsDB.getMayorPuntuacionDesafio(UtilsDB.getPuntuacionDesafioPorDificultad(2)!!).get("notas")!!.toInt()
+            val progreso = minOf(porcentaje8, cantidad)
             withContext(Dispatchers.Main) {
-                progressBar8.progress = (porcentaje8.times(100).div(cantidad))
-                porcentajeTextView8.text = "$porcentaje8/$cantidad"
+                progressBar8.progress = (progreso.times(100).div(cantidad))
+                porcentajeTextView8.text = "$progreso/$cantidad"
             }
         } catch (e: NullPointerException) {
             println("Error en logro8: ${e.message}")

@@ -33,7 +33,7 @@ class victoria_activity : AppCompatActivity() {
     private lateinit var mediaPlayer: MediaPlayer
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_victoria)
+        setContentView(R.layout.victoria_activity)
         nivel = intent.getIntExtra("numeroNivel", 1)
         precision = intent.getIntExtra("precision", 0)
         actualizarDatos()

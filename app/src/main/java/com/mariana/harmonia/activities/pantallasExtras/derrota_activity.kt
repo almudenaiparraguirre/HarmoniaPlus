@@ -42,7 +42,7 @@ class derrota_activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         nivel = intent.getIntExtra("numeroNivel", 1)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_derrota)
+        setContentView(R.layout.derrota_activity)
         val emojis = arrayOf("😞", "😔", "😕", "🙁", "☹️", "😟", "😢", "😭")
         val frases = arrayOf(
             "¡Sigue intentando!😊",

@@ -17,7 +17,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -56,7 +55,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_niveles_aventura)
+        setContentView(R.layout.niveles_aventura_activity)
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         llBotonera = findViewById(R.id.llBotonera)

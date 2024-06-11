@@ -47,7 +47,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_derrota_desafio)
+        setContentView(R.layout.derrota_desafio_activity)
         //variablesIntent
         nivel = intent.getIntExtra("numeroNivel", 999)
         notasHacertadas = intent.getIntExtra("notasHacertadas", 0)
