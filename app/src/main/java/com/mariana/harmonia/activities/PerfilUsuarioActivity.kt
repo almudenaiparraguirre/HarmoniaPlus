@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
+import com.mariana.harmonia.activities.pantallasExtras.PersonalizacionActivity
 import com.mariana.harmonia.databinding.PerfilUsuarioActivityBinding
 import com.mariana.harmonia.models.db.FirebaseDB
 import com.mariana.harmonia.utils.UtilsDB
@@ -432,6 +433,14 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         mediaPlayer.start()
         val intent = Intent(this, ConfiguracionActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);
+    }
+    fun irPersonalizacion(view: View) {
+        val mediaPlayer: MediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
+        mediaPlayer.start()
+        val intent = Intent(this, PersonalizacionActivity::class.java)
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.fade_in_config_perfil, R.anim.fade_out);

@@ -30,7 +30,23 @@
         android:clickable="true"
         android:onClick="irConfiguracion"
         android:focusable="true"
-        android:textColor="@color/negro"/>
+        android:textColor="@color/negro"
+        android:background="@drawable/style_menu_inferior_perfil_desactivado"/>
+
+    <TextView
+        android:id="@+id/btnPersonalizacion"
+        style="@style/Fuente_kameron"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Diseño"
+        android:textSize="18dp"
+        android:clickable="true"
+        android:onClick="irPersonalizacion"
+        android:focusable="true"
+        android:textColor="@color/negro"
+        android:background="@drawable/style_menu_inferior_perfil_desactivado"/>
 
     <TextView
         android:id="@+id/btnPerfil"
@@ -43,7 +59,7 @@
         android:textSize="18dp"
         android:focusable="true"
         android:textColor="@color/blanco"
-        android:background="@drawable/style_menu_inferior_perfil"  />
+        android:background="@drawable/style_menu_inferior_perfil_activo"  />
 </LinearLayout>
 
 <ScrollView
@@ -156,7 +172,7 @@
                 android:inputType="text|textNoSuggestions"
                 android:maxLength="20"
                 android:maxLines="1"
-                android:text="dorado40"
+                android:text="............."
                 android:textSize="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -171,7 +187,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="dorado40@gmail.com"
+                android:text="........................"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -215,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:text="Se unió en abril de 2023"
+                    android:text="....................."
                     android:textAlignment="center"
                     android:textColor="@color/gris"
                     android:textSize="15dp" />
@@ -277,7 +293,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:text="3"
+                            android:text=""
                             android:textColor="@color/blanco"
                             android:textSize="30dp"
                             android:textStyle="bold" />
@@ -332,7 +348,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="88%"
+                                android:text=""
                                 android:textColor="@color/blanco"
                                 android:textSize="30dp"
                                 android:textStyle="bold" />
@@ -422,7 +438,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="44"
+                                android:text=""
                                 android:textColor="@color/blanco"
                                 android:textSize="30dp"
                                 android:textStyle="bold" />

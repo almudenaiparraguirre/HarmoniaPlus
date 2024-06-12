@@ -45,7 +45,22 @@
             android:textSize="18dp"
             android:focusable="true"
             android:textColor="@color/blanco"
-            android:background="@drawable/style_menu_inferior_perfil" />
+            android:background="@drawable/style_menu_inferior_perfil_activo" />
+
+        <TextView
+            android:id="@+id/btnDiseno"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Diseño"
+            android:textSize="18dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:onClick="irPersonalizacion"
+            android:textColor="@color/negro"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado"  />
 
         <TextView
             android:id="@+id/btnPerfil"
@@ -60,8 +75,9 @@
             android:onClick="irPerfilUsuario"
             android:focusable="true"
             android:textColor="@color/negro"
-            android:background="?attr/selectableItemBackground" />
+            android:background="@drawable/style_menu_inferior_perfil_desactivado" />
     </LinearLayout>
+
 
     <ScrollView
         android:id="@+id/scrollView"

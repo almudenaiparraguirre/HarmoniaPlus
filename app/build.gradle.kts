@@ -59,6 +59,7 @@ dependencies {
 
     // add the Firebase SDK for Google Analytics
     implementation ("com.google.firebase:firebase-analytics:17.4.1")
+    implementation("androidx.activity:activity:1.8.0")
 
     //DOKKA
     dokkaPlugin("org.jetbrains.dokka:android-documentation-plugin:1.9.10")

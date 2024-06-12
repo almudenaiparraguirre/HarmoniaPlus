@@ -5,14 +5,15 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -22,27 +23,32 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/img_ico_aplicacion"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
-        <service android:name=".utils.ServicioActualizacion"/>
+        <activity
+            android:name=".activities.pantallasExtras.PersonalizacionActivity"
+            android:exported="false" />
+
+        <service android:name=".utils.ServicioActualizacion" />
+
         <activity
             android:name=".activities.pantallasExtras.derrotaDesafio_activity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.pantallasExtras.victoria_activity"
             android:exported="false" />
         <activity
             android:name=".activities.pantallasExtras.derrota_activity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.JuegoMusicalActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.NivelesAventuraActivity"
             android:exported="false"
@@ -94,11 +100,14 @@
             android:name=".activities.iniciarSesion.RegistroActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <service android:name=".utils.PushNotificationService"
+
+        <service
+            android:name=".utils.PushNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>
+
 </manifest>
