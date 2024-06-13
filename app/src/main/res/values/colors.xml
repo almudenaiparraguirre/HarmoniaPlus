@@ -25,5 +25,11 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="azul">#005EFF</color>
+    <color name="azulClaro">#00E1FF</color>
+    <color name="amarillo">#F6F200</color>
+    <color name="verde">#26FF00</color>
+
     <color name="black_overlay">#66000000</color>
+
 </resources>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rosaMuyClaro"
+    tools:context=".activities.pantallasExtras.PersonalizacionActivity">
+
+    <ImageView
+        android:id="@+id/fondoImageView"
+        android:layout_width="1000dp"
+        android:layout_height="1000dp"
+        android:alpha="0.25"
+        android:scaleType="centerCrop"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@mipmap/img_fondo_2x2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297" />
+
+    <LinearLayout
+        android:id="@+id/menu_inferior"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@drawable/selector_menu_inferior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/btnConfiguracion"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Configuración"
+            android:textSize="18dp"
+            android:clickable="true"
+            android:onClick="irConfiguracion"
+            android:focusable="true"
+            android:textColor="@color/negro"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado" />
+
+        <TextView
+            android:id="@+id/btnDiseno"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Diseño"
+            android:textSize="18dp"
+            android:focusable="true"
+            android:textColor="@color/blanco"
+            android:background="@drawable/style_menu_inferior_perfil_activo" />
+
+        <TextView
+            android:id="@+id/btnPerfil"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Perfil"
+            android:textSize="18dp"
+            android:clickable="true"
+            android:onClick="irPerfilUsuario"
+            android:focusable="true"
+            android:textColor="@color/negro"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_inferior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/flechaAtras"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/img_ico_volver_atras"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:onClick="volverModoJuego"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/personalizacionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PERSONALIZACIÓN"
+                style="@style/Fuente_kameron"
+                android:layout_marginTop="60dp"
+                android:textColor="@color/rosa"
+                android:textSize="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/colorPrincipalTituloTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color Principal"
+                style="@style/Fuente_kameron"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                app:layout_constraintTop_toBottomOf="@+id/personalizacionTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                android:id="@+id/descripcionColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar color de fondo"
+                android:textSize="14sp"
+                android:textColor="@color/rosaClaro"
+                app:layout_constraintTop_toBottomOf="@+id/colorPrincipalTituloTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"/>
+
+            <GridLayout
+                android:id="@+id/gridColores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="4"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/descripcionColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <!-- Ejemplo de un color cuadrado -->
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/rosa"
+                    android:clickable="true" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/rosa_claro"
+                    android:clickable="true" />
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/rojo"
+                    android:clickable="true" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/rojoClaro"
+                    android:clickable="true" />
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/azul"
+                    android:clickable="true" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/azulClaro"
+                    android:clickable="true" />
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/amarillo"
+                    android:clickable="true" />
+
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/verde"
+                    android:clickable="true" />
+
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/disenosTituloTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diseños"
+                style="@style/Fuente_kameron"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:textColor="@color/negro"
+                app:layout_constraintTop_toBottomOf="@+id/gridColores"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                android:id="@+id/descripcionDisenos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elegir estilo o skin del piano"
+                android:textSize="14sp"
+                android:textColor="@color/rosaClaro"
+                app:layout_constraintTop_toBottomOf="@+id/disenosTituloTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:gravity="center"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gridDisenos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/descripcionDisenos"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="20dp">
+
+                <!-- Ejemplo de un diseño cuadrado -->
+                <ImageView
+                    android:id="@+id/design1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/svg_corchea"
+                    android:layout_margin="20dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:clickable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/design2"
+                    app:layout_constraintBottom_toTopOf="@id/design3"/>
+
+                <ImageView
+                    android:id="@+id/design2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/svg_corazon"
+                    android:layout_margin="20dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:clickable="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/design1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/design4"/>
+
+                <ImageView
+                    android:id="@+id/design3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/svg_corazon_negro"
+                    android:layout_margin="20dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:clickable="true"
+                    app:layout_constraintTop_toBottomOf="@id/design1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/design4"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/design4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/email_logo_svg"
+                    android:layout_margin="20dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/style_cuadrado_colores"
+                    android:clickable="true"
+                    app:layout_constraintTop_toBottomOf="@id/design2"
+                    app:layout_constraintStart_toEndOf="@id/design3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
