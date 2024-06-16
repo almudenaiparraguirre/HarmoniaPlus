@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/blancoMedioTransparente">
+    android:background="@color/blanco">
 
 <TextView
     android:id="@+id/tituloDificultad"

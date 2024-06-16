@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/img_fondo_2x2"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
+            android:scaleX="1.0"
+            android:scaleY="1.0"
             android:alpha="0.5"/>
 
         <LinearLayout
@@ -31,7 +31,7 @@
 
             <LinearLayout
                 android:background="@drawable/perfil_menu_redondeado"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
@@ -118,8 +118,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                />
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/cerrarSesion"
@@ -134,7 +133,7 @@
                 android:paddingVertical="20dp"
                 android:text="Cerrar sesión"
                 android:textColor="@color/negro"
-                android:textSize="14dp" />
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -244,8 +243,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/botonDesafio" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout

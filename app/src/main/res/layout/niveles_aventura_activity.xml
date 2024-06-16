@@ -149,7 +149,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Nivel de Aventura"
         app:titleTextColor="@color/blanco"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:menu="@menu/top_menu">
