@@ -174,6 +174,7 @@
                 android:maxLines="1"
                 android:text="............."
                 android:textSize="40dp"
+                android:textColor="@color/negro"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -189,6 +190,7 @@
                 android:gravity="center"
                 android:text="........................"
                 android:textSize="20dp"
+                android:textColor="@color/negro"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -233,8 +235,8 @@
                     android:gravity="center"
                     android:text="....................."
                     android:textAlignment="center"
-                    android:textColor="@color/gris"
-                    android:textSize="15dp" />
+                    android:textColor="@color/negro"
+                    android:textSize="15dp"/>
             </LinearLayout>
 
             <TextView
@@ -309,7 +311,8 @@
                     android:text="Niveles "
                     android:textAlignment="center"
                     android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/negro"/>
             </LinearLayout>
 
 
@@ -363,7 +366,8 @@
                         android:text="Precision"
                         android:textAlignment="center"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
                 </LinearLayout>
 
 
@@ -407,7 +411,8 @@
                         android:text="PRINCIPIANTE"
                         android:textAlignment="center"
                         android:textSize="24dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
                 </LinearLayout>
 
                 <!-- CIRCULO EXPERIENCIA -->
@@ -453,7 +458,8 @@
                         android:text="EXP"
                         android:textAlignment="center"
                         android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
                 </LinearLayout>
             </LinearLayout><!-- Contenedor horizontal -->
 
@@ -499,7 +505,8 @@
                         android:layout_marginStart="16dp"
                         android:text="MAESTRO DEL DESAFÍO I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -513,7 +520,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -585,7 +593,8 @@
                         android:layout_marginStart="16dp"
                         android:text="CARRERA MUSICAL I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -599,7 +608,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -671,7 +681,8 @@
                         android:layout_marginStart="16dp"
                         android:text="VIRTUOSO I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -685,13 +696,14 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/svg_icono_musica" />
+                                android:src="@drawable/svg_icono_musica"/>
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -757,7 +769,8 @@
                         android:layout_marginStart="16dp"
                         android:text="OIDO DE ÁGUILA"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -771,13 +784,14 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
                                 android:layout_gravity="center_vertical"
-                                android:src="@drawable/svg_icono_ritmo" />
+                                android:src="@drawable/svg_icono_ritmo"/>
                         </androidx.cardview.widget.CardView>
 
                         <!-- Texto descriptivo con barra de porcentaje a la derecha -->
@@ -843,7 +857,8 @@
                         android:layout_marginStart="16dp"
                         android:text="RITMO INVENCIBLE II"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -857,7 +872,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -929,7 +945,8 @@
                         android:layout_marginStart="16dp"
                         android:text="HARMONIA CELESTIAL I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -943,7 +960,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -1015,7 +1033,8 @@
                         android:layout_marginStart="16dp"
                         android:text="OÍDO ABSOLUTO I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -1029,7 +1048,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
@@ -1102,7 +1122,8 @@
                         android:layout_marginStart="16dp"
                         android:text="METRONOMO I"
                         android:textSize="20dp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="@color/negro"/>
 
                     <!-- Contenedor horizontal para la imagen y el texto descriptivo -->
                     <LinearLayout
@@ -1116,7 +1137,8 @@
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="100dp">
+                            app:cardCornerRadius="100dp"
+                            app:cardBackgroundColor="@color/blanco">
 
                             <ImageView
                                 android:layout_width="100dp"
