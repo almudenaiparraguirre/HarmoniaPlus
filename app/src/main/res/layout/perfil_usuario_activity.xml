@@ -121,7 +121,8 @@
                 android:textSize="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/negro"/>
 
             <!--Lapiz-->
             <ImageView
@@ -131,7 +132,6 @@
                 android:background="@drawable/rounded_white_background"
                 android:clickable="true"
                 android:elevation="20dp"
-                android:onClick="cargarImagen"
                 android:src="@drawable/svg_lapiz_editar_perfil"
                 app:layout_constraintBottom_toBottomOf="@+id/cardview_perfil"
                 app:layout_constraintEnd_toEndOf="@+id/cardview_perfil" />

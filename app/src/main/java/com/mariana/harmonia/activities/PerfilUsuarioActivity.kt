@@ -53,6 +53,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         @SuppressLint("StaticFieldLeak")
         private lateinit var gmailUsuarioTextView: TextView
         private const val REQUEST_CAMERA = 123
+        const val REQUEST_GALLERY = 1
     }
 
     private lateinit var mediaPlayer: MediaPlayer
@@ -165,6 +166,10 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
 
         EligeModoJuegoActivity.instance.ocultarFragmento()
+
+        lapiz.setOnClickListener {
+            mostrarDialogoElegirDatosImagen()
+        }
     }
 
     private suspend fun downloadImage() {
@@ -306,20 +311,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         })
     }
 
-    private fun mostrarDialogoConfirmacion() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Cambiar nombre de usuario")
-        builder.setMessage("¿Estás seguro de que quieres cambiar el nombre de usuario?")
-        builder.setPositiveButton("Sí") { _: DialogInterface, _: Int ->
-            cambiarNombreUsuario()
-        }
-        builder.setNegativeButton("No") { dialog: DialogInterface, _: Int ->
-            dialog.dismiss()
-        }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
-
     private fun cambiarNombreUsuario() {
         Toast.makeText(this, "Usuario cambiado", Toast.LENGTH_SHORT).show()
     }
@@ -328,10 +319,25 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         cardViewPerfil.setOnClickListener {
             mostrarDialogImagen(imagen)
         }
+    }
 
-        lapiz.setOnClickListener {
-            mostrarDialogoElegirOrigen()
-        }
+    private fun mostrarDialogoElegirDatosImagen() {
+        val opciones = arrayOf("Cambiar datos perfil", "Cambiar foto de perfil")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Seleccionar cambio datos o imagen")
+            .setItems(opciones) { _, which ->
+                when (which) {
+                    0 -> {
+                    }
+                    1 -> {
+                        mostrarDialogoElegirOrigen()
+                    }
+                }
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun mostrarDialogoElegirOrigen() {
@@ -345,7 +351,7 @@ class PerfilUsuarioActivity : AppCompatActivity() {
                         requestCameraPermission()
                     }
                     1 -> {
-                        abrirGaleria()
+                        requestGalleryPermission()
                     }
                 }
             }
@@ -378,12 +384,6 @@ class PerfilUsuarioActivity : AppCompatActivity() {
         }
 
         dialog.show()
-    }
-
-    private fun abrirGaleria() {
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startForActivityGallery.launch(intent)
     }
 
     private var selectedImageUri: Uri? = null
@@ -466,6 +466,40 @@ class PerfilUsuarioActivity : AppCompatActivity() {
             else -> {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
+        }
+    }
+
+    private fun requestGalleryPermission() {
+        when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permiso concedido, abre la galería
+                abrirGaleria()
+            }
+            else -> {
+                // Solicita el permiso
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+        }
+    }
+
+    // Función para abrir la galería
+    private fun abrirGaleria() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        startActivityForResult(intent, REQUEST_GALLERY)
+    }
+
+    private val requestPermissionLauncherGallery = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // Permiso concedido, abre la galería
+            abrirGaleria()
+        } else {
+            // Permiso denegado, muestra un mensaje al usuario
+            Toast.makeText(this, "Permiso para acceder a la galería denegado", Toast.LENGTH_SHORT).show()
         }
     }
 
