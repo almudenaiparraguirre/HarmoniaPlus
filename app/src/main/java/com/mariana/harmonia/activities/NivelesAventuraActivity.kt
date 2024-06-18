@@ -17,7 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import android.widget.Toolbar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -29,7 +29,6 @@ import java.io.IOException
 import java.io.InputStream
 import kotlin.random.Random
 
-
 class NivelesAventuraActivity : AppCompatActivity() {
 
     private var numCantNiveles = 100
@@ -38,8 +37,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
     private var botonCorrecto: Int = 0
     private var nivelActual: Int = 0
     private lateinit var menuSuperior: LinearLayout
-    //private lateinit var textViewNivel: TextView
-    //private lateinit var corazonesTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var scrollView: ScrollView
     private lateinit var imagenPerfil: ImageView
@@ -61,10 +58,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_cuatro)
         llBotonera = findViewById(R.id.llBotonera)
         botonCorrecto = Random.nextInt(numCantNiveles)
-        //menuSuperior = findViewById(R.id.llTopBar)
-        //textViewNivel = findViewById(R.id.textViewNivel)
         scrollView = findViewById(R.id.scrollView)
-        //corazonesTextView = findViewById(R.id.numeroCorazones)
         imagenPerfil = findViewById(R.id.imagenPerfil)
         imageViewFondo1 = findViewById(R.id.imageViewFondo1)
         imageViewFondo2 = findViewById(R.id.imageViewFondo2)
@@ -80,9 +74,7 @@ class NivelesAventuraActivity : AppCompatActivity() {
         colocarTextViewNivel()
         downloadImage2()
         EligeModoJuegoActivity.instance.ocultarFragmento()
-        //corazonesTextView.text = vidas.toString()
 
-        // Configurar el listener de desplazamiento del ScrollView
         scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             handleScrollChange(scrollY)
         }
@@ -164,8 +156,34 @@ class NivelesAventuraActivity : AppCompatActivity() {
             )
 
             if (i > nivelActual) {
-                button.isEnabled = false
                 button.setBackgroundResource(getRandomUnlockedButtonDrawable())
+                button.setOnTouchListener { view, motionEvent ->
+                    when (motionEvent.action) {
+                        MotionEvent.ACTION_DOWN -> {
+                            val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.2f)
+                            val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.2f)
+                            AnimatorSet().apply {
+                                play(scaleX).with(scaleY)
+                                duration = 300
+                                start()
+                            }
+                            false
+                        }
+                        MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                            val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f)
+                            val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f)
+                            val translationX = ObjectAnimator.ofFloat(view, "translationX", 0f, 50f, -50f, 0f) // Movimiento en eje X
+                            AnimatorSet().apply {
+                                play(scaleX).with(scaleY).with(translationX)
+                                duration = 300
+                                start()
+                            }
+                            Toast.makeText(this, "Bloqueado", Toast.LENGTH_SHORT).show()
+                            false
+                        }
+                        else -> false
+                    }
+                }
             } else {
                 button.setBackgroundResource(getRandomButtonDrawable())
                 button.setOnTouchListener { view, motionEvent ->
@@ -232,7 +250,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
         val lockedButton = Button(this)
         lockedButton.textSize = 20f
         lockedButton.gravity = Gravity.CENTER
-        lockedButton.isEnabled = false
 
         lockedButton.setBackgroundResource(R.drawable.style_round_button_blue)
         lockedButton.setTextColor(ContextCompat.getColor(this, android.R.color.white))
@@ -253,6 +270,34 @@ class NivelesAventuraActivity : AppCompatActivity() {
         lockedButton.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, drawableLock, null)
 
         lockedButton.background = shapeDrawable
+
+        lockedButton.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.2f)
+                    val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.2f)
+                    AnimatorSet().apply {
+                        play(scaleX).with(scaleY)
+                        duration = 300
+                        start()
+                    }
+                    false
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    val scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1.0f)
+                    val scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1.0f)
+                    val translationX = ObjectAnimator.ofFloat(view, "translationX", 0f, 50f, -50f, 0f) // Movimiento en eje X
+                    AnimatorSet().apply {
+                        play(scaleX).with(scaleY).with(translationX)
+                        duration = 300
+                        start()
+                    }
+                    Toast.makeText(this, "Bloqueado", Toast.LENGTH_SHORT).show()
+                    false
+                }
+                else -> false
+            }
+        }
 
         return lockedButton
     }
@@ -309,7 +354,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
     private fun colocarTextViewNivel(){
         var nivel = nivelActual.toString()
-        //textViewNivel.text = "Nv. $nivel-$numCantNiveles"
     }
 
     private fun handleScrollChange(scrollY: Int) {

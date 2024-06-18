@@ -28,6 +28,7 @@ import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.mariana.harmonia.R
 import com.mariana.harmonia.activities.pantallasExtras.derrotaDesafio_activity
 import com.mariana.harmonia.activities.pantallasExtras.derrota_activity
@@ -559,6 +560,8 @@ class JuegoMusicalActivity : AppCompatActivity() {
                 if (aciertos!! < notasArray.size) {
                     cambiarImagen(notasArray[aciertos!!].toString())
                 }
+                val lottieAnimationView = findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+                lottieAnimationView.playAnimation()
                 cambiarTexto(nombreNota)
                 if (!desafio) {
                     actualizarDatosInterfaz()

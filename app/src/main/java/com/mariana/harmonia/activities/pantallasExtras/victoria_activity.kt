@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.mariana.harmonia.activities.JuegoMusicalActivity
 import com.mariana.harmonia.activities.NivelesAventuraActivity
 import com.mariana.harmonia.R
@@ -107,6 +108,8 @@ class victoria_activity : AppCompatActivity() {
         mediaPlayer = MediaPlayer.create(this, R.raw.win_sound)
         mediaPlayer.setVolume(0.5f, 0.5f);
         mediaPlayer.start()
+        val lottieAnimationView = findViewById<LottieAnimationView>(R.id.lottieAnimationView)
+        lottieAnimationView.playAnimation()
     }
 
     /**

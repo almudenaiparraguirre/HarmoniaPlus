@@ -89,6 +89,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/nota_6d" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:lottie_rawRes="@raw/explosion_animation"
+                app:lottie_autoPlay="false"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:lottie_loop="false"/>
         </RelativeLayout>
 
 
