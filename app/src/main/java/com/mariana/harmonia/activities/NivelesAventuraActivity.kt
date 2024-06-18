@@ -301,7 +301,6 @@ class NivelesAventuraActivity : AppCompatActivity() {
 
         return lockedButton
     }
-
     fun createUnlockedButton(levelNumber: Int): Button {
         val button = Button(this)
         button.textSize = 20f

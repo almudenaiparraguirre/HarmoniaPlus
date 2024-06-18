@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:startColor="@color/rosa" android:endColor="@color/morado" android:type="linear"/>
+            <corners android:radius="100dp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ranking_svg"
+        android:width="30dp"
+        android:height="30dp"
+        android:gravity="center">
+        <inset android:insetLeft="20dp"
+            android:insetTop="20dp"
+            android:insetRight="20dp"
+            android:insetBottom="20dp" />
+    </item>
+</layer-list>

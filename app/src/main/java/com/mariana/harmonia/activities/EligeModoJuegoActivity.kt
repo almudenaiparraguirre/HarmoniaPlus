@@ -56,6 +56,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
     private lateinit var botonAventura: androidx.appcompat.widget.AppCompatButton
     private lateinit var botonDesafio: androidx.appcompat.widget.AppCompatButton
     private lateinit var botonAjustes: androidx.appcompat.widget.AppCompatButton
+    private lateinit var botonRanking: androidx.appcompat.widget.AppCompatButton
 
     /**
      * Función llamada al crear la actividad.
@@ -84,6 +85,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         botonAventura = findViewById(R.id.botonAventura)
         botonDesafio = findViewById(R.id.botonDesafio)
         botonAjustes = findViewById(R.id.botonOpciones)
+        botonRanking = findViewById(R.id.botonRanking)
 
 
         inicilalizarVariablesThis()
@@ -102,7 +104,16 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         println("SERVICIO CONTADOR COMENZO")
         crearFragmentoCarga()
 
+        botonRanking.setOnClickListener {
+            YoYo.with(Techniques.Bounce).duration(1000).playOn(botonAventura)
+            mostrarFragmento()
+            mediaPlayer.start()
+            val intent = Intent(this, RankingActivity::class.java)
+            startActivity(intent)
+            mostrarFragmento()
+            Toast.makeText(this, "adssaddasdad", Toast.LENGTH_SHORT).show()
 
+        }
 
         //animacion Botones
 
@@ -161,6 +172,10 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
     }
+
+
+
+
 
     private fun incializarConexionNotificaciones() {
         var firebaseMessagin:FirebaseMessaging = FirebaseMessaging.getInstance()
@@ -316,6 +331,14 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Realiza la transacción
         fragmentTransaction.commit()
     }
+    fun irRanking(view: View) {
+        YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonRanking))
+        mostrarFragmento()
+        mediaPlayer.start()
+        val intent = Intent(this, RankingActivity::class.java)
+        startActivity(intent)
+        mostrarFragmento()
+    }
 
     /**
      * Función para manejar el botón de retroceso.
@@ -354,4 +377,5 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
     }
+
 }

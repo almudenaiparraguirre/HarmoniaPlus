@@ -29,8 +29,12 @@
         android:theme="@style/Theme.Harmonia"
         tools:targetApi="31">
         <activity
-            android:name=".activities.pantallasExtras.PersonalizacionActivity"
+            android:name=".activities.RankingActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.pantallasExtras.PersonalizacionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
 
         <service android:name=".utils.ServicioActualizacion" />
 
@@ -40,7 +44,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.pantallasExtras.victoria_activity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.pantallasExtras.derrota_activity"
             android:exported="false"
@@ -66,7 +71,8 @@
         </activity>
         <activity
             android:name=".activities.ConfiguracionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.EligeModoJuegoActivity"
             android:exported="false"
