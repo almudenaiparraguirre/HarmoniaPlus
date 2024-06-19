@@ -30,17 +30,18 @@ class RankingActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         runBlocking {
-            val arrayTops = UtilsDB.getPuntuacionDesafioPorDificultad(0)
+            val arrayTops = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
 
-            // Ordenar por las notas totales en orden descendente
-            val sortedList = arrayTops?.sortedByDescending { it["notas"]?.toInt() } ?: listOf()
-
-            // Crear la lista final con el nombre del mapa
-            val finalList = sortedList.mapIndexed { index, item ->
-                item.toMutableMap().apply {
-                    put("nombre", "$index".toInt() )
+            // Convertir y filtrar los datos según sea necesario
+            val finalList = arrayTops?.map { item ->
+                item.toMutableMap().mapValues { entry ->
+                    when (entry.value) {
+                        is Long, is Int -> (entry.value as Number).toInt()
+                        is Double, is Float -> (entry.value as Number).toDouble()
+                        else -> entry.value.toString()
+                    }
                 }
-            }
+            } ?: listOf()
 
             rankingAdapter = RankingReciclerViewAdapter(finalList)
             recyclerView.adapter = rankingAdapter

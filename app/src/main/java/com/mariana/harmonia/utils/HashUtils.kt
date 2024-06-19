@@ -9,7 +9,7 @@ object HashUtils {
 
     fun sha1(input: String) = hashString("SHA-1", input)
 
-     fun hashString(type: String, input: String): String {
+    private fun hashString(type: String, input: String): String {
         val HEX_CHARS = "0123456789ABCDEF"
         val bytes = MessageDigest
             .getInstance(type)
@@ -23,5 +23,15 @@ object HashUtils {
         }
 
         return result.toString()
+    }
+
+    // Función para codificar una cadena a una cadena de números
+    fun encodeStringToNumbers(s: String): String {
+        return s.map { it.toInt().toString().padStart(3, '0') }.joinToString("")
+    }
+
+    // Función para decodificar una cadena de números a una cadena
+    fun decodeNumbersToString(s: String): String {
+        return s.chunked(3).map { it.toInt().toChar() }.joinToString("")
     }
 }

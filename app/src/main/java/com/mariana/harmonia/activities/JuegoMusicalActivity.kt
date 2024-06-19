@@ -33,6 +33,8 @@ import com.mariana.harmonia.R
 import com.mariana.harmonia.activities.pantallasExtras.derrotaDesafio_activity
 import com.mariana.harmonia.activities.pantallasExtras.derrota_activity
 import com.mariana.harmonia.activities.pantallasExtras.victoria_activity
+import com.mariana.harmonia.utils.UtilsDB
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
@@ -99,6 +101,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
     private var tiempo: Double? = 60.0
     private var tiempoActual: Int? = 0
     private var dificultad: Int? = 0
+    private var nombre: String? = ""
 
     private var notasTotales: Int? = 0
     private var vidas: Int? = 0
@@ -155,7 +158,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         pentagrama = findViewById(R.id.layoutPentagrama)
         sonidoCuentaAtras = MediaPlayer.create(this, R.raw.sound_cuenta_atras)
         notasArray = arrayOfNulls(10)
-
+        actualizarDatosDB()
 
      animacionFondo()
 
@@ -355,6 +358,10 @@ class JuegoMusicalActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    private fun actualizarDatosDB() = runBlocking {
+        nombre = UtilsDB.getNombre()
     }
 
     private fun animacionFondo() {
@@ -663,6 +670,7 @@ class JuegoMusicalActivity : AppCompatActivity() {
         intent.putExtra("notasHacertadas", aciertos)
         intent.putExtra("tiempoDurado", tiempoActual)
         intent.putExtra("dificultad", dificultad)
+        intent.putExtra("nombre", nombre)
         perdido = true;
         pararProcesos()
         finish()

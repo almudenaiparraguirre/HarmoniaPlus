@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.mariana.harmonia.activities.JuegoMusicalActivity
 import com.mariana.harmonia.R
+import com.mariana.harmonia.utils.HashUtils
 import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
@@ -31,6 +32,7 @@ import kotlinx.coroutines.runBlocking
  */
 class derrotaDesafio_activity : AppCompatActivity() {
     private var nivel: Int = 0
+    private var nombre: String ="desconocido"
     private var notasHacertadas: Int = 0
     private var tiempoDurado: Int = 0
     private var dificultad: Int = 0
@@ -50,6 +52,7 @@ class derrotaDesafio_activity : AppCompatActivity() {
         setContentView(R.layout.derrota_desafio_activity)
         //variablesIntent
         nivel = intent.getIntExtra("numeroNivel", 999)
+        nombre = intent.getStringExtra("nombre")!!
         notasHacertadas = intent.getIntExtra("notasHacertadas", 0)
         tiempoDurado = intent.getIntExtra("tiempoDurado", 0)
         dificultad = intent.getIntExtra("dificultad", 0)
@@ -90,11 +93,19 @@ class derrotaDesafio_activity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarDatosInterfaz() = runBlocking {
         val listaPuntuaciones = UtilsDB.getPuntuacionDesafio()?.toMutableList() ?: mutableListOf()
-        val nuevoElemento = mapOf("dificultad" to dificultad, "notas" to notasHacertadas, "tiempo" to (60 - tiempoDurado))
-        listaPuntuaciones?.add(nuevoElemento)
+
+
+        val nuevoElemento = mapOf(
+            "nombre" to nombre,
+            "dificultad" to dificultad,
+            "notas" to notasHacertadas,
+            "tiempo" to (60 - tiempoDurado)
+        )
+        listaPuntuaciones.add(nuevoElemento)
         UtilsDB.setPuntuacionDesafio(listaPuntuaciones)
         UtilsDB.setPuntuacionDesafioGlobal(nuevoElemento)
     }
+
 
     /**
      * Método llamado al presionar el botón para repetir el desafío.

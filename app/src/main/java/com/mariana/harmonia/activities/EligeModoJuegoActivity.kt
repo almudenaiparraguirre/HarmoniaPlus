@@ -90,7 +90,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
 
         inicilalizarVariablesThis()
         inicializarConBase()
-
+        ocultarFragmento()
 
         lifecycleScope.launch {
             downloadImage2()
@@ -105,13 +105,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         crearFragmentoCarga()
 
         botonRanking.setOnClickListener {
-            YoYo.with(Techniques.Bounce).duration(1000).playOn(botonAventura)
-            mostrarFragmento()
-            mediaPlayer.start()
-            val intent = Intent(this, RankingActivity::class.java)
-            startActivity(intent)
-            mostrarFragmento()
-            Toast.makeText(this, "adssaddasdad", Toast.LENGTH_SHORT).show()
+         irRanking()
 
         }
 
@@ -308,6 +302,7 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         mostrarFragmento()
     }
 
+
     /**
      * Función para abrir la actividad de desafío.
      */
@@ -331,13 +326,14 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
         // Realiza la transacción
         fragmentTransaction.commit()
     }
-    fun irRanking(view: View) {
+    fun irRanking() {
         YoYo.with(Techniques.Bounce).duration(1000).playOn(findViewById(R.id.botonRanking))
         mostrarFragmento()
         mediaPlayer.start()
         val intent = Intent(this, RankingActivity::class.java)
         startActivity(intent)
-        mostrarFragmento()
+
+
     }
 
     /**
@@ -377,5 +373,8 @@ class EligeModoJuegoActivity : AppCompatActivity(), PlantillaActivity {
             }
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        ocultarFragmento()
+    }
 }

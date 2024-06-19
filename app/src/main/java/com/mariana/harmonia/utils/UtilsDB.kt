@@ -175,7 +175,7 @@ class UtilsDB {
             }
         }
 
-        suspend fun getPuntuacionDesafio(): List<Map<String, Number>>? {
+        suspend fun getPuntuacionDesafio(): List<Map<String, Any>>? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
 
@@ -227,6 +227,40 @@ class UtilsDB {
                 null
             }
         }
+
+        suspend fun getPuntuacionDesafioGlobalPorDificultad(dificultad: Int): List<Map<String, Any>>? {
+            actualizarVariables()
+            val collectionRef = db.collection("desafio")
+
+            return try {
+                // Obtener todos los documentos de la colección "desafio"
+                val querySnapshot = collectionRef.get().await()
+
+                // Lista para almacenar las precisiones filtradas
+                val precisionesFiltradas = mutableListOf<Map<String, Any>>()
+
+                // Iterar sobre los documentos de la colección
+                for (document in querySnapshot.documents) {
+                    val data = document.data
+                    if (data != null) {
+                        val puntuacionDesafio = data["puntuacionDesafio"] as? Map<String, Any>
+                        if (puntuacionDesafio != null && puntuacionDesafio["dificultad"]?.toString()?.toInt() == dificultad) {
+                            precisionesFiltradas.add(puntuacionDesafio)
+                        }
+                    }
+                }
+
+                println("precisiones filtradas: $precisionesFiltradas")
+                precisionesFiltradas
+            } catch (exception: Exception) {
+                println("Error getting documents: $exception")
+                null
+            }
+        }
+
+
+
+
         suspend fun getTiempoJugado(): Int? {
             actualizarVariables()
             val docRef = db.collection("usuarios").document(emailEncriptado)
@@ -427,7 +461,7 @@ class UtilsDB {
                 }
         }
 
-        fun setPuntuacionDesafio(puntuaciones: List<Map<String, Number>>) {
+        fun setPuntuacionDesafio(puntuaciones: List<Map<String, Any>>) {
             actualizarVariables()
             val data = hashMapOf(
                 "puntuacionDesafio" to puntuaciones
@@ -442,7 +476,7 @@ class UtilsDB {
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setPuntuacionDesafioGlobal(puntuacion: Map<String, Number>) {
+        fun setPuntuacionDesafioGlobal(puntuacion: Map<String, Any>) {
             actualizarVariables()
             val desafioCollection = db.collection("desafio")
             val currentDateTime = java.time.LocalDateTime.now()
