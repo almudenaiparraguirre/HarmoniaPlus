@@ -148,14 +148,16 @@
                     android:layout_height="wrap_content"
                     android:text="Contraseña actual"
                     style="@style/Fuente_kameron"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"
+                    android:textColor="@color/negro"/>
 
                 <EditText
                     android:id="@+id/edit_text_vieja_contrasena"
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textColor="@color/negro"/>
 
             </LinearLayout>
 
@@ -174,14 +176,16 @@
                     android:layout_height="wrap_content"
                     android:text="Nueva contraseña"
                     style="@style/Fuente_kameron"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp"
+                    android:textColor="@color/negro"/>
 
                 <EditText
                     android:id="@+id/edit_text_nueva_contrasena"
                     android:layout_width="207dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textColor="@color/negro"/>
 
             </LinearLayout>
 
@@ -234,7 +238,8 @@
                         android:thumbTint="@color/gris"
                         android:trackTint="@color/grisClaro"
                         android:switchMinWidth="48dp"
-                        android:switchPadding="16dp" />
+                        android:switchPadding="16dp"
+                        android:textColor="@color/negro"/>
 
                     <Switch
                         android:id="@+id/switchSonidos"
@@ -251,7 +256,8 @@
                         android:thumbTint="@color/gris"
                         android:trackTint="@color/grisClaro"
                         android:switchMinWidth="48dp"
-                        android:switchPadding="16dp" />
+                        android:switchPadding="16dp"
+                        android:textColor="@color/negro"/>
 
                     <Switch
                         android:id="@+id/switchVibracion"
@@ -268,7 +274,9 @@
                         android:thumbTint="@color/gris"
                         android:trackTint="@color/grisClaro"
                         android:switchMinWidth="48dp"
-                        android:switchPadding="16dp" />
+                        android:switchPadding="16dp"
+
+                        android:textColor="@color/negro"/>
                 </LinearLayout>
 
             <TextView

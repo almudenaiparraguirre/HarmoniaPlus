@@ -4,8 +4,11 @@ import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -36,6 +39,7 @@ import com.mariana.harmonia.utils.Utils
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.util.Locale
 
 /**
  * Actividad principal para elegir el modo de juego.

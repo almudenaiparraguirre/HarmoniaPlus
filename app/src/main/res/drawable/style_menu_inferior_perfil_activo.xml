@@ -4,5 +4,4 @@
         android:startColor="@color/rosa"
         android:endColor="@color/moradoClaro"
         android:type="linear"/>
-    <stroke android:width="2dp" android:color="@color/negro"/>
 </shape>

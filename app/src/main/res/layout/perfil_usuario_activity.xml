@@ -204,7 +204,6 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
-
             </RelativeLayout>
 
             <LinearLayout
@@ -255,7 +254,6 @@
                 android:visibility="gone"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <!-- LAYOUT INFERIOR -->
         <LinearLayout
@@ -363,20 +361,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Precision"
+                        android:text="Precisión"
                         android:textAlignment="center"
                         android:textSize="18dp"
                         android:textStyle="bold"
                         android:textColor="@color/negro"/>
                 </LinearLayout>
 
-
                 <!-- CIRCULO GRANDE -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
@@ -455,7 +451,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="EXP"
+                        android:gravity="center"
+                        android:text="Experiencia"
                         android:textAlignment="center"
                         android:textSize="18dp"
                         android:textStyle="bold"
@@ -538,7 +535,6 @@
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
-
 
                             <TextView
                                 android:id="@+id/fraseLogro1"
@@ -891,7 +887,6 @@
                             android:layout_weight="1"
                             android:orientation="vertical">
 
-
                             <TextView
                                 android:id="@+id/fraseLogro5"
                                 style="@style/Fuente_kameron"
@@ -978,7 +973,6 @@
                             android:layout_marginStart="16dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
-
 
                             <TextView
                                 android:id="@+id/fraseLogro6"
@@ -1120,7 +1114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="METRONOMO I"
+                        android:text="METRÓNOMO I"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:textColor="@color/negro"/>

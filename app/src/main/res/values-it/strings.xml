@@ -1,18 +1,18 @@
 <resources>
     <string name="app_name">Harmonía</string>
     import android.Manifest
-    <string name="salirSubrrayado"><u>Exit</u></string>
+    <string name="salirSubrrayado"><u>Uscita</u></string>
     <string name="RegistrateSubrrayado"><u>¡Registrate!</u></string>
     <string name="NoRecuerdasLaContraseñaSubrayado"><u>¿No recuerdas la contraseña?</u></string>
     <string name="VolverInicioSesionSubrrayado"><u>Volver al inicio de sesión</u></string>
     <string name="VolverAEnviarSubrrayado"><u>Volver a enviar</u></string>
-    <string name="cerrarSesion">Close session</string>
-    <string name="ayuda">Help</string>
-    <string name="cerrar_sesi">Cerrar sesión</string>
+    <string name="cerrarSesion">Close session IT</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="cerrar_sesi">Close session IT</string>
     <string name="default_web_client_id">1087712210246-pf3t0kpf6jo2fgjq8me6cmidn7s7f348.apps.googleusercontent.com</string>
     <string name="efectos_de_sonido">Música</string>
     <string name="sfx">Efectos de sonido</string>
-    <string name="vibracion">Vibración</string>
+    <string name="vibracion">Vibrazione</string>
     <string name="VolverModoJuego"><u>Volver a la página principal</u></string>
     <string name="channel_name">Harmonia_Channel</string>
     <string-array name="theme_options">
