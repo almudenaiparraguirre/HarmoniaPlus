@@ -13,8 +13,12 @@ import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
 class RankingActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var rankingAdapter: RankingReciclerViewAdapter
+    private lateinit var recyclerView1: RecyclerView
+    private lateinit var recyclerView2: RecyclerView
+    private lateinit var recyclerView3: RecyclerView
+    private lateinit var rankingAdapter1: RankingReciclerViewAdapter
+    private lateinit var rankingAdapter2: RankingReciclerViewAdapter
+    private lateinit var rankingAdapter3: RankingReciclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,14 +30,20 @@ class RankingActivity : AppCompatActivity() {
             insets
         }
 
-        recyclerView = findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView1 = findViewById(R.id.recyclerView1)
+        recyclerView2 = findViewById(R.id.recyclerView2)
+        recyclerView3 = findViewById(R.id.recyclerView3)
+
+        recyclerView1.layoutManager = LinearLayoutManager(this)
+        recyclerView2.layoutManager = LinearLayoutManager(this)
+        recyclerView3.layoutManager = LinearLayoutManager(this)
 
         runBlocking {
-            val arrayTops = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
+            val arrayTops1 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
+            val arrayTops2 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(1)
+            val arrayTops3 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(2)
 
-            // Convertir y filtrar los datos según sea necesario
-            val finalList = arrayTops?.map { item ->
+            val finalList1 = arrayTops1?.map { item ->
                 item.toMutableMap().mapValues { entry ->
                     when (entry.value) {
                         is Long, is Int -> (entry.value as Number).toInt()
@@ -43,8 +53,33 @@ class RankingActivity : AppCompatActivity() {
                 }
             } ?: listOf()
 
-            rankingAdapter = RankingReciclerViewAdapter(finalList)
-            recyclerView.adapter = rankingAdapter
+            val finalList2 = arrayTops2?.map { item ->
+                item.toMutableMap().mapValues { entry ->
+                    when (entry.value) {
+                        is Long, is Int -> (entry.value as Number).toInt()
+                        is Double, is Float -> (entry.value as Number).toDouble()
+                        else -> entry.value.toString()
+                    }
+                }
+            } ?: listOf()
+
+            val finalList3 = arrayTops3?.map { item ->
+                item.toMutableMap().mapValues { entry ->
+                    when (entry.value) {
+                        is Long, is Int -> (entry.value as Number).toInt()
+                        is Double, is Float -> (entry.value as Number).toDouble()
+                        else -> entry.value.toString()
+                    }
+                }
+            } ?: listOf()
+
+            rankingAdapter1 = RankingReciclerViewAdapter(finalList1)
+            rankingAdapter2 = RankingReciclerViewAdapter(finalList2)
+            rankingAdapter3 = RankingReciclerViewAdapter(finalList3)
+
+            recyclerView1.adapter = rankingAdapter1
+            recyclerView2.adapter = rankingAdapter2
+            recyclerView3.adapter = rankingAdapter3
         }
     }
 }
