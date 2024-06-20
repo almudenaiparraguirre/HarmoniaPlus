@@ -1,6 +1,9 @@
 package com.mariana.harmonia.activities
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,12 +16,21 @@ import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
 class RankingActivity : AppCompatActivity() {
+
+    private lateinit var btnFacil: TextView
+    private lateinit var btnMedio: TextView
+    private lateinit var btnDificil: TextView
+    private lateinit var title1: TextView
+    private lateinit var title2: TextView
+    private lateinit var title3: TextView
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
     private lateinit var recyclerView3: RecyclerView
     private lateinit var rankingAdapter1: RankingReciclerViewAdapter
     private lateinit var rankingAdapter2: RankingReciclerViewAdapter
     private lateinit var rankingAdapter3: RankingReciclerViewAdapter
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +41,13 @@ class RankingActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        btnFacil = findViewById(R.id.btnFacil)
+        btnMedio = findViewById(R.id.btnMedio)
+        btnDificil = findViewById(R.id.btnDificil)
+
+        title1 = findViewById(R.id.tvFacil)
+        title2 = findViewById(R.id.tvMedio)
+        title3 = findViewById(R.id.tvDificil)
 
         recyclerView1 = findViewById(R.id.recyclerView1)
         recyclerView2 = findViewById(R.id.recyclerView2)
@@ -81,5 +100,50 @@ class RankingActivity : AppCompatActivity() {
             recyclerView2.adapter = rankingAdapter2
             recyclerView3.adapter = rankingAdapter3
         }
+
+    }
+
+    fun irFacil(view: View) {
+        btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
+        btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnFacil.setTextColor(R.color.blanco)
+        btnMedio.setTextColor(R.color.negro)
+        btnDificil.setTextColor(R.color.negro)
+        title1.visibility = View.VISIBLE
+        title2.visibility = View.GONE
+        title3.visibility = View.GONE
+        recyclerView1.visibility = View.VISIBLE
+        recyclerView2.visibility = View.GONE
+        recyclerView3.visibility = View.GONE
+
+    }
+    fun irMedio(view: View) {
+        btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
+        btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnFacil.setTextColor(R.color.negro)
+        btnMedio.setTextColor(R.color.blanco)
+        btnDificil.setTextColor(R.color.negro)
+        title1.visibility = View.GONE
+        title2.visibility = View.VISIBLE
+        title3.visibility = View.GONE
+        recyclerView1.visibility = View.GONE
+        recyclerView2.visibility = View.VISIBLE
+        recyclerView3.visibility = View.GONE
+    }
+    fun irDificil(view: View) {
+        btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
+        btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
+        btnFacil.setTextColor(R.color.negro)
+        btnMedio.setTextColor(R.color.negro)
+        btnDificil.setTextColor(R.color.blanco)
+        title1.visibility = View.GONE
+        title2.visibility = View.GONE
+        title3.visibility = View.VISIBLE
+        recyclerView1.visibility = View.GONE
+        recyclerView2.visibility = View.GONE
+        recyclerView3.visibility = View.VISIBLE
     }
 }

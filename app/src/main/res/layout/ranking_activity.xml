@@ -5,88 +5,154 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/style_fondo_degradado"
     tools:context=".activities.RankingActivity">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:text="Ranking"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:id="@+id/menu_inferior"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/selector_menu_inferior"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <TextView
+            android:id="@+id/btnFacil"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_menu_inferior_perfil_activo"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="irFacil"
+            android:text="Fácil"
+            android:textColor="@color/blanco"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/btnMedio"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"            android:textStyle="bold"
+
+
+            android:onClick="irMedio"
+            android:text="Medio"
+            android:textColor="@color/negro"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/btnDificil"
+            style="@style/Fuente_kameron"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado"
+            android:focusable="true"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:onClick="irDifícil"
+            android:clickable="true"
+            android:text="Dificil"
+            android:textColor="@color/negro"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <!-- Superpuestos los títulos de los rankings -->
     <TextView
         android:id="@+id/tvFacil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Fácil"
-        android:textSize="18sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvFacil"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tvMedio"
-        app:layout_constraintHeight_percent="0.30"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
 
     <TextView
         android:id="@+id/tvMedio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Medio"
-        android:textSize="18sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView1"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvMedio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tvDificil"
-        app:layout_constraintHeight_percent="0.30"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
 
     <TextView
         android:id="@+id/tvDificil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Difícil"
-        android:textSize="18sp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
+
+    <!-- Superpuestos los RecyclerViews de los rankings -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFacil" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMedio" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvDificil"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent="0.30"
-        android:layout_marginTop="8dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDificil" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
