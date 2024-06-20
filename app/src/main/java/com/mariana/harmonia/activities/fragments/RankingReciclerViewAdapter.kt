@@ -1,5 +1,6 @@
 package com.mariana.harmonia.adapters
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,14 @@ class RankingReciclerViewAdapter(private val rankingList: List<Map<String, Any>>
     override fun onBindViewHolder(holder: RankingViewHolder, position: Int) {
         val item = rankingList[position]
         holder.textViewIndex.text = (position + 1).toString()
+        holder.textViewIndex.setTypeface(null, Typeface.BOLD)
+
         holder.textViewName.text = item["nombre"].toString()
+        holder.textViewName.setTypeface(null, Typeface.BOLD)
+
+        // No poner en negrita las notas
         holder.textViewScore.text = item["notas"].toString()
+        holder.textViewScore.setTypeface(null, Typeface.BOLD)
     }
 
     override fun getItemCount(): Int {

@@ -43,11 +43,11 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:textStyle="bold"
             android:onClick="irFacil"
             android:text="Fácil"
             android:textColor="@color/blanco"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/btnMedio"
@@ -58,13 +58,12 @@
             android:background="@drawable/style_menu_inferior_perfil_desactivado"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="center"            android:textStyle="bold"
-
-
+            android:gravity="center"
             android:onClick="irMedio"
             android:text="Medio"
             android:textColor="@color/negro"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/btnDificil"
@@ -73,54 +72,56 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/style_menu_inferior_perfil_desactivado"
+            android:clickable="true"
             android:focusable="true"
             android:gravity="center"
-            android:textStyle="bold"
-            android:onClick="irDifícil"
-            android:clickable="true"
-            android:text="Dificil"
+            android:onClick="irDificil"
+            android:text="Difícil"
             android:textColor="@color/negro"
-            android:textSize="18dp" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Superpuestos los títulos de los rankings -->
-    <TextView
-        android:id="@+id/tvFacil"
+    <!-- LinearLayout para los títulos de los rankings -->
+    <LinearLayout
+        android:id="@+id/llTitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Fácil"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
+        app:layout_constraintTop_toBottomOf="@+id/menu_inferior">
 
-    <TextView
-        android:id="@+id/tvMedio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Medio"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
+        <TextView
+            android:id="@+id/tvFacil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Fácil"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvDificil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Difícil"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menu_inferior" />
+        <TextView
+            android:id="@+id/tvMedio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Medio"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvDificil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Difícil"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <!-- Superpuestos los RecyclerViews de los rankings -->
     <androidx.recyclerview.widget.RecyclerView
@@ -131,7 +132,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFacil" />
+        app:layout_constraintTop_toBottomOf="@+id/llTitles" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
@@ -142,7 +143,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMedio" />
+        app:layout_constraintTop_toBottomOf="@+id/llTitles" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView3"
@@ -153,6 +154,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDificil" />
+        app:layout_constraintTop_toBottomOf="@+id/llTitles" />
+
+    <ImageView
+        android:id="@+id/medallaOro"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/medalla_oro"
+        android:layout_marginTop="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llTitles"
+        android:alpha="0"/>
+
+    <ImageView
+        android:id="@+id/medallaPlata"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/medalla_plata"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medallaOro"
+        android:alpha="0"/>
+
+    <ImageView
+        android:id="@+id/medallaBronce"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/medalla_bronce"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medallaPlata"
+        android:alpha="0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

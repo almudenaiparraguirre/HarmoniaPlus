@@ -1,8 +1,9 @@
 package com.mariana.harmonia.activities
 
-import android.graphics.drawable.Drawable
+import android.media.Image
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +24,16 @@ class RankingActivity : AppCompatActivity() {
     private lateinit var title1: TextView
     private lateinit var title2: TextView
     private lateinit var title3: TextView
+    private lateinit var medallaOro: ImageView
+    private lateinit var medallaPlata: ImageView
+    private lateinit var medallaBronce: ImageView
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
     private lateinit var recyclerView3: RecyclerView
     private lateinit var rankingAdapter1: RankingReciclerViewAdapter
     private lateinit var rankingAdapter2: RankingReciclerViewAdapter
     private lateinit var rankingAdapter3: RankingReciclerViewAdapter
-
-
+    private lateinit var recyclerViewTamano: Map<String, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,10 @@ class RankingActivity : AppCompatActivity() {
         title2 = findViewById(R.id.tvMedio)
         title3 = findViewById(R.id.tvDificil)
 
+        medallaOro = findViewById(R.id.medallaOro)
+        medallaPlata = findViewById(R.id.medallaPlata)
+        medallaBronce = findViewById(R.id.medallaBronce)
+
         recyclerView1 = findViewById(R.id.recyclerView1)
         recyclerView2 = findViewById(R.id.recyclerView2)
         recyclerView3 = findViewById(R.id.recyclerView3)
@@ -56,6 +63,7 @@ class RankingActivity : AppCompatActivity() {
         recyclerView1.layoutManager = LinearLayoutManager(this)
         recyclerView2.layoutManager = LinearLayoutManager(this)
         recyclerView3.layoutManager = LinearLayoutManager(this)
+
 
         runBlocking {
             val arrayTops1 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
@@ -101,9 +109,36 @@ class RankingActivity : AppCompatActivity() {
             recyclerView3.adapter = rankingAdapter3
         }
 
-    }
+        recyclerViewTamano = mapOf(
+            "0" to (recyclerView1.adapter?.itemCount ?: 0).toInt(),
+            "1" to (recyclerView2.adapter?.itemCount ?: 0).toInt(),
+            "2" to (recyclerView3.adapter?.itemCount ?: 0).toInt()
+        )
+        actualizarMedallas(0)
 
+    }
+    fun actualizarMedallas(dificultad:Int){
+        var tamano = recyclerViewTamano.get(dificultad.toString())
+        if(tamano==0){
+            medallaOro.alpha = 0f
+            medallaPlata.alpha = 0f
+            medallaBronce.alpha = 0f
+        }else if(tamano==1){
+            medallaOro.alpha = 1f
+            medallaPlata.alpha = 0f
+            medallaBronce.alpha = 0f
+        }else if(tamano==2){
+            medallaOro.alpha = 1f
+            medallaPlata.alpha = 1f
+            medallaBronce.alpha = 0f
+        }else{
+            medallaOro.alpha = 1f
+            medallaPlata.alpha = 1f
+            medallaBronce.alpha = 1f
+        }
+    }
     fun irFacil(view: View) {
+        actualizarMedallas(0)
         btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
         btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
         btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
@@ -118,7 +153,9 @@ class RankingActivity : AppCompatActivity() {
         recyclerView3.visibility = View.GONE
 
     }
+
     fun irMedio(view: View) {
+        actualizarMedallas(1)
         btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
         btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
         btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
@@ -132,7 +169,9 @@ class RankingActivity : AppCompatActivity() {
         recyclerView2.visibility = View.VISIBLE
         recyclerView3.visibility = View.GONE
     }
+
     fun irDificil(view: View) {
+        actualizarMedallas(2)
         btnFacil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
         btnMedio.setBackgroundResource(R.drawable.style_menu_inferior_perfil_desactivado)
         btnDificil.setBackgroundResource(R.drawable.style_menu_inferior_perfil_activo)
