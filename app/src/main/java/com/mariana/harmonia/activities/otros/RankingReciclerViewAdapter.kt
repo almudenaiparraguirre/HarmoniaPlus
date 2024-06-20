@@ -1,4 +1,4 @@
-package com.mariana.harmonia.adapters
+package com.mariana.harmonia.activities.otros
 
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.harmonia.R
-import com.mariana.harmonia.utils.HashUtils
 
 class RankingReciclerViewAdapter(private val rankingList: List<Map<String, Any>>) : RecyclerView.Adapter<RankingReciclerViewAdapter.RankingViewHolder>() {
 

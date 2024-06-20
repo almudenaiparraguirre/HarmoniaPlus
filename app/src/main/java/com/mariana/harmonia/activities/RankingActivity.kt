@@ -1,6 +1,5 @@
 package com.mariana.harmonia.activities
 
-import android.media.Image
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -12,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mariana.harmonia.R
-import com.mariana.harmonia.adapters.RankingReciclerViewAdapter
+import com.mariana.harmonia.activities.otros.RankingReciclerViewAdapter
 import com.mariana.harmonia.utils.UtilsDB
 import kotlinx.coroutines.runBlocking
 
@@ -66,9 +65,16 @@ class RankingActivity : AppCompatActivity() {
 
 
         runBlocking {
-            val arrayTops1 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
-            val arrayTops2 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(1)
-            val arrayTops3 = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(2)
+            val arrayTops1sinOrdenar = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(0)
+            val arrayTops2sinOrdenar = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(1)
+            val arrayTops3sinOrdenar = UtilsDB.getPuntuacionDesafioGlobalPorDificultad(2)
+
+            val comparador = compareByDescending<Map<String, Any>> { it["notas"] as Long }
+                .thenBy { it["tiempo"] as Long }
+
+            val arrayTops1 = arrayTops1sinOrdenar!!.sortedWith(comparador)
+            val arrayTops2 = arrayTops2sinOrdenar!!.sortedWith(comparador)
+            val arrayTops3 = arrayTops3sinOrdenar!!.sortedWith(comparador)
 
             val finalList1 = arrayTops1?.map { item ->
                 item.toMutableMap().mapValues { entry ->
