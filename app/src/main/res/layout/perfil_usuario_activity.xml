@@ -471,7 +471,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/rosa_claro" />
+                    android:background="@color/rosaClaro" />
 
                 <TextView
                     style="@style/Fuente_kameron"

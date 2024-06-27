@@ -1,5 +1,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <corners android:radius="100dp" /> <!-- Ajusta el radio según el grado de redondez deseado -->
-    <solid android:color="@color/rosa_claro" /> <!-- Color del fondo -->
+    <solid android:color="@color/rosaClaro" /> <!-- Color del fondo -->
 </shape>

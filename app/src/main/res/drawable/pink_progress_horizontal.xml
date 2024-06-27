@@ -12,7 +12,7 @@
             <shape>
                 <gradient
                     android:startColor="@color/morado"
-                android:endColor="@color/rosa_claro"
+                android:endColor="@color/rosaClaro"
                 android:angle="0"
                 android:type="linear"/>
             </shape>

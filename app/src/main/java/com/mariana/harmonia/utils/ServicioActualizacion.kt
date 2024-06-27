@@ -20,37 +20,36 @@ class ServicioActualizacion : Service() {
         // No necesitas este método si no planeas interactuar con el servicio a través de unión
         return null
     }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         iniciarBaseDatos()
         startTimer()
         return START_STICKY
     }
 
-    fun iniciarBaseDatos()= runBlocking {
-            var tiempo = UtilsDB.getTiempoJugado()
+    fun iniciarBaseDatos() = runBlocking {
+        var tiempo = UtilsDB.getTiempoJugado()
 
-            tiempo = tiempo ?: 0 // Si tiempo es nulo, asigna 0
-            segundosTranscurridos = tiempo.toLong()
-        }
-    fun subirSegundoBD()= runBlocking {
-      UtilsDB.setTiempoJugado(segundosTranscurridos.toInt())
+        tiempo = tiempo ?: 0 // Si tiempo es nulo, asigna 0
+        segundosTranscurridos = tiempo.toLong()
+    }
+
+    fun subirSegundoBD() = runBlocking {
+        UtilsDB.setTiempoJugado(segundosTranscurridos.toInt())
         UtilsDB.setUltimoTiempo()
     }
 
-
     private fun startTimer() {
-        countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 1000) {
+        countDownTimer = object : CountDownTimer(Long.MAX_VALUE, 60000) { // Intervalo de 60,000 ms (1 minuto)
             override fun onTick(millisUntilFinished: Long) {
-                // Incrementa los segundos transcurridos cada vez que se llama a onTick
-
-                segundosTranscurridos++
+                // Incrementa los segundos transcurridos en 60 cada vez que se llama a onTick
+                segundosTranscurridos += 60
 
                 subirSegundoBD()
                 verificarConexionInternet(EligeModoJuegoActivity.instance)
             }
 
             override fun onFinish() {
-
                 // El temporizador nunca finaliza debido a Long.MAX_VALUE
             }
         }

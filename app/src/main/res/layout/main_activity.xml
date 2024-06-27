@@ -92,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bienvenido"
-                android:textColor="@color/rosa"
+                android:textColor="@color/principal"
                 android:textSize="40sp" />
 
             <ImageView

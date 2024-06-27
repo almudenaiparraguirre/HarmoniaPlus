@@ -5,13 +5,12 @@
     <color name="morado">#9E51FF</color>
     <color name="moradoClaro">#B57AFF</color>
     <color name="rosa">#FF59BD</color>
-    <color name="rosaClaro">#FF84CE</color>
+    <color name="rosaClaro">#F2A6F4</color>
     <color name="rosaMuyClaro">#FAD0FD</color>
     <color name="blanco">#FFFFFFFF</color>
     <color name="blancoMedioTransparente">#CDFFFFFF</color>
     <color name="gris">#666666</color>
     <color name="grisClaro">#AAAAAA</color>
-    <color name="rosa_claro">#F2A6F4</color>
     <color name="rojo">#FC1A1A</color>
     <color name="rojoClaro">#FF6C6C</color>
     <color name="rosa_perfil">#EEBCE3</color>
@@ -29,6 +28,9 @@
     <color name="azulClaro">#00E1FF</color>
     <color name="amarillo">#F6F200</color>
     <color name="verde">#26FF00</color>
+
+    <color name="principal">#F2A6F4</color>
+    <color name="secundario">#FAD0FD</color>
 
     <color name="black_overlay">#66000000</color>
 

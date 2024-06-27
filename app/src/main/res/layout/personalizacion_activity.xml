@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rosaMuyClaro"
+    android:background="@color/secundario"
     tools:context=".activities.pantallasExtras.PersonalizacionActivity">
 
     <ImageView
@@ -27,13 +27,13 @@
         android:id="@+id/menu_inferior"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:gravity="center"
+        android:layout_gravity="bottom"
         android:background="@drawable/selector_menu_inferior"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="bottom">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/btnConfiguracion"
@@ -41,14 +41,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Configuración"
-            android:textSize="18dp"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado"
             android:clickable="true"
-            android:onClick="irConfiguracion"
             android:focusable="true"
+            android:gravity="center"
+            android:onClick="irConfiguracion"
+            android:text="Configuración"
             android:textColor="@color/negro"
-            android:background="@drawable/style_menu_inferior_perfil_desactivado" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/btnDiseno"
@@ -56,12 +56,12 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/style_menu_inferior_perfil_activo"
+            android:focusable="true"
             android:gravity="center"
             android:text="Diseño"
-            android:textSize="18dp"
-            android:focusable="true"
             android:textColor="@color/blanco"
-            android:background="@drawable/style_menu_inferior_perfil_activo" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/btnPerfil"
@@ -69,24 +69,24 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Perfil"
-            android:textSize="18dp"
+            android:background="@drawable/style_menu_inferior_perfil_desactivado"
             android:clickable="true"
-            android:onClick="irPerfilUsuario"
             android:focusable="true"
+            android:gravity="center"
+            android:onClick="irPerfilUsuario"
+            android:text="Perfil"
             android:textColor="@color/negro"
-            android:background="@drawable/style_menu_inferior_perfil_desactivado" />
+            android:textSize="18dp" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="45dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/menu_inferior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -97,223 +97,380 @@
                 android:id="@+id/flechaAtras"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/img_ico_volver_atras"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:clickable="true"
                 android:onClick="volverModoJuego"
+                android:src="@mipmap/img_ico_volver_atras"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/personalizacionTextView"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PERSONALIZACIÓN"
-                style="@style/Fuente_kameron"
                 android:layout_marginTop="60dp"
+                android:text="PERSONALIZACIÓN"
                 android:textColor="@color/rosa"
                 android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/colorPrincipalTituloTextView"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
                 android:text="Color Principal"
-                style="@style/Fuente_kameron"
+                android:textColor="@color/negro"
                 android:textSize="22dp"
                 android:textStyle="bold"
-                android:textColor="@color/negro"
-                app:layout_constraintTop_toBottomOf="@+id/personalizacionTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/personalizacionTextView" />
 
             <TextView
                 android:id="@+id/descripcionColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cambiar color de fondo"
-                android:textSize="14sp"
-                android:textColor="@color/rosaClaro"
-                app:layout_constraintTop_toBottomOf="@+id/colorPrincipalTituloTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Cambiar color de fondo"
+                android:textColor="@color/principal"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/colorPrincipalTituloTextView" />
 
             <GridLayout
                 android:id="@+id/gridColores"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="4"
-                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="20dp"
-                app:layout_constraintTop_toBottomOf="@+id/descripcionColor"
+                android:layout_marginTop="20dp"
+                android:columnCount="4"
+                android:rowCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descripcionColor">
 
                 <!-- Ejemplo de un color cuadrado -->
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/rosa"
-                    android:clickable="true" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/rosa_claro"
-                    android:clickable="true" />
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/rojo"
-                    android:clickable="true" />
+                    <View
+                        android:id="@+id/borderView1"
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/rojoClaro"
-                    android:clickable="true" />
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/azul"
-                    android:clickable="true" />
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/azulClaro"
-                    android:clickable="true" />
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/amarillo"
-                    android:clickable="true" />
+                    <View
+                        android:id="@+id/color1"
 
-                <View
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/style_cuadrado_colores"
-                    android:layout_margin="10dp"
-                    android:backgroundTint="@color/verde"
-                    android:clickable="true" />
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/rosa"
+                        android:clickable="true"
+                        app:flow_horizontalAlign="center"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView1"
+                        app:layout_constraintEnd_toEndOf="@id/borderView1"
+                        app:layout_constraintStart_toStartOf="@id/borderView1"
+                        app:layout_constraintTop_toTopOf="@id/borderView1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView2"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/rosaClaro"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView2"
+                        app:layout_constraintEnd_toEndOf="@id/borderView2"
+                        app:layout_constraintStart_toStartOf="@id/borderView2"
+                        app:layout_constraintTop_toTopOf="@id/borderView2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView3"
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/rojo"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView3"
+                        app:layout_constraintEnd_toEndOf="@id/borderView3"
+                        app:layout_constraintStart_toStartOf="@id/borderView3"
+                        app:layout_constraintTop_toTopOf="@id/borderView3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView4"
+
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color4"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/rojoClaro"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView4"
+                        app:layout_constraintEnd_toEndOf="@id/borderView4"
+                        app:layout_constraintStart_toStartOf="@id/borderView4"
+                        app:layout_constraintTop_toTopOf="@id/borderView4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView5"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/redondeado_blanco_esquinas"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/color5"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/azul"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView5"
+                        app:layout_constraintEnd_toEndOf="@id/borderView5"
+                        app:layout_constraintStart_toStartOf="@id/borderView5"
+                        app:layout_constraintTop_toTopOf="@id/borderView5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView6"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color6"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/azulClaro"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView6"
+                        app:layout_constraintEnd_toEndOf="@id/borderView6"
+                        app:layout_constraintStart_toStartOf="@id/borderView6"
+                        app:layout_constraintTop_toTopOf="@id/borderView6"
+
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView7"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color7"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/amarillo"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView7"
+                        app:layout_constraintEnd_toEndOf="@id/borderView7"
+                        app:layout_constraintStart_toStartOf="@id/borderView7"
+                        app:layout_constraintTop_toTopOf="@id/borderView7" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+
+                    <View
+                        android:id="@+id/borderView8"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/redondeado_blanco_esquinas" />
+
+                    <View
+                        android:id="@+id/color8"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/style_cuadrado_colores"
+                        android:backgroundTint="@color/verde"
+                        android:clickable="true"
+                        app:layout_constraintBottom_toBottomOf="@id/borderView8"
+                        app:layout_constraintEnd_toEndOf="@id/borderView8"
+                        app:layout_constraintStart_toStartOf="@id/borderView8"
+                        app:layout_constraintTop_toTopOf="@id/borderView8" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </GridLayout>
 
             <TextView
                 android:id="@+id/disenosTituloTextView"
+                style="@style/Fuente_kameron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
                 android:text="Diseños"
-                style="@style/Fuente_kameron"
+                android:textColor="@color/negro"
                 android:textSize="22dp"
                 android:textStyle="bold"
-                android:textColor="@color/negro"
-                app:layout_constraintTop_toBottomOf="@+id/gridColores"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/gridColores" />
 
             <TextView
                 android:id="@+id/descripcionDisenos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Elegir estilo o skin del piano"
-                android:textSize="14sp"
-                android:textColor="@color/rosaClaro"
-                app:layout_constraintTop_toBottomOf="@+id/disenosTituloTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Elegir estilo o skin del piano"
+                android:textColor="@color/principal"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/disenosTituloTextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/gridDisenos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/descripcionDisenos"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp">
+                app:layout_constraintTop_toBottomOf="@+id/descripcionDisenos">
 
                 <!-- Ejemplo de un diseño cuadrado -->
                 <ImageView
                     android:id="@+id/design1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/svg_corchea"
                     android:layout_margin="20dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/style_cuadrado_colores"
                     android:clickable="true"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/svg_corchea"
+                    app:layout_constraintBottom_toTopOf="@id/design3"
                     app:layout_constraintEnd_toStartOf="@id/design2"
-                    app:layout_constraintBottom_toTopOf="@id/design3"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/design2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/svg_corazon"
                     android:layout_margin="20dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/style_cuadrado_colores"
                     android:clickable="true"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/design1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/svg_corazon"
+                    app:layout_constraintBottom_toTopOf="@id/design4"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@id/design4"/>
+                    app:layout_constraintStart_toEndOf="@id/design1"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/design3"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/svg_corazon_negro"
                     android:layout_margin="20dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/style_cuadrado_colores"
                     android:clickable="true"
-                    app:layout_constraintTop_toBottomOf="@id/design1"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/svg_corazon_negro"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/design4"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/design1" />
 
                 <ImageView
                     android:id="@+id/design4"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/email_logo_svg"
                     android:layout_margin="20dp"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/style_cuadrado_colores"
                     android:clickable="true"
-                    app:layout_constraintTop_toBottomOf="@id/design2"
-                    app:layout_constraintStart_toEndOf="@id/design3"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/email_logo_svg"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toEndOf="@id/design3"
+                    app:layout_constraintTop_toBottomOf="@id/design2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

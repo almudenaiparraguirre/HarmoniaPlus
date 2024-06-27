@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rosaMuyClaro"
+    android:background="@color/secundario"
     tools:context=".activities.ConfiguracionActivity">
 
     <ImageView
@@ -112,7 +112,7 @@
                 android:text="CONFIGURACIÓN"
                 style="@style/Fuente_kameron"
                 android:layout_marginTop="60dp"
-                android:textColor="@color/rosa"
+                android:textColor="@color/principal"
                 android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

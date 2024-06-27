@@ -3,7 +3,7 @@
     <!-- Color del borde -->
     <stroke
         android:width="4dp"
-        android:color="@color/rosa_claro" />
+        android:color="@color/rosaClaro" />
     <!-- Color del fondo -->
     <solid android:color="@android:color/transparent" />
 </shape>
