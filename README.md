@@ -24,7 +24,7 @@ Harmonía Plus es una aplicación de música diseñada para ayudar a los usuario
 - Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
 
 **Contacto**
-- Para más información o preguntas, por favor contacta a harmonia1@gmail.com.
+- Para más información o preguntas, por favor contacta a appharmoniaplus@gmail.com.
 
 **¡Gracias por usar Harmonía Plus! Disfruta aprendiendo y mejorando tus habilidades musicales.🎵**
 
@@ -56,6 +56,6 @@ Harmonía Plus is a music application designed to help users learn solfeggio not
 - This project is licensed under the MIT License. See the LICENSE file for more details.
 
 **Contact**
-- For more information or questions, please contact harmonia1@gmail.com.
+- For more information or questions, please contact appharmoniaplus@gmail.com.
 
 **Thank you for using Harmonía Plus! Enjoy learning and improving your musical skills.🎵**
