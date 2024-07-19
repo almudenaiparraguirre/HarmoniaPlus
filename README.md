@@ -21,7 +21,7 @@
 
 ## 🛠️ Problemas y Soporte
 
-Si encuentras algún problema o tienes alguna pregunta, por favor abre un [Issue](https://github.com/tu-repositorio/issues) en GitHub y te responderemos lo antes posible.
+Si encuentras algún problema o tienes alguna pregunta, por favor abre un [Issue](https://github.com/almudenaiparraguirre/HarmoniaPlus/issues) en GitHub y te responderemos lo antes posible.
 
 ## 📝 Licencia
 
@@ -58,7 +58,7 @@ Para más información o preguntas, por favor contacta a [appharmoniaplus@gmail.
 
 ## 🛠️ Issues and Support
 
-If you encounter any problems or have any questions, please open an [Issue]([https://github.com/your-repo/issues](https://github.com/almudenaiparraguirre/HarmoniaPlus/issues)) on GitHub and we will reply as soon as possible.
+If you encounter any problems or have any questions, please open an [Issue](https://github.com/almudenaiparraguirre/HarmoniaPlus/issues) on GitHub and we will reply as soon as possible.
 
 ## 📝 License
 
