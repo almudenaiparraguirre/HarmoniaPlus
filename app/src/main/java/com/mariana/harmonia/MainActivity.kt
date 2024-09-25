@@ -1,5 +1,6 @@
 package com.mariana.harmonia
 
+import CustomDialogFragment
 import UserDao
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -33,7 +34,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.mariana.harmonia.activities.EligeModoJuegoActivity
-
 import com.mariana.harmonia.activities.iniciarSesion.RegistroActivity
 import com.mariana.harmonia.activities.iniciarSesion.RestableceContrasenaActivity
 import com.mariana.harmonia.interfaces.PlantillaActivity
@@ -63,6 +63,14 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+
         Utils.degradadoTexto(this, R.id.titleTextView, R.color.rosa, R.color.morado)
         Utils.degradadoTexto(this, R.id.registrateTextView, R.color.rosa, R.color.morado)
         Utils.degradadoTexto(this, R.id.recuerdasContrasena, R.color.rosa, R.color.morado)
@@ -401,6 +409,10 @@ class MainActivity : AppCompatActivity(), PlantillaActivity {
         val intent = Intent(this, RegistroActivity::class.java)
         startActivity(intent)
         mediaPlayer.start()
+    }
+
+    fun salirApp(){
+        System.exit(0)
     }
 
     /**

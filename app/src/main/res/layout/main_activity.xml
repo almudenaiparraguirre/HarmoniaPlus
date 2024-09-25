@@ -280,5 +280,26 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/registrate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/salir"
+                style="@style/Fuente_kameron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:text="Salir de la aplicación"
+                android:onClick="salirApp"
+                android:textColor="@color/morado"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
